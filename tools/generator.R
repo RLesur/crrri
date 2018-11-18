@@ -51,8 +51,8 @@ build_parameter_help <- function(parameter) {
   sanitize_help(text)
 }
 
-build_command_help <- function(command) {
-  title <- paste0("#' ", command$name, "\n#'  ")
+build_command_help <- function(domain_name, command) {
+  title <- paste0("#' Use the command ", paste(domain_name, command$name, sep = "."), "\n#'  ")
   description <- paste0("#' ", command$description)
   description <- paste0(sanitize_help(description), "\n#'  ")
   params <- c("#' @param promise A promise.",
@@ -67,7 +67,7 @@ build_command_help <- function(command) {
 }
 
 generate_command <- function(domain_name, command) {
-  r2help <- build_command_help(command)
+  r2help <- build_command_help(domain_name, command)
   body <- paste0(paste(domain_name, command$name, sep = "."), " <- ", build_signature(command), " {\n",
                 sprintf("  method <- '%s.%s'\n", domain_name, command$name),
                 "  args <- rlang::fn_fmls_names()\n",
