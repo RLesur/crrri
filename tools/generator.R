@@ -3,7 +3,7 @@ browser_protocol <- jsonlite::read_json("./tools/browser_protocol.json")
 
 isTRUE <- function(x) {
   if (!is.null(x))
-    x == TRUE
+    return(x == TRUE)
   else
     FALSE
 }
@@ -19,8 +19,8 @@ optional <- function(parameter) {
 }
 
 build_signature <- function(command) {
-  par_names <- sapply(command$parameters, function(x) x$name)
-  optionals <- sapply(command$parameters, optional)
+  par_names <- c("promise", sapply(command$parameters, function(x) x$name))
+  optionals <- c(FALSE, sapply(command$parameters, optional))
   paste0("function(",
          paste(paste0(par_names,
                       ifelse(optionals, " = NULL", "")
@@ -55,7 +55,7 @@ build_command_help <- function(command) {
   title <- paste0("#' ", command$name, "\n#'  ")
   description <- paste0("#' ", command$description)
   description <- paste0(sanitize_help(description), "\n#'  ")
-  params <- sapply(command$parameters, build_parameter_help)
+  params <- c("#' @param promise A promise.", sapply(command$parameters, build_parameter_help))
   return_field <- paste0(
     "#'  ",
     "\n#' @return A promise (following the definition of the promises package).",
