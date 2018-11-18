@@ -1,0 +1,74 @@
+js_protocol <- jsonlite::read_json("./tools/js_protocol.json")
+browser_protocol <- jsonlite::read_json("./tools/browser_protocol.json")
+
+isTRUE <- function(x) {
+  if (!is.null(x))
+    x == TRUE
+  else
+    FALSE
+}
+
+types <- c(string = "A character string. ",
+           boolean = "A logical. ",
+           integer = "An integer. ",
+           array = "A list of ",
+           number = "A numeric. ")
+
+optional <- function(parameter) {
+  if (is.null(parameter$optional)) FALSE else parameter$optional
+}
+
+build_signature <- function(command) {
+  par_names <- sapply(command$parameters, function(x) x$name)
+  optionals <- sapply(command$parameters, optional)
+  paste0("function(",
+         paste(paste0(par_names,
+                      ifelse(optionals, " = NULL", "")
+         ), collapse = ", "),
+         ")")
+}
+
+sanitize_help <- function(text) {
+  gsub("\\n", "\n#'        ", text)
+}
+
+build_parameter_help <- function(parameter) {
+  declaration <- paste0(
+    "#' @param ", parameter$name, " ",
+    if (isTRUE(parameter$deprecated)) "Deprecated. ",
+    if (isTRUE(parameter$experimental)) "Experimental. ",
+    if (optional(parameter)) "Optional. ",
+    types[parameter$type],
+    if (!is.null(parameter$items)) paste0(parameter$items, ". "),
+    if (!is.null(parameter[["$ref"]])) paste0("A ", parameter[["$ref"]], ". ")
+  )
+  details <- paste(
+    parameter$description,
+    if (!is.null(parameter$enum))
+      paste0("Accepted values: ", paste(parameter$enum, collapse = ", "), ".")
+  )
+  text <- paste0(declaration, if (length(details) > 0) "\n", details)
+  sanitize_help(text)
+}
+
+build_command_help <- function(command) {
+  title <- paste0("#' ", command$name, "\n#'  ")
+  description <- paste0("#' ", command$description)
+  description <- paste0(sanitize_help(description), "\n#'  ")
+  params <- sapply(command$parameters, build_parameter_help)
+  return_field <- paste0(
+    "#'  ",
+    "\n#' @return A promise (following the definition of the promises package).",
+    sprintf("\n#'         The value of the fulfilled promise is a named list of length %i.", length(command$returns))
+  )
+  paste0(c(title, description, params, return_field, "#' @export"), collapse = "\n")
+}
+
+generate_command <- function(domain_name, command) {
+  r2help <- build_command_help(command)
+  body <- paste(paste(domain_name, command$name, sep = "."), "<-", build_signature(command), "{\n}\n")
+  paste(r2help, body, sep = "\n")
+}
+
+# TODO detail returned objects
+# TODO don't generate deprecated commands
