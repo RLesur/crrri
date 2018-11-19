@@ -89,7 +89,7 @@ generate_commands_source_code <- function(domain) {
 }
 
 lapply(js_protocol$domains, generate_commands_source_code)
-lapply(browser_protocol, generate_commands_source_code)
+lapply(browser_protocol$domains, generate_commands_source_code)
 
 # Build event listener ----------------------------------------------------
 
