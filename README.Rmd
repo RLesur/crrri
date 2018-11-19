@@ -41,7 +41,7 @@ library(jsonlite)
 chrome <- chr_connect()
 ```
 
-```
+``` r
 ## Chrome succesfully launched in headless mode 
 ## R succesfully connected to headless Chrome through DevTools Protocol.
 ```
@@ -52,7 +52,7 @@ Since all the operations that we can do with the DevTools Protocol are asynchron
 chrome
 ```
 
-```
+```r
 ## <Promise [fulfilled: list]>
 ```
 

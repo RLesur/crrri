@@ -38,8 +38,10 @@ library(jsonlite)
 chrome <- chr_connect()
 ```
 
-    ## Chrome succesfully launched in headless mode 
-    ## R succesfully connected to headless Chrome through DevTools Protocol.
+``` r
+## Chrome succesfully launched in headless mode 
+## R succesfully connected to headless Chrome through DevTools Protocol.
+```
 
 Since all the operations that we can do with the DevTools Protocol are
 asynchronous, all the functions return Promises (in the sense of the
@@ -49,7 +51,9 @@ promises package). For instance:
 chrome
 ```
 
-    ## <Promise [fulfilled: list]>
+``` r
+## <Promise [fulfilled: list]>
+```
 
 Chrome DevTools commands are built on top of the `promises::then()`
 function. So, you can use the single magrittr pipe operator `%>%` to
