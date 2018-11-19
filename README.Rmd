@@ -27,7 +27,7 @@ This is your responsibility to correctly use this package: interacting with a br
 You can install the development version of crrri from GitHub with:
 
 ``` r
-remotes::install_github('rlesur/criii')
+remotes::install_github('rlesur/crrri')
 ```
 
 ## Example

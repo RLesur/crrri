@@ -24,7 +24,7 @@ with a browser is not straightforward.
 You can install the development version of crrri from GitHub with:
 
 ``` r
-remotes::install_github('rlesur/criii')
+remotes::install_github('rlesur/crrri')
 ```
 
 ## Example
