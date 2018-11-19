@@ -1,4 +1,4 @@
-#' DO NOT EDIT BY HAND
+# DO NOT EDIT BY HAND
 #' @include send.R
 NULL
 

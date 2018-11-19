@@ -82,7 +82,7 @@ generate_commands_source_code <- function(domain) {
   deprecated <- sapply(domain$commands, deprecated)
   commands <- domain$commands[!deprecated]
   file_content <- paste0(c(
-    "#' DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
+    "# DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
     sapply(commands, generate_command, domain_name = domain$domain)
   ), collapse = "\n\n")
   cat(file_content, file = paste0("R/", domain$domain, "_commands.R"))
