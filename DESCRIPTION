@@ -17,6 +17,7 @@ SystemRequirements: Chromium or Chrome
 Imports: 
     httr,
     jsonlite,
+    later,
     processx,
     promises,
     purrr,
@@ -73,3 +74,4 @@ Collate:
     'Tracing_commands.R'
     'chr_connect.R'
     'utils-pipe.R'
+    'wait.R'
