@@ -9,8 +9,6 @@
 #' @return An asynchronous result object that can be passed to any command or event listeners.
 #'
 #' @export
-#'
-#' @examples
 chr_connect <- function(
   bin = "google-chrome", debug_port = 9222, extra_args = NULL, headless = TRUE,
   work_dir = "remote-profile"
@@ -70,7 +68,6 @@ chr_connect <- function(
 #' @return `TRUE` invisibly.
 #' @export
 #'
-#' @examples
 chr_disconnect <- function(promise) {
   promises::then(promise, onFulfilled = function(value) {
     value$cnx$ws$close()
