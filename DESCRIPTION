@@ -72,3 +72,4 @@ Collate:
     'Tethering_commands.R'
     'Tracing_commands.R'
     'chr_connect.R'
+    'utils-pipe.R'
