@@ -1,13 +1,6 @@
 js_protocol <- jsonlite::read_json("./tools/js_protocol.json")
 browser_protocol <- jsonlite::read_json("./tools/browser_protocol.json")
 
-isTRUE <- function(x) {
-  if (!is.null(x))
-    return(x == TRUE)
-  else
-    FALSE
-}
-
 types <- c(string = "A character string. ",
            boolean = "A logical. ",
            integer = "An integer. ",
@@ -15,10 +8,15 @@ types <- c(string = "A character string. ",
            number = "A numeric. ")
 
 optional <- function(parameter) {
-  if (is.null(parameter$optional)) FALSE else parameter$optional
+  isTRUE(parameter$optional)
 }
 
-build_signature <- function(command) {
+deprecated <- function(command) {
+  isTRUE(command$deprecated)
+}
+
+# Build command -----------------------------------------------------------
+build_command_signature <- function(command) {
   par_names <- c("promise", sapply(command$parameters, function(x) x$name))
   optionals <- c(FALSE, sapply(command$parameters, optional))
   paste0("function(",
@@ -52,10 +50,10 @@ build_parameter_help <- function(parameter) {
 }
 
 build_command_help <- function(domain_name, command) {
-  title <- paste0("#' Use the command ", paste(domain_name, command$name, sep = "."), "\n#'  ")
+  title <- paste0("#' Send the command ", paste(domain_name, command$name, sep = "."), "\n#'  ")
   description <- paste0("#' ", command$description)
   description <- paste0(sanitize_help(description), "\n#'  ")
-  params <- c("#' @param promise A promise.",
+  params <- c("#' @param promise An aynchronous result object.",
               sapply(command$parameters, build_parameter_help)
   )
   return_field <- paste0(
@@ -66,19 +64,44 @@ build_command_help <- function(domain_name, command) {
   paste0(c(title, description, params, return_field, "#' @export"), collapse = "\n")
 }
 
-generate_command <- function(domain_name, command) {
+generate_command <- function(command, domain_name = NULL) {
   r2help <- build_command_help(domain_name, command)
-  body <- paste0(paste(domain_name, command$name, sep = "."), " <- ", build_signature(command), " {\n",
+  body <- paste0(paste(domain_name, command$name, sep = "."), " <- ", build_command_signature(command), " {\n",
                 sprintf("  method <- '%s.%s'\n", domain_name, command$name),
                 "  args <- rlang::fn_fmls_names()\n",
                 "  args <- args[!sapply(mget(args), is.null)]\n",
                 "  params <- mget(args)\n",
                 "  names(params) <- args\n",
-                "  if (length(params) > 1) params <- params[2:length(params)] else params <- NULL\n",
+                "  params <- if (length(params) > 1) params[2:length(params)] else NULL\n",
                 "  send(promise, method, params)\n",
                 "}\n")
   paste(r2help, body, sep = "\n")
 }
 
+generate_commands_source_code <- function(domain) {
+  deprecated <- sapply(domain$commands, deprecated)
+  commands <- domain$commands[!deprecated]
+  file_content <- paste0(c(
+    "#' DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
+    sapply(commands, generate_command, domain_name = domain$domain)
+  ), collapse = "\n\n")
+  cat(file_content, file = paste0("R/", domain$domain, "_commands.R"))
+}
+
+lapply(js_protocol$domains, generate_commands_source_code)
+lapply(browser_protocol, generate_commands_source_code)
+
+# Build event listener ----------------------------------------------------
+
+build_event_signature <- function(event) {
+  par_names <- c("promise", sapply(command$parameters, function(x) x$name))
+  optionals <- c(FALSE, sapply(command$parameters, optional))
+  paste0("function(",
+         paste(paste0(par_names,
+                      ifelse(optionals, " = NULL", "")
+         ), collapse = ", "),
+         ")")
+}
+
 # TODO detail returned objects
-# TODO don't generate deprecated commands
+# TODO check the remote protocol (in send)
