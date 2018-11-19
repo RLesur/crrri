@@ -1,0 +1,74 @@
+Package: crrri
+Type: Package
+Title: An interface with headless Chromium/Chrome
+Version: 0.0.1
+Author@R: c(
+    person("Romain", "Lesur", role = c("aut", "cre"), email = "romain.lesur@gmail.com", comment = c(ORCID = "0000-0002-0721-5595")),
+    person("Christophe", "Dervieux", role = c("aut", "cph")),
+    person("Miles", "McBain", role = "ctb", comment = "websocket connection functions"),
+    person(family = "The Chromium authors", role = "ctb", comment = "DevTools Protocol documentation"),
+    person()
+    )
+Maintainer: Romain Lesur <romain.lesur@gmail.com>
+Description: This is a native implementation of the Chrome DevTools Protocol.
+License: MIT + file LICENSE
+URL: https://github.com/RLesur/criii
+SystemRequirements: Chromium or Chrome
+Imports: 
+    httr,
+    jsonlite,
+    processx,
+    promises,
+    purrr,
+    rlang,
+    websocket
+Remotes:
+    rstudio/websocket
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.0
+Collate: 
+    'send.R'
+    'Accessibility_commands.R'
+    'Animation_commands.R'
+    'ApplicationCache_commands.R'
+    'Audits_commands.R'
+    'Browser_commands.R'
+    'CSS_commands.R'
+    'CacheStorage_commands.R'
+    'Console_commands.R'
+    'DOMDebugger_commands.R'
+    'DOMSnapshot_commands.R'
+    'DOMStorage_commands.R'
+    'DOM_commands.R'
+    'Database_commands.R'
+    'Debugger_commands.R'
+    'DeviceOrientation_commands.R'
+    'Emulation_commands.R'
+    'Fetch_commands.R'
+    'HeadlessExperimental_commands.R'
+    'HeapProfiler_commands.R'
+    'IO_commands.R'
+    'IndexedDB_commands.R'
+    'Input_commands.R'
+    'Inspector_commands.R'
+    'LayerTree_commands.R'
+    'Log_commands.R'
+    'Memory_commands.R'
+    'Network_commands.R'
+    'Overlay_commands.R'
+    'Page_commands.R'
+    'Performance_commands.R'
+    'Profiler_commands.R'
+    'Runtime_commands.R'
+    'Schema_commands.R'
+    'Security_commands.R'
+    'ServiceWorker_commands.R'
+    'Storage_commands.R'
+    'SystemInfo_commands.R'
+    'Target_commands.R'
+    'Testing_commands.R'
+    'Tethering_commands.R'
+    'Tracing_commands.R'
+    'chr_connect.R'

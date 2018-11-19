@@ -9,3 +9,4 @@ update_protocol <- function() {
 
 update_protocol()
 
+source("./tools/generator.R")
