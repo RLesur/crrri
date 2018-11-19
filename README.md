@@ -29,4 +29,56 @@ remotes::install_github('rlesur/crrri')
 
 ## Example
 
-TBD
+``` r
+library(crrri)
+library(promises)
+library(jsonlite)
+
+# Ensure that google-chrome is in your PATH, otherwise use the bin argument
+chrome <- chr_connect()
+```
+
+    ## Chrome succesfully launched in headless mode 
+    ## R succesfully connected to headless Chrome through DevTools Protocol.
+
+Since all the operations that we can do with the DevTools Protocol are
+asynchronous, all the functions return Promises (in the sense of the
+promises package). For instance:
+
+``` r
+chrome
+```
+
+    ## <Promise [fulfilled: list]>
+
+Chrome DevTools commands are built on top of the `promises::then()`
+function. So, you can use the single magrittr pipe operator `%>%` to
+chain operations:
+
+``` r
+r_project <- 
+  chrome %>% 
+  Page.enable() %>%
+  Page.navigate(url = "https://www.r-project.org/")
+
+# event listeners have to be developed
+# For now, you have to wait that the frame is loaded
+```
+
+The value of the fulfilled promise is a list of 2 objects:
+
+  - `cnx`: information about the connexion. It is used internally, so do
+    not use it.
+  - `result`: a list composed of the objects received from Chrome.
+
+For instance, if you want to print a PDF of the R Project website:
+
+``` r
+r_project %>%
+  Page.printToPDF() %...>% {
+    .$result$data %>% base64_dec() %>% writeBin("r-project.pdf")
+  } %...!% {
+    cat(c("An error has occured:", as.character(.)), sep = "\n")
+  } %>%
+  finally(~ chr_disconnect(chrome))
+```
