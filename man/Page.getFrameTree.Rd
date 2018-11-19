@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.getFrameTree}
 \alias{Page.getFrameTree}
-\title{Send the command Page.getFrameTree
-
-Returns present frame tree structure.}
+\title{Send the command Page.getFrameTree}
 \usage{
 Page.getFrameTree(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Page.getFrameTree
-
 Returns present frame tree structure.
 }

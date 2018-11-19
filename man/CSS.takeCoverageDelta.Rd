@@ -2,10 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.takeCoverageDelta}
 \alias{CSS.takeCoverageDelta}
-\title{Send the command CSS.takeCoverageDelta
-
-Obtain list of rules that became used since last call to this method (or since start of coverage
-instrumentation)}
+\title{Send the command CSS.takeCoverageDelta}
 \usage{
 CSS.takeCoverageDelta(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.takeCoverageDelta
-
 Obtain list of rules that became used since last call to this method (or since start of coverage
 instrumentation)
 }

@@ -2,11 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setBreakpointOnFunctionCall}
 \alias{Debugger.setBreakpointOnFunctionCall}
-\title{Send the command Debugger.setBreakpointOnFunctionCall
-
-Sets JavaScript breakpoint before each call to the given function.
-If another function was created from the same source as a given one,
-calling it will also trigger the breakpoint.}
+\title{Send the command Debugger.setBreakpointOnFunctionCall}
 \usage{
 Debugger.setBreakpointOnFunctionCall(promise, objectId, condition = NULL)
 }
@@ -25,8 +21,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Debugger.setBreakpointOnFunctionCall
-
 Sets JavaScript breakpoint before each call to the given function.
 If another function was created from the same source as a given one,
 calling it will also trigger the breakpoint.

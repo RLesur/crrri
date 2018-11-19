@@ -2,10 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.highlightNode}
 \alias{Overlay.highlightNode}
-\title{Send the command Overlay.highlightNode
-
-Highlights DOM node with given id or with the given JavaScript object wrapper. Either nodeId or
-objectId must be specified.}
+\title{Send the command Overlay.highlightNode}
 \usage{
 Overlay.highlightNode(promise, highlightConfig, nodeId = NULL,
   backendNodeId = NULL, objectId = NULL)
@@ -30,8 +27,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.highlightNode
-
 Highlights DOM node with given id or with the given JavaScript object wrapper. Either nodeId or
 objectId must be specified.
 }

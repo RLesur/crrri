@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.disable}
 \alias{DOM.disable}
-\title{Send the command DOM.disable
-
-Disables DOM agent for the given page.}
+\title{Send the command DOM.disable}
 \usage{
 DOM.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.disable
-
 Disables DOM agent for the given page.
 }

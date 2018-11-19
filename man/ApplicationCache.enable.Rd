@@ -2,9 +2,7 @@
 % Please edit documentation in R/ApplicationCache_commands.R
 \name{ApplicationCache.enable}
 \alias{ApplicationCache.enable}
-\title{Send the command ApplicationCache.enable
-
-Enables application cache domain notifications.}
+\title{Send the command ApplicationCache.enable}
 \usage{
 ApplicationCache.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command ApplicationCache.enable
-
 Enables application cache domain notifications.
 }

@@ -2,10 +2,7 @@
 % Please edit documentation in R/Profiler_commands.R
 \name{Profiler.takePreciseCoverage}
 \alias{Profiler.takePreciseCoverage}
-\title{Send the command Profiler.takePreciseCoverage
-
-Collect coverage data for the current isolate, and resets execution counters. Precise code
-coverage needs to have started.}
+\title{Send the command Profiler.takePreciseCoverage}
 \usage{
 Profiler.takePreciseCoverage(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Profiler.takePreciseCoverage
-
 Collect coverage data for the current isolate, and resets execution counters. Precise code
 coverage needs to have started.
 }

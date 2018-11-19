@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.setShowDebugBorders}
 \alias{Overlay.setShowDebugBorders}
-\title{Send the command Overlay.setShowDebugBorders
-
-Requests that backend shows debug borders on layers}
+\title{Send the command Overlay.setShowDebugBorders}
 \usage{
 Overlay.setShowDebugBorders(promise, show)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.setShowDebugBorders
-
 Requests that backend shows debug borders on layers
 }

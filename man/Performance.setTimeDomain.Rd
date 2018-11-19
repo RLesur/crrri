@@ -2,11 +2,7 @@
 % Please edit documentation in R/Performance_commands.R
 \name{Performance.setTimeDomain}
 \alias{Performance.setTimeDomain}
-\title{Send the command Performance.setTimeDomain
-
-Sets time domain to use for collecting and reporting duration metrics.
-Note that this must be called before enabling metrics collection. Calling
-this method while metrics collection is enabled returns an error.}
+\title{Send the command Performance.setTimeDomain}
 \usage{
 Performance.setTimeDomain(promise, timeDomain)
 }
@@ -21,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Performance.setTimeDomain
-
 Sets time domain to use for collecting and reporting duration metrics.
 Note that this must be called before enabling metrics collection. Calling
 this method while metrics collection is enabled returns an error.

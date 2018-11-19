@@ -2,10 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.enable}
 \alias{CSS.enable}
-\title{Send the command CSS.enable
-
-Enables the CSS agent for the given page. Clients should not assume that the CSS agent has been
-enabled until the result of this command is received.}
+\title{Send the command CSS.enable}
 \usage{
 CSS.enable(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command CSS.enable
-
 Enables the CSS agent for the given page. Clients should not assume that the CSS agent has been
 enabled until the result of this command is received.
 }

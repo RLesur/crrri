@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setCookie}
 \alias{Network.setCookie}
-\title{Send the command Network.setCookie
-
-Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.}
+\title{Send the command Network.setCookie}
 \usage{
 Network.setCookie(promise, name, value, url = NULL, domain = NULL,
   path = NULL, secure = NULL, httpOnly = NULL, sameSite = NULL,
@@ -46,7 +44,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Network.setCookie
-
 Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
 }

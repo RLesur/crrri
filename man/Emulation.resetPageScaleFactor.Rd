@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.resetPageScaleFactor}
 \alias{Emulation.resetPageScaleFactor}
-\title{Send the command Emulation.resetPageScaleFactor
-
-Requests that page scale factor is reset to initial values.}
+\title{Send the command Emulation.resetPageScaleFactor}
 \usage{
 Emulation.resetPageScaleFactor(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.resetPageScaleFactor
-
 Requests that page scale factor is reset to initial values.
 }

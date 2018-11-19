@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.setInspectedNode}
 \alias{DOM.setInspectedNode}
-\title{Send the command DOM.setInspectedNode
-
-Enables console to refer to the node with given id via $x (see Command Line API for more details
-$x functions).}
+\title{Send the command DOM.setInspectedNode}
 \usage{
 DOM.setInspectedNode(promise, nodeId)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.setInspectedNode
-
 Enables console to refer to the node with given id via $x (see Command Line API for more details
 $x functions).
 }

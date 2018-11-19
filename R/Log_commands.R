@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Log.clear
-#'  
+#' 
 #' Clears the log.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,11 +23,11 @@ Log.clear <- function(promise) {
 
 
 #' Send the command Log.disable
-#'  
+#' 
 #' Disables log domain, prevents further log entries from being reported to the client.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -43,12 +43,12 @@ Log.disable <- function(promise) {
 
 
 #' Send the command Log.enable
-#'  
+#' 
 #' Enables log domain, sends the entries collected so far to the client by means of the
 #'        `entryAdded` notification.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -64,13 +64,13 @@ Log.enable <- function(promise) {
 
 
 #' Send the command Log.startViolationsReport
-#'  
+#' 
 #' start violation reporting.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param config A list of ViolationSetting. 
 #'        Configuration for violations. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -86,11 +86,11 @@ Log.startViolationsReport <- function(promise, config) {
 
 
 #' Send the command Log.stopViolationsReport
-#'  
+#' 
 #' Stop violation reporting.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

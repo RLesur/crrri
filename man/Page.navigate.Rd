@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.navigate}
 \alias{Page.navigate}
-\title{Send the command Page.navigate
-
-Navigates current page to the given URL.}
+\title{Send the command Page.navigate}
 \usage{
 Page.navigate(promise, url, referrer = NULL, transitionType = NULL,
   frameId = NULL)
@@ -29,7 +27,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 3.
 }
 \description{
-Send the command Page.navigate
-
 Navigates current page to the given URL.
 }

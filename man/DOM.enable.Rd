@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.enable}
 \alias{DOM.enable}
-\title{Send the command DOM.enable
-
-Enables DOM agent for the given page.}
+\title{Send the command DOM.enable}
 \usage{
 DOM.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.enable
-
 Enables DOM agent for the given page.
 }

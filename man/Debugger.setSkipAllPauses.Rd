@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setSkipAllPauses}
 \alias{Debugger.setSkipAllPauses}
-\title{Send the command Debugger.setSkipAllPauses
-
-Makes page not interrupt on any pauses (breakpoint, exception, dom exception etc).}
+\title{Send the command Debugger.setSkipAllPauses}
 \usage{
 Debugger.setSkipAllPauses(promise, skip)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.setSkipAllPauses
-
 Makes page not interrupt on any pauses (breakpoint, exception, dom exception etc).
 }

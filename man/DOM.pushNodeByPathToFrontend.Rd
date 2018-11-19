@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.pushNodeByPathToFrontend}
 \alias{DOM.pushNodeByPathToFrontend}
-\title{Send the command DOM.pushNodeByPathToFrontend
-
-Requests that the node is sent to the caller given its path. // FIXME, use XPath}
+\title{Send the command DOM.pushNodeByPathToFrontend}
 \usage{
 DOM.pushNodeByPathToFrontend(promise, path)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.pushNodeByPathToFrontend
-
 Requests that the node is sent to the caller given its path. // FIXME, use XPath
 }

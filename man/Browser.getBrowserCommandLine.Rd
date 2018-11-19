@@ -2,10 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.getBrowserCommandLine}
 \alias{Browser.getBrowserCommandLine}
-\title{Send the command Browser.getBrowserCommandLine
-
-Returns the command line switches for the browser process if, and only if
---enable-automation is on the commandline.}
+\title{Send the command Browser.getBrowserCommandLine}
 \usage{
 Browser.getBrowserCommandLine(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Browser.getBrowserCommandLine
-
 Returns the command line switches for the browser process if, and only if
 --enable-automation is on the commandline.
 }

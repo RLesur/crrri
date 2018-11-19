@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.evaluate}
 \alias{Runtime.evaluate}
-\title{Send the command Runtime.evaluate
-
-Evaluates expression on global object.}
+\title{Send the command Runtime.evaluate}
 \usage{
 Runtime.evaluate(promise, expression, objectGroup = NULL,
   includeCommandLineAPI = NULL, silent = NULL, contextId = NULL,
@@ -55,7 +53,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Runtime.evaluate
-
 Evaluates expression on global object.
 }

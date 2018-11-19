@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getBoxModel}
 \alias{DOM.getBoxModel}
-\title{Send the command DOM.getBoxModel
-
-Returns boxes for the given node.}
+\title{Send the command DOM.getBoxModel}
 \usage{
 DOM.getBoxModel(promise, nodeId = NULL, backendNodeId = NULL,
   objectId = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.getBoxModel
-
 Returns boxes for the given node.
 }

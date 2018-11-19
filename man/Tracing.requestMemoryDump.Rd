@@ -2,9 +2,7 @@
 % Please edit documentation in R/Tracing_commands.R
 \name{Tracing.requestMemoryDump}
 \alias{Tracing.requestMemoryDump}
-\title{Send the command Tracing.requestMemoryDump
-
-Request a global memory dump.}
+\title{Send the command Tracing.requestMemoryDump}
 \usage{
 Tracing.requestMemoryDump(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Tracing.requestMemoryDump
-
 Request a global memory dump.
 }

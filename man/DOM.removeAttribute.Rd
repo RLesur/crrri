@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.removeAttribute}
 \alias{DOM.removeAttribute}
-\title{Send the command DOM.removeAttribute
-
-Removes attribute with given name from an element with given id.}
+\title{Send the command DOM.removeAttribute}
 \usage{
 DOM.removeAttribute(promise, nodeId, name)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.removeAttribute
-
 Removes attribute with given name from an element with given id.
 }

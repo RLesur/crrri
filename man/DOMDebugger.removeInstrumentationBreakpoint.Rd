@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.removeInstrumentationBreakpoint}
 \alias{DOMDebugger.removeInstrumentationBreakpoint}
-\title{Send the command DOMDebugger.removeInstrumentationBreakpoint
-
-Removes breakpoint on particular native event.}
+\title{Send the command DOMDebugger.removeInstrumentationBreakpoint}
 \usage{
 DOMDebugger.removeInstrumentationBreakpoint(promise, eventName)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMDebugger.removeInstrumentationBreakpoint
-
 Removes breakpoint on particular native event.
 }

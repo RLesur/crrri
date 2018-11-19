@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setExtraHTTPHeaders}
 \alias{Network.setExtraHTTPHeaders}
-\title{Send the command Network.setExtraHTTPHeaders
-
-Specifies whether to always send extra HTTP headers with the requests from this page.}
+\title{Send the command Network.setExtraHTTPHeaders}
 \usage{
 Network.setExtraHTTPHeaders(promise, headers)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setExtraHTTPHeaders
-
 Specifies whether to always send extra HTTP headers with the requests from this page.
 }

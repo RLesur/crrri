@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.collectClassNames}
 \alias{CSS.collectClassNames}
-\title{Send the command CSS.collectClassNames
-
-Returns all class names from specified stylesheet.}
+\title{Send the command CSS.collectClassNames}
 \usage{
 CSS.collectClassNames(promise, styleSheetId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.collectClassNames
-
 Returns all class names from specified stylesheet.
 }

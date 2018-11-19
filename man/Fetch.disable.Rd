@@ -2,9 +2,7 @@
 % Please edit documentation in R/Fetch_commands.R
 \name{Fetch.disable}
 \alias{Fetch.disable}
-\title{Send the command Fetch.disable
-
-Disables the fetch domain.}
+\title{Send the command Fetch.disable}
 \usage{
 Fetch.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Fetch.disable
-
 Disables the fetch domain.
 }

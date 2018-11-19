@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.navigateToHistoryEntry}
 \alias{Page.navigateToHistoryEntry}
-\title{Send the command Page.navigateToHistoryEntry
-
-Navigates current page to the given history entry.}
+\title{Send the command Page.navigateToHistoryEntry}
 \usage{
 Page.navigateToHistoryEntry(promise, entryId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.navigateToHistoryEntry
-
 Navigates current page to the given history entry.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.setAttributeValue}
 \alias{DOM.setAttributeValue}
-\title{Send the command DOM.setAttributeValue
-
-Sets attribute for an element with given id.}
+\title{Send the command DOM.setAttributeValue}
 \usage{
 DOM.setAttributeValue(promise, nodeId, name, value)
 }
@@ -25,7 +23,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.setAttributeValue
-
 Sets attribute for an element with given id.
 }

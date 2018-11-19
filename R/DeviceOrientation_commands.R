@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command DeviceOrientation.clearDeviceOrientationOverride
-#'  
+#' 
 #' Clears the overridden Device Orientation.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,9 +23,9 @@ DeviceOrientation.clearDeviceOrientationOverride <- function(promise) {
 
 
 #' Send the command DeviceOrientation.setDeviceOrientationOverride
-#'  
+#' 
 #' Overrides the Device Orientation.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param alpha A numeric. 
 #'        Mock alpha 
@@ -33,7 +33,7 @@ DeviceOrientation.clearDeviceOrientationOverride <- function(promise) {
 #'        Mock beta 
 #' @param gamma A numeric. 
 #'        Mock gamma 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

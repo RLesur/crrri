@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.getScriptSource}
 \alias{Debugger.getScriptSource}
-\title{Send the command Debugger.getScriptSource
-
-Returns source for the script with given id.}
+\title{Send the command Debugger.getScriptSource}
 \usage{
 Debugger.getScriptSource(promise, scriptId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Debugger.getScriptSource
-
 Returns source for the script with given id.
 }

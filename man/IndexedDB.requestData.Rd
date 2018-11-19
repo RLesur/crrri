@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.requestData}
 \alias{IndexedDB.requestData}
-\title{Send the command IndexedDB.requestData
-
-Requests data from object store or index.}
+\title{Send the command IndexedDB.requestData}
 \usage{
 IndexedDB.requestData(promise, securityOrigin, databaseName,
   objectStoreName, indexName, skipCount, pageSize, keyRange = NULL)
@@ -38,7 +36,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command IndexedDB.requestData
-
 Requests data from object store or index.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.getMatchedStylesForNode}
 \alias{CSS.getMatchedStylesForNode}
-\title{Send the command CSS.getMatchedStylesForNode
-
-Returns requested styles for a DOM node identified by \code{nodeId}.}
+\title{Send the command CSS.getMatchedStylesForNode}
 \usage{
 CSS.getMatchedStylesForNode(promise, nodeId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 6.
 }
 \description{
-Send the command CSS.getMatchedStylesForNode
-
 Returns requested styles for a DOM node identified by \code{nodeId}.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.compositingReasons}
 \alias{LayerTree.compositingReasons}
-\title{Send the command LayerTree.compositingReasons
-
-Provides the reasons why the given layer was composited.}
+\title{Send the command LayerTree.compositingReasons}
 \usage{
 LayerTree.compositingReasons(promise, layerId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command LayerTree.compositingReasons
-
 Provides the reasons why the given layer was composited.
 }

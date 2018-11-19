@@ -2,9 +2,7 @@
 % Please edit documentation in R/Profiler_commands.R
 \name{Profiler.stopTypeProfile}
 \alias{Profiler.stopTypeProfile}
-\title{Send the command Profiler.stopTypeProfile
-
-Disable type profile. Disabling releases type profile data collected so far.}
+\title{Send the command Profiler.stopTypeProfile}
 \usage{
 Profiler.stopTypeProfile(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Profiler.stopTypeProfile
-
 Disable type profile. Disabling releases type profile data collected so far.
 }

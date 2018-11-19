@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.clearGeolocationOverride}
 \alias{Emulation.clearGeolocationOverride}
-\title{Send the command Emulation.clearGeolocationOverride
-
-Clears the overriden Geolocation Position and Error.}
+\title{Send the command Emulation.clearGeolocationOverride}
 \usage{
 Emulation.clearGeolocationOverride(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.clearGeolocationOverride
-
 Clears the overriden Geolocation Position and Error.
 }

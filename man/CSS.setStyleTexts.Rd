@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.setStyleTexts}
 \alias{CSS.setStyleTexts}
-\title{Send the command CSS.setStyleTexts
-
-Applies specified style edits one after another in the given order.}
+\title{Send the command CSS.setStyleTexts}
 \usage{
 CSS.setStyleTexts(promise, edits)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.setStyleTexts
-
 Applies specified style edits one after another in the given order.
 }

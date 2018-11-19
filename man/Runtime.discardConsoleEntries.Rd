@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.discardConsoleEntries}
 \alias{Runtime.discardConsoleEntries}
-\title{Send the command Runtime.discardConsoleEntries
-
-Discards collected exceptions and console API calls.}
+\title{Send the command Runtime.discardConsoleEntries}
 \usage{
 Runtime.discardConsoleEntries(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.discardConsoleEntries
-
 Discards collected exceptions and console API calls.
 }

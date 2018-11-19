@@ -2,9 +2,7 @@
 % Please edit documentation in R/CacheStorage_commands.R
 \name{CacheStorage.requestEntries}
 \alias{CacheStorage.requestEntries}
-\title{Send the command CacheStorage.requestEntries
-
-Requests data from cache.}
+\title{Send the command CacheStorage.requestEntries}
 \usage{
 CacheStorage.requestEntries(promise, cacheId, skipCount, pageSize)
 }
@@ -25,7 +23,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command CacheStorage.requestEntries
-
 Requests data from cache.
 }

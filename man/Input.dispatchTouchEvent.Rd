@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.dispatchTouchEvent}
 \alias{Input.dispatchTouchEvent}
-\title{Send the command Input.dispatchTouchEvent
-
-Dispatches a touch event to the page.}
+\title{Send the command Input.dispatchTouchEvent}
 \usage{
 Input.dispatchTouchEvent(promise, type, touchPoints, modifiers = NULL,
   timestamp = NULL)
@@ -33,7 +31,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.dispatchTouchEvent
-
 Dispatches a touch event to the page.
 }

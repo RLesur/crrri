@@ -2,9 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.getTargets}
 \alias{Target.getTargets}
-\title{Send the command Target.getTargets
-
-Retrieves a list of available targets.}
+\title{Send the command Target.getTargets}
 \usage{
 Target.getTargets(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Target.getTargets
-
 Retrieves a list of available targets.
 }

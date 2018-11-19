@@ -2,10 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.getInlineStylesForNode}
 \alias{CSS.getInlineStylesForNode}
-\title{Send the command CSS.getInlineStylesForNode
-
-Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using DOM
-attributes) for a DOM node identified by \code{nodeId}.}
+\title{Send the command CSS.getInlineStylesForNode}
 \usage{
 CSS.getInlineStylesForNode(promise, nodeId)
 }
@@ -19,8 +16,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command CSS.getInlineStylesForNode
-
 Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using DOM
 attributes) for a DOM node identified by \code{nodeId}.
 }

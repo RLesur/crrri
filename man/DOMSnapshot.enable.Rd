@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMSnapshot_commands.R
 \name{DOMSnapshot.enable}
 \alias{DOMSnapshot.enable}
-\title{Send the command DOMSnapshot.enable
-
-Enables DOM snapshot agent for the given page.}
+\title{Send the command DOMSnapshot.enable}
 \usage{
 DOMSnapshot.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMSnapshot.enable
-
 Enables DOM snapshot agent for the given page.
 }

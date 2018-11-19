@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.undo}
 \alias{DOM.undo}
-\title{Send the command DOM.undo
-
-Undoes the last performed action.}
+\title{Send the command DOM.undo}
 \usage{
 DOM.undo(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.undo
-
 Undoes the last performed action.
 }

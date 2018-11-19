@@ -2,10 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.createBrowserContext}
 \alias{Target.createBrowserContext}
-\title{Send the command Target.createBrowserContext
-
-Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than
-one.}
+\title{Send the command Target.createBrowserContext}
 \usage{
 Target.createBrowserContext(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Target.createBrowserContext
-
 Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than
 one.
 }

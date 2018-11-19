@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.highlightRect}
 \alias{DOM.highlightRect}
-\title{Send the command DOM.highlightRect
-
-Highlights given rectangle.}
+\title{Send the command DOM.highlightRect}
 \usage{
 DOM.highlightRect(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.highlightRect
-
 Highlights given rectangle.
 }

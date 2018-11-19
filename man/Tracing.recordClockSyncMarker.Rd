@@ -2,9 +2,7 @@
 % Please edit documentation in R/Tracing_commands.R
 \name{Tracing.recordClockSyncMarker}
 \alias{Tracing.recordClockSyncMarker}
-\title{Send the command Tracing.recordClockSyncMarker
-
-Record a clock sync marker in the trace.}
+\title{Send the command Tracing.recordClockSyncMarker}
 \usage{
 Tracing.recordClockSyncMarker(promise, syncId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Tracing.recordClockSyncMarker
-
 Record a clock sync marker in the trace.
 }

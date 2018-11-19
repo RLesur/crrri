@@ -2,9 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.sendMessageToTarget}
 \alias{Target.sendMessageToTarget}
-\title{Send the command Target.sendMessageToTarget
-
-Sends protocol message over session with given id.}
+\title{Send the command Target.sendMessageToTarget}
 \usage{
 Target.sendMessageToTarget(promise, message, sessionId = NULL,
   targetId = NULL)
@@ -25,7 +23,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Target.sendMessageToTarget
-
 Sends protocol message over session with given id.
 }

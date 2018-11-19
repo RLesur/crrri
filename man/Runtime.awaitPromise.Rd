@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.awaitPromise}
 \alias{Runtime.awaitPromise}
-\title{Send the command Runtime.awaitPromise
-
-Add handler to promise with given promise object id.}
+\title{Send the command Runtime.awaitPromise}
 \usage{
 Runtime.awaitPromise(promise, promiseObjectId, returnByValue = NULL,
   generatePreview = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Runtime.awaitPromise
-
 Add handler to promise with given promise object id.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.requestDatabase}
 \alias{IndexedDB.requestDatabase}
-\title{Send the command IndexedDB.requestDatabase
-
-Requests database with given name in given frame.}
+\title{Send the command IndexedDB.requestDatabase}
 \usage{
 IndexedDB.requestDatabase(promise, securityOrigin, databaseName)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command IndexedDB.requestDatabase
-
 Requests database with given name in given frame.
 }

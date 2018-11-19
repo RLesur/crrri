@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.describeNode}
 \alias{DOM.describeNode}
-\title{Send the command DOM.describeNode
-
-Describes node given its id, does not require domain to be enabled. Does not start tracking any
-objects, can be used for automation.}
+\title{Send the command DOM.describeNode}
 \usage{
 DOM.describeNode(promise, nodeId = NULL, backendNodeId = NULL,
   objectId = NULL, depth = NULL, pierce = NULL)
@@ -35,8 +32,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.describeNode
-
 Describes node given its id, does not require domain to be enabled. Does not start tracking any
 objects, can be used for automation.
 }

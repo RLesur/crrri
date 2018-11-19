@@ -2,10 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.getCookies}
 \alias{Network.getCookies}
-\title{Send the command Network.getCookies
-
-Returns all browser cookies for the current URL. Depending on the backend support, will return
-detailed cookie information in the \code{cookies} field.}
+\title{Send the command Network.getCookies}
 \usage{
 Network.getCookies(promise, urls = NULL)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Network.getCookies
-
 Returns all browser cookies for the current URL. Depending on the backend support, will return
 detailed cookie information in the \code{cookies} field.
 }

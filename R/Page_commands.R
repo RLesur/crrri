@@ -3,16 +3,16 @@
 NULL
 
 #' Send the command Page.addScriptToEvaluateOnNewDocument
-#'  
+#' 
 #' Evaluates given script in every frame upon creation (before loading frame's scripts).
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param source A character string. 
 #' @param worldName Experimental. Optional. A character string. 
 #'        If specified, creates an isolated world with the given name and evaluates given script in it.
 #'        This world name will be used as the ExecutionContextDescription::name when the corresponding
 #'        event is emitted. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -28,11 +28,11 @@ Page.addScriptToEvaluateOnNewDocument <- function(promise, source, worldName = N
 
 
 #' Send the command Page.bringToFront
-#'  
+#' 
 #' Brings page to front (activates tab).
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -48,9 +48,9 @@ Page.bringToFront <- function(promise) {
 
 
 #' Send the command Page.captureScreenshot
-#'  
+#' 
 #' Capture page screenshot.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param format Optional. A character string. 
 #'        Image compression format (defaults to png). Accepted values: jpeg, png.
@@ -60,7 +60,7 @@ Page.bringToFront <- function(promise) {
 #'        Capture the screenshot of a given region only. 
 #' @param fromSurface Experimental. Optional. A logical. 
 #'        Capture the screenshot from the surface, rather than the view. Defaults to true. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -76,14 +76,14 @@ Page.captureScreenshot <- function(promise, format = NULL, quality = NULL, clip 
 
 
 #' Send the command Page.captureSnapshot
-#'  
+#' 
 #' Returns a snapshot of the page as a string. For MHTML format, the serialization includes
 #'        iframes, shadow DOM, external resources, and element-inline styles.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param format Optional. A character string. 
 #'        Format (defaults to mhtml). Accepted values: mhtml.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -99,9 +99,9 @@ Page.captureSnapshot <- function(promise, format = NULL) {
 
 
 #' Send the command Page.createIsolatedWorld
-#'  
+#' 
 #' Creates an isolated world for the given frame.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param frameId A FrameId. 
 #'        Id of the frame in which the isolated world should be created. 
@@ -110,7 +110,7 @@ Page.captureSnapshot <- function(promise, format = NULL) {
 #' @param grantUniveralAccess Optional. A logical. 
 #'        Whether or not universal access should be granted to the isolated world. This is a powerful
 #'        option, use with caution. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -126,11 +126,11 @@ Page.createIsolatedWorld <- function(promise, frameId, worldName = NULL, grantUn
 
 
 #' Send the command Page.disable
-#'  
+#' 
 #' Disables page domain notifications.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -146,11 +146,11 @@ Page.disable <- function(promise) {
 
 
 #' Send the command Page.enable
-#'  
+#' 
 #' Enables page domain notifications.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -166,11 +166,11 @@ Page.enable <- function(promise) {
 
 
 #' Send the command Page.getAppManifest
-#'  
 #' 
-#'  
+#' 
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 3.
 #' @export
@@ -186,11 +186,11 @@ Page.getAppManifest <- function(promise) {
 
 
 #' Send the command Page.getFrameTree
-#'  
+#' 
 #' Returns present frame tree structure.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -206,11 +206,11 @@ Page.getFrameTree <- function(promise) {
 
 
 #' Send the command Page.getLayoutMetrics
-#'  
+#' 
 #' Returns metrics relating to the layouting of the page, such as viewport bounds/scale.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 3.
 #' @export
@@ -226,11 +226,11 @@ Page.getLayoutMetrics <- function(promise) {
 
 
 #' Send the command Page.getNavigationHistory
-#'  
+#' 
 #' Returns navigation history for the current page.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -246,15 +246,15 @@ Page.getNavigationHistory <- function(promise) {
 
 
 #' Send the command Page.getResourceContent
-#'  
+#' 
 #' Returns content of the given resource.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param frameId A FrameId. 
 #'        Frame id to get resource for. 
 #' @param url A character string. 
 #'        URL of the resource to get content for. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -270,11 +270,11 @@ Page.getResourceContent <- function(promise, frameId, url) {
 
 
 #' Send the command Page.getResourceTree
-#'  
+#' 
 #' Returns present frame / resource tree structure.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -290,16 +290,16 @@ Page.getResourceTree <- function(promise) {
 
 
 #' Send the command Page.handleJavaScriptDialog
-#'  
+#' 
 #' Accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload).
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param accept A logical. 
 #'        Whether to accept or dismiss the dialog. 
 #' @param promptText Optional. A character string. 
 #'        The text to enter into the dialog prompt before accepting. Used only if this is a prompt
 #'        dialog. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -315,9 +315,9 @@ Page.handleJavaScriptDialog <- function(promise, accept, promptText = NULL) {
 
 
 #' Send the command Page.navigate
-#'  
+#' 
 #' Navigates current page to the given URL.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param url A character string. 
 #'        URL to navigate the page to. 
@@ -327,7 +327,7 @@ Page.handleJavaScriptDialog <- function(promise, accept, promptText = NULL) {
 #'        Intended transition type. 
 #' @param frameId Optional. A FrameId. 
 #'        Frame id to navigate, if not specified navigates the top frame. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 3.
 #' @export
@@ -343,13 +343,13 @@ Page.navigate <- function(promise, url, referrer = NULL, transitionType = NULL, 
 
 
 #' Send the command Page.navigateToHistoryEntry
-#'  
+#' 
 #' Navigates current page to the given history entry.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param entryId An integer. 
 #'        Unique id of the entry to navigate to. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -365,9 +365,9 @@ Page.navigateToHistoryEntry <- function(promise, entryId) {
 
 
 #' Send the command Page.printToPDF
-#'  
+#' 
 #' Print page as PDF.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param landscape Optional. A logical. 
 #'        Paper orientation. Defaults to false. 
@@ -410,7 +410,7 @@ Page.navigateToHistoryEntry <- function(promise, entryId) {
 #' @param preferCSSPageSize Optional. A logical. 
 #'        Whether or not to prefer page size as defined by css. Defaults to false,
 #'        in which case the content will be scaled to fit the paper size. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -426,16 +426,16 @@ Page.printToPDF <- function(promise, landscape = NULL, displayHeaderFooter = NUL
 
 
 #' Send the command Page.reload
-#'  
+#' 
 #' Reloads given page optionally ignoring the cache.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param ignoreCache Optional. A logical. 
 #'        If true, browser cache is ignored (as if the user pressed Shift+refresh). 
 #' @param scriptToEvaluateOnLoad Optional. A character string. 
 #'        If set, the script will be injected into all frames of the inspected page after reload.
 #'        Argument will be ignored if reloading dataURL origin. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -451,12 +451,12 @@ Page.reload <- function(promise, ignoreCache = NULL, scriptToEvaluateOnLoad = NU
 
 
 #' Send the command Page.removeScriptToEvaluateOnNewDocument
-#'  
+#' 
 #' Removes given script from the list.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param identifier A ScriptIdentifier. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -472,11 +472,11 @@ Page.removeScriptToEvaluateOnNewDocument <- function(promise, identifier) {
 
 
 #' Send the command Page.requestAppBanner
-#'  
 #' 
-#'  
+#' 
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -492,13 +492,13 @@ Page.requestAppBanner <- function(promise) {
 
 
 #' Send the command Page.screencastFrameAck
-#'  
+#' 
 #' Acknowledges that a screencast frame has been received by the frontend.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param sessionId An integer. 
 #'        Frame number. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -514,9 +514,9 @@ Page.screencastFrameAck <- function(promise, sessionId) {
 
 
 #' Send the command Page.searchInResource
-#'  
+#' 
 #' Searches for given string in resource content.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param frameId A FrameId. 
 #'        Frame id for resource to search in. 
@@ -528,7 +528,7 @@ Page.screencastFrameAck <- function(promise, sessionId) {
 #'        If true, search is case sensitive. 
 #' @param isRegex Optional. A logical. 
 #'        If true, treats string parameter as regex. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -544,13 +544,13 @@ Page.searchInResource <- function(promise, frameId, url, query, caseSensitive = 
 
 
 #' Send the command Page.setAdBlockingEnabled
-#'  
+#' 
 #' Enable Chrome's experimental ad filter on all sites.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param enabled A logical. 
 #'        Whether to block ads. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -566,13 +566,13 @@ Page.setAdBlockingEnabled <- function(promise, enabled) {
 
 
 #' Send the command Page.setBypassCSP
-#'  
+#' 
 #' Enable page Content Security Policy by-passing.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param enabled A logical. 
 #'        Whether to bypass page CSP. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -588,13 +588,13 @@ Page.setBypassCSP <- function(promise, enabled) {
 
 
 #' Send the command Page.setFontFamilies
-#'  
+#' 
 #' Set generic font families.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param fontFamilies A FontFamilies. 
 #'        Specifies font families to set. If a font family is not specified, it won't be changed. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -610,13 +610,13 @@ Page.setFontFamilies <- function(promise, fontFamilies) {
 
 
 #' Send the command Page.setFontSizes
-#'  
+#' 
 #' Set default font sizes.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param fontSizes A FontSizes. 
 #'        Specifies font sizes to set. If a font size is not specified, it won't be changed. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -632,15 +632,15 @@ Page.setFontSizes <- function(promise, fontSizes) {
 
 
 #' Send the command Page.setDocumentContent
-#'  
+#' 
 #' Sets given markup as the document's HTML.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param frameId A FrameId. 
 #'        Frame id to set HTML for. 
 #' @param html A character string. 
 #'        HTML content to set. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -656,16 +656,16 @@ Page.setDocumentContent <- function(promise, frameId, html) {
 
 
 #' Send the command Page.setDownloadBehavior
-#'  
+#' 
 #' Set the behavior when downloading a file.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param behavior A character string. 
 #'        Whether to allow all or deny all download requests, or use default Chrome behavior if
 #'        available (otherwise deny). Accepted values: deny, allow, default.
 #' @param downloadPath Optional. A character string. 
 #'        The default path to save downloaded files to. This is requred if behavior is set to 'allow' 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -681,13 +681,13 @@ Page.setDownloadBehavior <- function(promise, behavior, downloadPath = NULL) {
 
 
 #' Send the command Page.setLifecycleEventsEnabled
-#'  
+#' 
 #' Controls whether page will emit lifecycle events.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param enabled A logical. 
 #'        If true, starts emitting lifecycle events. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -703,9 +703,9 @@ Page.setLifecycleEventsEnabled <- function(promise, enabled) {
 
 
 #' Send the command Page.startScreencast
-#'  
+#' 
 #' Starts sending each frame using the `screencastFrame` event.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param format Optional. A character string. 
 #'        Image compression format. Accepted values: jpeg, png.
@@ -717,7 +717,7 @@ Page.setLifecycleEventsEnabled <- function(promise, enabled) {
 #'        Maximum screenshot height. 
 #' @param everyNthFrame Optional. An integer. 
 #'        Send every n-th frame. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -733,11 +733,11 @@ Page.startScreencast <- function(promise, format = NULL, quality = NULL, maxWidt
 
 
 #' Send the command Page.stopLoading
-#'  
+#' 
 #' Force the page stop all navigations and pending resource fetches.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -753,11 +753,11 @@ Page.stopLoading <- function(promise) {
 
 
 #' Send the command Page.crash
-#'  
+#' 
 #' Crashes renderer on the IO thread, generates minidumps.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -773,11 +773,11 @@ Page.crash <- function(promise) {
 
 
 #' Send the command Page.close
-#'  
+#' 
 #' Tries to close page, running its beforeunload hooks, if any.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -793,15 +793,15 @@ Page.close <- function(promise) {
 
 
 #' Send the command Page.setWebLifecycleState
-#'  
+#' 
 #' Tries to update the web lifecycle state of the page.
 #'        It will transition the page to the given state according to:
 #'        https://github.com/WICG/web-lifecycle/
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param state A character string. 
 #'        Target lifecycle state Accepted values: frozen, active.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -817,11 +817,11 @@ Page.setWebLifecycleState <- function(promise, state) {
 
 
 #' Send the command Page.stopScreencast
-#'  
+#' 
 #' Stops sending each frame in the `screencastFrame`.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -837,12 +837,12 @@ Page.stopScreencast <- function(promise) {
 
 
 #' Send the command Page.setProduceCompilationCache
-#'  
+#' 
 #' Forces compilation cache to be generated for every subresource script.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param enabled A logical. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -858,15 +858,15 @@ Page.setProduceCompilationCache <- function(promise, enabled) {
 
 
 #' Send the command Page.addCompilationCache
-#'  
+#' 
 #' Seeds compilation cache for given url. Compilation cache does not survive
 #'        cross-process navigation.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param url A character string. 
 #' @param data A character string. 
 #'        Base64-encoded data 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -882,11 +882,11 @@ Page.addCompilationCache <- function(promise, url, data) {
 
 
 #' Send the command Page.clearCompilationCache
-#'  
+#' 
 #' Clears seeded compilation cache.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -902,15 +902,15 @@ Page.clearCompilationCache <- function(promise) {
 
 
 #' Send the command Page.generateTestReport
-#'  
+#' 
 #' Generates a report for testing.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param message A character string. 
 #'        Message to be displayed in the report. 
 #' @param group Optional. A character string. 
 #'        Specifies the endpoint group to deliver the report to. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

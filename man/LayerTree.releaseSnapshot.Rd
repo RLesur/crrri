@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.releaseSnapshot}
 \alias{LayerTree.releaseSnapshot}
-\title{Send the command LayerTree.releaseSnapshot
-
-Releases layer snapshot captured by the back-end.}
+\title{Send the command LayerTree.releaseSnapshot}
 \usage{
 LayerTree.releaseSnapshot(promise, snapshotId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command LayerTree.releaseSnapshot
-
 Releases layer snapshot captured by the back-end.
 }

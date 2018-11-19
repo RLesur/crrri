@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.searchInContent}
 \alias{Debugger.searchInContent}
-\title{Send the command Debugger.searchInContent
-
-Searches for given string in script content.}
+\title{Send the command Debugger.searchInContent}
 \usage{
 Debugger.searchInContent(promise, scriptId, query, caseSensitive = NULL,
   isRegex = NULL)
@@ -29,7 +27,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Debugger.searchInContent
-
 Searches for given string in script content.
 }

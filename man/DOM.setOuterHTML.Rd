@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.setOuterHTML}
 \alias{DOM.setOuterHTML}
-\title{Send the command DOM.setOuterHTML
-
-Sets node HTML markup, returns new node id.}
+\title{Send the command DOM.setOuterHTML}
 \usage{
 DOM.setOuterHTML(promise, nodeId, outerHTML)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.setOuterHTML
-
 Sets node HTML markup, returns new node id.
 }

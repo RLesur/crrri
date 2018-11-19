@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.getEventListeners}
 \alias{DOMDebugger.getEventListeners}
-\title{Send the command DOMDebugger.getEventListeners
-
-Returns event listeners of the given object.}
+\title{Send the command DOMDebugger.getEventListeners}
 \usage{
 DOMDebugger.getEventListeners(promise, objectId, depth = NULL,
   pierce = NULL)
@@ -28,7 +26,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOMDebugger.getEventListeners
-
 Returns event listeners of the given object.
 }

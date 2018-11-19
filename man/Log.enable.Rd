@@ -2,10 +2,7 @@
 % Please edit documentation in R/Log_commands.R
 \name{Log.enable}
 \alias{Log.enable}
-\title{Send the command Log.enable
-
-Enables log domain, sends the entries collected so far to the client by means of the
-\code{entryAdded} notification.}
+\title{Send the command Log.enable}
 \usage{
 Log.enable(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Log.enable
-
 Enables log domain, sends the entries collected so far to the client by means of the
 \code{entryAdded} notification.
 }

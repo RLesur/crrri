@@ -2,9 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.createTarget}
 \alias{Target.createTarget}
-\title{Send the command Target.createTarget
-
-Creates a new page.}
+\title{Send the command Target.createTarget}
 \usage{
 Target.createTarget(promise, url, width = NULL, height = NULL,
   browserContextId = NULL, enableBeginFrameControl = NULL)
@@ -33,7 +31,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Target.createTarget
-
 Creates a new page.
 }

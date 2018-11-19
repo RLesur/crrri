@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.setDownloadBehavior}
 \alias{Page.setDownloadBehavior}
-\title{Send the command Page.setDownloadBehavior
-
-Set the behavior when downloading a file.}
+\title{Send the command Page.setDownloadBehavior}
 \usage{
 Page.setDownloadBehavior(promise, behavior, downloadPath = NULL)
 }
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.setDownloadBehavior
-
 Set the behavior when downloading a file.
 }

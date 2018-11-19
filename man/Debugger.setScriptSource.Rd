@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setScriptSource}
 \alias{Debugger.setScriptSource}
-\title{Send the command Debugger.setScriptSource
-
-Edits JavaScript source live.}
+\title{Send the command Debugger.setScriptSource}
 \usage{
 Debugger.setScriptSource(promise, scriptId, scriptSource, dryRun = NULL)
 }
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 5.
 }
 \description{
-Send the command Debugger.setScriptSource
-
 Edits JavaScript source live.
 }

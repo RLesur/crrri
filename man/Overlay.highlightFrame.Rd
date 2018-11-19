@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.highlightFrame}
 \alias{Overlay.highlightFrame}
-\title{Send the command Overlay.highlightFrame
-
-Highlights owner element of the frame with given id.}
+\title{Send the command Overlay.highlightFrame}
 \usage{
 Overlay.highlightFrame(promise, frameId, contentColor = NULL,
   contentOutlineColor = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.highlightFrame
-
 Highlights owner element of the frame with given id.
 }

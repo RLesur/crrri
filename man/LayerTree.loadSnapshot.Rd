@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.loadSnapshot}
 \alias{LayerTree.loadSnapshot}
-\title{Send the command LayerTree.loadSnapshot
-
-Returns the snapshot identifier.}
+\title{Send the command LayerTree.loadSnapshot}
 \usage{
 LayerTree.loadSnapshot(promise, tiles)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command LayerTree.loadSnapshot
-
 Returns the snapshot identifier.
 }

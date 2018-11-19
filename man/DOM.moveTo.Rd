@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.moveTo}
 \alias{DOM.moveTo}
-\title{Send the command DOM.moveTo
-
-Moves node into the new container, places it before the given anchor.}
+\title{Send the command DOM.moveTo}
 \usage{
 DOM.moveTo(promise, nodeId, targetNodeId, insertBeforeNodeId = NULL)
 }
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.moveTo
-
 Moves node into the new container, places it before the given anchor.
 }

@@ -2,10 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.insertText}
 \alias{Input.insertText}
-\title{Send the command Input.insertText
-
-This method emulates inserting text that doesn't come from a key press,
-for example an emoji keyboard or an IME.}
+\title{Send the command Input.insertText}
 \usage{
 Input.insertText(promise, text)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.insertText
-
 This method emulates inserting text that doesn't come from a key press,
 for example an emoji keyboard or an IME.
 }

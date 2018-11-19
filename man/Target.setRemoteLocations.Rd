@@ -2,10 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.setRemoteLocations}
 \alias{Target.setRemoteLocations}
-\title{Send the command Target.setRemoteLocations
-
-Enables target discovery for the specified locations, when \code{setDiscoverTargets} was set to
-\code{true}.}
+\title{Send the command Target.setRemoteLocations}
 \usage{
 Target.setRemoteLocations(promise, locations)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Target.setRemoteLocations
-
 Enables target discovery for the specified locations, when \code{setDiscoverTargets} was set to
 \code{true}.
 }

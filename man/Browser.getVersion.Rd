@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.getVersion}
 \alias{Browser.getVersion}
-\title{Send the command Browser.getVersion
-
-Returns version information.}
+\title{Send the command Browser.getVersion}
 \usage{
 Browser.getVersion(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 5.
 }
 \description{
-Send the command Browser.getVersion
-
 Returns version information.
 }

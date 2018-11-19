@@ -2,9 +2,7 @@
 % Please edit documentation in R/Tracing_commands.R
 \name{Tracing.getCategories}
 \alias{Tracing.getCategories}
-\title{Send the command Tracing.getCategories
-
-Gets supported tracing categories.}
+\title{Send the command Tracing.getCategories}
 \usage{
 Tracing.getCategories(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Tracing.getCategories
-
 Gets supported tracing categories.
 }

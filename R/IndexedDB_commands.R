@@ -3,9 +3,9 @@
 NULL
 
 #' Send the command IndexedDB.clearObjectStore
-#'  
+#' 
 #' Clears all entries from an object store.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param securityOrigin A character string. 
 #'        Security origin. 
@@ -13,7 +13,7 @@ NULL
 #'        Database name. 
 #' @param objectStoreName A character string. 
 #'        Object store name. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -29,15 +29,15 @@ IndexedDB.clearObjectStore <- function(promise, securityOrigin, databaseName, ob
 
 
 #' Send the command IndexedDB.deleteDatabase
-#'  
+#' 
 #' Deletes a database.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param securityOrigin A character string. 
 #'        Security origin. 
 #' @param databaseName A character string. 
 #'        Database name. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -53,16 +53,16 @@ IndexedDB.deleteDatabase <- function(promise, securityOrigin, databaseName) {
 
 
 #' Send the command IndexedDB.deleteObjectStoreEntries
-#'  
+#' 
 #' Delete a range of entries from an object store
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param securityOrigin A character string. 
 #' @param databaseName A character string. 
 #' @param objectStoreName A character string. 
 #' @param keyRange A KeyRange. 
 #'        Range of entry keys to delete 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -78,11 +78,11 @@ IndexedDB.deleteObjectStoreEntries <- function(promise, securityOrigin, database
 
 
 #' Send the command IndexedDB.disable
-#'  
+#' 
 #' Disables events from backend.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -98,11 +98,11 @@ IndexedDB.disable <- function(promise) {
 
 
 #' Send the command IndexedDB.enable
-#'  
+#' 
 #' Enables events from backend.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -118,9 +118,9 @@ IndexedDB.enable <- function(promise) {
 
 
 #' Send the command IndexedDB.requestData
-#'  
+#' 
 #' Requests data from object store or index.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param securityOrigin A character string. 
 #'        Security origin. 
@@ -136,7 +136,7 @@ IndexedDB.enable <- function(promise) {
 #'        Number of records to fetch. 
 #' @param keyRange Optional. A KeyRange. 
 #'        Key range. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -152,15 +152,15 @@ IndexedDB.requestData <- function(promise, securityOrigin, databaseName, objectS
 
 
 #' Send the command IndexedDB.requestDatabase
-#'  
+#' 
 #' Requests database with given name in given frame.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param securityOrigin A character string. 
 #'        Security origin. 
 #' @param databaseName A character string. 
 #'        Database name. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -176,13 +176,13 @@ IndexedDB.requestDatabase <- function(promise, securityOrigin, databaseName) {
 
 
 #' Send the command IndexedDB.requestDatabaseNames
-#'  
+#' 
 #' Requests database names for given security origin.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param securityOrigin A character string. 
 #'        Security origin. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.setDocumentContent}
 \alias{Page.setDocumentContent}
-\title{Send the command Page.setDocumentContent
-
-Sets given markup as the document's HTML.}
+\title{Send the command Page.setDocumentContent}
 \usage{
 Page.setDocumentContent(promise, frameId, html)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.setDocumentContent
-
 Sets given markup as the document's HTML.
 }

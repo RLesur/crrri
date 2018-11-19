@@ -2,9 +2,7 @@
 % Please edit documentation in R/Database_commands.R
 \name{Database.enable}
 \alias{Database.enable}
-\title{Send the command Database.enable
-
-Enables database tracking, database events will now be delivered to the client.}
+\title{Send the command Database.enable}
 \usage{
 Database.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Database.enable
-
 Enables database tracking, database events will now be delivered to the client.
 }

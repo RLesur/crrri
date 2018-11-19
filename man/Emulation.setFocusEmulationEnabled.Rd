@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setFocusEmulationEnabled}
 \alias{Emulation.setFocusEmulationEnabled}
-\title{Send the command Emulation.setFocusEmulationEnabled
-
-Enables or disables simulating a focused and active page.}
+\title{Send the command Emulation.setFocusEmulationEnabled}
 \usage{
 Emulation.setFocusEmulationEnabled(promise, enabled)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setFocusEmulationEnabled
-
 Enables or disables simulating a focused and active page.
 }

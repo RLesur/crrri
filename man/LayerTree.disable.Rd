@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.disable}
 \alias{LayerTree.disable}
-\title{Send the command LayerTree.disable
-
-Disables compositing tree inspection.}
+\title{Send the command LayerTree.disable}
 \usage{
 LayerTree.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command LayerTree.disable
-
 Disables compositing tree inspection.
 }

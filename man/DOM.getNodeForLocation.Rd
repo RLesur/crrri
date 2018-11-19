@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getNodeForLocation}
 \alias{DOM.getNodeForLocation}
-\title{Send the command DOM.getNodeForLocation
-
-Returns node id at given location. Depending on whether DOM domain is enabled, nodeId is
-either returned or not.}
+\title{Send the command DOM.getNodeForLocation}
 \usage{
 DOM.getNodeForLocation(promise, x, y, includeUserAgentShadowDOM = NULL)
 }
@@ -26,8 +23,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command DOM.getNodeForLocation
-
 Returns node id at given location. Depending on whether DOM domain is enabled, nodeId is
 either returned or not.
 }

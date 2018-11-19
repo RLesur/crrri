@@ -2,12 +2,7 @@
 % Please edit documentation in R/HeadlessExperimental_commands.R
 \name{HeadlessExperimental.beginFrame}
 \alias{HeadlessExperimental.beginFrame}
-\title{Send the command HeadlessExperimental.beginFrame
-
-Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a
-screenshot from the resulting frame. Requires that the target was created with enabled
-BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also
-https://goo.gl/3zHXhB for more background.}
+\title{Send the command HeadlessExperimental.beginFrame}
 \usage{
 HeadlessExperimental.beginFrame(promise, frameTimeTicks = NULL,
   interval = NULL, noDisplayUpdates = NULL, screenshot = NULL)
@@ -38,8 +33,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command HeadlessExperimental.beginFrame
-
 Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a
 screenshot from the resulting frame. Requires that the target was created with enabled
 BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also

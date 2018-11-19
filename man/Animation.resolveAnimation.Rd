@@ -2,9 +2,7 @@
 % Please edit documentation in R/Animation_commands.R
 \name{Animation.resolveAnimation}
 \alias{Animation.resolveAnimation}
-\title{Send the command Animation.resolveAnimation
-
-Gets the remote object of the Animation.}
+\title{Send the command Animation.resolveAnimation}
 \usage{
 Animation.resolveAnimation(promise, animationId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Animation.resolveAnimation
-
 Gets the remote object of the Animation.
 }

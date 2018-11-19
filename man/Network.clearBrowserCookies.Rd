@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.clearBrowserCookies}
 \alias{Network.clearBrowserCookies}
-\title{Send the command Network.clearBrowserCookies
-
-Clears browser cookies.}
+\title{Send the command Network.clearBrowserCookies}
 \usage{
 Network.clearBrowserCookies(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.clearBrowserCookies
-
 Clears browser cookies.
 }

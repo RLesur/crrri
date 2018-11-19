@@ -2,9 +2,7 @@
 % Please edit documentation in R/Fetch_commands.R
 \name{Fetch.continueRequest}
 \alias{Fetch.continueRequest}
-\title{Send the command Fetch.continueRequest
-
-Continues the request, optionally modifying some of its parameters.}
+\title{Send the command Fetch.continueRequest}
 \usage{
 Fetch.continueRequest(promise, requestId, url = NULL, method = NULL,
   postData = NULL, headers = NULL)
@@ -32,7 +30,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Fetch.continueRequest
-
 Continues the request, optionally modifying some of its parameters.
 }

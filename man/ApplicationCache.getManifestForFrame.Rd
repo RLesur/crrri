@@ -2,9 +2,7 @@
 % Please edit documentation in R/ApplicationCache_commands.R
 \name{ApplicationCache.getManifestForFrame}
 \alias{ApplicationCache.getManifestForFrame}
-\title{Send the command ApplicationCache.getManifestForFrame
-
-Returns manifest URL for document in the given frame.}
+\title{Send the command ApplicationCache.getManifestForFrame}
 \usage{
 ApplicationCache.getManifestForFrame(promise, frameId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command ApplicationCache.getManifestForFrame
-
 Returns manifest URL for document in the given frame.
 }

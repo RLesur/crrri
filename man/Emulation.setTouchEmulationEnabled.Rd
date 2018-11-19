@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setTouchEmulationEnabled}
 \alias{Emulation.setTouchEmulationEnabled}
-\title{Send the command Emulation.setTouchEmulationEnabled
-
-Enables touch on platforms which do not support them.}
+\title{Send the command Emulation.setTouchEmulationEnabled}
 \usage{
 Emulation.setTouchEmulationEnabled(promise, enabled,
   maxTouchPoints = NULL)
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setTouchEmulationEnabled
-
 Enables touch on platforms which do not support them.
 }

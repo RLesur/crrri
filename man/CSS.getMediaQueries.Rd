@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.getMediaQueries}
 \alias{CSS.getMediaQueries}
-\title{Send the command CSS.getMediaQueries
-
-Returns all media queries parsed by the rendering engine.}
+\title{Send the command CSS.getMediaQueries}
 \usage{
 CSS.getMediaQueries(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.getMediaQueries
-
 Returns all media queries parsed by the rendering engine.
 }

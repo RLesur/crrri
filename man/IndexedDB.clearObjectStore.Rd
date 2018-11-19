@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.clearObjectStore}
 \alias{IndexedDB.clearObjectStore}
-\title{Send the command IndexedDB.clearObjectStore
-
-Clears all entries from an object store.}
+\title{Send the command IndexedDB.clearObjectStore}
 \usage{
 IndexedDB.clearObjectStore(promise, securityOrigin, databaseName,
   objectStoreName)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command IndexedDB.clearObjectStore
-
 Clears all entries from an object store.
 }

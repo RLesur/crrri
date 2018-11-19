@@ -2,9 +2,7 @@
 % Please edit documentation in R/IO_commands.R
 \name{IO.close}
 \alias{IO.close}
-\title{Send the command IO.close
-
-Close the stream, discard any temporary backing storage.}
+\title{Send the command IO.close}
 \usage{
 IO.close(promise, handle)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command IO.close
-
 Close the stream, discard any temporary backing storage.
 }

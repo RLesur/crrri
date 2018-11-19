@@ -2,10 +2,7 @@
 % Please edit documentation in R/Profiler_commands.R
 \name{Profiler.stopPreciseCoverage}
 \alias{Profiler.stopPreciseCoverage}
-\title{Send the command Profiler.stopPreciseCoverage
-
-Disable precise code coverage. Disabling releases unnecessary execution count records and allows
-executing optimized code.}
+\title{Send the command Profiler.stopPreciseCoverage}
 \usage{
 Profiler.stopPreciseCoverage(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Profiler.stopPreciseCoverage
-
 Disable precise code coverage. Disabling releases unnecessary execution count records and allows
 executing optimized code.
 }

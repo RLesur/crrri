@@ -2,9 +2,7 @@
 % Please edit documentation in R/Performance_commands.R
 \name{Performance.enable}
 \alias{Performance.enable}
-\title{Send the command Performance.enable
-
-Enable collecting and reporting metrics.}
+\title{Send the command Performance.enable}
 \usage{
 Performance.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Performance.enable
-
 Enable collecting and reporting metrics.
 }

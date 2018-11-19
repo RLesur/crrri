@@ -2,10 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.setInspectMode}
 \alias{Overlay.setInspectMode}
-\title{Send the command Overlay.setInspectMode
-
-Enters the 'inspect' mode. In this mode, elements that user is hovering over are highlighted.
-Backend then generates 'inspectNodeRequested' event upon element selection.}
+\title{Send the command Overlay.setInspectMode}
 \usage{
 Overlay.setInspectMode(promise, mode, highlightConfig = NULL)
 }
@@ -23,8 +20,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.setInspectMode
-
 Enters the 'inspect' mode. In this mode, elements that user is hovering over are highlighted.
 Backend then generates 'inspectNodeRequested' event upon element selection.
 }

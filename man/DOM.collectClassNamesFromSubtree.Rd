@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.collectClassNamesFromSubtree}
 \alias{DOM.collectClassNamesFromSubtree}
-\title{Send the command DOM.collectClassNamesFromSubtree
-
-Collects class names for the node with given id and all of it's child nodes.}
+\title{Send the command DOM.collectClassNamesFromSubtree}
 \usage{
 DOM.collectClassNamesFromSubtree(promise, nodeId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.collectClassNamesFromSubtree
-
 Collects class names for the node with given id and all of it's child nodes.
 }

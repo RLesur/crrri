@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.emulateTouchFromMouseEvent}
 \alias{Input.emulateTouchFromMouseEvent}
-\title{Send the command Input.emulateTouchFromMouseEvent
-
-Emulates touch event from the mouse event parameters.}
+\title{Send the command Input.emulateTouchFromMouseEvent}
 \usage{
 Input.emulateTouchFromMouseEvent(promise, type, x, y, button,
   timestamp = NULL, deltaX = NULL, deltaY = NULL, modifiers = NULL,
@@ -46,7 +44,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.emulateTouchFromMouseEvent
-
 Emulates touch event from the mouse event parameters.
 }

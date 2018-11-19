@@ -2,9 +2,7 @@
 % Please edit documentation in R/Profiler_commands.R
 \name{Profiler.setSamplingInterval}
 \alias{Profiler.setSamplingInterval}
-\title{Send the command Profiler.setSamplingInterval
-
-Changes CPU profiler sampling interval. Must be called before CPU profiles recording started.}
+\title{Send the command Profiler.setSamplingInterval}
 \usage{
 Profiler.setSamplingInterval(promise, interval)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Profiler.setSamplingInterval
-
 Changes CPU profiler sampling interval. Must be called before CPU profiles recording started.
 }

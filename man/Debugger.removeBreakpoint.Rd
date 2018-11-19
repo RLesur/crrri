@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.removeBreakpoint}
 \alias{Debugger.removeBreakpoint}
-\title{Send the command Debugger.removeBreakpoint
-
-Removes JavaScript breakpoint.}
+\title{Send the command Debugger.removeBreakpoint}
 \usage{
 Debugger.removeBreakpoint(promise, breakpointId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.removeBreakpoint
-
 Removes JavaScript breakpoint.
 }

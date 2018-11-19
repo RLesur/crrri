@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.grantPermissions}
 \alias{Browser.grantPermissions}
-\title{Send the command Browser.grantPermissions
-
-Grant specific permissions to the given origin and reject all others.}
+\title{Send the command Browser.grantPermissions}
 \usage{
 Browser.grantPermissions(promise, origin, permissions,
   browserContextId = NULL)
@@ -24,7 +22,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Browser.grantPermissions
-
 Grant specific permissions to the given origin and reject all others.
 }

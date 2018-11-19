@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.evaluateOnCallFrame}
 \alias{Debugger.evaluateOnCallFrame}
-\title{Send the command Debugger.evaluateOnCallFrame
-
-Evaluates expression on a given call frame.}
+\title{Send the command Debugger.evaluateOnCallFrame}
 \usage{
 Debugger.evaluateOnCallFrame(promise, callFrameId, expression,
   objectGroup = NULL, includeCommandLineAPI = NULL, silent = NULL,
@@ -49,7 +47,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Debugger.evaluateOnCallFrame
-
 Evaluates expression on a given call frame.
 }

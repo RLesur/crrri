@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.deleteObjectStoreEntries}
 \alias{IndexedDB.deleteObjectStoreEntries}
-\title{Send the command IndexedDB.deleteObjectStoreEntries
-
-Delete a range of entries from an object store}
+\title{Send the command IndexedDB.deleteObjectStoreEntries}
 \usage{
 IndexedDB.deleteObjectStoreEntries(promise, securityOrigin, databaseName,
   objectStoreName, keyRange)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command IndexedDB.deleteObjectStoreEntries
-
 Delete a range of entries from an object store
 }

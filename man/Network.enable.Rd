@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.enable}
 \alias{Network.enable}
-\title{Send the command Network.enable
-
-Enables network tracking, network events will now be delivered to the client.}
+\title{Send the command Network.enable}
 \usage{
 Network.enable(promise, maxTotalBufferSize = NULL,
   maxResourceBufferSize = NULL, maxPostDataSize = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.enable
-
 Enables network tracking, network events will now be delivered to the client.
 }

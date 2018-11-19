@@ -2,9 +2,7 @@
 % Please edit documentation in R/Memory_commands.R
 \name{Memory.stopSampling}
 \alias{Memory.stopSampling}
-\title{Send the command Memory.stopSampling
-
-Stop collecting native memory profile.}
+\title{Send the command Memory.stopSampling}
 \usage{
 Memory.stopSampling(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Memory.stopSampling
-
 Stop collecting native memory profile.
 }

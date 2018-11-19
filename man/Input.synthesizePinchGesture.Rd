@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.synthesizePinchGesture}
 \alias{Input.synthesizePinchGesture}
-\title{Send the command Input.synthesizePinchGesture
-
-Synthesizes a pinch gesture over a time period by issuing appropriate touch events.}
+\title{Send the command Input.synthesizePinchGesture}
 \usage{
 Input.synthesizePinchGesture(promise, x, y, scaleFactor,
   relativeSpeed = NULL, gestureSourceType = NULL)
@@ -33,7 +31,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.synthesizePinchGesture
-
 Synthesizes a pinch gesture over a time period by issuing appropriate touch events.
 }

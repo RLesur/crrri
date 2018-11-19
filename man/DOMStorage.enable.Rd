@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMStorage_commands.R
 \name{DOMStorage.enable}
 \alias{DOMStorage.enable}
-\title{Send the command DOMStorage.enable
-
-Enables storage tracking, storage events will now be delivered to the client.}
+\title{Send the command DOMStorage.enable}
 \usage{
 DOMStorage.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMStorage.enable
-
 Enables storage tracking, storage events will now be delivered to the client.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getFrameOwner}
 \alias{DOM.getFrameOwner}
-\title{Send the command DOM.getFrameOwner
-
-Returns iframe node that owns iframe with the given domain.}
+\title{Send the command DOM.getFrameOwner}
 \usage{
 DOM.getFrameOwner(promise, frameId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command DOM.getFrameOwner
-
 Returns iframe node that owns iframe with the given domain.
 }

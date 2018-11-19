@@ -2,11 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.requestNode}
 \alias{DOM.requestNode}
-\title{Send the command DOM.requestNode
-
-Requests that the node is sent to the caller given the JavaScript node object reference. All
-nodes that form the path from the node to the root are also sent to the client as a series of
-\code{setChildNodes} notifications.}
+\title{Send the command DOM.requestNode}
 \usage{
 DOM.requestNode(promise, objectId)
 }
@@ -21,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.requestNode
-
 Requests that the node is sent to the caller given the JavaScript node object reference. All
 nodes that form the path from the node to the root are also sent to the client as a series of
 \code{setChildNodes} notifications.

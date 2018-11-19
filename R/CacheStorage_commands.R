@@ -3,13 +3,13 @@
 NULL
 
 #' Send the command CacheStorage.deleteCache
-#'  
+#' 
 #' Deletes a cache.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param cacheId A CacheId. 
 #'        Id of cache for deletion. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -25,15 +25,15 @@ CacheStorage.deleteCache <- function(promise, cacheId) {
 
 
 #' Send the command CacheStorage.deleteEntry
-#'  
+#' 
 #' Deletes a cache entry.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param cacheId A CacheId. 
 #'        Id of cache where the entry will be deleted. 
 #' @param request A character string. 
 #'        URL spec of the request. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -49,13 +49,13 @@ CacheStorage.deleteEntry <- function(promise, cacheId, request) {
 
 
 #' Send the command CacheStorage.requestCacheNames
-#'  
+#' 
 #' Requests cache names.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param securityOrigin A character string. 
 #'        Security origin. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -71,15 +71,15 @@ CacheStorage.requestCacheNames <- function(promise, securityOrigin) {
 
 
 #' Send the command CacheStorage.requestCachedResponse
-#'  
+#' 
 #' Fetches cache entry.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param cacheId A CacheId. 
 #'        Id of cache that contains the enty. 
 #' @param requestURL A character string. 
 #'        URL spec of the request. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -95,9 +95,9 @@ CacheStorage.requestCachedResponse <- function(promise, cacheId, requestURL) {
 
 
 #' Send the command CacheStorage.requestEntries
-#'  
+#' 
 #' Requests data from cache.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param cacheId A CacheId. 
 #'        ID of cache to get entries from. 
@@ -105,7 +105,7 @@ CacheStorage.requestCachedResponse <- function(promise, cacheId, requestURL) {
 #'        Number of records to skip. 
 #' @param pageSize An integer. 
 #'        Number of records to fetch. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export

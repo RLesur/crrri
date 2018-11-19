@@ -2,12 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setBreakpointByUrl}
 \alias{Debugger.setBreakpointByUrl}
-\title{Send the command Debugger.setBreakpointByUrl
-
-Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this
-command is issued, all existing parsed scripts will have breakpoints resolved and returned in
-\code{locations} property. Further matching script parsing will result in subsequent
-\code{breakpointResolved} events issued. This logical breakpoint will survive page reloads.}
+\title{Send the command Debugger.setBreakpointByUrl}
 \usage{
 Debugger.setBreakpointByUrl(promise, lineNumber, url = NULL,
   urlRegex = NULL, scriptHash = NULL, columnNumber = NULL,
@@ -41,8 +36,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Debugger.setBreakpointByUrl
-
 Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this
 command is issued, all existing parsed scripts will have breakpoints resolved and returned in
 \code{locations} property. Further matching script parsing will result in subsequent

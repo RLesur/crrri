@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.removeDOMBreakpoint}
 \alias{DOMDebugger.removeDOMBreakpoint}
-\title{Send the command DOMDebugger.removeDOMBreakpoint
-
-Removes DOM breakpoint that was set using \code{setDOMBreakpoint}.}
+\title{Send the command DOMDebugger.removeDOMBreakpoint}
 \usage{
 DOMDebugger.removeDOMBreakpoint(promise, nodeId, type)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMDebugger.removeDOMBreakpoint
-
 Removes DOM breakpoint that was set using \code{setDOMBreakpoint}.
 }

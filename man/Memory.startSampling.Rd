@@ -2,9 +2,7 @@
 % Please edit documentation in R/Memory_commands.R
 \name{Memory.startSampling}
 \alias{Memory.startSampling}
-\title{Send the command Memory.startSampling
-
-Start collecting native memory profile.}
+\title{Send the command Memory.startSampling}
 \usage{
 Memory.startSampling(promise, samplingInterval = NULL,
   suppressRandomness = NULL)
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Memory.startSampling
-
 Start collecting native memory profile.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.disable}
 \alias{Debugger.disable}
-\title{Send the command Debugger.disable
-
-Disables debugger for given page.}
+\title{Send the command Debugger.disable}
 \usage{
 Debugger.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.disable
-
 Disables debugger for given page.
 }

@@ -2,10 +2,7 @@
 % Please edit documentation in R/Memory_commands.R
 \name{Memory.getSamplingProfile}
 \alias{Memory.getSamplingProfile}
-\title{Send the command Memory.getSamplingProfile
-
-Retrieve native memory allocations profile collected since last
-\code{startSampling} call.}
+\title{Send the command Memory.getSamplingProfile}
 \usage{
 Memory.getSamplingProfile(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Memory.getSamplingProfile
-
 Retrieve native memory allocations profile collected since last
 \code{startSampling} call.
 }

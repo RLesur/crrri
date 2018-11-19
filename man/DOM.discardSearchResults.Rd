@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.discardSearchResults}
 \alias{DOM.discardSearchResults}
-\title{Send the command DOM.discardSearchResults
-
-Discards search results from the session with the given id. \code{getSearchResults} should no longer
-be called for that search.}
+\title{Send the command DOM.discardSearchResults}
 \usage{
 DOM.discardSearchResults(promise, searchId)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.discardSearchResults
-
 Discards search results from the session with the given id. \code{getSearchResults} should no longer
 be called for that search.
 }

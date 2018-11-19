@@ -2,9 +2,7 @@
 % Please edit documentation in R/Tethering_commands.R
 \name{Tethering.bind}
 \alias{Tethering.bind}
-\title{Send the command Tethering.bind
-
-Request browser port binding.}
+\title{Send the command Tethering.bind}
 \usage{
 Tethering.bind(promise, port)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Tethering.bind
-
 Request browser port binding.
 }

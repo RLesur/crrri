@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setAsyncCallStackDepth}
 \alias{Debugger.setAsyncCallStackDepth}
-\title{Send the command Debugger.setAsyncCallStackDepth
-
-Enables or disables async call stacks tracking.}
+\title{Send the command Debugger.setAsyncCallStackDepth}
 \usage{
 Debugger.setAsyncCallStackDepth(promise, maxDepth)
 }
@@ -20,7 +18,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.setAsyncCallStackDepth
-
 Enables or disables async call stacks tracking.
 }

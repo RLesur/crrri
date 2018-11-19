@@ -2,9 +2,7 @@
 % Please edit documentation in R/Animation_commands.R
 \name{Animation.releaseAnimations}
 \alias{Animation.releaseAnimations}
-\title{Send the command Animation.releaseAnimations
-
-Releases a set of animations to no longer be manipulated.}
+\title{Send the command Animation.releaseAnimations}
 \usage{
 Animation.releaseAnimations(promise, animations)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Animation.releaseAnimations
-
 Releases a set of animations to no longer be manipulated.
 }

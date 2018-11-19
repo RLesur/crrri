@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.synthesizeScrollGesture}
 \alias{Input.synthesizeScrollGesture}
-\title{Send the command Input.synthesizeScrollGesture
-
-Synthesizes a scroll gesture over a time period by issuing appropriate touch events.}
+\title{Send the command Input.synthesizeScrollGesture}
 \usage{
 Input.synthesizeScrollGesture(promise, x, y, xDistance = NULL,
   yDistance = NULL, xOverscroll = NULL, yOverscroll = NULL,
@@ -59,7 +57,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.synthesizeScrollGesture
-
 Synthesizes a scroll gesture over a time period by issuing appropriate touch events.
 }

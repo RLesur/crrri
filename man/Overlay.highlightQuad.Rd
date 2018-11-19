@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.highlightQuad}
 \alias{Overlay.highlightQuad}
-\title{Send the command Overlay.highlightQuad
-
-Highlights given quad. Coordinates are absolute with respect to the main frame viewport.}
+\title{Send the command Overlay.highlightQuad}
 \usage{
 Overlay.highlightQuad(promise, quad, color = NULL, outlineColor = NULL)
 }
@@ -25,7 +23,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.highlightQuad
-
 Highlights given quad. Coordinates are absolute with respect to the main frame viewport.
 }

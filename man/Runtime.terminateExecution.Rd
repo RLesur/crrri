@@ -2,10 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.terminateExecution}
 \alias{Runtime.terminateExecution}
-\title{Send the command Runtime.terminateExecution
-
-Terminate current or next JavaScript execution.
-Will cancel the termination when the outer-most script execution ends.}
+\title{Send the command Runtime.terminateExecution}
 \usage{
 Runtime.terminateExecution(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.terminateExecution
-
 Terminate current or next JavaScript execution.
 Will cancel the termination when the outer-most script execution ends.
 }

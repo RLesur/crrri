@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.runScript}
 \alias{Runtime.runScript}
-\title{Send the command Runtime.runScript
-
-Runs script with given id in a given context.}
+\title{Send the command Runtime.runScript}
 \usage{
 Runtime.runScript(promise, scriptId, executionContextId = NULL,
   objectGroup = NULL, silent = NULL, includeCommandLineAPI = NULL,
@@ -45,7 +43,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Runtime.runScript
-
 Runs script with given id in a given context.
 }

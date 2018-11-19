@@ -2,9 +2,7 @@
 % Please edit documentation in R/DeviceOrientation_commands.R
 \name{DeviceOrientation.setDeviceOrientationOverride}
 \alias{DeviceOrientation.setDeviceOrientationOverride}
-\title{Send the command DeviceOrientation.setDeviceOrientationOverride
-
-Overrides the Device Orientation.}
+\title{Send the command DeviceOrientation.setDeviceOrientationOverride}
 \usage{
 DeviceOrientation.setDeviceOrientationOverride(promise, alpha, beta, gamma)
 }
@@ -25,7 +23,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DeviceOrientation.setDeviceOrientationOverride
-
 Overrides the Device Orientation.
 }

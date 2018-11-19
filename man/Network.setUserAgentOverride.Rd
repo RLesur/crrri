@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setUserAgentOverride}
 \alias{Network.setUserAgentOverride}
-\title{Send the command Network.setUserAgentOverride
-
-Allows overriding user agent with the given string.}
+\title{Send the command Network.setUserAgentOverride}
 \usage{
 Network.setUserAgentOverride(promise, userAgent, acceptLanguage = NULL,
   platform = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setUserAgentOverride
-
 Allows overriding user agent with the given string.
 }

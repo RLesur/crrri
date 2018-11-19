@@ -2,9 +2,7 @@
 % Please edit documentation in R/Accessibility_commands.R
 \name{Accessibility.disable}
 \alias{Accessibility.disable}
-\title{Send the command Accessibility.disable
-
-Disables the accessibility domain.}
+\title{Send the command Accessibility.disable}
 \usage{
 Accessibility.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Accessibility.disable
-
 Disables the accessibility domain.
 }

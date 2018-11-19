@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.setEventListenerBreakpoint}
 \alias{DOMDebugger.setEventListenerBreakpoint}
-\title{Send the command DOMDebugger.setEventListenerBreakpoint
-
-Sets breakpoint on particular DOM event.}
+\title{Send the command DOMDebugger.setEventListenerBreakpoint}
 \usage{
 DOMDebugger.setEventListenerBreakpoint(promise, eventName,
   targetName = NULL)
@@ -24,7 +22,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMDebugger.setEventListenerBreakpoint
-
 Sets breakpoint on particular DOM event.
 }

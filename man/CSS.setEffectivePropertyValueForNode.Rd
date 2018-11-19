@@ -2,10 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.setEffectivePropertyValueForNode}
 \alias{CSS.setEffectivePropertyValueForNode}
-\title{Send the command CSS.setEffectivePropertyValueForNode
-
-Find a rule with the given active property for the given node and set the new value for this
-property}
+\title{Send the command CSS.setEffectivePropertyValueForNode}
 \usage{
 CSS.setEffectivePropertyValueForNode(promise, nodeId, propertyName, value)
 }
@@ -24,8 +21,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command CSS.setEffectivePropertyValueForNode
-
 Find a rule with the given active property for the given node and set the new value for this
 property
 }

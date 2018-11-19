@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Security.disable
-#'  
+#' 
 #' Disables tracking security state changes.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,11 +23,11 @@ Security.disable <- function(promise) {
 
 
 #' Send the command Security.enable
-#'  
+#' 
 #' Enables tracking security state changes.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -43,13 +43,13 @@ Security.enable <- function(promise) {
 
 
 #' Send the command Security.setIgnoreCertificateErrors
-#'  
+#' 
 #' Enable/disable whether all certificate errors should be ignored.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param ignore A logical. 
 #'        If true, all certificate errors will be ignored. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

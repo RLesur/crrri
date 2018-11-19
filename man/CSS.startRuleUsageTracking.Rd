@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.startRuleUsageTracking}
 \alias{CSS.startRuleUsageTracking}
-\title{Send the command CSS.startRuleUsageTracking
-
-Enables the selector recording.}
+\title{Send the command CSS.startRuleUsageTracking}
 \usage{
 CSS.startRuleUsageTracking(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command CSS.startRuleUsageTracking
-
 Enables the selector recording.
 }

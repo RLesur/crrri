@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setScriptExecutionDisabled}
 \alias{Emulation.setScriptExecutionDisabled}
-\title{Send the command Emulation.setScriptExecutionDisabled
-
-Switches script execution in the page.}
+\title{Send the command Emulation.setScriptExecutionDisabled}
 \usage{
 Emulation.setScriptExecutionDisabled(promise, value)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setScriptExecutionDisabled
-
 Switches script execution in the page.
 }

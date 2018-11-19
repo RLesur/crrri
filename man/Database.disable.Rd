@@ -2,9 +2,7 @@
 % Please edit documentation in R/Database_commands.R
 \name{Database.disable}
 \alias{Database.disable}
-\title{Send the command Database.disable
-
-Disables database tracking, prevents database events from being sent to the client.}
+\title{Send the command Database.disable}
 \usage{
 Database.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Database.disable
-
 Disables database tracking, prevents database events from being sent to the client.
 }

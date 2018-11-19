@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.requestDatabaseNames}
 \alias{IndexedDB.requestDatabaseNames}
-\title{Send the command IndexedDB.requestDatabaseNames
-
-Requests database names for given security origin.}
+\title{Send the command IndexedDB.requestDatabaseNames}
 \usage{
 IndexedDB.requestDatabaseNames(promise, securityOrigin)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command IndexedDB.requestDatabaseNames
-
 Requests database names for given security origin.
 }

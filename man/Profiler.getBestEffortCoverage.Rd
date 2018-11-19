@@ -2,10 +2,7 @@
 % Please edit documentation in R/Profiler_commands.R
 \name{Profiler.getBestEffortCoverage}
 \alias{Profiler.getBestEffortCoverage}
-\title{Send the command Profiler.getBestEffortCoverage
-
-Collect coverage data for the current isolate. The coverage data may be incomplete due to
-garbage collection.}
+\title{Send the command Profiler.getBestEffortCoverage}
 \usage{
 Profiler.getBestEffortCoverage(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Profiler.getBestEffortCoverage
-
 Collect coverage data for the current isolate. The coverage data may be incomplete due to
 garbage collection.
 }

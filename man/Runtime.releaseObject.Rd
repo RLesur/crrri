@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.releaseObject}
 \alias{Runtime.releaseObject}
-\title{Send the command Runtime.releaseObject
-
-Releases remote object with given id.}
+\title{Send the command Runtime.releaseObject}
 \usage{
 Runtime.releaseObject(promise, objectId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.releaseObject
-
 Releases remote object with given id.
 }

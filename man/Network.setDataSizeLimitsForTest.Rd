@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setDataSizeLimitsForTest}
 \alias{Network.setDataSizeLimitsForTest}
-\title{Send the command Network.setDataSizeLimitsForTest
-
-For testing.}
+\title{Send the command Network.setDataSizeLimitsForTest}
 \usage{
 Network.setDataSizeLimitsForTest(promise, maxTotalSize, maxResourceSize)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setDataSizeLimitsForTest
-
 For testing.
 }

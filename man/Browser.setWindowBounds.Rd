@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.setWindowBounds}
 \alias{Browser.setWindowBounds}
-\title{Send the command Browser.setWindowBounds
-
-Set position and/or size of the browser window.}
+\title{Send the command Browser.setWindowBounds}
 \usage{
 Browser.setWindowBounds(promise, windowId, bounds)
 }
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Browser.setWindowBounds
-
 Set position and/or size of the browser window.
 }

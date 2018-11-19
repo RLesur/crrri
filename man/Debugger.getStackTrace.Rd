@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.getStackTrace}
 \alias{Debugger.getStackTrace}
-\title{Send the command Debugger.getStackTrace
-
-Returns stack trace with given \code{stackTraceId}.}
+\title{Send the command Debugger.getStackTrace}
 \usage{
 Debugger.getStackTrace(promise, stackTraceId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Debugger.getStackTrace
-
 Returns stack trace with given \code{stackTraceId}.
 }

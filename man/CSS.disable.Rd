@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.disable}
 \alias{CSS.disable}
-\title{Send the command CSS.disable
-
-Disables the CSS agent for the given page.}
+\title{Send the command CSS.disable}
 \usage{
 CSS.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command CSS.disable
-
 Disables the CSS agent for the given page.
 }

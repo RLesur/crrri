@@ -2,10 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.forcePseudoState}
 \alias{CSS.forcePseudoState}
-\title{Send the command CSS.forcePseudoState
-
-Ensures that the given node will have specified pseudo-classes whenever its style is computed by
-the browser.}
+\title{Send the command CSS.forcePseudoState}
 \usage{
 CSS.forcePseudoState(promise, nodeId, forcedPseudoClasses)
 }
@@ -23,8 +20,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command CSS.forcePseudoState
-
 Ensures that the given node will have specified pseudo-classes whenever its style is computed by
 the browser.
 }

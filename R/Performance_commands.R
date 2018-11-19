@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Performance.disable
-#'  
+#' 
 #' Disable collecting and reporting metrics.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,11 +23,11 @@ Performance.disable <- function(promise) {
 
 
 #' Send the command Performance.enable
-#'  
+#' 
 #' Enable collecting and reporting metrics.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -43,15 +43,15 @@ Performance.enable <- function(promise) {
 
 
 #' Send the command Performance.setTimeDomain
-#'  
+#' 
 #' Sets time domain to use for collecting and reporting duration metrics.
 #'        Note that this must be called before enabling metrics collection. Calling
 #'        this method while metrics collection is enabled returns an error.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param timeDomain A character string. 
 #'        Time domain Accepted values: timeTicks, threadTicks.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -67,11 +67,11 @@ Performance.setTimeDomain <- function(promise, timeDomain) {
 
 
 #' Send the command Performance.getMetrics
-#'  
+#' 
 #' Retrieve current values of run-time metrics.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export

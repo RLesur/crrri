@@ -2,9 +2,7 @@
 % Please edit documentation in R/Storage_commands.R
 \name{Storage.trackIndexedDBForOrigin}
 \alias{Storage.trackIndexedDBForOrigin}
-\title{Send the command Storage.trackIndexedDBForOrigin
-
-Registers origin to be notified when an update occurs to its IndexedDB.}
+\title{Send the command Storage.trackIndexedDBForOrigin}
 \usage{
 Storage.trackIndexedDBForOrigin(promise, origin)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Storage.trackIndexedDBForOrigin
-
 Registers origin to be notified when an update occurs to its IndexedDB.
 }

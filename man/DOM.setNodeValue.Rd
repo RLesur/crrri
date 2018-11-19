@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.setNodeValue}
 \alias{DOM.setNodeValue}
-\title{Send the command DOM.setNodeValue
-
-Sets node value for a node with given id.}
+\title{Send the command DOM.setNodeValue}
 \usage{
 DOM.setNodeValue(promise, nodeId, value)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.setNodeValue
-
 Sets node value for a node with given id.
 }

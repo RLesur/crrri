@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.synthesizeTapGesture}
 \alias{Input.synthesizeTapGesture}
-\title{Send the command Input.synthesizeTapGesture
-
-Synthesizes a tap gesture over a time period by issuing appropriate touch events.}
+\title{Send the command Input.synthesizeTapGesture}
 \usage{
 Input.synthesizeTapGesture(promise, x, y, duration = NULL,
   tapCount = NULL, gestureSourceType = NULL)
@@ -33,7 +31,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.synthesizeTapGesture
-
 Synthesizes a tap gesture over a time period by issuing appropriate touch events.
 }

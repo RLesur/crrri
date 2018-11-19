@@ -2,10 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.disposeBrowserContext}
 \alias{Target.disposeBrowserContext}
-\title{Send the command Target.disposeBrowserContext
-
-Deletes a BrowserContext. All the belonging pages will be closed without calling their
-beforeunload hooks.}
+\title{Send the command Target.disposeBrowserContext}
 \usage{
 Target.disposeBrowserContext(promise, browserContextId)
 }
@@ -19,8 +16,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Target.disposeBrowserContext
-
 Deletes a BrowserContext. All the belonging pages will be closed without calling their
 beforeunload hooks.
 }

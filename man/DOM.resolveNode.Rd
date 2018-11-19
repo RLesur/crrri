@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.resolveNode}
 \alias{DOM.resolveNode}
-\title{Send the command DOM.resolveNode
-
-Resolves the JavaScript node object for a given NodeId or BackendNodeId.}
+\title{Send the command DOM.resolveNode}
 \usage{
 DOM.resolveNode(promise, nodeId = NULL, backendNodeId = NULL,
   objectGroup = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.resolveNode
-
 Resolves the JavaScript node object for a given NodeId or BackendNodeId.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setCacheDisabled}
 \alias{Network.setCacheDisabled}
-\title{Send the command Network.setCacheDisabled
-
-Toggles ignoring cache for each request. If \code{true}, cache will not be used.}
+\title{Send the command Network.setCacheDisabled}
 \usage{
 Network.setCacheDisabled(promise, cacheDisabled)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setCacheDisabled
-
 Toggles ignoring cache for each request. If \code{true}, cache will not be used.
 }

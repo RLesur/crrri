@@ -3,9 +3,9 @@
 NULL
 
 #' Send the command Input.dispatchKeyEvent
-#'  
+#' 
 #' Dispatches a key event to the page.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param type A character string. 
 #'        Type of the key event. Accepted values: keyDown, keyUp, rawKeyDown, char.
@@ -40,7 +40,7 @@ NULL
 #' @param location Optional. An integer. 
 #'        Whether the event was from the left or right side of the keyboard. 1=Left, 2=Right (default:
 #'        0). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -56,14 +56,14 @@ Input.dispatchKeyEvent <- function(promise, type, modifiers = NULL, timestamp = 
 
 
 #' Send the command Input.insertText
-#'  
+#' 
 #' This method emulates inserting text that doesn't come from a key press,
 #'        for example an emoji keyboard or an IME.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param text A character string. 
 #'        The text to insert. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -79,9 +79,9 @@ Input.insertText <- function(promise, text) {
 
 
 #' Send the command Input.dispatchMouseEvent
-#'  
+#' 
 #' Dispatches a mouse event to the page.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param type A character string. 
 #'        Type of the mouse event. Accepted values: mousePressed, mouseReleased, mouseMoved, mouseWheel.
@@ -103,7 +103,7 @@ Input.insertText <- function(promise, text) {
 #'        X delta in CSS pixels for mouse wheel event (default: 0). 
 #' @param deltaY Optional. A numeric. 
 #'        Y delta in CSS pixels for mouse wheel event (default: 0). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -119,9 +119,9 @@ Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, time
 
 
 #' Send the command Input.dispatchTouchEvent
-#'  
+#' 
 #' Dispatches a touch event to the page.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param type A character string. 
 #'        Type of the touch event. TouchEnd and TouchCancel must not contain any touch points, while
@@ -135,7 +135,7 @@ Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, time
 #'        (default: 0). 
 #' @param timestamp Optional. A TimeSinceEpoch. 
 #'        Time at which the event occurred. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -151,9 +151,9 @@ Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NUL
 
 
 #' Send the command Input.emulateTouchFromMouseEvent
-#'  
+#' 
 #' Emulates touch event from the mouse event parameters.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param type A character string. 
 #'        Type of the mouse event. Accepted values: mousePressed, mouseReleased, mouseMoved, mouseWheel.
@@ -174,7 +174,7 @@ Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NUL
 #'        (default: 0). 
 #' @param clickCount Optional. An integer. 
 #'        Number of times the mouse button was clicked (default: 0). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -190,13 +190,13 @@ Input.emulateTouchFromMouseEvent <- function(promise, type, x, y, button, timest
 
 
 #' Send the command Input.setIgnoreInputEvents
-#'  
+#' 
 #' Ignores input events (useful while auditing page).
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param ignore A logical. 
 #'        Ignores input events processing when set to true. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -212,9 +212,9 @@ Input.setIgnoreInputEvents <- function(promise, ignore) {
 
 
 #' Send the command Input.synthesizePinchGesture
-#'  
+#' 
 #' Synthesizes a pinch gesture over a time period by issuing appropriate touch events.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param x A numeric. 
 #'        X coordinate of the start of the gesture in CSS pixels. 
@@ -227,7 +227,7 @@ Input.setIgnoreInputEvents <- function(promise, ignore) {
 #' @param gestureSourceType Optional. A GestureSourceType. 
 #'        Which type of input events to be generated (default: 'default', which queries the platform
 #'        for the preferred input type). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -243,9 +243,9 @@ Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpe
 
 
 #' Send the command Input.synthesizeScrollGesture
-#'  
+#' 
 #' Synthesizes a scroll gesture over a time period by issuing appropriate touch events.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param x A numeric. 
 #'        X coordinate of the start of the gesture in CSS pixels. 
@@ -274,7 +274,7 @@ Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpe
 #'        The number of milliseconds delay between each repeat. (default: 250). 
 #' @param interactionMarkerName Optional. A character string. 
 #'        The name of the interaction markers to generate, if not empty (default: ""). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -290,9 +290,9 @@ Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDist
 
 
 #' Send the command Input.synthesizeTapGesture
-#'  
+#' 
 #' Synthesizes a tap gesture over a time period by issuing appropriate touch events.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param x A numeric. 
 #'        X coordinate of the start of the gesture in CSS pixels. 
@@ -305,7 +305,7 @@ Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDist
 #' @param gestureSourceType Optional. A GestureSourceType. 
 #'        Which type of input events to be generated (default: 'default', which queries the platform
 #'        for the preferred input type). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

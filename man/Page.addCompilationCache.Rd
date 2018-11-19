@@ -2,10 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.addCompilationCache}
 \alias{Page.addCompilationCache}
-\title{Send the command Page.addCompilationCache
-
-Seeds compilation cache for given url. Compilation cache does not survive
-cross-process navigation.}
+\title{Send the command Page.addCompilationCache}
 \usage{
 Page.addCompilationCache(promise, url, data)
 }
@@ -22,8 +19,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.addCompilationCache
-
 Seeds compilation cache for given url. Compilation cache does not survive
 cross-process navigation.
 }

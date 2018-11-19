@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.setLifecycleEventsEnabled}
 \alias{Page.setLifecycleEventsEnabled}
-\title{Send the command Page.setLifecycleEventsEnabled
-
-Controls whether page will emit lifecycle events.}
+\title{Send the command Page.setLifecycleEventsEnabled}
 \usage{
 Page.setLifecycleEventsEnabled(promise, enabled)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.setLifecycleEventsEnabled
-
 Controls whether page will emit lifecycle events.
 }

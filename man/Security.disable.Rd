@@ -2,9 +2,7 @@
 % Please edit documentation in R/Security_commands.R
 \name{Security.disable}
 \alias{Security.disable}
-\title{Send the command Security.disable
-
-Disables tracking security state changes.}
+\title{Send the command Security.disable}
 \usage{
 Security.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Security.disable
-
 Disables tracking security state changes.
 }

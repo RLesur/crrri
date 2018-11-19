@@ -2,10 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.setDiscoverTargets}
 \alias{Target.setDiscoverTargets}
-\title{Send the command Target.setDiscoverTargets
-
-Controls whether to discover available targets and notify via
-\code{targetCreated/targetInfoChanged/targetDestroyed} events.}
+\title{Send the command Target.setDiscoverTargets}
 \usage{
 Target.setDiscoverTargets(promise, discover)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Target.setDiscoverTargets
-
 Controls whether to discover available targets and notify via
 \code{targetCreated/targetInfoChanged/targetDestroyed} events.
 }

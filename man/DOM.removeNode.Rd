@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.removeNode}
 \alias{DOM.removeNode}
-\title{Send the command DOM.removeNode
-
-Removes node with given id.}
+\title{Send the command DOM.removeNode}
 \usage{
 DOM.removeNode(promise, nodeId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.removeNode
-
 Removes node with given id.
 }

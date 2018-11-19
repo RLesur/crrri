@@ -2,10 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.getPossibleBreakpoints}
 \alias{Debugger.getPossibleBreakpoints}
-\title{Send the command Debugger.getPossibleBreakpoints
-
-Returns possible locations for breakpoint. scriptId in start and end range locations should be
-the same.}
+\title{Send the command Debugger.getPossibleBreakpoints}
 \usage{
 Debugger.getPossibleBreakpoints(promise, start, end = NULL,
   restrictToFunction = NULL)
@@ -28,8 +25,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Debugger.getPossibleBreakpoints
-
 Returns possible locations for breakpoint. scriptId in start and end range locations should be
 the same.
 }

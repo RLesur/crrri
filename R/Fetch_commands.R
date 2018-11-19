@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Fetch.disable
-#'  
+#' 
 #' Disables the fetch domain.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,10 +23,10 @@ Fetch.disable <- function(promise) {
 
 
 #' Send the command Fetch.enable
-#'  
+#' 
 #' Enables issuing of requestPaused events. A request will be paused until client
 #'        calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param patterns Optional. A list of RequestPattern. 
 #'        If specified, only requests matching any of these patterns will produce
@@ -35,7 +35,7 @@ Fetch.disable <- function(promise) {
 #' @param handleAuthRequests Optional. A logical. 
 #'        If true, authRequired events will be issued and requests will be paused
 #'        expecting a call to continueWithAuth. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -51,15 +51,15 @@ Fetch.enable <- function(promise, patterns = NULL, handleAuthRequests = NULL) {
 
 
 #' Send the command Fetch.failRequest
-#'  
+#' 
 #' Causes the request to fail with specified reason.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param requestId A RequestId. 
 #'        An id the client received in requestPaused event. 
 #' @param errorReason A Network.ErrorReason. 
 #'        Causes the request to fail with the given reason. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -75,9 +75,9 @@ Fetch.failRequest <- function(promise, requestId, errorReason) {
 
 
 #' Send the command Fetch.fulfillRequest
-#'  
+#' 
 #' Provides response to the request.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param requestId A RequestId. 
 #'        An id the client received in requestPaused event. 
@@ -90,7 +90,7 @@ Fetch.failRequest <- function(promise, requestId, errorReason) {
 #' @param responsePhrase Optional. A character string. 
 #'        A textual representation of responseCode.
 #'        If absent, a standard phrase mathcing responseCode is used. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -106,9 +106,9 @@ Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeade
 
 
 #' Send the command Fetch.continueRequest
-#'  
+#' 
 #' Continues the request, optionally modifying some of its parameters.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param requestId A RequestId. 
 #'        An id the client received in requestPaused event. 
@@ -120,7 +120,7 @@ Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeade
 #'        If set, overrides the post data in the request. 
 #' @param headers Optional. A list of HeaderEntry. 
 #'        If set, overrides the request headrts. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -136,15 +136,15 @@ Fetch.continueRequest <- function(promise, requestId, url = NULL, method = NULL,
 
 
 #' Send the command Fetch.continueWithAuth
-#'  
+#' 
 #' Continues a request supplying authChallengeResponse following authRequired event.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param requestId A RequestId. 
 #'        An id the client received in authRequired event. 
 #' @param authChallengeResponse A AuthChallengeResponse. 
 #'        Response to  with an authChallenge. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -160,18 +160,18 @@ Fetch.continueWithAuth <- function(promise, requestId, authChallengeResponse) {
 
 
 #' Send the command Fetch.getResponseBody
-#'  
+#' 
 #' Causes the body of the response to be received from the server and
 #'        returned as a single string. May only be issued for a request that
 #'        is paused in the Response stage and is mutually exclusive with
 #'        takeResponseBodyForInterceptionAsStream. Calling other methods that
 #'        affect the request or disabling fetch domain before body is received
 #'        results in an undefined behavior.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param requestId A RequestId. 
 #'        Identifier for the intercepted request to get body for. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -187,7 +187,7 @@ Fetch.getResponseBody <- function(promise, requestId) {
 
 
 #' Send the command Fetch.takeResponseBodyAsStream
-#'  
+#' 
 #' Returns a handle to the stream representing the response body.
 #'        The request must be paused in the HeadersReceived stage.
 #'        Note that after this command the request can't be continued
@@ -198,10 +198,10 @@ Fetch.getResponseBody <- function(promise, requestId) {
 #'        This method is mutually exclusive with getResponseBody.
 #'        Calling other methods that affect the request or disabling fetch
 #'        domain before body is received results in an undefined behavior.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param requestId A RequestId. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export

@@ -3,15 +3,15 @@
 NULL
 
 #' Send the command Testing.generateTestReport
-#'  
+#' 
 #' Generates a report for testing.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param message A character string. 
 #'        Message to be displayed in the report. 
 #' @param group Optional. A character string. 
 #'        Specifies the endpoint group to deliver the report to. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

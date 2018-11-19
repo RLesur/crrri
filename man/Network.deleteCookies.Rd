@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.deleteCookies}
 \alias{Network.deleteCookies}
-\title{Send the command Network.deleteCookies
-
-Deletes browser cookies with matching name and url or domain/path pair.}
+\title{Send the command Network.deleteCookies}
 \usage{
 Network.deleteCookies(promise, name, url = NULL, domain = NULL,
   path = NULL)
@@ -30,7 +28,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.deleteCookies
-
 Deletes browser cookies with matching name and url or domain/path pair.
 }

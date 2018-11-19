@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setBypassServiceWorker}
 \alias{Network.setBypassServiceWorker}
-\title{Send the command Network.setBypassServiceWorker
-
-Toggles ignoring of service worker for each request.}
+\title{Send the command Network.setBypassServiceWorker}
 \usage{
 Network.setBypassServiceWorker(promise, bypass)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setBypassServiceWorker
-
 Toggles ignoring of service worker for each request.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Storage_commands.R
 \name{Storage.trackCacheStorageForOrigin}
 \alias{Storage.trackCacheStorageForOrigin}
-\title{Send the command Storage.trackCacheStorageForOrigin
-
-Registers origin to be notified when an update occurs to its cache storage list.}
+\title{Send the command Storage.trackCacheStorageForOrigin}
 \usage{
 Storage.trackCacheStorageForOrigin(promise, origin)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Storage.trackCacheStorageForOrigin
-
 Registers origin to be notified when an update occurs to its cache storage list.
 }

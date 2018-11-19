@@ -2,10 +2,7 @@
 % Please edit documentation in R/Audits_commands.R
 \name{Audits.getEncodedResponse}
 \alias{Audits.getEncodedResponse}
-\title{Send the command Audits.getEncodedResponse
-
-Returns the response body and size if it were re-encoded with the specified settings. Only
-applies to images.}
+\title{Send the command Audits.getEncodedResponse}
 \usage{
 Audits.getEncodedResponse(promise, requestId, encoding, quality = NULL,
   sizeOnly = NULL)
@@ -30,8 +27,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 3.
 }
 \description{
-Send the command Audits.getEncodedResponse
-
 Returns the response body and size if it were re-encoded with the specified settings. Only
 applies to images.
 }

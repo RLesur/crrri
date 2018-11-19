@@ -2,10 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.getPlatformFontsForNode}
 \alias{CSS.getPlatformFontsForNode}
-\title{Send the command CSS.getPlatformFontsForNode
-
-Requests information about platform fonts which we used to render child TextNodes in the given
-node.}
+\title{Send the command CSS.getPlatformFontsForNode}
 \usage{
 CSS.getPlatformFontsForNode(promise, nodeId)
 }
@@ -19,8 +16,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.getPlatformFontsForNode
-
 Requests information about platform fonts which we used to render child TextNodes in the given
 node.
 }

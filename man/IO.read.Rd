@@ -2,9 +2,7 @@
 % Please edit documentation in R/IO_commands.R
 \name{IO.read}
 \alias{IO.read}
-\title{Send the command IO.read
-
-Read a chunk of the stream}
+\title{Send the command IO.read}
 \usage{
 IO.read(promise, handle, offset = NULL, size = NULL)
 }
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 3.
 }
 \description{
-Send the command IO.read
-
 Read a chunk of the stream
 }

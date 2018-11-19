@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command SystemInfo.getInfo
-#'  
+#' 
 #' Returns information about the system.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 4.
 #' @export
@@ -23,11 +23,11 @@ SystemInfo.getInfo <- function(promise) {
 
 
 #' Send the command SystemInfo.getProcessInfo
-#'  
+#' 
 #' Returns information about all running processes.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export

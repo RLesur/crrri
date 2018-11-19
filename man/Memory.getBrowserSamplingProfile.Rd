@@ -2,10 +2,7 @@
 % Please edit documentation in R/Memory_commands.R
 \name{Memory.getBrowserSamplingProfile}
 \alias{Memory.getBrowserSamplingProfile}
-\title{Send the command Memory.getBrowserSamplingProfile
-
-Retrieve native memory allocations profile
-collected since browser process startup.}
+\title{Send the command Memory.getBrowserSamplingProfile}
 \usage{
 Memory.getBrowserSamplingProfile(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Memory.getBrowserSamplingProfile
-
 Retrieve native memory allocations profile
 collected since browser process startup.
 }

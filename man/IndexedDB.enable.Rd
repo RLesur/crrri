@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.enable}
 \alias{IndexedDB.enable}
-\title{Send the command IndexedDB.enable
-
-Enables events from backend.}
+\title{Send the command IndexedDB.enable}
 \usage{
 IndexedDB.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command IndexedDB.enable
-
 Enables events from backend.
 }

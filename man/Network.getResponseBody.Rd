@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.getResponseBody}
 \alias{Network.getResponseBody}
-\title{Send the command Network.getResponseBody
-
-Returns content served for the given request.}
+\title{Send the command Network.getResponseBody}
 \usage{
 Network.getResponseBody(promise, requestId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Network.getResponseBody
-
 Returns content served for the given request.
 }

@@ -2,10 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setVariableValue}
 \alias{Debugger.setVariableValue}
-\title{Send the command Debugger.setVariableValue
-
-Changes value of variable in a callframe. Object-based scopes are not supported and must be
-mutated manually.}
+\title{Send the command Debugger.setVariableValue}
 \usage{
 Debugger.setVariableValue(promise, scopeNumber, variableName, newValue,
   callFrameId)
@@ -31,8 +28,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.setVariableValue
-
 Changes value of variable in a callframe. Object-based scopes are not supported and must be
 mutated manually.
 }

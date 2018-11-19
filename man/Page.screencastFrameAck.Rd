@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.screencastFrameAck}
 \alias{Page.screencastFrameAck}
-\title{Send the command Page.screencastFrameAck
-
-Acknowledges that a screencast frame has been received by the frontend.}
+\title{Send the command Page.screencastFrameAck}
 \usage{
 Page.screencastFrameAck(promise, sessionId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.screencastFrameAck
-
 Acknowledges that a screencast frame has been received by the frontend.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/CacheStorage_commands.R
 \name{CacheStorage.requestCachedResponse}
 \alias{CacheStorage.requestCachedResponse}
-\title{Send the command CacheStorage.requestCachedResponse
-
-Fetches cache entry.}
+\title{Send the command CacheStorage.requestCachedResponse}
 \usage{
 CacheStorage.requestCachedResponse(promise, cacheId, requestURL)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CacheStorage.requestCachedResponse
-
 Fetches cache entry.
 }

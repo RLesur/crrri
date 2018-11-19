@@ -2,11 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.setWebLifecycleState}
 \alias{Page.setWebLifecycleState}
-\title{Send the command Page.setWebLifecycleState
-
-Tries to update the web lifecycle state of the page.
-It will transition the page to the given state according to:
-https://github.com/WICG/web-lifecycle/}
+\title{Send the command Page.setWebLifecycleState}
 \usage{
 Page.setWebLifecycleState(promise, state)
 }
@@ -21,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.setWebLifecycleState
-
 Tries to update the web lifecycle state of the page.
 It will transition the page to the given state according to:
 https://github.com/WICG/web-lifecycle/

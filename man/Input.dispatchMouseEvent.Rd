@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.dispatchMouseEvent}
 \alias{Input.dispatchMouseEvent}
-\title{Send the command Input.dispatchMouseEvent
-
-Dispatches a mouse event to the page.}
+\title{Send the command Input.dispatchMouseEvent}
 \usage{
 Input.dispatchMouseEvent(promise, type, x, y, modifiers = NULL,
   timestamp = NULL, button = NULL, clickCount = NULL,
@@ -47,7 +45,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.dispatchMouseEvent
-
 Dispatches a mouse event to the page.
 }

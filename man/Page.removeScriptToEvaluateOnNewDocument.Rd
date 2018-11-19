@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.removeScriptToEvaluateOnNewDocument}
 \alias{Page.removeScriptToEvaluateOnNewDocument}
-\title{Send the command Page.removeScriptToEvaluateOnNewDocument
-
-Removes given script from the list.}
+\title{Send the command Page.removeScriptToEvaluateOnNewDocument}
 \usage{
 Page.removeScriptToEvaluateOnNewDocument(promise, identifier)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.removeScriptToEvaluateOnNewDocument
-
 Removes given script from the list.
 }

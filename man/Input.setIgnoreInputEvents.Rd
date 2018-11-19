@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.setIgnoreInputEvents}
 \alias{Input.setIgnoreInputEvents}
-\title{Send the command Input.setIgnoreInputEvents
-
-Ignores input events (useful while auditing page).}
+\title{Send the command Input.setIgnoreInputEvents}
 \usage{
 Input.setIgnoreInputEvents(promise, ignore)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.setIgnoreInputEvents
-
 Ignores input events (useful while auditing page).
 }

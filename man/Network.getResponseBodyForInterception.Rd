@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.getResponseBodyForInterception}
 \alias{Network.getResponseBodyForInterception}
-\title{Send the command Network.getResponseBodyForInterception
-
-Returns content served for the given currently intercepted request.}
+\title{Send the command Network.getResponseBodyForInterception}
 \usage{
 Network.getResponseBodyForInterception(promise, interceptionId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Network.getResponseBodyForInterception
-
 Returns content served for the given currently intercepted request.
 }

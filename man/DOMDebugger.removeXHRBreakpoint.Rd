@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.removeXHRBreakpoint}
 \alias{DOMDebugger.removeXHRBreakpoint}
-\title{Send the command DOMDebugger.removeXHRBreakpoint
-
-Removes breakpoint from XMLHttpRequest.}
+\title{Send the command DOMDebugger.removeXHRBreakpoint}
 \usage{
 DOMDebugger.removeXHRBreakpoint(promise, url)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMDebugger.removeXHRBreakpoint
-
 Removes breakpoint from XMLHttpRequest.
 }

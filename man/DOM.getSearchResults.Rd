@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getSearchResults}
 \alias{DOM.getSearchResults}
-\title{Send the command DOM.getSearchResults
-
-Returns search results from given \code{fromIndex} to given \code{toIndex} from the search with the given
-identifier.}
+\title{Send the command DOM.getSearchResults}
 \usage{
 DOM.getSearchResults(promise, searchId, fromIndex, toIndex)
 }
@@ -26,8 +23,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.getSearchResults
-
 Returns search results from given \code{fromIndex} to given \code{toIndex} from the search with the given
 identifier.
 }

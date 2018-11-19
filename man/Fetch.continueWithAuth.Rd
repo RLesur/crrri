@@ -2,9 +2,7 @@
 % Please edit documentation in R/Fetch_commands.R
 \name{Fetch.continueWithAuth}
 \alias{Fetch.continueWithAuth}
-\title{Send the command Fetch.continueWithAuth
-
-Continues a request supplying authChallengeResponse following authRequired event.}
+\title{Send the command Fetch.continueWithAuth}
 \usage{
 Fetch.continueWithAuth(promise, requestId, authChallengeResponse)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Fetch.continueWithAuth
-
 Continues a request supplying authChallengeResponse following authRequired event.
 }

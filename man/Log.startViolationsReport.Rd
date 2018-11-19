@@ -2,9 +2,7 @@
 % Please edit documentation in R/Log_commands.R
 \name{Log.startViolationsReport}
 \alias{Log.startViolationsReport}
-\title{Send the command Log.startViolationsReport
-
-start violation reporting.}
+\title{Send the command Log.startViolationsReport}
 \usage{
 Log.startViolationsReport(promise, config)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Log.startViolationsReport
-
 start violation reporting.
 }

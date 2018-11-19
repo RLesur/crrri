@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.setDOMBreakpoint}
 \alias{DOMDebugger.setDOMBreakpoint}
-\title{Send the command DOMDebugger.setDOMBreakpoint
-
-Sets breakpoint on particular operation with DOM.}
+\title{Send the command DOMDebugger.setDOMBreakpoint}
 \usage{
 DOMDebugger.setDOMBreakpoint(promise, nodeId, type)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMDebugger.setDOMBreakpoint
-
 Sets breakpoint on particular operation with DOM.
 }

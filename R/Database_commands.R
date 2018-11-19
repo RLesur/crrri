@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Database.disable
-#'  
+#' 
 #' Disables database tracking, prevents database events from being sent to the client.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,11 +23,11 @@ Database.disable <- function(promise) {
 
 
 #' Send the command Database.enable
-#'  
+#' 
 #' Enables database tracking, database events will now be delivered to the client.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -43,13 +43,13 @@ Database.enable <- function(promise) {
 
 
 #' Send the command Database.executeSQL
-#'  
 #' 
-#'  
+#' 
+#' 
 #' @param promise An aynchronous result object.
 #' @param databaseId A DatabaseId. 
 #' @param query A character string. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 3.
 #' @export
@@ -65,12 +65,12 @@ Database.executeSQL <- function(promise, databaseId, query) {
 
 
 #' Send the command Database.getDatabaseTableNames
-#'  
 #' 
-#'  
+#' 
+#' 
 #' @param promise An aynchronous result object.
 #' @param databaseId A DatabaseId. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export

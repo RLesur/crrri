@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.snapshotCommandLog}
 \alias{LayerTree.snapshotCommandLog}
-\title{Send the command LayerTree.snapshotCommandLog
-
-Replays the layer snapshot and returns canvas log.}
+\title{Send the command LayerTree.snapshotCommandLog}
 \usage{
 LayerTree.snapshotCommandLog(promise, snapshotId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command LayerTree.snapshotCommandLog
-
 Replays the layer snapshot and returns canvas log.
 }

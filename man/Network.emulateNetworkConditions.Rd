@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.emulateNetworkConditions}
 \alias{Network.emulateNetworkConditions}
-\title{Send the command Network.emulateNetworkConditions
-
-Activates emulation of network conditions.}
+\title{Send the command Network.emulateNetworkConditions}
 \usage{
 Network.emulateNetworkConditions(promise, offline, latency,
   downloadThroughput, uploadThroughput, connectionType = NULL)
@@ -32,7 +30,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.emulateNetworkConditions
-
 Activates emulation of network conditions.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Memory_commands.R
 \name{Memory.setPressureNotificationsSuppressed}
 \alias{Memory.setPressureNotificationsSuppressed}
-\title{Send the command Memory.setPressureNotificationsSuppressed
-
-Enable/disable suppressing memory pressure notifications in all processes.}
+\title{Send the command Memory.setPressureNotificationsSuppressed}
 \usage{
 Memory.setPressureNotificationsSuppressed(promise, suppressed)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Memory.setPressureNotificationsSuppressed
-
 Enable/disable suppressing memory pressure notifications in all processes.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMStorage_commands.R
 \name{DOMStorage.disable}
 \alias{DOMStorage.disable}
-\title{Send the command DOMStorage.disable
-
-Disables storage tracking, prevents storage events from being sent to the client.}
+\title{Send the command DOMStorage.disable}
 \usage{
 DOMStorage.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMStorage.disable
-
 Disables storage tracking, prevents storage events from being sent to the client.
 }

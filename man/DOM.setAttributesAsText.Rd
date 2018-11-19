@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.setAttributesAsText}
 \alias{DOM.setAttributesAsText}
-\title{Send the command DOM.setAttributesAsText
-
-Sets attributes on element with given id. This method is useful when user edits some existing
-attribute value and types in several attribute name/value pairs.}
+\title{Send the command DOM.setAttributesAsText}
 \usage{
 DOM.setAttributesAsText(promise, nodeId, text, name = NULL)
 }
@@ -27,8 +24,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.setAttributesAsText
-
 Sets attributes on element with given id. This method is useful when user edits some existing
 attribute value and types in several attribute name/value pairs.
 }

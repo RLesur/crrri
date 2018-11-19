@@ -2,9 +2,7 @@
 % Please edit documentation in R/Animation_commands.R
 \name{Animation.setTiming}
 \alias{Animation.setTiming}
-\title{Send the command Animation.setTiming
-
-Sets the timing of an animation node.}
+\title{Send the command Animation.setTiming}
 \usage{
 Animation.setTiming(promise, animationId, duration, delay)
 }
@@ -25,7 +23,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Animation.setTiming
-
 Sets the timing of an animation node.
 }

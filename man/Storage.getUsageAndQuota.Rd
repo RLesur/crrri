@@ -2,9 +2,7 @@
 % Please edit documentation in R/Storage_commands.R
 \name{Storage.getUsageAndQuota}
 \alias{Storage.getUsageAndQuota}
-\title{Send the command Storage.getUsageAndQuota
-
-Returns usage and quota in bytes.}
+\title{Send the command Storage.getUsageAndQuota}
 \usage{
 Storage.getUsageAndQuota(promise, origin)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 3.
 }
 \description{
-Send the command Storage.getUsageAndQuota
-
 Returns usage and quota in bytes.
 }

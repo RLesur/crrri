@@ -2,9 +2,7 @@
 % Please edit documentation in R/DeviceOrientation_commands.R
 \name{DeviceOrientation.clearDeviceOrientationOverride}
 \alias{DeviceOrientation.clearDeviceOrientationOverride}
-\title{Send the command DeviceOrientation.clearDeviceOrientationOverride
-
-Clears the overridden Device Orientation.}
+\title{Send the command DeviceOrientation.clearDeviceOrientationOverride}
 \usage{
 DeviceOrientation.clearDeviceOrientationOverride(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DeviceOrientation.clearDeviceOrientationOverride
-
 Clears the overridden Device Orientation.
 }

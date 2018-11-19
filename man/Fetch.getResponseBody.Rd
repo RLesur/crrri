@@ -2,14 +2,7 @@
 % Please edit documentation in R/Fetch_commands.R
 \name{Fetch.getResponseBody}
 \alias{Fetch.getResponseBody}
-\title{Send the command Fetch.getResponseBody
-
-Causes the body of the response to be received from the server and
-returned as a single string. May only be issued for a request that
-is paused in the Response stage and is mutually exclusive with
-takeResponseBodyForInterceptionAsStream. Calling other methods that
-affect the request or disabling fetch domain before body is received
-results in an undefined behavior.}
+\title{Send the command Fetch.getResponseBody}
 \usage{
 Fetch.getResponseBody(promise, requestId)
 }
@@ -24,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Fetch.getResponseBody
-
 Causes the body of the response to be received from the server and
 returned as a single string. May only be issued for a request that
 is paused in the Response stage and is mutually exclusive with

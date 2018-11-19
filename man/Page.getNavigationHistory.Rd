@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.getNavigationHistory}
 \alias{Page.getNavigationHistory}
-\title{Send the command Page.getNavigationHistory
-
-Returns navigation history for the current page.}
+\title{Send the command Page.getNavigationHistory}
 \usage{
 Page.getNavigationHistory(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Page.getNavigationHistory
-
 Returns navigation history for the current page.
 }

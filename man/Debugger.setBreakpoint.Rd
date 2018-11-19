@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setBreakpoint}
 \alias{Debugger.setBreakpoint}
-\title{Send the command Debugger.setBreakpoint
-
-Sets JavaScript breakpoint at a given location.}
+\title{Send the command Debugger.setBreakpoint}
 \usage{
 Debugger.setBreakpoint(promise, location, condition = NULL)
 }
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Debugger.setBreakpoint
-
 Sets JavaScript breakpoint at a given location.
 }

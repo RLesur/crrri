@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setCPUThrottlingRate}
 \alias{Emulation.setCPUThrottlingRate}
-\title{Send the command Emulation.setCPUThrottlingRate
-
-Enables CPU throttling to emulate slow CPUs.}
+\title{Send the command Emulation.setCPUThrottlingRate}
 \usage{
 Emulation.setCPUThrottlingRate(promise, rate)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setCPUThrottlingRate
-
 Enables CPU throttling to emulate slow CPUs.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.captureScreenshot}
 \alias{Page.captureScreenshot}
-\title{Send the command Page.captureScreenshot
-
-Capture page screenshot.}
+\title{Send the command Page.captureScreenshot}
 \usage{
 Page.captureScreenshot(promise, format = NULL, quality = NULL,
   clip = NULL, fromSurface = NULL)
@@ -29,7 +27,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Page.captureScreenshot
-
 Capture page screenshot.
 }

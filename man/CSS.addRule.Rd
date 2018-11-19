@@ -2,10 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.addRule}
 \alias{CSS.addRule}
-\title{Send the command CSS.addRule
-
-Inserts a new rule with the given \code{ruleText} in a stylesheet with given \code{styleSheetId}, at the
-position specified by \code{location}.}
+\title{Send the command CSS.addRule}
 \usage{
 CSS.addRule(promise, styleSheetId, ruleText, location)
 }
@@ -26,8 +23,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.addRule
-
 Inserts a new rule with the given \code{ruleText} in a stylesheet with given \code{styleSheetId}, at the
 position specified by \code{location}.
 }

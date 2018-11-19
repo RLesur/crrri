@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setBlockedURLs}
 \alias{Network.setBlockedURLs}
-\title{Send the command Network.setBlockedURLs
-
-Blocks URLs from loading.}
+\title{Send the command Network.setBlockedURLs}
 \usage{
 Network.setBlockedURLs(promise, urls)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setBlockedURLs
-
 Blocks URLs from loading.
 }

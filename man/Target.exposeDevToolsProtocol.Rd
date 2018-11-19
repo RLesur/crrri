@@ -2,15 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.exposeDevToolsProtocol}
 \alias{Target.exposeDevToolsProtocol}
-\title{Send the command Target.exposeDevToolsProtocol
-
-Inject object to the target's main frame that provides a communication
-channel with browser target.\preformatted{   Injected object will be available as `window[bindingName]`.
-   
-   The object has the follwing API:
-   - `binding.send(json)` - a method to send messages over the remote debugging protocol
-   - `binding.onmessage = json => handleMessage(json)` - a callback that will be called for the protocol notifications and command responses.
-}}
+\title{Send the command Target.exposeDevToolsProtocol}
 \usage{
 Target.exposeDevToolsProtocol(promise, targetId, bindingName = NULL)
 }
@@ -27,8 +19,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Target.exposeDevToolsProtocol
-
 Inject object to the target's main frame that provides a communication
 channel with browser target.\preformatted{   Injected object will be available as `window[bindingName]`.
    

@@ -2,11 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.setAutoAttach}
 \alias{Target.setAutoAttach}
-\title{Send the command Target.setAutoAttach
-
-Controls whether to automatically attach to new targets which are considered to be related to
-this one. When turned on, attaches to all existing related targets as well. When turned off,
-automatically detaches from all currently attached targets.}
+\title{Send the command Target.setAutoAttach}
 \usage{
 Target.setAutoAttach(promise, autoAttach, waitForDebuggerOnStart,
   flatten = NULL)
@@ -29,8 +25,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Target.setAutoAttach
-
 Controls whether to automatically attach to new targets which are considered to be related to
 this one. When turned on, attaches to all existing related targets as well. When turned off,
 automatically detaches from all currently attached targets.

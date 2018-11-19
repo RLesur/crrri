@@ -2,10 +2,7 @@
 % Please edit documentation in R/HeapProfiler_commands.R
 \name{HeapProfiler.addInspectedHeapObject}
 \alias{HeapProfiler.addInspectedHeapObject}
-\title{Send the command HeapProfiler.addInspectedHeapObject
-
-Enables console to refer to the node with given id via $x (see Command Line API for more details
-$x functions).}
+\title{Send the command HeapProfiler.addInspectedHeapObject}
 \usage{
 HeapProfiler.addInspectedHeapObject(promise, heapObjectId)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command HeapProfiler.addInspectedHeapObject
-
 Enables console to refer to the node with given id via $x (see Command Line API for more details
 $x functions).
 }

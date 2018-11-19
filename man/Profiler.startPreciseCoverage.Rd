@@ -2,11 +2,7 @@
 % Please edit documentation in R/Profiler_commands.R
 \name{Profiler.startPreciseCoverage}
 \alias{Profiler.startPreciseCoverage}
-\title{Send the command Profiler.startPreciseCoverage
-
-Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code
-coverage may be incomplete. Enabling prevents running optimized code and resets execution
-counters.}
+\title{Send the command Profiler.startPreciseCoverage}
 \usage{
 Profiler.startPreciseCoverage(promise, callCount = NULL,
   detailed = NULL)
@@ -25,8 +21,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Profiler.startPreciseCoverage
-
 Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code
 coverage may be incomplete. Enabling prevents running optimized code and resets execution
 counters.

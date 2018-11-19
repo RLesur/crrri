@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.disable}
 \alias{Runtime.disable}
-\title{Send the command Runtime.disable
-
-Disables reporting of execution contexts creation.}
+\title{Send the command Runtime.disable}
 \usage{
 Runtime.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.disable
-
 Disables reporting of execution contexts creation.
 }

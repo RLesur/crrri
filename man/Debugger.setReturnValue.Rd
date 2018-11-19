@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setReturnValue}
 \alias{Debugger.setReturnValue}
-\title{Send the command Debugger.setReturnValue
-
-Changes return value in top frame. Available only at return break position.}
+\title{Send the command Debugger.setReturnValue}
 \usage{
 Debugger.setReturnValue(promise, newValue)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.setReturnValue
-
 Changes return value in top frame. Available only at return break position.
 }

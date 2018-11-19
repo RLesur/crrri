@@ -2,10 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.callFunctionOn}
 \alias{Runtime.callFunctionOn}
-\title{Send the command Runtime.callFunctionOn
-
-Calls function with given declaration on the given object. Object group of the result is
-inherited from the target object.}
+\title{Send the command Runtime.callFunctionOn}
 \usage{
 Runtime.callFunctionOn(promise, functionDeclaration, objectId = NULL,
   arguments = NULL, silent = NULL, returnByValue = NULL,
@@ -56,8 +53,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Runtime.callFunctionOn
-
 Calls function with given declaration on the given object. Object group of the result is
 inherited from the target object.
 }

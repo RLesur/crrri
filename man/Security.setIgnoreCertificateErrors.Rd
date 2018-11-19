@@ -2,9 +2,7 @@
 % Please edit documentation in R/Security_commands.R
 \name{Security.setIgnoreCertificateErrors}
 \alias{Security.setIgnoreCertificateErrors}
-\title{Send the command Security.setIgnoreCertificateErrors
-
-Enable/disable whether all certificate errors should be ignored.}
+\title{Send the command Security.setIgnoreCertificateErrors}
 \usage{
 Security.setIgnoreCertificateErrors(promise, ignore)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Security.setIgnoreCertificateErrors
-
 Enable/disable whether all certificate errors should be ignored.
 }

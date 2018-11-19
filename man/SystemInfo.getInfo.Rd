@@ -2,9 +2,7 @@
 % Please edit documentation in R/SystemInfo_commands.R
 \name{SystemInfo.getInfo}
 \alias{SystemInfo.getInfo}
-\title{Send the command SystemInfo.getInfo
-
-Returns information about the system.}
+\title{Send the command SystemInfo.getInfo}
 \usage{
 SystemInfo.getInfo(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 4.
 }
 \description{
-Send the command SystemInfo.getInfo
-
 Returns information about the system.
 }

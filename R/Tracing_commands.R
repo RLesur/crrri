@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Tracing.end
-#'  
+#' 
 #' Stop trace events collection.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,11 +23,11 @@ Tracing.end <- function(promise) {
 
 
 #' Send the command Tracing.getCategories
-#'  
+#' 
 #' Gets supported tracing categories.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -43,13 +43,13 @@ Tracing.getCategories <- function(promise) {
 
 
 #' Send the command Tracing.recordClockSyncMarker
-#'  
+#' 
 #' Record a clock sync marker in the trace.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param syncId A character string. 
 #'        The ID of this clock sync marker 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -65,11 +65,11 @@ Tracing.recordClockSyncMarker <- function(promise, syncId) {
 
 
 #' Send the command Tracing.requestMemoryDump
-#'  
+#' 
 #' Request a global memory dump.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -85,9 +85,9 @@ Tracing.requestMemoryDump <- function(promise) {
 
 
 #' Send the command Tracing.start
-#'  
+#' 
 #' Start trace events collection.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param categories Deprecated. Optional. A character string. 
 #'        Category/tag filter 
@@ -102,7 +102,7 @@ Tracing.requestMemoryDump <- function(promise) {
 #'        Compression format to use. This only applies when using `ReturnAsStream`
 #'        transfer mode (defaults to `none`) 
 #' @param traceConfig Optional. A TraceConfig. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

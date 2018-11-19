@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.querySelector}
 \alias{DOM.querySelector}
-\title{Send the command DOM.querySelector
-
-Executes \code{querySelector} on a given node.}
+\title{Send the command DOM.querySelector}
 \usage{
 DOM.querySelector(promise, nodeId, selector)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.querySelector
-
 Executes \code{querySelector} on a given node.
 }

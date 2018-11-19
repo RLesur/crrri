@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.setBypassCSP}
 \alias{Page.setBypassCSP}
-\title{Send the command Page.setBypassCSP
-
-Enable page Content Security Policy by-passing.}
+\title{Send the command Page.setBypassCSP}
 \usage{
 Page.setBypassCSP(promise, enabled)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.setBypassCSP
-
 Enable page Content Security Policy by-passing.
 }

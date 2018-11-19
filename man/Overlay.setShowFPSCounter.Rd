@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.setShowFPSCounter}
 \alias{Overlay.setShowFPSCounter}
-\title{Send the command Overlay.setShowFPSCounter
-
-Requests that backend shows the FPS counter}
+\title{Send the command Overlay.setShowFPSCounter}
 \usage{
 Overlay.setShowFPSCounter(promise, show)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.setShowFPSCounter
-
 Requests that backend shows the FPS counter
 }

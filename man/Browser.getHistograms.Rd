@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.getHistograms}
 \alias{Browser.getHistograms}
-\title{Send the command Browser.getHistograms
-
-Get Chrome histograms.}
+\title{Send the command Browser.getHistograms}
 \usage{
 Browser.getHistograms(promise, query = NULL, delta = NULL)
 }
@@ -24,7 +22,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Browser.getHistograms
-
 Get Chrome histograms.
 }

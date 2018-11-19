@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.setShowPaintRects}
 \alias{Overlay.setShowPaintRects}
-\title{Send the command Overlay.setShowPaintRects
-
-Requests that backend shows paint rectangles}
+\title{Send the command Overlay.setShowPaintRects}
 \usage{
 Overlay.setShowPaintRects(promise, result)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.setShowPaintRects
-
 Requests that backend shows paint rectangles
 }

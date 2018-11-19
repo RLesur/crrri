@@ -2,10 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setVirtualTimePolicy}
 \alias{Emulation.setVirtualTimePolicy}
-\title{Send the command Emulation.setVirtualTimePolicy
-
-Turns on virtual time for all frames (replacing real-time with a synthetic time source) and sets
-the current virtual time policy.  Note this supersedes any previous time budget.}
+\title{Send the command Emulation.setVirtualTimePolicy}
 \usage{
 Emulation.setVirtualTimePolicy(promise, policy, budget = NULL,
   maxVirtualTimeTaskStarvationCount = NULL, waitForNavigation = NULL,
@@ -36,8 +33,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Emulation.setVirtualTimePolicy
-
 Turns on virtual time for all frames (replacing real-time with a synthetic time source) and sets
 the current virtual time policy.  Note this supersedes any previous time budget.
 }

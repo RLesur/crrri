@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.setMediaText}
 \alias{CSS.setMediaText}
-\title{Send the command CSS.setMediaText
-
-Modifies the rule selector.}
+\title{Send the command CSS.setMediaText}
 \usage{
 CSS.setMediaText(promise, styleSheetId, range, text)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.setMediaText
-
 Modifies the rule selector.
 }

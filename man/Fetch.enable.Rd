@@ -2,10 +2,7 @@
 % Please edit documentation in R/Fetch_commands.R
 \name{Fetch.enable}
 \alias{Fetch.enable}
-\title{Send the command Fetch.enable
-
-Enables issuing of requestPaused events. A request will be paused until client
-calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth.}
+\title{Send the command Fetch.enable}
 \usage{
 Fetch.enable(promise, patterns = NULL, handleAuthRequests = NULL)
 }
@@ -26,8 +23,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Fetch.enable
-
 Enables issuing of requestPaused events. A request will be paused until client
 calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth.
 }

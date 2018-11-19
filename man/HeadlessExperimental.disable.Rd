@@ -2,9 +2,7 @@
 % Please edit documentation in R/HeadlessExperimental_commands.R
 \name{HeadlessExperimental.disable}
 \alias{HeadlessExperimental.disable}
-\title{Send the command HeadlessExperimental.disable
-
-Disables headless events for the target.}
+\title{Send the command HeadlessExperimental.disable}
 \usage{
 HeadlessExperimental.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command HeadlessExperimental.disable
-
 Disables headless events for the target.
 }

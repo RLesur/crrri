@@ -2,9 +2,7 @@
 % Please edit documentation in R/Animation_commands.R
 \name{Animation.setPaused}
 \alias{Animation.setPaused}
-\title{Send the command Animation.setPaused
-
-Sets the paused state of a set of animations.}
+\title{Send the command Animation.setPaused}
 \usage{
 Animation.setPaused(promise, animations, paused)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Animation.setPaused
-
 Sets the paused state of a set of animations.
 }

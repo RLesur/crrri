@@ -2,10 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.removeBinding}
 \alias{Runtime.removeBinding}
-\title{Send the command Runtime.removeBinding
-
-This method does not remove binding function from global object but
-unsubscribes current runtime agent from Runtime.bindingCalled notifications.}
+\title{Send the command Runtime.removeBinding}
 \usage{
 Runtime.removeBinding(promise, name)
 }
@@ -19,8 +16,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.removeBinding
-
 This method does not remove binding function from global object but
 unsubscribes current runtime agent from Runtime.bindingCalled notifications.
 }

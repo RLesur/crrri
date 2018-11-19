@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.getHighlightObjectForTest}
 \alias{Overlay.getHighlightObjectForTest}
-\title{Send the command Overlay.getHighlightObjectForTest
-
-For testing.}
+\title{Send the command Overlay.getHighlightObjectForTest}
 \usage{
 Overlay.getHighlightObjectForTest(promise, nodeId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Overlay.getHighlightObjectForTest
-
 For testing.
 }

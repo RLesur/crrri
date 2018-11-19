@@ -3,9 +3,9 @@
 NULL
 
 #' Send the command Runtime.awaitPromise
-#'  
+#' 
 #' Add handler to promise with given promise object id.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param promiseObjectId A RemoteObjectId. 
 #'        Identifier of the promise. 
@@ -13,7 +13,7 @@ NULL
 #'        Whether the result is expected to be a JSON object that should be sent by value. 
 #' @param generatePreview Optional. A logical. 
 #'        Whether preview should be generated for the result. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -29,10 +29,10 @@ Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL,
 
 
 #' Send the command Runtime.callFunctionOn
-#'  
+#' 
 #' Calls function with given declaration on the given object. Object group of the result is
 #'        inherited from the target object.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param functionDeclaration A character string. 
 #'        Declaration of the function to call. 
@@ -60,7 +60,7 @@ Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL,
 #' @param objectGroup Optional. A character string. 
 #'        Symbolic group name that can be used to release multiple objects. If objectGroup is not
 #'        specified and objectId is, objectGroup will be inherited from object. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -76,9 +76,9 @@ Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL
 
 
 #' Send the command Runtime.compileScript
-#'  
+#' 
 #' Compiles expression.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param expression A character string. 
 #'        Expression to compile. 
@@ -89,7 +89,7 @@ Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL
 #' @param executionContextId Optional. A ExecutionContextId. 
 #'        Specifies in which execution context to perform script run. If the parameter is omitted the
 #'        evaluation will be performed in the context of the inspected page. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -105,11 +105,11 @@ Runtime.compileScript <- function(promise, expression, sourceURL, persistScript,
 
 
 #' Send the command Runtime.disable
-#'  
+#' 
 #' Disables reporting of execution contexts creation.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -125,11 +125,11 @@ Runtime.disable <- function(promise) {
 
 
 #' Send the command Runtime.discardConsoleEntries
-#'  
+#' 
 #' Discards collected exceptions and console API calls.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -145,13 +145,13 @@ Runtime.discardConsoleEntries <- function(promise) {
 
 
 #' Send the command Runtime.enable
-#'  
+#' 
 #' Enables reporting of execution contexts creation by means of `executionContextCreated` event.
 #'        When the reporting gets enabled the event will be sent immediately for each existing execution
 #'        context.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -167,9 +167,9 @@ Runtime.enable <- function(promise) {
 
 
 #' Send the command Runtime.evaluate
-#'  
+#' 
 #' Evaluates expression on global object.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param expression A character string. 
 #'        Expression to evaluate. 
@@ -196,7 +196,7 @@ Runtime.enable <- function(promise) {
 #'        Whether to throw an exception if side effect cannot be ruled out during evaluation. 
 #' @param timeout Experimental. Optional. A TimeDelta. 
 #'        Terminate execution after timing out (number of milliseconds). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -212,11 +212,11 @@ Runtime.evaluate <- function(promise, expression, objectGroup = NULL, includeCom
 
 
 #' Send the command Runtime.getIsolateId
-#'  
+#' 
 #' Returns the isolate id.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -232,12 +232,12 @@ Runtime.getIsolateId <- function(promise) {
 
 
 #' Send the command Runtime.getHeapUsage
-#'  
+#' 
 #' Returns the JavaScript heap usage.
 #'        It is the total usage of the corresponding isolate not scoped to a particular Runtime.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -253,10 +253,10 @@ Runtime.getHeapUsage <- function(promise) {
 
 
 #' Send the command Runtime.getProperties
-#'  
+#' 
 #' Returns properties of a given object. Object group of the result is inherited from the target
 #'        object.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param objectId A RemoteObjectId. 
 #'        Identifier of the object to return properties for. 
@@ -268,7 +268,7 @@ Runtime.getHeapUsage <- function(promise) {
 #'        returned either. 
 #' @param generatePreview Experimental. Optional. A logical. 
 #'        Whether preview should be generated for the results. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 3.
 #' @export
@@ -284,13 +284,13 @@ Runtime.getProperties <- function(promise, objectId, ownProperties = NULL, acces
 
 
 #' Send the command Runtime.globalLexicalScopeNames
-#'  
+#' 
 #' Returns all let, const and class variables from global scope.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param executionContextId Optional. A ExecutionContextId. 
 #'        Specifies in which execution context to lookup global scope variables. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -306,15 +306,15 @@ Runtime.globalLexicalScopeNames <- function(promise, executionContextId = NULL) 
 
 
 #' Send the command Runtime.queryObjects
-#'  
 #' 
-#'  
+#' 
+#' 
 #' @param promise An aynchronous result object.
 #' @param prototypeObjectId A RemoteObjectId. 
 #'        Identifier of the prototype to return objects for. 
 #' @param objectGroup Optional. A character string. 
 #'        Symbolic group name that can be used to release the results. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export
@@ -330,13 +330,13 @@ Runtime.queryObjects <- function(promise, prototypeObjectId, objectGroup = NULL)
 
 
 #' Send the command Runtime.releaseObject
-#'  
+#' 
 #' Releases remote object with given id.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param objectId A RemoteObjectId. 
 #'        Identifier of the object to release. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -352,13 +352,13 @@ Runtime.releaseObject <- function(promise, objectId) {
 
 
 #' Send the command Runtime.releaseObjectGroup
-#'  
+#' 
 #' Releases all remote objects that belong to a given group.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param objectGroup A character string. 
 #'        Symbolic object group name. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -374,11 +374,11 @@ Runtime.releaseObjectGroup <- function(promise, objectGroup) {
 
 
 #' Send the command Runtime.runIfWaitingForDebugger
-#'  
+#' 
 #' Tells inspected instance to run if it was waiting for debugger to attach.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -394,9 +394,9 @@ Runtime.runIfWaitingForDebugger <- function(promise) {
 
 
 #' Send the command Runtime.runScript
-#'  
+#' 
 #' Runs script with given id in a given context.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param scriptId A ScriptId. 
 #'        Id of the script to run. 
@@ -417,7 +417,7 @@ Runtime.runIfWaitingForDebugger <- function(promise) {
 #' @param awaitPromise Optional. A logical. 
 #'        Whether execution should `await` for resulting value and return once awaited promise is
 #'        resolved. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -433,14 +433,14 @@ Runtime.runScript <- function(promise, scriptId, executionContextId = NULL, obje
 
 
 #' Send the command Runtime.setAsyncCallStackDepth
-#'  
+#' 
 #' Enables or disables async call stacks tracking.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param maxDepth An integer. 
 #'        Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async
 #'        call stacks (default). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -456,12 +456,12 @@ Runtime.setAsyncCallStackDepth <- function(promise, maxDepth) {
 
 
 #' Send the command Runtime.setCustomObjectFormatterEnabled
-#'  
 #' 
-#'  
+#' 
+#' 
 #' @param promise An aynchronous result object.
 #' @param enabled A logical. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -477,12 +477,12 @@ Runtime.setCustomObjectFormatterEnabled <- function(promise, enabled) {
 
 
 #' Send the command Runtime.setMaxCallStackSizeToCapture
-#'  
 #' 
-#'  
+#' 
+#' 
 #' @param promise An aynchronous result object.
 #' @param size An integer. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -498,12 +498,12 @@ Runtime.setMaxCallStackSizeToCapture <- function(promise, size) {
 
 
 #' Send the command Runtime.terminateExecution
-#'  
+#' 
 #' Terminate current or next JavaScript execution.
 #'        Will cancel the termination when the outer-most script execution ends.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -519,7 +519,7 @@ Runtime.terminateExecution <- function(promise) {
 
 
 #' Send the command Runtime.addBinding
-#'  
+#' 
 #' If executionContextId is empty, adds binding with the given name on the
 #'        global objects of all inspected contexts, including those created later,
 #'        bindings survive reloads.
@@ -528,11 +528,11 @@ Runtime.terminateExecution <- function(promise) {
 #'        Binding function takes exactly one argument, this argument should be string,
 #'        in case of any other input, function throws an exception.
 #'        Each binding function call produces Runtime.bindingCalled notification.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param name A character string. 
 #' @param executionContextId Optional. A ExecutionContextId. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -548,13 +548,13 @@ Runtime.addBinding <- function(promise, name, executionContextId = NULL) {
 
 
 #' Send the command Runtime.removeBinding
-#'  
+#' 
 #' This method does not remove binding function from global object but
 #'        unsubscribes current runtime agent from Runtime.bindingCalled notifications.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param name A character string. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

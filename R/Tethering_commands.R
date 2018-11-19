@@ -3,13 +3,13 @@
 NULL
 
 #' Send the command Tethering.bind
-#'  
+#' 
 #' Request browser port binding.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param port An integer. 
 #'        Port number to bind. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -25,13 +25,13 @@ Tethering.bind <- function(promise, port) {
 
 
 #' Send the command Tethering.unbind
-#'  
+#' 
 #' Request browser port unbinding.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param port An integer. 
 #'        Port number to unbind. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

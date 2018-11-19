@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.getResourceContent}
 \alias{Page.getResourceContent}
-\title{Send the command Page.getResourceContent
-
-Returns content of the given resource.}
+\title{Send the command Page.getResourceContent}
 \usage{
 Page.getResourceContent(promise, frameId, url)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Page.getResourceContent
-
 Returns content of the given resource.
 }

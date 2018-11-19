@@ -2,12 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.continueInterceptedRequest}
 \alias{Network.continueInterceptedRequest}
-\title{Send the command Network.continueInterceptedRequest
-
-Response to Network.requestIntercepted which either modifies the request to continue with any
-modifications, or blocks it, or completes it with the provided response bytes. If a network
-fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted
-event will be sent with the same InterceptionId.}
+\title{Send the command Network.continueInterceptedRequest}
 \usage{
 Network.continueInterceptedRequest(promise, interceptionId,
   errorReason = NULL, rawResponse = NULL, url = NULL,
@@ -51,8 +46,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.continueInterceptedRequest
-
 Response to Network.requestIntercepted which either modifies the request to continue with any
 modifications, or blocks it, or completes it with the provided response bytes. If a network
 fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted

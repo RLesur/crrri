@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.setAdBlockingEnabled}
 \alias{Page.setAdBlockingEnabled}
-\title{Send the command Page.setAdBlockingEnabled
-
-Enable Chrome's experimental ad filter on all sites.}
+\title{Send the command Page.setAdBlockingEnabled}
 \usage{
 Page.setAdBlockingEnabled(promise, enabled)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.setAdBlockingEnabled
-
 Enable Chrome's experimental ad filter on all sites.
 }

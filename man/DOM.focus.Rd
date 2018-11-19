@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.focus}
 \alias{DOM.focus}
-\title{Send the command DOM.focus
-
-Focuses the given element.}
+\title{Send the command DOM.focus}
 \usage{
 DOM.focus(promise, nodeId = NULL, backendNodeId = NULL,
   objectId = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.focus
-
 Focuses the given element.
 }

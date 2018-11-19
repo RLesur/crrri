@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.getLayoutMetrics}
 \alias{Page.getLayoutMetrics}
-\title{Send the command Page.getLayoutMetrics
-
-Returns metrics relating to the layouting of the page, such as viewport bounds/scale.}
+\title{Send the command Page.getLayoutMetrics}
 \usage{
 Page.getLayoutMetrics(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 3.
 }
 \description{
-Send the command Page.getLayoutMetrics
-
 Returns metrics relating to the layouting of the page, such as viewport bounds/scale.
 }

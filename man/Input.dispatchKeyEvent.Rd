@@ -2,9 +2,7 @@
 % Please edit documentation in R/Input_commands.R
 \name{Input.dispatchKeyEvent}
 \alias{Input.dispatchKeyEvent}
-\title{Send the command Input.dispatchKeyEvent
-
-Dispatches a key event to the page.}
+\title{Send the command Input.dispatchKeyEvent}
 \usage{
 Input.dispatchKeyEvent(promise, type, modifiers = NULL,
   timestamp = NULL, text = NULL, unmodifiedText = NULL,
@@ -68,7 +66,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Input.dispatchKeyEvent
-
 Dispatches a key event to the page.
 }

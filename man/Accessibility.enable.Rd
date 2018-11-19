@@ -2,10 +2,7 @@
 % Please edit documentation in R/Accessibility_commands.R
 \name{Accessibility.enable}
 \alias{Accessibility.enable}
-\title{Send the command Accessibility.enable
-
-Enables the accessibility domain which causes \code{AXNodeId}s to remain consistent between method calls.
-This turns on accessibility for the page, which can impact performance until accessibility is disabled.}
+\title{Send the command Accessibility.enable}
 \usage{
 Accessibility.enable(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Accessibility.enable
-
 Enables the accessibility domain which causes \code{AXNodeId}s to remain consistent between method calls.
 This turns on accessibility for the page, which can impact performance until accessibility is disabled.
 }

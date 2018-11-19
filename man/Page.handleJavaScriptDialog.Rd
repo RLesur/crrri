@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.handleJavaScriptDialog}
 \alias{Page.handleJavaScriptDialog}
-\title{Send the command Page.handleJavaScriptDialog
-
-Accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload).}
+\title{Send the command Page.handleJavaScriptDialog}
 \usage{
 Page.handleJavaScriptDialog(promise, accept, promptText = NULL)
 }
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.handleJavaScriptDialog
-
 Accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload).
 }

@@ -2,12 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setBlackboxedRanges}
 \alias{Debugger.setBlackboxedRanges}
-\title{Send the command Debugger.setBlackboxedRanges
-
-Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted
-scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
-Positions array contains positions where blackbox state is changed. First interval isn't
-blackboxed. Array should be sorted.}
+\title{Send the command Debugger.setBlackboxedRanges}
 \usage{
 Debugger.setBlackboxedRanges(promise, scriptId, positions)
 }
@@ -24,8 +19,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.setBlackboxedRanges
-
 Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted
 scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
 Positions array contains positions where blackbox state is changed. First interval isn't

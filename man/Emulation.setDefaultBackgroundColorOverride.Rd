@@ -2,10 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setDefaultBackgroundColorOverride}
 \alias{Emulation.setDefaultBackgroundColorOverride}
-\title{Send the command Emulation.setDefaultBackgroundColorOverride
-
-Sets or clears an override of the default background color of the frame. This override is used
-if the content does not specify one.}
+\title{Send the command Emulation.setDefaultBackgroundColorOverride}
 \usage{
 Emulation.setDefaultBackgroundColorOverride(promise, color = NULL)
 }
@@ -21,8 +18,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setDefaultBackgroundColorOverride
-
 Sets or clears an override of the default background color of the frame. This override is used
 if the content does not specify one.
 }

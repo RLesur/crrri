@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setCookies}
 \alias{Network.setCookies}
-\title{Send the command Network.setCookies
-
-Sets given cookies.}
+\title{Send the command Network.setCookies}
 \usage{
 Network.setCookies(promise, cookies)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setCookies
-
 Sets given cookies.
 }

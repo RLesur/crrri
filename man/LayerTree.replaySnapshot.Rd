@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.replaySnapshot}
 \alias{LayerTree.replaySnapshot}
-\title{Send the command LayerTree.replaySnapshot
-
-Replays the layer snapshot and returns the resulting bitmap.}
+\title{Send the command LayerTree.replaySnapshot}
 \usage{
 LayerTree.replaySnapshot(promise, snapshotId, fromStep = NULL,
   toStep = NULL, scale = NULL)
@@ -29,7 +27,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command LayerTree.replaySnapshot
-
 Replays the layer snapshot and returns the resulting bitmap.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/CacheStorage_commands.R
 \name{CacheStorage.deleteCache}
 \alias{CacheStorage.deleteCache}
-\title{Send the command CacheStorage.deleteCache
-
-Deletes a cache.}
+\title{Send the command CacheStorage.deleteCache}
 \usage{
 CacheStorage.deleteCache(promise, cacheId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command CacheStorage.deleteCache
-
 Deletes a cache.
 }

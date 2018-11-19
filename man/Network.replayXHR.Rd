@@ -2,11 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.replayXHR}
 \alias{Network.replayXHR}
-\title{Send the command Network.replayXHR
-
-This method sends a new XMLHttpRequest which is identical to the original one. The following
-parameters should be identical: method, url, async, request body, extra headers, withCredentials
-attribute, user, password.}
+\title{Send the command Network.replayXHR}
 \usage{
 Network.replayXHR(promise, requestId)
 }
@@ -21,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.replayXHR
-
 This method sends a new XMLHttpRequest which is identical to the original one. The following
 parameters should be identical: method, url, async, request body, extra headers, withCredentials
 attribute, user, password.

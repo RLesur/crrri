@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setPageScaleFactor}
 \alias{Emulation.setPageScaleFactor}
-\title{Send the command Emulation.setPageScaleFactor
-
-Sets a specified page scale factor.}
+\title{Send the command Emulation.setPageScaleFactor}
 \usage{
 Emulation.setPageScaleFactor(promise, pageScaleFactor)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setPageScaleFactor
-
 Sets a specified page scale factor.
 }

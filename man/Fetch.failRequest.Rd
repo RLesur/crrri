@@ -2,9 +2,7 @@
 % Please edit documentation in R/Fetch_commands.R
 \name{Fetch.failRequest}
 \alias{Fetch.failRequest}
-\title{Send the command Fetch.failRequest
-
-Causes the request to fail with specified reason.}
+\title{Send the command Fetch.failRequest}
 \usage{
 Fetch.failRequest(promise, requestId, errorReason)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Fetch.failRequest
-
 Causes the request to fail with specified reason.
 }

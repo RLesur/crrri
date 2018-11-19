@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.deleteDatabase}
 \alias{IndexedDB.deleteDatabase}
-\title{Send the command IndexedDB.deleteDatabase
-
-Deletes a database.}
+\title{Send the command IndexedDB.deleteDatabase}
 \usage{
 IndexedDB.deleteDatabase(promise, securityOrigin, databaseName)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command IndexedDB.deleteDatabase
-
 Deletes a database.
 }

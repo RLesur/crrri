@@ -50,14 +50,14 @@ build_parameter_help <- function(parameter) {
 }
 
 build_command_help <- function(domain_name, command) {
-  title <- paste0("#' Send the command ", paste(domain_name, command$name, sep = "."), "\n#'  ")
+  title <- paste0("#' Send the command ", paste(domain_name, command$name, sep = "."), "\n#' ")
   description <- paste0("#' ", command$description)
-  description <- paste0(sanitize_help(description), "\n#'  ")
+  description <- paste0(sanitize_help(description), "\n#' ")
   params <- c("#' @param promise An aynchronous result object.",
               sapply(command$parameters, build_parameter_help)
   )
   return_field <- paste0(
-    "#'  ",
+    "#' ",
     "\n#' @return A promise (following the definition of the promises package).",
     sprintf("\n#'         The value of the fulfilled promise is a named list of length %i.", length(command$returns))
   )

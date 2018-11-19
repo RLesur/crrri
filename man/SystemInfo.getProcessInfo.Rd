@@ -2,9 +2,7 @@
 % Please edit documentation in R/SystemInfo_commands.R
 \name{SystemInfo.getProcessInfo}
 \alias{SystemInfo.getProcessInfo}
-\title{Send the command SystemInfo.getProcessInfo
-
-Returns information about all running processes.}
+\title{Send the command SystemInfo.getProcessInfo}
 \usage{
 SystemInfo.getProcessInfo(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command SystemInfo.getProcessInfo
-
 Returns information about all running processes.
 }

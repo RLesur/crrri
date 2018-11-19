@@ -2,11 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.enable}
 \alias{Runtime.enable}
-\title{Send the command Runtime.enable
-
-Enables reporting of execution contexts creation by means of \code{executionContextCreated} event.
-When the reporting gets enabled the event will be sent immediately for each existing execution
-context.}
+\title{Send the command Runtime.enable}
 \usage{
 Runtime.enable(promise)
 }
@@ -18,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.enable
-
 Enables reporting of execution contexts creation by means of \code{executionContextCreated} event.
 When the reporting gets enabled the event will be sent immediately for each existing execution
 context.

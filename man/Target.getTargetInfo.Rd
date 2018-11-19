@@ -2,9 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.getTargetInfo}
 \alias{Target.getTargetInfo}
-\title{Send the command Target.getTargetInfo
-
-Returns information about a target.}
+\title{Send the command Target.getTargetInfo}
 \usage{
 Target.getTargetInfo(promise, targetId = NULL)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Target.getTargetInfo
-
 Returns information about a target.
 }

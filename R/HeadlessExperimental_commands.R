@@ -3,12 +3,12 @@
 NULL
 
 #' Send the command HeadlessExperimental.beginFrame
-#'  
+#' 
 #' Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a
 #'        screenshot from the resulting frame. Requires that the target was created with enabled
 #'        BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also
 #'        https://goo.gl/3zHXhB for more background.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param frameTimeTicks Optional. A numeric. 
 #'        Timestamp of this BeginFrame in Renderer TimeTicks (milliseconds of uptime). If not set,
@@ -24,7 +24,7 @@ NULL
 #'        If set, a screenshot of the frame will be captured and returned in the response. Otherwise,
 #'        no screenshot will be captured. Note that capturing a screenshot can fail, for example,
 #'        during renderer initialization. In such a case, no screenshot data will be returned. 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 2.
 #' @export
@@ -40,11 +40,11 @@ HeadlessExperimental.beginFrame <- function(promise, frameTimeTicks = NULL, inte
 
 
 #' Send the command HeadlessExperimental.disable
-#'  
+#' 
 #' Disables headless events for the target.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -60,11 +60,11 @@ HeadlessExperimental.disable <- function(promise) {
 
 
 #' Send the command HeadlessExperimental.enable
-#'  
+#' 
 #' Enables headless events for the target.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

@@ -2,10 +2,7 @@
 % Please edit documentation in R/Console_commands.R
 \name{Console.enable}
 \alias{Console.enable}
-\title{Send the command Console.enable
-
-Enables console domain, sends the messages collected so far to the client by means of the
-\code{messageAdded} notification.}
+\title{Send the command Console.enable}
 \usage{
 Console.enable(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Console.enable
-
 Enables console domain, sends the messages collected so far to the client by means of the
 \code{messageAdded} notification.
 }

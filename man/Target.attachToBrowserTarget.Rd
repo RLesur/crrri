@@ -2,9 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.attachToBrowserTarget}
 \alias{Target.attachToBrowserTarget}
-\title{Send the command Target.attachToBrowserTarget
-
-Attaches to the browser target, only uses flat sessionId mode.}
+\title{Send the command Target.attachToBrowserTarget}
 \usage{
 Target.attachToBrowserTarget(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Target.attachToBrowserTarget
-
 Attaches to the browser target, only uses flat sessionId mode.
 }

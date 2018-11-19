@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.makeSnapshot}
 \alias{LayerTree.makeSnapshot}
-\title{Send the command LayerTree.makeSnapshot
-
-Returns the layer snapshot identifier.}
+\title{Send the command LayerTree.makeSnapshot}
 \usage{
 LayerTree.makeSnapshot(promise, layerId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command LayerTree.makeSnapshot
-
 Returns the layer snapshot identifier.
 }

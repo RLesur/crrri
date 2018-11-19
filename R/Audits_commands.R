@@ -3,10 +3,10 @@
 NULL
 
 #' Send the command Audits.getEncodedResponse
-#'  
+#' 
 #' Returns the response body and size if it were re-encoded with the specified settings. Only
 #'        applies to images.
-#'  
+#' 
 #' @param promise An aynchronous result object.
 #' @param requestId A Network.RequestId. 
 #'        Identifier of the network request to get content for. 
@@ -16,7 +16,7 @@ NULL
 #'        The quality of the encoding (0-1). (defaults to 1) 
 #' @param sizeOnly Optional. A logical. 
 #'        Whether to only return the size information (defaults to false). 
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 3.
 #' @export

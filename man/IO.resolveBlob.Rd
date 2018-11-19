@@ -2,9 +2,7 @@
 % Please edit documentation in R/IO_commands.R
 \name{IO.resolveBlob}
 \alias{IO.resolveBlob}
-\title{Send the command IO.resolveBlob
-
-Return UUID of Blob object specified by a remote object id.}
+\title{Send the command IO.resolveBlob}
 \usage{
 IO.resolveBlob(promise, objectId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command IO.resolveBlob
-
 Return UUID of Blob object specified by a remote object id.
 }

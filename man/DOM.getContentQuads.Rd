@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getContentQuads}
 \alias{DOM.getContentQuads}
-\title{Send the command DOM.getContentQuads
-
-Returns quads that describe node position on the page. This method
-might return multiple quads for inline nodes.}
+\title{Send the command DOM.getContentQuads}
 \usage{
 DOM.getContentQuads(promise, nodeId = NULL, backendNodeId = NULL,
   objectId = NULL)
@@ -27,8 +24,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.getContentQuads
-
 Returns quads that describe node position on the page. This method
 might return multiple quads for inline nodes.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.releaseObjectGroup}
 \alias{Runtime.releaseObjectGroup}
-\title{Send the command Runtime.releaseObjectGroup
-
-Releases all remote objects that belong to a given group.}
+\title{Send the command Runtime.releaseObjectGroup}
 \usage{
 Runtime.releaseObjectGroup(promise, objectGroup)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.releaseObjectGroup
-
 Releases all remote objects that belong to a given group.
 }

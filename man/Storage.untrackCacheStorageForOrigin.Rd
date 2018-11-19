@@ -2,9 +2,7 @@
 % Please edit documentation in R/Storage_commands.R
 \name{Storage.untrackCacheStorageForOrigin}
 \alias{Storage.untrackCacheStorageForOrigin}
-\title{Send the command Storage.untrackCacheStorageForOrigin
-
-Unregisters origin from receiving notifications for cache storage.}
+\title{Send the command Storage.untrackCacheStorageForOrigin}
 \usage{
 Storage.untrackCacheStorageForOrigin(promise, origin)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Storage.untrackCacheStorageForOrigin
-
 Unregisters origin from receiving notifications for cache storage.
 }

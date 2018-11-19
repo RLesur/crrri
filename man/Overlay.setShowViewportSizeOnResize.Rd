@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.setShowViewportSizeOnResize}
 \alias{Overlay.setShowViewportSizeOnResize}
-\title{Send the command Overlay.setShowViewportSizeOnResize
-
-Paints viewport size upon main frame resize.}
+\title{Send the command Overlay.setShowViewportSizeOnResize}
 \usage{
 Overlay.setShowViewportSizeOnResize(promise, show)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.setShowViewportSizeOnResize
-
 Paints viewport size upon main frame resize.
 }

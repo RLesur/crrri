@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Console.clearMessages
-#'  
+#' 
 #' Does nothing.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,11 +23,11 @@ Console.clearMessages <- function(promise) {
 
 
 #' Send the command Console.disable
-#'  
+#' 
 #' Disables console domain, prevents further console messages from being reported to the client.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -43,12 +43,12 @@ Console.disable <- function(promise) {
 
 
 #' Send the command Console.enable
-#'  
+#' 
 #' Enables console domain, sends the messages collected so far to the client by means of the
 #'        `messageAdded` notification.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

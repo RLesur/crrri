@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.setRequestInterception}
 \alias{Network.setRequestInterception}
-\title{Send the command Network.setRequestInterception
-
-Sets the requests to intercept that match a the provided patterns and optionally resource types.}
+\title{Send the command Network.setRequestInterception}
 \usage{
 Network.setRequestInterception(promise, patterns)
 }
@@ -20,7 +18,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.setRequestInterception
-
 Sets the requests to intercept that match a the provided patterns and optionally resource types.
 }

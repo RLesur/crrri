@@ -2,9 +2,7 @@
 % Please edit documentation in R/Accessibility_commands.R
 \name{Accessibility.getFullAXTree}
 \alias{Accessibility.getFullAXTree}
-\title{Send the command Accessibility.getFullAXTree
-
-Fetches the entire accessibility tree}
+\title{Send the command Accessibility.getFullAXTree}
 \usage{
 Accessibility.getFullAXTree(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Accessibility.getFullAXTree
-
 Fetches the entire accessibility tree
 }

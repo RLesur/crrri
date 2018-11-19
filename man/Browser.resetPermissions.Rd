@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.resetPermissions}
 \alias{Browser.resetPermissions}
-\title{Send the command Browser.resetPermissions
-
-Reset all permission management for all origins.}
+\title{Send the command Browser.resetPermissions}
 \usage{
 Browser.resetPermissions(promise, browserContextId = NULL)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Browser.resetPermissions
-
 Reset all permission management for all origins.
 }

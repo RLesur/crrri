@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.redo}
 \alias{DOM.redo}
-\title{Send the command DOM.redo
-
-Re-does the last undone action.}
+\title{Send the command DOM.redo}
 \usage{
 DOM.redo(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.redo
-
 Re-does the last undone action.
 }

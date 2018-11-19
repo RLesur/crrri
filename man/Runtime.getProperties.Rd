@@ -2,10 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.getProperties}
 \alias{Runtime.getProperties}
-\title{Send the command Runtime.getProperties
-
-Returns properties of a given object. Object group of the result is inherited from the target
-object.}
+\title{Send the command Runtime.getProperties}
 \usage{
 Runtime.getProperties(promise, objectId, ownProperties = NULL,
   accessorPropertiesOnly = NULL, generatePreview = NULL)
@@ -32,8 +29,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 3.
 }
 \description{
-Send the command Runtime.getProperties
-
 Returns properties of a given object. Object group of the result is inherited from the target
 object.
 }

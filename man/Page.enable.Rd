@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.enable}
 \alias{Page.enable}
-\title{Send the command Page.enable
-
-Enables page domain notifications.}
+\title{Send the command Page.enable}
 \usage{
 Page.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.enable
-
 Enables page domain notifications.
 }

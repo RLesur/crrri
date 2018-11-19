@@ -2,9 +2,7 @@
 % Please edit documentation in R/Profiler_commands.R
 \name{Profiler.startTypeProfile}
 \alias{Profiler.startTypeProfile}
-\title{Send the command Profiler.startTypeProfile
-
-Enable type profile.}
+\title{Send the command Profiler.startTypeProfile}
 \usage{
 Profiler.startTypeProfile(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Profiler.startTypeProfile
-
 Enable type profile.
 }

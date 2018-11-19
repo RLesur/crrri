@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.resume}
 \alias{Debugger.resume}
-\title{Send the command Debugger.resume
-
-Resumes JavaScript execution.}
+\title{Send the command Debugger.resume}
 \usage{
 Debugger.resume(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.resume
-
 Resumes JavaScript execution.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.setDockTile}
 \alias{Browser.setDockTile}
-\title{Send the command Browser.setDockTile
-
-Set dock tile details, platform-specific.}
+\title{Send the command Browser.setDockTile}
 \usage{
 Browser.setDockTile(promise, badgeLabel = NULL, image = NULL)
 }
@@ -21,7 +19,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Browser.setDockTile
-
 Set dock tile details, platform-specific.
 }

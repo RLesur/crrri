@@ -2,10 +2,7 @@
 % Please edit documentation in R/ApplicationCache_commands.R
 \name{ApplicationCache.getFramesWithManifests}
 \alias{ApplicationCache.getFramesWithManifests}
-\title{Send the command ApplicationCache.getFramesWithManifests
-
-Returns array of frame identifiers with manifest urls for each frame containing a document
-associated with some application cache.}
+\title{Send the command ApplicationCache.getFramesWithManifests}
 \usage{
 ApplicationCache.getFramesWithManifests(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command ApplicationCache.getFramesWithManifests
-
 Returns array of frame identifiers with manifest urls for each frame containing a document
 associated with some application cache.
 }

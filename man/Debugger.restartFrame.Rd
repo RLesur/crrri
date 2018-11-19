@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.restartFrame}
 \alias{Debugger.restartFrame}
-\title{Send the command Debugger.restartFrame
-
-Restarts particular call frame from the beginning.}
+\title{Send the command Debugger.restartFrame}
 \usage{
 Debugger.restartFrame(promise, callFrameId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 3.
 }
 \description{
-Send the command Debugger.restartFrame
-
 Restarts particular call frame from the beginning.
 }

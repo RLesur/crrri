@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.setFileInputFiles}
 \alias{DOM.setFileInputFiles}
-\title{Send the command DOM.setFileInputFiles
-
-Sets files for the given file input element.}
+\title{Send the command DOM.setFileInputFiles}
 \usage{
 DOM.setFileInputFiles(promise, files, nodeId = NULL,
   backendNodeId = NULL, objectId = NULL)
@@ -29,7 +27,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.setFileInputFiles
-
 Sets files for the given file input element.
 }

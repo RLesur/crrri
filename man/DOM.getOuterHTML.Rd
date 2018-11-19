@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getOuterHTML}
 \alias{DOM.getOuterHTML}
-\title{Send the command DOM.getOuterHTML
-
-Returns node's HTML markup.}
+\title{Send the command DOM.getOuterHTML}
 \usage{
 DOM.getOuterHTML(promise, nodeId = NULL, backendNodeId = NULL,
   objectId = NULL)
@@ -26,7 +24,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.getOuterHTML
-
 Returns node's HTML markup.
 }

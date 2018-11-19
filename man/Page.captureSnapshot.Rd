@@ -2,10 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.captureSnapshot}
 \alias{Page.captureSnapshot}
-\title{Send the command Page.captureSnapshot
-
-Returns a snapshot of the page as a string. For MHTML format, the serialization includes
-iframes, shadow DOM, external resources, and element-inline styles.}
+\title{Send the command Page.captureSnapshot}
 \usage{
 Page.captureSnapshot(promise, format = NULL)
 }
@@ -20,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Page.captureSnapshot
-
 Returns a snapshot of the page as a string. For MHTML format, the serialization includes
 iframes, shadow DOM, external resources, and element-inline styles.
 }

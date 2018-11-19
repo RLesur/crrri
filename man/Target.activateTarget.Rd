@@ -2,9 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.activateTarget}
 \alias{Target.activateTarget}
-\title{Send the command Target.activateTarget
-
-Activates (focuses) the target.}
+\title{Send the command Target.activateTarget}
 \usage{
 Target.activateTarget(promise, targetId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Target.activateTarget
-
 Activates (focuses) the target.
 }

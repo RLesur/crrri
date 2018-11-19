@@ -2,9 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setEmulatedMedia}
 \alias{Emulation.setEmulatedMedia}
-\title{Send the command Emulation.setEmulatedMedia
-
-Emulates the given media for CSS media queries.}
+\title{Send the command Emulation.setEmulatedMedia}
 \usage{
 Emulation.setEmulatedMedia(promise, media)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setEmulatedMedia
-
 Emulates the given media for CSS media queries.
 }

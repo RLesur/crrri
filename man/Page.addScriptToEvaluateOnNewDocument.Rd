@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.addScriptToEvaluateOnNewDocument}
 \alias{Page.addScriptToEvaluateOnNewDocument}
-\title{Send the command Page.addScriptToEvaluateOnNewDocument
-
-Evaluates given script in every frame upon creation (before loading frame's scripts).}
+\title{Send the command Page.addScriptToEvaluateOnNewDocument}
 \usage{
 Page.addScriptToEvaluateOnNewDocument(promise, source, worldName = NULL)
 }
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Page.addScriptToEvaluateOnNewDocument
-
 Evaluates given script in every frame upon creation (before loading frame's scripts).
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/Inspector_commands.R
 \name{Inspector.enable}
 \alias{Inspector.enable}
-\title{Send the command Inspector.enable
-
-Enables inspector domain notifications.}
+\title{Send the command Inspector.enable}
 \usage{
 Inspector.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Inspector.enable
-
 Enables inspector domain notifications.
 }

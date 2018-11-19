@@ -2,11 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.requestChildNodes}
 \alias{DOM.requestChildNodes}
-\title{Send the command DOM.requestChildNodes
-
-Requests that children of the node with given id are returned to the caller in form of
-\code{setChildNodes} events where not only immediate children are retrieved, but all children down to
-the specified depth.}
+\title{Send the command DOM.requestChildNodes}
 \usage{
 DOM.requestChildNodes(promise, nodeId, depth = NULL, pierce = NULL)
 }
@@ -29,8 +25,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.requestChildNodes
-
 Requests that children of the node with given id are returned to the caller in form of
 \code{setChildNodes} events where not only immediate children are retrieved, but all children down to
 the specified depth.

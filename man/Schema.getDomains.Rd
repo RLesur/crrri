@@ -2,9 +2,7 @@
 % Please edit documentation in R/Schema_commands.R
 \name{Schema.getDomains}
 \alias{Schema.getDomains}
-\title{Send the command Schema.getDomains
-
-Returns supported domains.}
+\title{Send the command Schema.getDomains}
 \usage{
 Schema.getDomains(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Schema.getDomains
-
 Returns supported domains.
 }

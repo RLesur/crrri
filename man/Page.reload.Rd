@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.reload}
 \alias{Page.reload}
-\title{Send the command Page.reload
-
-Reloads given page optionally ignoring the cache.}
+\title{Send the command Page.reload}
 \usage{
 Page.reload(promise, ignoreCache = NULL, scriptToEvaluateOnLoad = NULL)
 }
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.reload
-
 Reloads given page optionally ignoring the cache.
 }

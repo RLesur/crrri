@@ -2,11 +2,7 @@
 % Please edit documentation in R/Emulation_commands.R
 \name{Emulation.setDeviceMetricsOverride}
 \alias{Emulation.setDeviceMetricsOverride}
-\title{Send the command Emulation.setDeviceMetricsOverride
-
-Overrides the values of device screen dimensions (window.screen.width, window.screen.height,
-window.innerWidth, window.innerHeight, and "device-width"/"device-height"-related CSS media
-query results).}
+\title{Send the command Emulation.setDeviceMetricsOverride}
 \usage{
 Emulation.setDeviceMetricsOverride(promise, width, height,
   deviceScaleFactor, mobile, scale = NULL, screenWidth = NULL,
@@ -60,8 +56,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Emulation.setDeviceMetricsOverride
-
 Overrides the values of device screen dimensions (window.screen.width, window.screen.height,
 window.innerWidth, window.innerHeight, and "device-width"/"device-height"-related CSS media
 query results).

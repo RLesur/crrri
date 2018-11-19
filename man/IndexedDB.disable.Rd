@@ -2,9 +2,7 @@
 % Please edit documentation in R/IndexedDB_commands.R
 \name{IndexedDB.disable}
 \alias{IndexedDB.disable}
-\title{Send the command IndexedDB.disable
-
-Disables events from backend.}
+\title{Send the command IndexedDB.disable}
 \usage{
 IndexedDB.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command IndexedDB.disable
-
 Disables events from backend.
 }

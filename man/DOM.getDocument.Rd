@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getDocument}
 \alias{DOM.getDocument}
-\title{Send the command DOM.getDocument
-
-Returns the root DOM node (and optionally the subtree) to the caller.}
+\title{Send the command DOM.getDocument}
 \usage{
 DOM.getDocument(promise, depth = NULL, pierce = NULL)
 }
@@ -24,7 +22,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.getDocument
-
 Returns the root DOM node (and optionally the subtree) to the caller.
 }

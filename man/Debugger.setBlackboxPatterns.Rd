@@ -2,11 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setBlackboxPatterns}
 \alias{Debugger.setBlackboxPatterns}
-\title{Send the command Debugger.setBlackboxPatterns
-
-Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in
-scripts with url matching one of the patterns. VM will try to leave blackboxed script by
-performing 'step in' several times, finally resorting to 'step out' if unsuccessful.}
+\title{Send the command Debugger.setBlackboxPatterns}
 \usage{
 Debugger.setBlackboxPatterns(promise, patterns)
 }
@@ -21,8 +17,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.setBlackboxPatterns
-
 Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in
 scripts with url matching one of the patterns. VM will try to leave blackboxed script by
 performing 'step in' several times, finally resorting to 'step out' if unsuccessful.

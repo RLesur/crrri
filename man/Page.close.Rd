@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.close}
 \alias{Page.close}
-\title{Send the command Page.close
-
-Tries to close page, running its beforeunload hooks, if any.}
+\title{Send the command Page.close}
 \usage{
 Page.close(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.close
-
 Tries to close page, running its beforeunload hooks, if any.
 }

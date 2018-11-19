@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.pushNodesByBackendIdsToFrontend}
 \alias{DOM.pushNodesByBackendIdsToFrontend}
-\title{Send the command DOM.pushNodesByBackendIdsToFrontend
-
-Requests that a batch of nodes is sent to the caller given their backend node ids.}
+\title{Send the command DOM.pushNodesByBackendIdsToFrontend}
 \usage{
 DOM.pushNodesByBackendIdsToFrontend(promise, backendNodeIds)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.pushNodesByBackendIdsToFrontend
-
 Requests that a batch of nodes is sent to the caller given their backend node ids.
 }

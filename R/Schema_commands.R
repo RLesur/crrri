@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Schema.getDomains
-#'  
+#' 
 #' Returns supported domains.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 1.
 #' @export

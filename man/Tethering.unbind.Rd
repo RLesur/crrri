@@ -2,9 +2,7 @@
 % Please edit documentation in R/Tethering_commands.R
 \name{Tethering.unbind}
 \alias{Tethering.unbind}
-\title{Send the command Tethering.unbind
-
-Request browser port unbinding.}
+\title{Send the command Tethering.unbind}
 \usage{
 Tethering.unbind(promise, port)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Tethering.unbind
-
 Request browser port unbinding.
 }

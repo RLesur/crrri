@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.disable}
 \alias{Overlay.disable}
-\title{Send the command Overlay.disable
-
-Disables domain notifications.}
+\title{Send the command Overlay.disable}
 \usage{
 Overlay.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.disable
-
 Disables domain notifications.
 }

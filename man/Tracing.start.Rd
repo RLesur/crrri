@@ -2,9 +2,7 @@
 % Please edit documentation in R/Tracing_commands.R
 \name{Tracing.start}
 \alias{Tracing.start}
-\title{Send the command Tracing.start
-
-Start trace events collection.}
+\title{Send the command Tracing.start}
 \usage{
 Tracing.start(promise, categories = NULL, options = NULL,
   bufferUsageReportingInterval = NULL, transferMode = NULL,
@@ -37,7 +35,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Tracing.start
-
 Start trace events collection.
 }

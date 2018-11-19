@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.setXHRBreakpoint}
 \alias{DOMDebugger.setXHRBreakpoint}
-\title{Send the command DOMDebugger.setXHRBreakpoint
-
-Sets breakpoint on XMLHttpRequest.}
+\title{Send the command DOMDebugger.setXHRBreakpoint}
 \usage{
 DOMDebugger.setXHRBreakpoint(promise, url)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMDebugger.setXHRBreakpoint
-
 Sets breakpoint on XMLHttpRequest.
 }

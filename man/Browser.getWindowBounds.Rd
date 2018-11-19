@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.getWindowBounds}
 \alias{Browser.getWindowBounds}
-\title{Send the command Browser.getWindowBounds
-
-Get position and size of the browser window.}
+\title{Send the command Browser.getWindowBounds}
 \usage{
 Browser.getWindowBounds(promise, windowId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Browser.getWindowBounds
-
 Get position and size of the browser window.
 }

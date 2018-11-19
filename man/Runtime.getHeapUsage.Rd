@@ -2,10 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.getHeapUsage}
 \alias{Runtime.getHeapUsage}
-\title{Send the command Runtime.getHeapUsage
-
-Returns the JavaScript heap usage.
-It is the total usage of the corresponding isolate not scoped to a particular Runtime.}
+\title{Send the command Runtime.getHeapUsage}
 \usage{
 Runtime.getHeapUsage(promise)
 }
@@ -17,8 +14,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Runtime.getHeapUsage
-
 Returns the JavaScript heap usage.
 It is the total usage of the corresponding isolate not scoped to a particular Runtime.
 }

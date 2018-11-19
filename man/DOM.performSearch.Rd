@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.performSearch}
 \alias{DOM.performSearch}
-\title{Send the command DOM.performSearch
-
-Searches for a given string in the DOM tree. Use \code{getSearchResults} to access search results or
-\code{cancelSearch} to end this search session.}
+\title{Send the command DOM.performSearch}
 \usage{
 DOM.performSearch(promise, query, includeUserAgentShadowDOM = NULL)
 }
@@ -23,8 +20,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command DOM.performSearch
-
 Searches for a given string in the DOM tree. Use \code{getSearchResults} to access search results or
 \code{cancelSearch} to end this search session.
 }

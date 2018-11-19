@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.compileScript}
 \alias{Runtime.compileScript}
-\title{Send the command Runtime.compileScript
-
-Compiles expression.}
+\title{Send the command Runtime.compileScript}
 \usage{
 Runtime.compileScript(promise, expression, sourceURL, persistScript,
   executionContextId = NULL)
@@ -30,7 +28,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Runtime.compileScript
-
 Compiles expression.
 }

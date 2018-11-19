@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.searchInResponseBody}
 \alias{Network.searchInResponseBody}
-\title{Send the command Network.searchInResponseBody
-
-Searches for given string in response content.}
+\title{Send the command Network.searchInResponseBody}
 \usage{
 Network.searchInResponseBody(promise, requestId, query,
   caseSensitive = NULL, isRegex = NULL)
@@ -29,7 +27,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Network.searchInResponseBody
-
 Searches for given string in response content.
 }

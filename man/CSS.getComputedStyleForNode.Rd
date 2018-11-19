@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.getComputedStyleForNode}
 \alias{CSS.getComputedStyleForNode}
-\title{Send the command CSS.getComputedStyleForNode
-
-Returns the computed style for a DOM node identified by \code{nodeId}.}
+\title{Send the command CSS.getComputedStyleForNode}
 \usage{
 CSS.getComputedStyleForNode(promise, nodeId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.getComputedStyleForNode
-
 Returns the computed style for a DOM node identified by \code{nodeId}.
 }

@@ -3,11 +3,11 @@
 NULL
 
 #' Send the command Inspector.disable
-#'  
+#' 
 #' Disables inspector domain notifications.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export
@@ -23,11 +23,11 @@ Inspector.disable <- function(promise) {
 
 
 #' Send the command Inspector.enable
-#'  
+#' 
 #' Enables inspector domain notifications.
-#'  
+#' 
 #' @param promise An aynchronous result object.
-#'  
+#' 
 #' @return A promise (following the definition of the promises package).
 #'         The value of the fulfilled promise is a named list of length 0.
 #' @export

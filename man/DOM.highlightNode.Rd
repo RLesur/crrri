@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.highlightNode}
 \alias{DOM.highlightNode}
-\title{Send the command DOM.highlightNode
-
-Highlights DOM node.}
+\title{Send the command DOM.highlightNode}
 \usage{
 DOM.highlightNode(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOM.highlightNode
-
 Highlights DOM node.
 }

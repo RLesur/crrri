@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.setBreakpointsActive}
 \alias{Debugger.setBreakpointsActive}
-\title{Send the command Debugger.setBreakpointsActive
-
-Activates / deactivates all breakpoints on the page.}
+\title{Send the command Debugger.setBreakpointsActive}
 \usage{
 Debugger.setBreakpointsActive(promise, active)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.setBreakpointsActive
-
 Activates / deactivates all breakpoints on the page.
 }

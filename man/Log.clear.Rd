@@ -2,9 +2,7 @@
 % Please edit documentation in R/Log_commands.R
 \name{Log.clear}
 \alias{Log.clear}
-\title{Send the command Log.clear
-
-Clears the log.}
+\title{Send the command Log.clear}
 \usage{
 Log.clear(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Log.clear
-
 Clears the log.
 }

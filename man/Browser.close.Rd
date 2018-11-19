@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.close}
 \alias{Browser.close}
-\title{Send the command Browser.close
-
-Close browser gracefully.}
+\title{Send the command Browser.close}
 \usage{
 Browser.close(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Browser.close
-
 Close browser gracefully.
 }

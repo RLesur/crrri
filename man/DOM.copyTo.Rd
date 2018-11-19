@@ -2,10 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.copyTo}
 \alias{DOM.copyTo}
-\title{Send the command DOM.copyTo
-
-Creates a deep copy of the specified node and places it into the target container before the
-given anchor.}
+\title{Send the command DOM.copyTo}
 \usage{
 DOM.copyTo(promise, nodeId, targetNodeId, insertBeforeNodeId = NULL)
 }
@@ -27,8 +24,6 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.copyTo
-
 Creates a deep copy of the specified node and places it into the target container before the
 given anchor.
 }

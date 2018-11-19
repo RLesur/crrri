@@ -2,9 +2,7 @@
 % Please edit documentation in R/Animation_commands.R
 \name{Animation.setPlaybackRate}
 \alias{Animation.setPlaybackRate}
-\title{Send the command Animation.setPlaybackRate
-
-Sets the playback rate of the document timeline.}
+\title{Send the command Animation.setPlaybackRate}
 \usage{
 Animation.setPlaybackRate(promise, playbackRate)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Animation.setPlaybackRate
-
 Sets the playback rate of the document timeline.
 }

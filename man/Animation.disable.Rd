@@ -2,9 +2,7 @@
 % Please edit documentation in R/Animation_commands.R
 \name{Animation.disable}
 \alias{Animation.disable}
-\title{Send the command Animation.disable
-
-Disables animation domain notifications.}
+\title{Send the command Animation.disable}
 \usage{
 Animation.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Animation.disable
-
 Disables animation domain notifications.
 }

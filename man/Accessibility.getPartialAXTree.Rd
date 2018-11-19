@@ -2,9 +2,7 @@
 % Please edit documentation in R/Accessibility_commands.R
 \name{Accessibility.getPartialAXTree}
 \alias{Accessibility.getPartialAXTree}
-\title{Send the command Accessibility.getPartialAXTree
-
-Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists.}
+\title{Send the command Accessibility.getPartialAXTree}
 \usage{
 Accessibility.getPartialAXTree(promise, nodeId = NULL,
   backendNodeId = NULL, objectId = NULL, fetchRelatives = NULL)
@@ -29,7 +27,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Accessibility.getPartialAXTree
-
 Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists.
 }

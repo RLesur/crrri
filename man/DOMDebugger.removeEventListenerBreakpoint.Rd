@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOMDebugger_commands.R
 \name{DOMDebugger.removeEventListenerBreakpoint}
 \alias{DOMDebugger.removeEventListenerBreakpoint}
-\title{Send the command DOMDebugger.removeEventListenerBreakpoint
-
-Removes breakpoint on particular DOM event.}
+\title{Send the command DOMDebugger.removeEventListenerBreakpoint}
 \usage{
 DOMDebugger.removeEventListenerBreakpoint(promise, eventName,
   targetName = NULL)
@@ -23,7 +21,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command DOMDebugger.removeEventListenerBreakpoint
-
 Removes breakpoint on particular DOM event.
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/DOM_commands.R
 \name{DOM.getAttributes}
 \alias{DOM.getAttributes}
-\title{Send the command DOM.getAttributes
-
-Returns attributes for the specified node.}
+\title{Send the command DOM.getAttributes}
 \usage{
 DOM.getAttributes(promise, nodeId)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command DOM.getAttributes
-
 Returns attributes for the specified node.
 }

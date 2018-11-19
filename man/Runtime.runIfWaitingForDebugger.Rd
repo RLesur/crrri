@@ -2,9 +2,7 @@
 % Please edit documentation in R/Runtime_commands.R
 \name{Runtime.runIfWaitingForDebugger}
 \alias{Runtime.runIfWaitingForDebugger}
-\title{Send the command Runtime.runIfWaitingForDebugger
-
-Tells inspected instance to run if it was waiting for debugger to attach.}
+\title{Send the command Runtime.runIfWaitingForDebugger}
 \usage{
 Runtime.runIfWaitingForDebugger(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Runtime.runIfWaitingForDebugger
-
 Tells inspected instance to run if it was waiting for debugger to attach.
 }

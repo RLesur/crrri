@@ -2,9 +2,7 @@
 % Please edit documentation in R/Browser_commands.R
 \name{Browser.getWindowForTarget}
 \alias{Browser.getWindowForTarget}
-\title{Send the command Browser.getWindowForTarget
-
-Get the browser window that contains the devtools target.}
+\title{Send the command Browser.getWindowForTarget}
 \usage{
 Browser.getWindowForTarget(promise, targetId = NULL)
 }
@@ -19,7 +17,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 2.
 }
 \description{
-Send the command Browser.getWindowForTarget
-
 Get the browser window that contains the devtools target.
 }

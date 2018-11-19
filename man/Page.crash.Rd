@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.crash}
 \alias{Page.crash}
-\title{Send the command Page.crash
-
-Crashes renderer on the IO thread, generates minidumps.}
+\title{Send the command Page.crash}
 \usage{
 Page.crash(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.crash
-
 Crashes renderer on the IO thread, generates minidumps.
 }

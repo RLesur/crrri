@@ -2,9 +2,7 @@
 % Please edit documentation in R/Debugger_commands.R
 \name{Debugger.stepOut}
 \alias{Debugger.stepOut}
-\title{Send the command Debugger.stepOut
-
-Steps out of the function call.}
+\title{Send the command Debugger.stepOut}
 \usage{
 Debugger.stepOut(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Debugger.stepOut
-
 Steps out of the function call.
 }

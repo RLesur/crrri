@@ -2,9 +2,7 @@
 % Please edit documentation in R/Page_commands.R
 \name{Page.generateTestReport}
 \alias{Page.generateTestReport}
-\title{Send the command Page.generateTestReport
-
-Generates a report for testing.}
+\title{Send the command Page.generateTestReport}
 \usage{
 Page.generateTestReport(promise, message, group = NULL)
 }
@@ -22,7 +20,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Page.generateTestReport
-
 Generates a report for testing.
 }

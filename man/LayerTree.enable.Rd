@@ -2,9 +2,7 @@
 % Please edit documentation in R/LayerTree_commands.R
 \name{LayerTree.enable}
 \alias{LayerTree.enable}
-\title{Send the command LayerTree.enable
-
-Enables compositing tree inspection.}
+\title{Send the command LayerTree.enable}
 \usage{
 LayerTree.enable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command LayerTree.enable
-
 Enables compositing tree inspection.
 }

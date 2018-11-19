@@ -2,9 +2,7 @@
 % Please edit documentation in R/CSS_commands.R
 \name{CSS.getStyleSheetText}
 \alias{CSS.getStyleSheetText}
-\title{Send the command CSS.getStyleSheetText
-
-Returns the current textual content for a stylesheet.}
+\title{Send the command CSS.getStyleSheetText}
 \usage{
 CSS.getStyleSheetText(promise, styleSheetId)
 }
@@ -18,7 +16,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command CSS.getStyleSheetText
-
 Returns the current textual content for a stylesheet.
 }

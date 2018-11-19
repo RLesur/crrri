@@ -2,9 +2,7 @@
 % Please edit documentation in R/Network_commands.R
 \name{Network.disable}
 \alias{Network.disable}
-\title{Send the command Network.disable
-
-Disables network tracking, prevents network events from being sent to the client.}
+\title{Send the command Network.disable}
 \usage{
 Network.disable(promise)
 }
@@ -16,7 +14,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Network.disable
-
 Disables network tracking, prevents network events from being sent to the client.
 }

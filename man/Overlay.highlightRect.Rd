@@ -2,9 +2,7 @@
 % Please edit documentation in R/Overlay_commands.R
 \name{Overlay.highlightRect}
 \alias{Overlay.highlightRect}
-\title{Send the command Overlay.highlightRect
-
-Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.}
+\title{Send the command Overlay.highlightRect}
 \usage{
 Overlay.highlightRect(promise, x, y, width, height, color = NULL,
   outlineColor = NULL)
@@ -35,7 +33,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 0.
 }
 \description{
-Send the command Overlay.highlightRect
-
 Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.
 }

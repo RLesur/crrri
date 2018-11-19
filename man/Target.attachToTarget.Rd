@@ -2,9 +2,7 @@
 % Please edit documentation in R/Target_commands.R
 \name{Target.attachToTarget}
 \alias{Target.attachToTarget}
-\title{Send the command Target.attachToTarget
-
-Attaches to the target with given id.}
+\title{Send the command Target.attachToTarget}
 \usage{
 Target.attachToTarget(promise, targetId, flatten = NULL)
 }
@@ -21,7 +19,5 @@ A promise (following the definition of the promises package).
 The value of the fulfilled promise is a named list of length 1.
 }
 \description{
-Send the command Target.attachToTarget
-
 Attaches to the target with given id.
 }
