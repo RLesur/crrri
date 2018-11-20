@@ -85,3 +85,9 @@ r_project %>%
   } %>%
   finally(~ chr_disconnect(chrome))
 ```
+
+## Credits
+
+Miles McBain for `chradle`.
+
+Bob Rudis for `decapitated`.
