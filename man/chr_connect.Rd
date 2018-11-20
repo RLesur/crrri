@@ -4,8 +4,9 @@
 \alias{chr_connect}
 \title{Connect R to a new Chrome instance}
 \usage{
-chr_connect(bin = "google-chrome", debug_port = 9222,
-  extra_args = NULL, headless = TRUE, work_dir = "remote-profile")
+chr_connect(bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222,
+  extra_args = NULL, headless = TRUE, auto_connect = TRUE,
+  async = TRUE)
 }
 \arguments{
 \item{bin}{Command or path to the Chrome exe.}
@@ -16,10 +17,14 @@ chr_connect(bin = "google-chrome", debug_port = 9222,
 
 \item{headless}{Is Chrome launch in headless mode?}
 
-\item{work_dir}{Chrome working directory.}
+\item{auto_connect}{Is the connexion to Chrome launched immediately?}
+
+\item{async}{Is the returned object a promise?}
 }
 \value{
-An asynchronous result object that can be passed to any command or event listeners.
+A connexion object that is a named list of two elements. The object
+has a \code{result} element that is \code{NULL} for a new connexion and a \code{ws}
+element that is a WebSocket object.
 }
 \description{
 Connect R to a new Chrome instance
