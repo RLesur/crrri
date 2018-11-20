@@ -10,7 +10,7 @@
 #'
 #' @export
 chr_connect <- function(
-  bin = "google-chrome", debug_port = 9222, extra_args = NULL, headless = TRUE,
+  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222, extra_args = NULL, headless = TRUE,
   work_dir = "remote-profile"
 ) { promises::promise(function(resolve, reject) {
 

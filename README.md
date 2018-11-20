@@ -29,18 +29,21 @@ remotes::install_github('rlesur/crrri')
 
 ## Example
 
+You need to set an environment variable named `HEADLESS_CHROME` (same
+variable as in `hrbrmstr/decapitated`) that contains the path to the
+Chrome (or Chromium) executable.
+
 ``` r
 library(crrri)
 library(promises)
 library(jsonlite)
 
-# Ensure that google-chrome is in your PATH, otherwise use the bin argument
 chrome <- chr_connect()
 ```
 
 ``` r
-## Chrome succesfully launched in headless mode 
-## R succesfully connected to headless Chrome through DevTools Protocol.
+#> Chrome succesfully launched in headless mode 
+#> R succesfully connected to headless Chrome through DevTools Protocol.
 ```
 
 Since all the operations that we can do with the DevTools Protocol are
@@ -52,7 +55,7 @@ chrome
 ```
 
 ``` r
-## <Promise [fulfilled: list]>
+#> <Promise [fulfilled: list]>
 ```
 
 Chrome DevTools commands are built on top of the `promises::then()`
