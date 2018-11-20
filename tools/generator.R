@@ -7,18 +7,18 @@ types <- c(string = "A character string. ",
            array = "A list of ",
            number = "A numeric. ")
 
-optional <- function(parameter) {
+is_param_optional <- function(parameter) {
   isTRUE(parameter$optional)
 }
 
-deprecated <- function(command) {
+is_cmd_deprecated <- function(command) {
   isTRUE(command$deprecated)
 }
 
 # Build command -----------------------------------------------------------
 build_command_signature <- function(command) {
-  par_names <- c("promise", sapply(command$parameters, function(x) x$name))
-  optionals <- c(FALSE, sapply(command$parameters, optional))
+  par_names <- c("promise", purrr::map_chr(command$parameters, "name"))
+  optionals <- c(FALSE, purrr::map_lgl(command$parameters, is_param_optional))
   paste0("function(",
          paste(paste0(par_names,
                       ifelse(optionals, " = NULL", "")
@@ -35,7 +35,7 @@ build_parameter_help <- function(parameter) {
     "#' @param ", parameter$name, " ",
     if (isTRUE(parameter$deprecated)) "Deprecated. ",
     if (isTRUE(parameter$experimental)) "Experimental. ",
-    if (optional(parameter)) "Optional. ",
+    if (isTRUE(parameter$optional)) "Optional. ",
     types[parameter$type],
     if (!is.null(parameter$items)) paste0(parameter$items, ". "),
     if (!is.null(parameter[["$ref"]])) paste0("A ", parameter[["$ref"]], ". ")
@@ -54,7 +54,7 @@ build_command_help <- function(domain_name, command) {
   description <- paste0("#' ", command$description)
   description <- paste0(sanitize_help(description), "\n#' ")
   params <- c("#' @param promise An aynchronous result object.",
-              sapply(command$parameters, build_parameter_help)
+              purrr::map_chr(command$parameters, build_parameter_help)
   )
   return_field <- paste0(
     "#' ",
@@ -79,23 +79,23 @@ generate_command <- function(command, domain_name = NULL) {
 }
 
 generate_commands_source_code <- function(domain) {
-  deprecated <- sapply(domain$commands, deprecated)
+  deprecated <- purrr::map_lgl(domain$commands, is_cmd_deprecated)
   commands <- domain$commands[!deprecated]
   file_content <- paste0(c(
     "# DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
-    sapply(commands, generate_command, domain_name = domain$domain)
+    purrr::map_chr(commands, generate_command, domain_name = domain$domain)
   ), collapse = "\n\n")
   cat(file_content, file = paste0("R/", domain$domain, "_commands.R"))
 }
 
-lapply(js_protocol$domains, generate_commands_source_code)
-lapply(browser_protocol$domains, generate_commands_source_code)
+purrr::walk(js_protocol$domains, generate_commands_source_code)
+purrr::walk(browser_protocol$domains, generate_commands_source_code)
 
 # Build event listener ----------------------------------------------------
 
 build_event_signature <- function(event) {
-  par_names <- c("promise", sapply(command$parameters, function(x) x$name))
-  optionals <- c(FALSE, sapply(command$parameters, optional))
+  par_names <- c("promise", purrr::map_chr(command$parameters, "name"))
+  optionals <- c(FALSE, purrr::map_lgl(command$parameters, is_param_optional))
   paste0("function(",
          paste(paste0(par_names,
                       ifelse(optionals, " = NULL", "")
