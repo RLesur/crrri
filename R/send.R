@@ -7,7 +7,7 @@ send <- (function() {
     promises::then( # send is a wrapper of then
       promise,
       onFulfilled = function(value) {
-        ws <- value$cnx$ws
+        ws <- value$ws
         # the returned object:
         promises::promise(function(resolve, reject) {
           rm_onMsg <- NULL
