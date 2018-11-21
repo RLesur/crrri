@@ -22,6 +22,7 @@ Imports:
     promises,
     purrr,
     rlang,
+    R6,
     stringi,
     websocket
 Remotes:
@@ -46,6 +47,7 @@ Collate:
     'DOM_commands.R'
     'Database_commands.R'
     'Debugger_commands.R'
+    'DevToolsConnexion.R'
     'DeviceOrientation_commands.R'
     'Emulation_commands.R'
     'Fetch_commands.R'
