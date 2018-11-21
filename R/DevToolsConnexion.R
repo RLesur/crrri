@@ -8,12 +8,18 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
   inherit = websocket::WebSocket,
 # Public ------------------------------------------------------------------
   public = list(
-    sendCommand = function(method, params = NULL, callback = NULL, onerror = rlang::as_function(~ cat(., "\n", sep = ""))) {
+    sendCommand = function(method, params = NULL, callback = NULL, onerror = cat) {
       id <- private$getNewId()
       msg <- private$buildMessage(id, method, params)
 
       if (!is.null(callback)) {
-        callback <- rlang::as_function(callback)
+        callback <- tryCatch(
+          rlang::as_function(callback),
+          error = function(e) {
+            onerror(as.character(e))
+            NULL
+          }
+        )
       }
 
       newCallback <- function(value) {
@@ -28,7 +34,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
       cat(sprintf("Command #%i-%s sent.\n", id, method))
       invisible(self)
     },
-    onEvent = function(method = NULL, params = NULL, callback = NULL, onerror = rlang::as_function(~ cat(., "\n", sep = "")), once = TRUE, .id = NULL) {
+    onEvent = function(method = NULL, params = NULL, callback = NULL, onerror = cat, once = TRUE, .id = NULL) {
       target <- list()
       if (is.null(.id)) {
         target$method <- method
@@ -47,7 +53,8 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
             rmOnDiscCallback()
             rmOnErrCallback()
           }, add = TRUE, after = FALSE)
-          onerror(paste0("Error: ", message$error$message, "(code ", message$error$code, ")."))
+          onerror(paste0("Error: ", message$error$message, "(code ", message$error$code, ").\n"))
+          return()
         }
         caught <- private$listPartialMatch(target, message)
         if (!caught) return()
@@ -73,7 +80,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           rmOnDiscCallback()
           rmOnErrCallback()
         }, add = TRUE, after = FALSE)
-        onerror(paste("Client disconnected with code", event$code, "and reason", event$reason, "."))
+        onerror(paste("Client disconnected with code", event$code, "and reason", event$reason, ".\n"))
       })
       rmOnErrCallback <- ws$onError(function(event) {
         on.exit({
@@ -81,7 +88,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           rmOnDiscCallback()
           rmOnErrCallback()
         }, add = TRUE, after = FALSE)
-        onerror(paste("WebSocket connexion error:", event$message))
+        onerror(paste0("WebSocket connexion error: ", event$message, "\n"))
       })
       if (isTRUE(once)) {
         return(invisible(self))
