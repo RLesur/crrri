@@ -23,12 +23,12 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           return(callback(value))
         }
       }
-      self$onEvent(method, params, newCallback, onerror, id)
+      self$onEvent(method, params, newCallback, onerror, TRUE, id)
       super$send(msg)
       cat(sprintf("Command #%i-%s sent.\n", id, method))
       invisible(self)
     },
-    onEvent = function(method = NULL, params = NULL, callback = NULL, onerror = rlang::as_function(~ cat(., "\n", sep = "")), .id = NULL) {
+    onEvent = function(method = NULL, params = NULL, callback = NULL, onerror = rlang::as_function(~ cat(., "\n", sep = "")), once = TRUE, .id = NULL) {
       target <- list()
       if (is.null(.id)) {
         target$method <- method
@@ -51,11 +51,12 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
         }
         caught <- private$listPartialMatch(target, message)
         if (!caught) return()
-        on.exit({
-          rmOnMsgCallback()
-          rmOnDiscCallback()
-          rmOnErrCallback()
-        }, add = FALSE, after = FALSE)
+        if (isTRUE(once))
+          on.exit({
+            rmOnMsgCallback()
+            rmOnDiscCallback()
+            rmOnErrCallback()
+          }, add = FALSE, after = FALSE)
         if (!is.null(callback)) {
           callback <- rlang::as_function(callback)
           private$callbackResult <-
@@ -82,7 +83,17 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
         }, add = TRUE, after = FALSE)
         onerror(paste("WebSocket connexion error:", event$message))
       })
-      invisible(self)
+      if (isTRUE(once)) {
+        return(invisible(self))
+      } else {
+        return(
+          invisible(function() {
+            rmOnMsgCallback()
+            rmOnDiscCallback()
+            rmOnErrCallback()
+          })
+        )
+      }
     }
   ),
 # Active bindings ---------------------------------------------------------
