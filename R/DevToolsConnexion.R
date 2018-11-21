@@ -127,7 +127,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
 
       found <- mapply(function(elx, elt) {
         if (is.list(elx) & is.list(elt))
-          return(plmatch(elx, elt))
+          return(private$listPartialMatch(elx, elt))
         else identical(elx, elt)
       },
       x, table[xnames]
