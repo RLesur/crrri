@@ -21,15 +21,14 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           }
         )
       }
-
       newCallback <- function(value) {
         cat(sprintf("A response to the command #%i-%s was received.\n", id, method))
+        private$response <- value$result
         if (!is.null(callback)) {
-          cat("Executing the callback function...\n")
           return(callback(value))
         }
       }
-      self$onEvent(method, params, newCallback, onerror, TRUE, id)
+      self$onEvent(method, params, newCallback, onerror, once = TRUE, .id = id)
       super$send(msg)
       cat(sprintf("Command #%i-%s sent.\n", id, method))
       invisible(self)
@@ -45,6 +44,22 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
       rmOnMsgCallback <- NULL
       rmOnDiscCallback <- NULL
       rmOnErrCallback <- NULL
+      rmOnErrCallback <- super$onError(function(event) {
+        on.exit({
+          rmOnMsgCallback()
+          rmOnDiscCallback()
+          rmOnErrCallback()
+        }, add = TRUE, after = FALSE)
+        onerror(paste0("WebSocket connexion error: ", event$message, "\n"))
+      })
+      rmOnDiscCallback <- super$onClose(function(event) {
+        on.exit({
+          rmOnMsgCallback()
+          rmOnDiscCallback()
+          rmOnErrCallback()
+        }, add = TRUE, after = FALSE)
+        onerror(paste("Client disconnected with code", event$code, "and reason", event$reason, ".\n"))
+      })
       rmOnMsgCallback <- super$onMessage(function(event) {
         message <- jsonlite::fromJSON(event$data)
         if (!is.null(message$error)) {
@@ -64,8 +79,17 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
             rmOnDiscCallback()
             rmOnErrCallback()
           }, add = FALSE, after = FALSE)
+
         if (!is.null(callback)) {
-          callback <- rlang::as_function(callback)
+          callback <- tryCatch(
+            rlang::as_function(callback),
+            error = function(e) {
+              onerror(as.character(e))
+              NULL
+            }
+          )
+        }
+        if (!is.null(callback)) {
           private$callbackResult <-
             tryCatch(callback(message),
                      error = function(e) {
@@ -74,22 +98,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
             )
         }
       })
-      rmOnDiscCallback <- super$onClose(function(event) {
-        on.exit({
-          rmOnMsgCallback()
-          rmOnDiscCallback()
-          rmOnErrCallback()
-        }, add = TRUE, after = FALSE)
-        onerror(paste("Client disconnected with code", event$code, "and reason", event$reason, ".\n"))
-      })
-      rmOnErrCallback <- ws$onError(function(event) {
-        on.exit({
-          rmOnMsgCallback()
-          rmOnDiscCallback()
-          rmOnErrCallback()
-        }, add = TRUE, after = FALSE)
-        onerror(paste0("WebSocket connexion error: ", event$message, "\n"))
-      })
+
       if (isTRUE(once)) {
         return(invisible(self))
       } else {
@@ -105,7 +114,8 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
   ),
 # Active bindings ---------------------------------------------------------
   active = list(
-    result = function() private$callbackResult
+    lastCallbackResult = function() private$callbackResult,
+    lastResponse = function() private$response
   ),
 # Private -----------------------------------------------------------------
   private = list(
@@ -135,6 +145,28 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
 
       all(found)
     },
-    remoteProtocol = NULL
+    response = NULL
   )
 )
+
+#' Coerce to a promise
+#'
+#' @param obj A DevTools connexion.
+#'
+#' @return A promise.
+#' @export
+as.promise.DevToolsConnexion <- function(x) {
+  promises::promise(function(resolve, reject) {
+    if (x$readyState() <= 0) {
+      x$onOpen(function(event) {
+        resolve(list(ws = x, result = x$lastResponse))
+      })
+    }
+    if (x$readyState() == 2 | x$readyState() == 3) {
+      reject("Closed connexion.")
+    }
+    if (x$readyState() == 1) {
+      resolve(list(ws = x, result = x$lastResponse))
+    }
+  })
+}
