@@ -8,27 +8,27 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
   inherit = websocket::WebSocket,
 # Public ------------------------------------------------------------------
   public = list(
-    sendCommand = function(method, params = NULL, callback = NULL) {
+    sendCommand = function(method, params = NULL, callback = NULL, onerror = rlang::as_function(~ cat(., "\n", sep = ""))) {
       id <- private$getNewId()
       msg <- private$buildMessage(id, method, params)
 
       if (!is.null(callback)) {
         callback <- rlang::as_function(callback)
-        private$checkCallback(callback)
       }
 
       newCallback <- function(value) {
         cat(sprintf("A response to the command #%i-%s was received.\n", id, method))
         if (!is.null(callback)) {
           cat("Executing the callback function...\n")
-          callback(value)
+          return(callback(value))
         }
       }
-      self$onEvent(method, params, newCallback, id)
+      self$onEvent(method, params, newCallback, onerror, id)
       super$send(msg)
       cat(sprintf("Command #%i-%s sent.\n", id, method))
+      invisible(self)
     },
-    onEvent = function(method = NULL, params = NULL, callback = NULL, .id = NULL) {
+    onEvent = function(method = NULL, params = NULL, callback = NULL, onerror = rlang::as_function(~ cat(., "\n", sep = "")), .id = NULL) {
       target <- list()
       if (is.null(.id)) {
         target$method <- method
@@ -47,7 +47,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
             rmOnDiscCallback()
             rmOnErrCallback()
           }, add = TRUE, after = FALSE)
-          stop(paste0("Error - (code ", message$error$code, ") ", message$error$message))
+          onerror(paste0("Error: ", message$error$message, "(code ", message$error$code, ")."))
         }
         caught <- private$listPartialMatch(target, message)
         if (!caught) return()
@@ -55,10 +55,15 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           rmOnMsgCallback()
           rmOnDiscCallback()
           rmOnErrCallback()
-        }, add = TRUE, after = FALSE)
+        }, add = FALSE, after = FALSE)
         if (!is.null(callback)) {
           callback <- rlang::as_function(callback)
-          callback(message)
+          private$callbackResult <-
+            tryCatch(callback(message),
+                     error = function(e) {
+                       onerror(as.character(e))
+                     }
+            )
         }
       })
       rmOnDiscCallback <- super$onClose(function(event) {
@@ -67,7 +72,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           rmOnDiscCallback()
           rmOnErrCallback()
         }, add = TRUE, after = FALSE)
-        stop(paste("Client disconnected with code", event$code, "and reason", event$reason, "."))
+        onerror(paste("Client disconnected with code", event$code, "and reason", event$reason, "."))
       })
       rmOnErrCallback <- ws$onError(function(event) {
         on.exit({
@@ -75,25 +80,26 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           rmOnDiscCallback()
           rmOnErrCallback()
         }, add = TRUE, after = FALSE)
-        stop(paste("WebSocket connexion error:", event$message))
+        onerror(paste("WebSocket connexion error:", event$message))
       })
+      invisible(self)
     }
   ),
-
+# Active bindings ---------------------------------------------------------
+  active = list(
+    result = function() private$callbackResult
+  ),
 # Private -----------------------------------------------------------------
   private = list(
-    getNewId = function() {
-      sample(1:99999, 1)
-    },
     buildMessage = function(id, method, params) {
       data <- list(id = id, method = method)
       if(!is.null(params))
         data <- c(data, list(params = params))
       jsonlite::toJSON(data, auto_unbox = TRUE)
     },
-    checkCallback = function(callback) {
-      if (!is.function(callback)) stop("The callback argument must be a function.")
-      if (length(formals(callback)) != 1) stop("The callback function must have one argument and only one.")
+    callbackResult = NULL,
+    getNewId = function() {
+      sample(1:99999, 1)
     },
     listPartialMatch = function(x, table) {
       # check names
@@ -110,6 +116,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
       )
 
       all(found)
-    }
+    },
+    remoteProtocol = NULL
   )
 )
