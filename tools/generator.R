@@ -125,13 +125,17 @@ build_event_help <- function(domain_name, event) {
               "#' @param .callback A callback function taking one argument. The object passed to",
               "#'        this function is the message received from Chrome: this is a named list",
               paste0("#'        with an element `method` (that is equal to `\"", event$name, "\"`)"),
-              "#'        and an element `params` which is a named list. The `params` list is composed of",
-              paste0("#'        the following element(s): ",
-                     paste0("`", purrr::map_chr(event$parameters, "name"), "`",
-                            ifelse(purrr::map_lgl(event$parameters, is_param_optional), " (optional) ", ""),
-                            collapse = ", "
-                     ),
-                     "."
+              "#'        and an element `params` which is a named list.",
+              if (is.null(event$parameters)) "#'        For this event, `params` is void."
+              else c(
+                "#'        The `params` list is composed of",
+                paste0("#'        the following element(s): ",
+                       paste0("`", purrr::map_chr(event$parameters, "name"), "`",
+                              ifelse(purrr::map_lgl(event$parameters, is_param_optional), " (optional) ", ""),
+                              collapse = ", "
+                       ),
+                       "."
+                )
               )
   )
   return_field <- paste0(
@@ -152,7 +156,7 @@ build_event_help <- function(domain_name, event) {
 
 build_event_signature <- function(event) {
   par_names <- purrr::map_chr(event$parameters, "name")
-  paste0("function(promise, ", paste(paste0(par_names, " = NULL"), collapse = ", "), ", .callback = NULL)")
+  paste0("function(promise, ", if (length(par_names) > 0) paste0(paste(paste0(par_names, " = NULL"), collapse = ", "), ", "), ".callback = NULL)")
 }
 
 generate_event <- function(event, domain_name = NULL) {
