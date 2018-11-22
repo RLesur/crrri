@@ -65,7 +65,7 @@ build_command_help <- function(domain_name, command) {
     "\n#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,",
     if (length(command$returns) == 0) "\n#'         `result` is a void named list."
     else sprintf("\n#'         `result` is a named list of length %i.", length(command$returns)),
-    "\n#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent.",
+    "\n#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:",
     "\n#'         `result` is equal to the previous result (`promise$result`).",
     "\n#'         In both cases, you can chain this promise with another command or event listener."
   )
