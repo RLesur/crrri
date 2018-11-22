@@ -6,19 +6,25 @@ NULL
 #' 
 #' Disables domain notifications.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.disable <- function(promise) {
+Overlay.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Overlay.disable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -26,19 +32,25 @@ Overlay.disable <- function(promise) {
 #' 
 #' Enables domain notifications.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.enable <- function(promise) {
+Overlay.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Overlay.enable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -46,21 +58,27 @@ Overlay.enable <- function(promise) {
 #' 
 #' For testing.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param nodeId A DOM.NodeId. 
 #'        Id of the node to get highlight object for. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.getHighlightObjectForTest <- function(promise, nodeId) {
+Overlay.getHighlightObjectForTest <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'Overlay.getHighlightObjectForTest'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -68,19 +86,25 @@ Overlay.getHighlightObjectForTest <- function(promise, nodeId) {
 #' 
 #' Hides any highlight.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.hideHighlight <- function(promise) {
+Overlay.hideHighlight <- function(promise, awaitResult = TRUE) {
   method <- 'Overlay.hideHighlight'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -88,25 +112,31 @@ Overlay.hideHighlight <- function(promise) {
 #' 
 #' Highlights owner element of the frame with given id.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param frameId A Page.FrameId. 
 #'        Identifier of the frame to highlight. 
 #' @param contentColor Optional. A DOM.RGBA. 
 #'        The content box highlight fill color (default: transparent). 
 #' @param contentOutlineColor Optional. A DOM.RGBA. 
 #'        The content box highlight outline color (default: transparent). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.highlightFrame <- function(promise, frameId, contentColor = NULL, contentOutlineColor = NULL) {
+Overlay.highlightFrame <- function(promise, frameId, contentColor = NULL, contentOutlineColor = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightFrame'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -115,7 +145,7 @@ Overlay.highlightFrame <- function(promise, frameId, contentColor = NULL, conten
 #' Highlights DOM node with given id or with the given JavaScript object wrapper. Either nodeId or
 #'        objectId must be specified.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param highlightConfig A HighlightConfig. 
 #'        A descriptor for the highlight appearance. 
 #' @param nodeId Optional. A DOM.NodeId. 
@@ -124,18 +154,24 @@ Overlay.highlightFrame <- function(promise, frameId, contentColor = NULL, conten
 #'        Identifier of the backend node to highlight. 
 #' @param objectId Optional. A Runtime.RemoteObjectId. 
 #'        JavaScript object id of the node to be highlighted. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.highlightNode <- function(promise, highlightConfig, nodeId = NULL, backendNodeId = NULL, objectId = NULL) {
+Overlay.highlightNode <- function(promise, highlightConfig, nodeId = NULL, backendNodeId = NULL, objectId = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightNode'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -143,25 +179,31 @@ Overlay.highlightNode <- function(promise, highlightConfig, nodeId = NULL, backe
 #' 
 #' Highlights given quad. Coordinates are absolute with respect to the main frame viewport.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param quad A DOM.Quad. 
 #'        Quad to highlight 
 #' @param color Optional. A DOM.RGBA. 
 #'        The highlight fill color (default: transparent). 
 #' @param outlineColor Optional. A DOM.RGBA. 
 #'        The highlight outline color (default: transparent). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.highlightQuad <- function(promise, quad, color = NULL, outlineColor = NULL) {
+Overlay.highlightQuad <- function(promise, quad, color = NULL, outlineColor = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightQuad'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -169,7 +211,7 @@ Overlay.highlightQuad <- function(promise, quad, color = NULL, outlineColor = NU
 #' 
 #' Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param x An integer. 
 #'        X coordinate 
 #' @param y An integer. 
@@ -182,18 +224,24 @@ Overlay.highlightQuad <- function(promise, quad, color = NULL, outlineColor = NU
 #'        The highlight fill color (default: transparent). 
 #' @param outlineColor Optional. A DOM.RGBA. 
 #'        The highlight outline color (default: transparent). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.highlightRect <- function(promise, x, y, width, height, color = NULL, outlineColor = NULL) {
+Overlay.highlightRect <- function(promise, x, y, width, height, color = NULL, outlineColor = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightRect'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -202,24 +250,30 @@ Overlay.highlightRect <- function(promise, x, y, width, height, color = NULL, ou
 #' Enters the 'inspect' mode. In this mode, elements that user is hovering over are highlighted.
 #'        Backend then generates 'inspectNodeRequested' event upon element selection.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param mode A InspectMode. 
 #'        Set an inspection mode. 
 #' @param highlightConfig Optional. A HighlightConfig. 
 #'        A descriptor for the highlight appearance of hovered-over nodes. May be omitted if `enabled
 #'        == false`. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setInspectMode <- function(promise, mode, highlightConfig = NULL) {
+Overlay.setInspectMode <- function(promise, mode, highlightConfig = NULL, awaitResult = TRUE) {
   method <- 'Overlay.setInspectMode'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -227,21 +281,27 @@ Overlay.setInspectMode <- function(promise, mode, highlightConfig = NULL) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param message Optional. A character string. 
 #'        The message to display, also triggers resume and step over controls. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setPausedInDebuggerMessage <- function(promise, message = NULL) {
+Overlay.setPausedInDebuggerMessage <- function(promise, message = NULL, awaitResult = TRUE) {
   method <- 'Overlay.setPausedInDebuggerMessage'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -249,21 +309,27 @@ Overlay.setPausedInDebuggerMessage <- function(promise, message = NULL) {
 #' 
 #' Requests that backend shows debug borders on layers
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param show A logical. 
 #'        True for showing debug borders 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setShowDebugBorders <- function(promise, show) {
+Overlay.setShowDebugBorders <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowDebugBorders'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -271,21 +337,27 @@ Overlay.setShowDebugBorders <- function(promise, show) {
 #' 
 #' Requests that backend shows the FPS counter
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param show A logical. 
 #'        True for showing the FPS counter 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setShowFPSCounter <- function(promise, show) {
+Overlay.setShowFPSCounter <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowFPSCounter'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -293,21 +365,27 @@ Overlay.setShowFPSCounter <- function(promise, show) {
 #' 
 #' Requests that backend shows paint rectangles
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param result A logical. 
 #'        True for showing paint rectangles 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setShowPaintRects <- function(promise, result) {
+Overlay.setShowPaintRects <- function(promise, result, awaitResult = TRUE) {
   method <- 'Overlay.setShowPaintRects'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -315,21 +393,27 @@ Overlay.setShowPaintRects <- function(promise, result) {
 #' 
 #' Requests that backend shows scroll bottleneck rects
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param show A logical. 
 #'        True for showing scroll bottleneck rects 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setShowScrollBottleneckRects <- function(promise, show) {
+Overlay.setShowScrollBottleneckRects <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowScrollBottleneckRects'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -337,21 +421,27 @@ Overlay.setShowScrollBottleneckRects <- function(promise, show) {
 #' 
 #' Requests that backend shows hit-test borders on layers
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param show A logical. 
 #'        True for showing hit-test borders 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setShowHitTestBorders <- function(promise, show) {
+Overlay.setShowHitTestBorders <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowHitTestBorders'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -359,21 +449,27 @@ Overlay.setShowHitTestBorders <- function(promise, show) {
 #' 
 #' Paints viewport size upon main frame resize.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param show A logical. 
 #'        Whether to paint size or not. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setShowViewportSizeOnResize <- function(promise, show) {
+Overlay.setShowViewportSizeOnResize <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowViewportSizeOnResize'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -381,19 +477,25 @@ Overlay.setShowViewportSizeOnResize <- function(promise, show) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param suspended A logical. 
 #'        Whether overlay should be suspended and not consume any resources until resumed. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Overlay.setSuspended <- function(promise, suspended) {
+Overlay.setSuspended <- function(promise, suspended, awaitResult = TRUE) {
   method <- 'Overlay.setSuspended'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }

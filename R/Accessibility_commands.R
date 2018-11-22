@@ -6,19 +6,25 @@ NULL
 #' 
 #' Disables the accessibility domain.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Accessibility.disable <- function(promise) {
+Accessibility.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Accessibility.disable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -27,19 +33,25 @@ Accessibility.disable <- function(promise) {
 #' Enables the accessibility domain which causes `AXNodeId`s to remain consistent between method calls.
 #'        This turns on accessibility for the page, which can impact performance until accessibility is disabled.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Accessibility.enable <- function(promise) {
+Accessibility.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Accessibility.enable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -47,7 +59,7 @@ Accessibility.enable <- function(promise) {
 #' 
 #' Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param nodeId Optional. A DOM.NodeId. 
 #'        Identifier of the node to get the partial accessibility tree for. 
 #' @param backendNodeId Optional. A DOM.BackendNodeId. 
@@ -56,18 +68,24 @@ Accessibility.enable <- function(promise) {
 #'        JavaScript object id of the node wrapper to get the partial accessibility tree for. 
 #' @param fetchRelatives Optional. A logical. 
 #'        Whether to fetch this nodes ancestors, siblings and children. Defaults to true. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Accessibility.getPartialAXTree <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, fetchRelatives = NULL) {
+Accessibility.getPartialAXTree <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, fetchRelatives = NULL, awaitResult = TRUE) {
   method <- 'Accessibility.getPartialAXTree'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -75,17 +93,23 @@ Accessibility.getPartialAXTree <- function(promise, nodeId = NULL, backendNodeId
 #' 
 #' Fetches the entire accessibility tree
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Accessibility.getFullAXTree <- function(promise) {
+Accessibility.getFullAXTree <- function(promise, awaitResult = TRUE) {
   method <- 'Accessibility.getFullAXTree'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }

@@ -7,21 +7,27 @@ NULL
 #' Enables console to refer to the node with given id via $x (see Command Line API for more details
 #'        $x functions).
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param heapObjectId A HeapSnapshotObjectId. 
 #'        Heap snapshot object id to be accessible by means of $x command line API. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.addInspectedHeapObject <- function(promise, heapObjectId) {
+HeapProfiler.addInspectedHeapObject <- function(promise, heapObjectId, awaitResult = TRUE) {
   method <- 'HeapProfiler.addInspectedHeapObject'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -29,19 +35,25 @@ HeapProfiler.addInspectedHeapObject <- function(promise, heapObjectId) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.collectGarbage <- function(promise) {
+HeapProfiler.collectGarbage <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.collectGarbage'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -49,19 +61,25 @@ HeapProfiler.collectGarbage <- function(promise) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.disable <- function(promise) {
+HeapProfiler.disable <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.disable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -69,19 +87,25 @@ HeapProfiler.disable <- function(promise) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.enable <- function(promise) {
+HeapProfiler.enable <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.enable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -89,21 +113,27 @@ HeapProfiler.enable <- function(promise) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param objectId A Runtime.RemoteObjectId. 
 #'        Identifier of the object to get heap object id for. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.getHeapObjectId <- function(promise, objectId) {
+HeapProfiler.getHeapObjectId <- function(promise, objectId, awaitResult = TRUE) {
   method <- 'HeapProfiler.getHeapObjectId'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -111,22 +141,28 @@ HeapProfiler.getHeapObjectId <- function(promise, objectId) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param objectId A HeapSnapshotObjectId. 
 #' @param objectGroup Optional. A character string. 
 #'        Symbolic group name that can be used to release multiple objects. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.getObjectByHeapObjectId <- function(promise, objectId, objectGroup = NULL) {
+HeapProfiler.getObjectByHeapObjectId <- function(promise, objectId, objectGroup = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.getObjectByHeapObjectId'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -134,19 +170,25 @@ HeapProfiler.getObjectByHeapObjectId <- function(promise, objectId, objectGroup 
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.getSamplingProfile <- function(promise) {
+HeapProfiler.getSamplingProfile <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.getSamplingProfile'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -154,22 +196,28 @@ HeapProfiler.getSamplingProfile <- function(promise) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param samplingInterval Optional. A numeric. 
 #'        Average sample interval in bytes. Poisson distribution is used for the intervals. The
 #'        default value is 32768 bytes. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.startSampling <- function(promise, samplingInterval = NULL) {
+HeapProfiler.startSampling <- function(promise, samplingInterval = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.startSampling'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -177,20 +225,26 @@ HeapProfiler.startSampling <- function(promise, samplingInterval = NULL) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param trackAllocations Optional. A logical. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.startTrackingHeapObjects <- function(promise, trackAllocations = NULL) {
+HeapProfiler.startTrackingHeapObjects <- function(promise, trackAllocations = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.startTrackingHeapObjects'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -198,19 +252,25 @@ HeapProfiler.startTrackingHeapObjects <- function(promise, trackAllocations = NU
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.stopSampling <- function(promise) {
+HeapProfiler.stopSampling <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.stopSampling'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -218,22 +278,28 @@ HeapProfiler.stopSampling <- function(promise) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param reportProgress Optional. A logical. 
 #'        If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken
 #'        when the tracking is stopped. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.stopTrackingHeapObjects <- function(promise, reportProgress = NULL) {
+HeapProfiler.stopTrackingHeapObjects <- function(promise, reportProgress = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.stopTrackingHeapObjects'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -241,19 +307,25 @@ HeapProfiler.stopTrackingHeapObjects <- function(promise, reportProgress = NULL)
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param reportProgress Optional. A logical. 
 #'        If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeapProfiler.takeHeapSnapshot <- function(promise, reportProgress = NULL) {
+HeapProfiler.takeHeapSnapshot <- function(promise, reportProgress = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.takeHeapSnapshot'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }

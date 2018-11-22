@@ -6,7 +6,7 @@ NULL
 #' 
 #' Dispatches a key event to the page.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param type A character string. 
 #'        Type of the key event. Accepted values: keyDown, keyUp, rawKeyDown, char.
 #' @param modifiers Optional. An integer. 
@@ -40,18 +40,24 @@ NULL
 #' @param location Optional. An integer. 
 #'        Whether the event was from the left or right side of the keyboard. 1=Left, 2=Right (default:
 #'        0). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.dispatchKeyEvent <- function(promise, type, modifiers = NULL, timestamp = NULL, text = NULL, unmodifiedText = NULL, keyIdentifier = NULL, code = NULL, key = NULL, windowsVirtualKeyCode = NULL, nativeVirtualKeyCode = NULL, autoRepeat = NULL, isKeypad = NULL, isSystemKey = NULL, location = NULL) {
+Input.dispatchKeyEvent <- function(promise, type, modifiers = NULL, timestamp = NULL, text = NULL, unmodifiedText = NULL, keyIdentifier = NULL, code = NULL, key = NULL, windowsVirtualKeyCode = NULL, nativeVirtualKeyCode = NULL, autoRepeat = NULL, isKeypad = NULL, isSystemKey = NULL, location = NULL, awaitResult = TRUE) {
   method <- 'Input.dispatchKeyEvent'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -60,21 +66,27 @@ Input.dispatchKeyEvent <- function(promise, type, modifiers = NULL, timestamp = 
 #' This method emulates inserting text that doesn't come from a key press,
 #'        for example an emoji keyboard or an IME.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param text A character string. 
 #'        The text to insert. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.insertText <- function(promise, text) {
+Input.insertText <- function(promise, text, awaitResult = TRUE) {
   method <- 'Input.insertText'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -82,7 +94,7 @@ Input.insertText <- function(promise, text) {
 #' 
 #' Dispatches a mouse event to the page.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param type A character string. 
 #'        Type of the mouse event. Accepted values: mousePressed, mouseReleased, mouseMoved, mouseWheel.
 #' @param x A numeric. 
@@ -103,18 +115,24 @@ Input.insertText <- function(promise, text) {
 #'        X delta in CSS pixels for mouse wheel event (default: 0). 
 #' @param deltaY Optional. A numeric. 
 #'        Y delta in CSS pixels for mouse wheel event (default: 0). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, timestamp = NULL, button = NULL, clickCount = NULL, deltaX = NULL, deltaY = NULL) {
+Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, timestamp = NULL, button = NULL, clickCount = NULL, deltaX = NULL, deltaY = NULL, awaitResult = TRUE) {
   method <- 'Input.dispatchMouseEvent'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -122,7 +140,7 @@ Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, time
 #' 
 #' Dispatches a touch event to the page.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param type A character string. 
 #'        Type of the touch event. TouchEnd and TouchCancel must not contain any touch points, while
 #'        TouchStart and TouchMove must contains at least one. Accepted values: touchStart, touchEnd, touchMove, touchCancel.
@@ -135,18 +153,24 @@ Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, time
 #'        (default: 0). 
 #' @param timestamp Optional. A TimeSinceEpoch. 
 #'        Time at which the event occurred. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NULL, timestamp = NULL) {
+Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NULL, timestamp = NULL, awaitResult = TRUE) {
   method <- 'Input.dispatchTouchEvent'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -154,7 +178,7 @@ Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NUL
 #' 
 #' Emulates touch event from the mouse event parameters.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param type A character string. 
 #'        Type of the mouse event. Accepted values: mousePressed, mouseReleased, mouseMoved, mouseWheel.
 #' @param x An integer. 
@@ -174,18 +198,24 @@ Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NUL
 #'        (default: 0). 
 #' @param clickCount Optional. An integer. 
 #'        Number of times the mouse button was clicked (default: 0). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.emulateTouchFromMouseEvent <- function(promise, type, x, y, button, timestamp = NULL, deltaX = NULL, deltaY = NULL, modifiers = NULL, clickCount = NULL) {
+Input.emulateTouchFromMouseEvent <- function(promise, type, x, y, button, timestamp = NULL, deltaX = NULL, deltaY = NULL, modifiers = NULL, clickCount = NULL, awaitResult = TRUE) {
   method <- 'Input.emulateTouchFromMouseEvent'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -193,21 +223,27 @@ Input.emulateTouchFromMouseEvent <- function(promise, type, x, y, button, timest
 #' 
 #' Ignores input events (useful while auditing page).
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param ignore A logical. 
 #'        Ignores input events processing when set to true. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.setIgnoreInputEvents <- function(promise, ignore) {
+Input.setIgnoreInputEvents <- function(promise, ignore, awaitResult = TRUE) {
   method <- 'Input.setIgnoreInputEvents'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -215,7 +251,7 @@ Input.setIgnoreInputEvents <- function(promise, ignore) {
 #' 
 #' Synthesizes a pinch gesture over a time period by issuing appropriate touch events.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param x A numeric. 
 #'        X coordinate of the start of the gesture in CSS pixels. 
 #' @param y A numeric. 
@@ -227,18 +263,24 @@ Input.setIgnoreInputEvents <- function(promise, ignore) {
 #' @param gestureSourceType Optional. A GestureSourceType. 
 #'        Which type of input events to be generated (default: 'default', which queries the platform
 #'        for the preferred input type). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpeed = NULL, gestureSourceType = NULL) {
+Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpeed = NULL, gestureSourceType = NULL, awaitResult = TRUE) {
   method <- 'Input.synthesizePinchGesture'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -246,7 +288,7 @@ Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpe
 #' 
 #' Synthesizes a scroll gesture over a time period by issuing appropriate touch events.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param x A numeric. 
 #'        X coordinate of the start of the gesture in CSS pixels. 
 #' @param y A numeric. 
@@ -274,18 +316,24 @@ Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpe
 #'        The number of milliseconds delay between each repeat. (default: 250). 
 #' @param interactionMarkerName Optional. A character string. 
 #'        The name of the interaction markers to generate, if not empty (default: ""). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDistance = NULL, xOverscroll = NULL, yOverscroll = NULL, preventFling = NULL, speed = NULL, gestureSourceType = NULL, repeatCount = NULL, repeatDelayMs = NULL, interactionMarkerName = NULL) {
+Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDistance = NULL, xOverscroll = NULL, yOverscroll = NULL, preventFling = NULL, speed = NULL, gestureSourceType = NULL, repeatCount = NULL, repeatDelayMs = NULL, interactionMarkerName = NULL, awaitResult = TRUE) {
   method <- 'Input.synthesizeScrollGesture'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -293,7 +341,7 @@ Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDist
 #' 
 #' Synthesizes a tap gesture over a time period by issuing appropriate touch events.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param x A numeric. 
 #'        X coordinate of the start of the gesture in CSS pixels. 
 #' @param y A numeric. 
@@ -305,16 +353,22 @@ Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDist
 #' @param gestureSourceType Optional. A GestureSourceType. 
 #'        Which type of input events to be generated (default: 'default', which queries the platform
 #'        for the preferred input type). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Input.synthesizeTapGesture <- function(promise, x, y, duration = NULL, tapCount = NULL, gestureSourceType = NULL) {
+Input.synthesizeTapGesture <- function(promise, x, y, duration = NULL, tapCount = NULL, gestureSourceType = NULL, awaitResult = TRUE) {
   method <- 'Input.synthesizeTapGesture'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }

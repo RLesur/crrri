@@ -9,7 +9,7 @@ NULL
 #'        BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also
 #'        https://goo.gl/3zHXhB for more background.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param frameTimeTicks Optional. A numeric. 
 #'        Timestamp of this BeginFrame in Renderer TimeTicks (milliseconds of uptime). If not set,
 #'        the current time will be used. 
@@ -24,18 +24,24 @@ NULL
 #'        If set, a screenshot of the frame will be captured and returned in the response. Otherwise,
 #'        no screenshot will be captured. Note that capturing a screenshot can fail, for example,
 #'        during renderer initialization. In such a case, no screenshot data will be returned. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeadlessExperimental.beginFrame <- function(promise, frameTimeTicks = NULL, interval = NULL, noDisplayUpdates = NULL, screenshot = NULL) {
+HeadlessExperimental.beginFrame <- function(promise, frameTimeTicks = NULL, interval = NULL, noDisplayUpdates = NULL, screenshot = NULL, awaitResult = TRUE) {
   method <- 'HeadlessExperimental.beginFrame'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -43,19 +49,25 @@ HeadlessExperimental.beginFrame <- function(promise, frameTimeTicks = NULL, inte
 #' 
 #' Disables headless events for the target.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeadlessExperimental.disable <- function(promise) {
+HeadlessExperimental.disable <- function(promise, awaitResult = TRUE) {
   method <- 'HeadlessExperimental.disable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -63,17 +75,23 @@ HeadlessExperimental.disable <- function(promise) {
 #' 
 #' Enables headless events for the target.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-HeadlessExperimental.enable <- function(promise) {
+HeadlessExperimental.enable <- function(promise, awaitResult = TRUE) {
   method <- 'HeadlessExperimental.enable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }

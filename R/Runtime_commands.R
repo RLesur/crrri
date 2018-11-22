@@ -6,25 +6,31 @@ NULL
 #' 
 #' Add handler to promise with given promise object id.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param promiseObjectId A RemoteObjectId. 
 #'        Identifier of the promise. 
 #' @param returnByValue Optional. A logical. 
 #'        Whether the result is expected to be a JSON object that should be sent by value. 
 #' @param generatePreview Optional. A logical. 
 #'        Whether preview should be generated for the result. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL, generatePreview = NULL) {
+Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL, generatePreview = NULL, awaitResult = TRUE) {
   method <- 'Runtime.awaitPromise'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -33,7 +39,7 @@ Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL,
 #' Calls function with given declaration on the given object. Object group of the result is
 #'        inherited from the target object.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param functionDeclaration A character string. 
 #'        Declaration of the function to call. 
 #' @param objectId Optional. A RemoteObjectId. 
@@ -60,18 +66,24 @@ Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL,
 #' @param objectGroup Optional. A character string. 
 #'        Symbolic group name that can be used to release multiple objects. If objectGroup is not
 #'        specified and objectId is, objectGroup will be inherited from object. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL, arguments = NULL, silent = NULL, returnByValue = NULL, generatePreview = NULL, userGesture = NULL, awaitPromise = NULL, executionContextId = NULL, objectGroup = NULL) {
+Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL, arguments = NULL, silent = NULL, returnByValue = NULL, generatePreview = NULL, userGesture = NULL, awaitPromise = NULL, executionContextId = NULL, objectGroup = NULL, awaitResult = TRUE) {
   method <- 'Runtime.callFunctionOn'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -79,7 +91,7 @@ Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL
 #' 
 #' Compiles expression.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param expression A character string. 
 #'        Expression to compile. 
 #' @param sourceURL A character string. 
@@ -89,18 +101,24 @@ Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL
 #' @param executionContextId Optional. A ExecutionContextId. 
 #'        Specifies in which execution context to perform script run. If the parameter is omitted the
 #'        evaluation will be performed in the context of the inspected page. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.compileScript <- function(promise, expression, sourceURL, persistScript, executionContextId = NULL) {
+Runtime.compileScript <- function(promise, expression, sourceURL, persistScript, executionContextId = NULL, awaitResult = TRUE) {
   method <- 'Runtime.compileScript'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -108,19 +126,25 @@ Runtime.compileScript <- function(promise, expression, sourceURL, persistScript,
 #' 
 #' Disables reporting of execution contexts creation.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.disable <- function(promise) {
+Runtime.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.disable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -128,19 +152,25 @@ Runtime.disable <- function(promise) {
 #' 
 #' Discards collected exceptions and console API calls.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.discardConsoleEntries <- function(promise) {
+Runtime.discardConsoleEntries <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.discardConsoleEntries'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -150,19 +180,25 @@ Runtime.discardConsoleEntries <- function(promise) {
 #'        When the reporting gets enabled the event will be sent immediately for each existing execution
 #'        context.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.enable <- function(promise) {
+Runtime.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.enable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -170,7 +206,7 @@ Runtime.enable <- function(promise) {
 #' 
 #' Evaluates expression on global object.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param expression A character string. 
 #'        Expression to evaluate. 
 #' @param objectGroup Optional. A character string. 
@@ -196,18 +232,24 @@ Runtime.enable <- function(promise) {
 #'        Whether to throw an exception if side effect cannot be ruled out during evaluation. 
 #' @param timeout Experimental. Optional. A TimeDelta. 
 #'        Terminate execution after timing out (number of milliseconds). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.evaluate <- function(promise, expression, objectGroup = NULL, includeCommandLineAPI = NULL, silent = NULL, contextId = NULL, returnByValue = NULL, generatePreview = NULL, userGesture = NULL, awaitPromise = NULL, throwOnSideEffect = NULL, timeout = NULL) {
+Runtime.evaluate <- function(promise, expression, objectGroup = NULL, includeCommandLineAPI = NULL, silent = NULL, contextId = NULL, returnByValue = NULL, generatePreview = NULL, userGesture = NULL, awaitPromise = NULL, throwOnSideEffect = NULL, timeout = NULL, awaitResult = TRUE) {
   method <- 'Runtime.evaluate'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -215,19 +257,25 @@ Runtime.evaluate <- function(promise, expression, objectGroup = NULL, includeCom
 #' 
 #' Returns the isolate id.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.getIsolateId <- function(promise) {
+Runtime.getIsolateId <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.getIsolateId'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -236,19 +284,25 @@ Runtime.getIsolateId <- function(promise) {
 #' Returns the JavaScript heap usage.
 #'        It is the total usage of the corresponding isolate not scoped to a particular Runtime.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.getHeapUsage <- function(promise) {
+Runtime.getHeapUsage <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.getHeapUsage'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -257,7 +311,7 @@ Runtime.getHeapUsage <- function(promise) {
 #' Returns properties of a given object. Object group of the result is inherited from the target
 #'        object.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param objectId A RemoteObjectId. 
 #'        Identifier of the object to return properties for. 
 #' @param ownProperties Optional. A logical. 
@@ -268,18 +322,24 @@ Runtime.getHeapUsage <- function(promise) {
 #'        returned either. 
 #' @param generatePreview Experimental. Optional. A logical. 
 #'        Whether preview should be generated for the results. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 3.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 3.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.getProperties <- function(promise, objectId, ownProperties = NULL, accessorPropertiesOnly = NULL, generatePreview = NULL) {
+Runtime.getProperties <- function(promise, objectId, ownProperties = NULL, accessorPropertiesOnly = NULL, generatePreview = NULL, awaitResult = TRUE) {
   method <- 'Runtime.getProperties'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -287,21 +347,27 @@ Runtime.getProperties <- function(promise, objectId, ownProperties = NULL, acces
 #' 
 #' Returns all let, const and class variables from global scope.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param executionContextId Optional. A ExecutionContextId. 
 #'        Specifies in which execution context to lookup global scope variables. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.globalLexicalScopeNames <- function(promise, executionContextId = NULL) {
+Runtime.globalLexicalScopeNames <- function(promise, executionContextId = NULL, awaitResult = TRUE) {
   method <- 'Runtime.globalLexicalScopeNames'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -309,23 +375,29 @@ Runtime.globalLexicalScopeNames <- function(promise, executionContextId = NULL) 
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param prototypeObjectId A RemoteObjectId. 
 #'        Identifier of the prototype to return objects for. 
 #' @param objectGroup Optional. A character string. 
 #'        Symbolic group name that can be used to release the results. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.queryObjects <- function(promise, prototypeObjectId, objectGroup = NULL) {
+Runtime.queryObjects <- function(promise, prototypeObjectId, objectGroup = NULL, awaitResult = TRUE) {
   method <- 'Runtime.queryObjects'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -333,21 +405,27 @@ Runtime.queryObjects <- function(promise, prototypeObjectId, objectGroup = NULL)
 #' 
 #' Releases remote object with given id.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param objectId A RemoteObjectId. 
 #'        Identifier of the object to release. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.releaseObject <- function(promise, objectId) {
+Runtime.releaseObject <- function(promise, objectId, awaitResult = TRUE) {
   method <- 'Runtime.releaseObject'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -355,21 +433,27 @@ Runtime.releaseObject <- function(promise, objectId) {
 #' 
 #' Releases all remote objects that belong to a given group.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param objectGroup A character string. 
 #'        Symbolic object group name. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.releaseObjectGroup <- function(promise, objectGroup) {
+Runtime.releaseObjectGroup <- function(promise, objectGroup, awaitResult = TRUE) {
   method <- 'Runtime.releaseObjectGroup'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -377,19 +461,25 @@ Runtime.releaseObjectGroup <- function(promise, objectGroup) {
 #' 
 #' Tells inspected instance to run if it was waiting for debugger to attach.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.runIfWaitingForDebugger <- function(promise) {
+Runtime.runIfWaitingForDebugger <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.runIfWaitingForDebugger'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -397,7 +487,7 @@ Runtime.runIfWaitingForDebugger <- function(promise) {
 #' 
 #' Runs script with given id in a given context.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param scriptId A ScriptId. 
 #'        Id of the script to run. 
 #' @param executionContextId Optional. A ExecutionContextId. 
@@ -417,18 +507,24 @@ Runtime.runIfWaitingForDebugger <- function(promise) {
 #' @param awaitPromise Optional. A logical. 
 #'        Whether execution should `await` for resulting value and return once awaited promise is
 #'        resolved. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.runScript <- function(promise, scriptId, executionContextId = NULL, objectGroup = NULL, silent = NULL, includeCommandLineAPI = NULL, returnByValue = NULL, generatePreview = NULL, awaitPromise = NULL) {
+Runtime.runScript <- function(promise, scriptId, executionContextId = NULL, objectGroup = NULL, silent = NULL, includeCommandLineAPI = NULL, returnByValue = NULL, generatePreview = NULL, awaitPromise = NULL, awaitResult = TRUE) {
   method <- 'Runtime.runScript'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -436,22 +532,28 @@ Runtime.runScript <- function(promise, scriptId, executionContextId = NULL, obje
 #' 
 #' Enables or disables async call stacks tracking.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param maxDepth An integer. 
 #'        Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async
 #'        call stacks (default). 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.setAsyncCallStackDepth <- function(promise, maxDepth) {
+Runtime.setAsyncCallStackDepth <- function(promise, maxDepth, awaitResult = TRUE) {
   method <- 'Runtime.setAsyncCallStackDepth'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -459,20 +561,26 @@ Runtime.setAsyncCallStackDepth <- function(promise, maxDepth) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param enabled A logical. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.setCustomObjectFormatterEnabled <- function(promise, enabled) {
+Runtime.setCustomObjectFormatterEnabled <- function(promise, enabled, awaitResult = TRUE) {
   method <- 'Runtime.setCustomObjectFormatterEnabled'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -480,20 +588,26 @@ Runtime.setCustomObjectFormatterEnabled <- function(promise, enabled) {
 #' 
 #' 
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param size An integer. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.setMaxCallStackSizeToCapture <- function(promise, size) {
+Runtime.setMaxCallStackSizeToCapture <- function(promise, size, awaitResult = TRUE) {
   method <- 'Runtime.setMaxCallStackSizeToCapture'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -502,19 +616,25 @@ Runtime.setMaxCallStackSizeToCapture <- function(promise, size) {
 #' Terminate current or next JavaScript execution.
 #'        Will cancel the termination when the outer-most script execution ends.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.terminateExecution <- function(promise) {
+Runtime.terminateExecution <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.terminateExecution'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -529,21 +649,27 @@ Runtime.terminateExecution <- function(promise) {
 #'        in case of any other input, function throws an exception.
 #'        Each binding function call produces Runtime.bindingCalled notification.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param name A character string. 
 #' @param executionContextId Optional. A ExecutionContextId. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.addBinding <- function(promise, name, executionContextId = NULL) {
+Runtime.addBinding <- function(promise, name, executionContextId = NULL, awaitResult = TRUE) {
   method <- 'Runtime.addBinding'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -552,18 +678,24 @@ Runtime.addBinding <- function(promise, name, executionContextId = NULL) {
 #' This method does not remove binding function from global object but
 #'        unsubscribes current runtime agent from Runtime.bindingCalled notifications.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param name A character string. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Runtime.removeBinding <- function(promise, name) {
+Runtime.removeBinding <- function(promise, name, awaitResult = TRUE) {
   method <- 'Runtime.removeBinding'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }

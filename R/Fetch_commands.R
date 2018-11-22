@@ -6,19 +6,25 @@ NULL
 #' 
 #' Disables the fetch domain.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.disable <- function(promise) {
+Fetch.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Fetch.disable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -27,7 +33,7 @@ Fetch.disable <- function(promise) {
 #' Enables issuing of requestPaused events. A request will be paused until client
 #'        calls one of failRequest, fulfillRequest or continueRequest/continueWithAuth.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param patterns Optional. A list of RequestPattern. 
 #'        If specified, only requests matching any of these patterns will produce
 #'        fetchRequested event and will be paused until clients response. If not set,
@@ -35,18 +41,24 @@ Fetch.disable <- function(promise) {
 #' @param handleAuthRequests Optional. A logical. 
 #'        If true, authRequired events will be issued and requests will be paused
 #'        expecting a call to continueWithAuth. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.enable <- function(promise, patterns = NULL, handleAuthRequests = NULL) {
+Fetch.enable <- function(promise, patterns = NULL, handleAuthRequests = NULL, awaitResult = TRUE) {
   method <- 'Fetch.enable'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -54,23 +66,29 @@ Fetch.enable <- function(promise, patterns = NULL, handleAuthRequests = NULL) {
 #' 
 #' Causes the request to fail with specified reason.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param requestId A RequestId. 
 #'        An id the client received in requestPaused event. 
 #' @param errorReason A Network.ErrorReason. 
 #'        Causes the request to fail with the given reason. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.failRequest <- function(promise, requestId, errorReason) {
+Fetch.failRequest <- function(promise, requestId, errorReason, awaitResult = TRUE) {
   method <- 'Fetch.failRequest'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -78,7 +96,7 @@ Fetch.failRequest <- function(promise, requestId, errorReason) {
 #' 
 #' Provides response to the request.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param requestId A RequestId. 
 #'        An id the client received in requestPaused event. 
 #' @param responseCode An integer. 
@@ -90,18 +108,24 @@ Fetch.failRequest <- function(promise, requestId, errorReason) {
 #' @param responsePhrase Optional. A character string. 
 #'        A textual representation of responseCode.
 #'        If absent, a standard phrase mathcing responseCode is used. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeaders, body = NULL, responsePhrase = NULL) {
+Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeaders, body = NULL, responsePhrase = NULL, awaitResult = TRUE) {
   method <- 'Fetch.fulfillRequest'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -109,7 +133,7 @@ Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeade
 #' 
 #' Continues the request, optionally modifying some of its parameters.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param requestId A RequestId. 
 #'        An id the client received in requestPaused event. 
 #' @param url Optional. A character string. 
@@ -120,18 +144,24 @@ Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeade
 #'        If set, overrides the post data in the request. 
 #' @param headers Optional. A list of HeaderEntry. 
 #'        If set, overrides the request headrts. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.continueRequest <- function(promise, requestId, url = NULL, method = NULL, postData = NULL, headers = NULL) {
+Fetch.continueRequest <- function(promise, requestId, url = NULL, method = NULL, postData = NULL, headers = NULL, awaitResult = TRUE) {
   method <- 'Fetch.continueRequest'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -139,23 +169,29 @@ Fetch.continueRequest <- function(promise, requestId, url = NULL, method = NULL,
 #' 
 #' Continues a request supplying authChallengeResponse following authRequired event.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param requestId A RequestId. 
 #'        An id the client received in authRequired event. 
 #' @param authChallengeResponse A AuthChallengeResponse. 
 #'        Response to  with an authChallenge. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 0.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a void named list.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.continueWithAuth <- function(promise, requestId, authChallengeResponse) {
+Fetch.continueWithAuth <- function(promise, requestId, authChallengeResponse, awaitResult = TRUE) {
   method <- 'Fetch.continueWithAuth'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -168,21 +204,27 @@ Fetch.continueWithAuth <- function(promise, requestId, authChallengeResponse) {
 #'        affect the request or disabling fetch domain before body is received
 #'        results in an undefined behavior.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param requestId A RequestId. 
 #'        Identifier for the intercepted request to get body for. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 2.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 2.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.getResponseBody <- function(promise, requestId) {
+Fetch.getResponseBody <- function(promise, requestId, awaitResult = TRUE) {
   method <- 'Fetch.getResponseBody'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
 
 
@@ -199,18 +241,24 @@ Fetch.getResponseBody <- function(promise, requestId) {
 #'        Calling other methods that affect the request or disabling fetch
 #'        domain before body is received results in an undefined behavior.
 #' 
-#' @param promise An aynchronous result object.
+#' @param promise An asynchronous result.
 #' @param requestId A RequestId. 
+#' @param awaitResult Await for the command result?
 #' 
-#' @return A promise (following the definition of the promises package).
-#'         The value of the fulfilled promise is a named list of length 1.
+#' @return An async value of class `promise`.
+#'         The value and the completion of the promise differ according to the value of `awaitResult`.
+#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.
+#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,
+#'         `result` is a named list of length 1.
+#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent:
+#'         `result` is equal to the previous result (`promise$result`).
+#'         In both cases, you can chain this promise with another command or event listener.
 #' @export
-Fetch.takeResponseBodyAsStream <- function(promise, requestId) {
+Fetch.takeResponseBodyAsStream <- function(promise, requestId, awaitResult = TRUE) {
   method <- 'Fetch.takeResponseBodyAsStream'
-  args <- rlang::fn_fmls_names()
+  args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
-  names(params) <- args
   params <- if (length(params) > 1) params[2:length(params)] else NULL
-  send(promise, method, params)
+  send(promise, method, params, awaitResult)
 }
