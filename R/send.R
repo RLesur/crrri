@@ -1,15 +1,21 @@
-send <- function(promise, method, params = NULL) {
+send <- function(promise, method, params = NULL, awaitResult = TRUE) {
   promises::then( # send is a wrapper of then
     promise,
     onFulfilled = function(value) {
       ws <- value$ws
-      # the returned object:
-      promises::promise(function(resolve, reject) {
-        callback <- function(message) {
-          resolve(list(ws = ws, result = message$result))
-        }
+      previous_result <- value$result
+
+      if(isTRUE(awaitResult)) {
+        return(promises::promise(function(resolve, reject) {
+          callback <- function(message) {
+            resolve(list(ws = ws, result = message$result))
+          }
+          ws$sendCommand(method, params, callback, reject)
+        }))
+      } else {
         ws$sendCommand(method, params, callback, reject)
-      })
+        return(list(ws = ws, result = previous_result))
+      }
     }
   )
 }
