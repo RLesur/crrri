@@ -61,13 +61,13 @@ build_command_help <- function(domain_name, command) {
     "#' ",
     "\n#' @return An async value of class `promise`.",
     "\n#'         The value and the completion of the promise differ according to the value of `awaitResult`.",
-    "\n#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received.",
     "\n#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.",
+    "\n#'         When `awaitResult` is `TRUE`, the promise is fulfilled once the result of the command is received. In this case,",
     if (length(command$returns) == 0) "\n#'         `result` is a void named list."
     else sprintf("\n#'         `result` is a named list of length %i.", length(command$returns)),
     "\n#'         When `awaitResult` is `FALSE`, the promise is fulfilled once the command is sent.",
-    "\n#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.",
-    "\n#'         In this case `result` is equal to the previous result: `promise$result`."
+    "\n#'         `result` is equal to the previous result (`promise$result`).",
+    "\n#'         In both cases, you can chain this promise with another command or event listener."
   )
   paste0(c(title, description, params, return_field, "#' @export"), collapse = "\n")
 }
@@ -76,10 +76,9 @@ generate_command <- function(command, domain_name = NULL) {
   r2help <- build_command_help(domain_name, command)
   body <- paste0(paste(domain_name, command$name, sep = "."), " <- ", build_command_signature(command), " {\n",
                 sprintf("  method <- '%s.%s'\n", domain_name, command$name),
-                "  args <- rlang::fn_fmls_names()\n",
+                "  args <- head(rlang::fn_fmls_names(), -1)\n",
                 "  args <- args[!sapply(mget(args), is.null)]\n",
                 "  params <- mget(args)\n",
-                "  names(params) <- args\n",
                 "  params <- if (length(params) > 1) params[2:length(params)] else NULL\n",
                 "  send(promise, method, params, awaitResult)\n",
                 "}\n")
@@ -142,7 +141,7 @@ build_event_help <- function(domain_name, event) {
     "\n#'         When `.callback` is `NULL`, the promise is fulfilled when the event is received.",
     "\n#'         Its value is a named list of two elements: `ws` (the websocket connexion) and `result`.",
     "\n#'         `result` is a named list: its elements are the parameters sended by Chrome. ",
-    "\n#'         You can chain this promise with another command of event listener.",
+    "\n#'         You can chain this promise with another command or event listener.",
     "\n#'         When `.callback` is not `NULL`, the promise is fulfilled as soon as the callback is created; the value",
     "\n#'         is a function without any argument that can be called to cancel the callback. When you use the",
     "\n#'         `.callback` argument, you cannot send the result to any other command or event listener."
@@ -169,13 +168,19 @@ generate_event <- function(event, domain_name = NULL) {
   paste(r2help, body, sep = "\n")
 }
 
+generate_events_source_code <- function(domain) {
+  events <- domain$events
+  file_content <- paste0(c(
+    "# DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
+    purrr::map_chr(events, generate_event, domain_name = domain$domain)
+  ), collapse = "\n\n")
+  cat(file_content, file = paste0("R/", domain$domain, "_events.R"))
+}
 
-one_domain <- browser_protocol$domains[[25]]
+purrr::walk(js_protocol$domains, generate_events_source_code)
+purrr::walk(browser_protocol$domains, generate_events_source_code)
 
-one_event <- one_domain$events[[5]]
-
-
-# TODO detail returned objects
+# TODO detail the return object resulting of a command
 # TODO check the remote protocol (in send)
 
 
