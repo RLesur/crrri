@@ -74,8 +74,10 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
         caught <- private$listPartialMatch(target, message)
         if (!caught) return()
 
-        if (is.null(.id))
+        if (is.null(.id)) {
+          private$response <- message$params
           cat('Event"', method, '" received.\n')
+        }
 
         if (isTRUE(once))
           on.exit({
