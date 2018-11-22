@@ -13,7 +13,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"detached"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `reason`.
 #' 
 #' @return An async value of class `promise`.
@@ -45,8 +46,8 @@ Inspector.detached <- function(promise, reason = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"targetCrashed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -58,7 +59,7 @@ Inspector.detached <- function(promise, reason = NULL, .callback = NULL) {
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-Inspector.targetCrashed <- function(promise,  = NULL, .callback = NULL) {
+Inspector.targetCrashed <- function(promise, .callback = NULL) {
   method <- 'Inspector.targetCrashed'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -77,8 +78,8 @@ Inspector.targetCrashed <- function(promise,  = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"targetReloadedAfterCrash"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -90,7 +91,7 @@ Inspector.targetCrashed <- function(promise,  = NULL, .callback = NULL) {
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-Inspector.targetReloadedAfterCrash <- function(promise,  = NULL, .callback = NULL) {
+Inspector.targetReloadedAfterCrash <- function(promise, .callback = NULL) {
   method <- 'Inspector.targetReloadedAfterCrash'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]

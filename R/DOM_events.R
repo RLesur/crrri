@@ -17,7 +17,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"attributeModified"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `nodeId`, `name`, `value`.
 #' 
 #' @return An async value of class `promise`.
@@ -53,7 +54,8 @@ DOM.attributeModified <- function(promise, nodeId = NULL, name = NULL, value = N
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"attributeRemoved"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `nodeId`, `name`.
 #' 
 #' @return An async value of class `promise`.
@@ -89,7 +91,8 @@ DOM.attributeRemoved <- function(promise, nodeId = NULL, name = NULL, .callback 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"characterDataModified"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `nodeId`, `characterData`.
 #' 
 #' @return An async value of class `promise`.
@@ -125,7 +128,8 @@ DOM.characterDataModified <- function(promise, nodeId = NULL, characterData = NU
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"childNodeCountUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `nodeId`, `childNodeCount`.
 #' 
 #' @return An async value of class `promise`.
@@ -163,7 +167,8 @@ DOM.childNodeCountUpdated <- function(promise, nodeId = NULL, childNodeCount = N
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"childNodeInserted"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `parentNodeId`, `previousNodeId`, `node`.
 #' 
 #' @return An async value of class `promise`.
@@ -199,7 +204,8 @@ DOM.childNodeInserted <- function(promise, parentNodeId = NULL, previousNodeId =
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"childNodeRemoved"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `parentNodeId`, `nodeId`.
 #' 
 #' @return An async value of class `promise`.
@@ -235,7 +241,8 @@ DOM.childNodeRemoved <- function(promise, parentNodeId = NULL, nodeId = NULL, .c
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"distributedNodesUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `insertionPointId`, `distributedNodes`.
 #' 
 #' @return An async value of class `promise`.
@@ -267,8 +274,8 @@ DOM.distributedNodesUpdated <- function(promise, insertionPointId = NULL, distri
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"documentUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -280,7 +287,7 @@ DOM.distributedNodesUpdated <- function(promise, insertionPointId = NULL, distri
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-DOM.documentUpdated <- function(promise,  = NULL, .callback = NULL) {
+DOM.documentUpdated <- function(promise, .callback = NULL) {
   method <- 'DOM.documentUpdated'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -301,7 +308,8 @@ DOM.documentUpdated <- function(promise,  = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"inlineStyleInvalidated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `nodeIds`.
 #' 
 #' @return An async value of class `promise`.
@@ -337,7 +345,8 @@ DOM.inlineStyleInvalidated <- function(promise, nodeIds = NULL, .callback = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"pseudoElementAdded"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `parentId`, `pseudoElement`.
 #' 
 #' @return An async value of class `promise`.
@@ -373,7 +382,8 @@ DOM.pseudoElementAdded <- function(promise, parentId = NULL, pseudoElement = NUL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"pseudoElementRemoved"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `parentId`, `pseudoElementId`.
 #' 
 #' @return An async value of class `promise`.
@@ -410,7 +420,8 @@ DOM.pseudoElementRemoved <- function(promise, parentId = NULL, pseudoElementId =
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"setChildNodes"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `parentId`, `nodes`.
 #' 
 #' @return An async value of class `promise`.
@@ -446,7 +457,8 @@ DOM.setChildNodes <- function(promise, parentId = NULL, nodes = NULL, .callback 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"shadowRootPopped"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `hostId`, `rootId`.
 #' 
 #' @return An async value of class `promise`.
@@ -482,7 +494,8 @@ DOM.shadowRootPopped <- function(promise, hostId = NULL, rootId = NULL, .callbac
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"shadowRootPushed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `hostId`, `root`.
 #' 
 #' @return An async value of class `promise`.

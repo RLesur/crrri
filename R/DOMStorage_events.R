@@ -17,7 +17,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"domStorageItemAdded"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `storageId`, `key`, `newValue`.
 #' 
 #' @return An async value of class `promise`.
@@ -53,7 +54,8 @@ DOMStorage.domStorageItemAdded <- function(promise, storageId = NULL, key = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"domStorageItemRemoved"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `storageId`, `key`.
 #' 
 #' @return An async value of class `promise`.
@@ -93,7 +95,8 @@ DOMStorage.domStorageItemRemoved <- function(promise, storageId = NULL, key = NU
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"domStorageItemUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `storageId`, `key`, `oldValue`, `newValue`.
 #' 
 #' @return An async value of class `promise`.
@@ -127,7 +130,8 @@ DOMStorage.domStorageItemUpdated <- function(promise, storageId = NULL, key = NU
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"domStorageItemsCleared"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `storageId`.
 #' 
 #' @return An async value of class `promise`.

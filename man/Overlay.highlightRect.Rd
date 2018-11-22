@@ -5,10 +5,10 @@
 \title{Send the command Overlay.highlightRect}
 \usage{
 Overlay.highlightRect(promise, x, y, width, height, color = NULL,
-  outlineColor = NULL)
+  outlineColor = NULL, awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{x}{An integer.
 X coordinate}
@@ -27,10 +27,18 @@ The highlight fill color (default: transparent).}
 
 \item{outlineColor}{Optional. A DOM.RGBA.
 The highlight outline color (default: transparent).}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.

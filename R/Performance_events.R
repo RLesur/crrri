@@ -15,7 +15,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"metrics"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `metrics`, `title`.
 #' 
 #' @return An async value of class `promise`.

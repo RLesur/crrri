@@ -8,10 +8,10 @@ Emulation.setDeviceMetricsOverride(promise, width, height,
   deviceScaleFactor, mobile, scale = NULL, screenWidth = NULL,
   screenHeight = NULL, positionX = NULL, positionY = NULL,
   dontSetVisibleSize = NULL, screenOrientation = NULL,
-  viewport = NULL)
+  viewport = NULL, awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{width}{An integer.
 Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the override.}
@@ -50,10 +50,18 @@ Screen orientation override.}
 \item{viewport}{Experimental. Optional. A Page.Viewport.
 If set, the visible area of the page will be overridden to this viewport. This viewport
 change is not observed by the page, e.g. viewport-relative elements do not change positions.}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Overrides the values of device screen dimensions (window.screen.width, window.screen.height,

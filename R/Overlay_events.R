@@ -14,7 +14,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"inspectNodeRequested"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `backendNodeId`.
 #' 
 #' @return An async value of class `promise`.
@@ -48,7 +49,8 @@ Overlay.inspectNodeRequested <- function(promise, backendNodeId = NULL, .callbac
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"nodeHighlightRequested"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `nodeId`.
 #' 
 #' @return An async value of class `promise`.
@@ -82,7 +84,8 @@ Overlay.nodeHighlightRequested <- function(promise, nodeId = NULL, .callback = N
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"screenshotRequested"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `viewport`.
 #' 
 #' @return An async value of class `promise`.

@@ -14,7 +14,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"fontsUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `font` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -47,8 +48,8 @@ CSS.fontsUpdated <- function(promise, font = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"mediaQueryResultChanged"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -60,7 +61,7 @@ CSS.fontsUpdated <- function(promise, font = NULL, .callback = NULL) {
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-CSS.mediaQueryResultChanged <- function(promise,  = NULL, .callback = NULL) {
+CSS.mediaQueryResultChanged <- function(promise, .callback = NULL) {
   method <- 'CSS.mediaQueryResultChanged'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -81,7 +82,8 @@ CSS.mediaQueryResultChanged <- function(promise,  = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"styleSheetAdded"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `header`.
 #' 
 #' @return An async value of class `promise`.
@@ -115,7 +117,8 @@ CSS.styleSheetAdded <- function(promise, header = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"styleSheetChanged"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `styleSheetId`.
 #' 
 #' @return An async value of class `promise`.
@@ -149,7 +152,8 @@ CSS.styleSheetChanged <- function(promise, styleSheetId = NULL, .callback = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"styleSheetRemoved"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `styleSheetId`.
 #' 
 #' @return An async value of class `promise`.

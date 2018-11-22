@@ -4,10 +4,11 @@
 \alias{CSS.addRule}
 \title{Send the command CSS.addRule}
 \usage{
-CSS.addRule(promise, styleSheetId, ruleText, location)
+CSS.addRule(promise, styleSheetId, ruleText, location,
+  awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{styleSheetId}{A StyleSheetId.
 The css style sheet identifier where a new rule should be inserted.}
@@ -17,10 +18,18 @@ The text of a new rule.}
 
 \item{location}{A SourceRange.
 Text position of a new rule in the target style sheet.}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 1.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a named list of length 1.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Inserts a new rule with the given \code{ruleText} in a stylesheet with given \code{styleSheetId}, at the

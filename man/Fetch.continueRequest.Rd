@@ -5,10 +5,10 @@
 \title{Send the command Fetch.continueRequest}
 \usage{
 Fetch.continueRequest(promise, requestId, url = NULL, method = NULL,
-  postData = NULL, headers = NULL)
+  postData = NULL, headers = NULL, awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{requestId}{A RequestId.
 An id the client received in requestPaused event.}
@@ -24,10 +24,18 @@ If set, overrides the post data in the request.}
 
 \item{headers}{Optional. A list of HeaderEntry.
 If set, overrides the request headrts.}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Continues the request, optionally modifying some of its parameters.

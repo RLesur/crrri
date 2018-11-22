@@ -6,10 +6,10 @@
 \usage{
 Debugger.setBreakpointByUrl(promise, lineNumber, url = NULL,
   urlRegex = NULL, scriptHash = NULL, columnNumber = NULL,
-  condition = NULL)
+  condition = NULL, awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{lineNumber}{An integer.
 Line number to set breakpoint at.}
@@ -30,10 +30,18 @@ Offset in the line to set breakpoint at.}
 \item{condition}{Optional. A character string.
 Expression to use as a breakpoint condition. When specified, debugger will only stop on the
 breakpoint if this expression evaluates to true.}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 2.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a named list of length 2.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this

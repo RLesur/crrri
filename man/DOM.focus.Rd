@@ -5,10 +5,10 @@
 \title{Send the command DOM.focus}
 \usage{
 DOM.focus(promise, nodeId = NULL, backendNodeId = NULL,
-  objectId = NULL)
+  objectId = NULL, awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{nodeId}{Optional. A NodeId.
 Identifier of the node.}
@@ -18,10 +18,18 @@ Identifier of the backend node.}
 
 \item{objectId}{Optional. A Runtime.RemoteObjectId.
 JavaScript object id of the node wrapper.}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Focuses the given element.

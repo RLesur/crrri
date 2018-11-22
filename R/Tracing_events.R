@@ -19,7 +19,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"bufferUsage"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `percentFull` (optional) , `eventCount` (optional) , `value` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -54,7 +55,8 @@ Tracing.bufferUsage <- function(promise, percentFull = NULL, eventCount = NULL, 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"dataCollected"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `value`.
 #' 
 #' @return An async value of class `promise`.
@@ -91,7 +93,8 @@ Tracing.dataCollected <- function(promise, value = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"tracingComplete"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `stream` (optional) , `streamCompression` (optional) .
 #' 
 #' @return An async value of class `promise`.

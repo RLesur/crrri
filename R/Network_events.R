@@ -19,7 +19,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"dataReceived"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `dataLength`, `encodedDataLength`.
 #' 
 #' @return An async value of class `promise`.
@@ -61,7 +62,8 @@ Network.dataReceived <- function(promise, requestId = NULL, timestamp = NULL, da
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"eventSourceMessageReceived"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `eventName`, `eventId`, `data`.
 #' 
 #' @return An async value of class `promise`.
@@ -105,7 +107,8 @@ Network.eventSourceMessageReceived <- function(promise, requestId = NULL, timest
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"loadingFailed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `type`, `errorText`, `canceled` (optional) , `blockedReason` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -146,7 +149,8 @@ Network.loadingFailed <- function(promise, requestId = NULL, timestamp = NULL, t
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"loadingFinished"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `encodedDataLength`, `shouldReportCorbBlocking` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -208,7 +212,8 @@ Network.loadingFinished <- function(promise, requestId = NULL, timestamp = NULL,
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"requestIntercepted"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `interceptionId`, `request`, `frameId`, `resourceType`, `isNavigationRequest`, `isDownload` (optional) , `redirectUrl` (optional) , `authChallenge` (optional) , `responseErrorReason` (optional) , `responseStatusCode` (optional) , `responseHeaders` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -242,7 +247,8 @@ Network.requestIntercepted <- function(promise, interceptionId = NULL, request =
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"requestServedFromCache"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`.
 #' 
 #' @return An async value of class `promise`.
@@ -296,7 +302,8 @@ Network.requestServedFromCache <- function(promise, requestId = NULL, .callback 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"requestWillBeSent"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `loaderId`, `documentURL`, `request`, `timestamp`, `wallTime`, `initiator`, `redirectResponse` (optional) , `type` (optional) , `frameId` (optional) , `hasUserGesture` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -334,7 +341,8 @@ Network.requestWillBeSent <- function(promise, requestId = NULL, loaderId = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"resourceChangedPriority"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `newPriority`, `timestamp`.
 #' 
 #' @return An async value of class `promise`.
@@ -370,7 +378,8 @@ Network.resourceChangedPriority <- function(promise, requestId = NULL, newPriori
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"signedExchangeReceived"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `info`.
 #' 
 #' @return An async value of class `promise`.
@@ -414,7 +423,8 @@ Network.signedExchangeReceived <- function(promise, requestId = NULL, info = NUL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"responseReceived"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `loaderId`, `timestamp`, `type`, `response`, `frameId` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -450,7 +460,8 @@ Network.responseReceived <- function(promise, requestId = NULL, loaderId = NULL,
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"webSocketClosed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`.
 #' 
 #' @return An async value of class `promise`.
@@ -488,7 +499,8 @@ Network.webSocketClosed <- function(promise, requestId = NULL, timestamp = NULL,
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"webSocketCreated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `url`, `initiator` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -526,7 +538,8 @@ Network.webSocketCreated <- function(promise, requestId = NULL, url = NULL, init
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"webSocketFrameError"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `errorMessage`.
 #' 
 #' @return An async value of class `promise`.
@@ -564,7 +577,8 @@ Network.webSocketFrameError <- function(promise, requestId = NULL, timestamp = N
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"webSocketFrameReceived"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `response`.
 #' 
 #' @return An async value of class `promise`.
@@ -602,7 +616,8 @@ Network.webSocketFrameReceived <- function(promise, requestId = NULL, timestamp 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"webSocketFrameSent"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `response`.
 #' 
 #' @return An async value of class `promise`.
@@ -640,7 +655,8 @@ Network.webSocketFrameSent <- function(promise, requestId = NULL, timestamp = NU
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"webSocketHandshakeResponseReceived"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `response`.
 #' 
 #' @return An async value of class `promise`.
@@ -680,7 +696,8 @@ Network.webSocketHandshakeResponseReceived <- function(promise, requestId = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"webSocketWillSendHandshakeRequest"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `requestId`, `timestamp`, `wallTime`, `request`.
 #' 
 #' @return An async value of class `promise`.

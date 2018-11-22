@@ -5,10 +5,11 @@
 \title{Send the command Target.createTarget}
 \usage{
 Target.createTarget(promise, url, width = NULL, height = NULL,
-  browserContextId = NULL, enableBeginFrameControl = NULL)
+  browserContextId = NULL, enableBeginFrameControl = NULL,
+  awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{url}{A character string.
 The initial URL the page will be navigated to.}
@@ -25,10 +26,18 @@ The browser context to create the page in.}
 \item{enableBeginFrameControl}{Experimental. Optional. A logical.
 Whether BeginFrames for this target will be controlled via DevTools (headless chrome only,
 not supported on MacOS yet, false by default).}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 1.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a named list of length 1.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Creates a new page.

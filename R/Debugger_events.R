@@ -15,7 +15,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"breakpointResolved"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `breakpointId`, `location`.
 #' 
 #' @return An async value of class `promise`.
@@ -62,7 +63,8 @@ Debugger.breakpointResolved <- function(promise, breakpointId = NULL, location =
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"paused"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `callFrames`, `reason`, `data` (optional) , `hitBreakpoints` (optional) , `asyncStackTrace` (optional) , `asyncStackTraceId` (optional) , `asyncCallStackTraceId` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -94,8 +96,8 @@ Debugger.paused <- function(promise, callFrames = NULL, reason = NULL, data = NU
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"resumed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -107,7 +109,7 @@ Debugger.paused <- function(promise, callFrames = NULL, reason = NULL, data = NU
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-Debugger.resumed <- function(promise,  = NULL, .callback = NULL) {
+Debugger.resumed <- function(promise, .callback = NULL) {
   method <- 'Debugger.resumed'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -154,7 +156,8 @@ Debugger.resumed <- function(promise,  = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"scriptFailedToParse"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `scriptId`, `url`, `startLine`, `startColumn`, `endLine`, `endColumn`, `executionContextId`, `hash`, `executionContextAuxData` (optional) , `sourceMapURL` (optional) , `hasSourceURL` (optional) , `isModule` (optional) , `length` (optional) , `stackTrace` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -217,7 +220,8 @@ Debugger.scriptFailedToParse <- function(promise, scriptId = NULL, url = NULL, s
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"scriptParsed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `scriptId`, `url`, `startLine`, `startColumn`, `endLine`, `endColumn`, `executionContextId`, `hash`, `executionContextAuxData` (optional) , `isLiveEdit` (optional) , `sourceMapURL` (optional) , `hasSourceURL` (optional) , `isModule` (optional) , `length` (optional) , `stackTrace` (optional) .
 #' 
 #' @return An async value of class `promise`.

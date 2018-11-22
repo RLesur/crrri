@@ -6,10 +6,11 @@
 \usage{
 Runtime.runScript(promise, scriptId, executionContextId = NULL,
   objectGroup = NULL, silent = NULL, includeCommandLineAPI = NULL,
-  returnByValue = NULL, generatePreview = NULL, awaitPromise = NULL)
+  returnByValue = NULL, generatePreview = NULL, awaitPromise = NULL,
+  awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{scriptId}{A ScriptId.
 Id of the script to run.}
@@ -37,10 +38,18 @@ Whether preview should be generated for the result.}
 \item{awaitPromise}{Optional. A logical.
 Whether execution should \code{await} for resulting value and return once awaited promise is
 resolved.}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 2.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a named list of length 2.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Runs script with given id in a given context.

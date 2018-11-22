@@ -15,7 +15,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"layerPainted"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `layerId`, `clip`.
 #' 
 #' @return An async value of class `promise`.
@@ -49,7 +50,8 @@ LayerTree.layerPainted <- function(promise, layerId = NULL, clip = NULL, .callba
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"layerTreeDidChange"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `layers` (optional) .
 #' 
 #' @return An async value of class `promise`.

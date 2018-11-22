@@ -13,7 +13,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"addHeapSnapshotChunk"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `chunk`.
 #' 
 #' @return An async value of class `promise`.
@@ -49,7 +50,8 @@ HeapProfiler.addHeapSnapshotChunk <- function(promise, chunk = NULL, .callback =
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"heapStatsUpdate"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `statsUpdate`.
 #' 
 #' @return An async value of class `promise`.
@@ -87,7 +89,8 @@ HeapProfiler.heapStatsUpdate <- function(promise, statsUpdate = NULL, .callback 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"lastSeenObjectId"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `lastSeenObjectId`, `timestamp`.
 #' 
 #' @return An async value of class `promise`.
@@ -125,7 +128,8 @@ HeapProfiler.lastSeenObjectId <- function(promise, lastSeenObjectId = NULL, time
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"reportHeapSnapshotProgress"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `done`, `total`, `finished` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -157,8 +161,8 @@ HeapProfiler.reportHeapSnapshotProgress <- function(promise, done = NULL, total 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"resetProfiles"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -170,7 +174,7 @@ HeapProfiler.reportHeapSnapshotProgress <- function(promise, done = NULL, total 
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-HeapProfiler.resetProfiles <- function(promise,  = NULL, .callback = NULL) {
+HeapProfiler.resetProfiles <- function(promise, .callback = NULL) {
   method <- 'HeapProfiler.resetProfiles'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]

@@ -9,10 +9,10 @@ Input.dispatchKeyEvent(promise, type, modifiers = NULL,
   keyIdentifier = NULL, code = NULL, key = NULL,
   windowsVirtualKeyCode = NULL, nativeVirtualKeyCode = NULL,
   autoRepeat = NULL, isKeypad = NULL, isSystemKey = NULL,
-  location = NULL)
+  location = NULL, awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{type}{A character string.
 Type of the key event. Accepted values: keyDown, keyUp, rawKeyDown, char.}
@@ -60,10 +60,18 @@ Whether the event was a system key event (default: false).}
 \item{location}{Optional. An integer.
 Whether the event was from the left or right side of the keyboard. 1=Left, 2=Right (default:
 0).}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Dispatches a key event to the page.

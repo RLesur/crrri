@@ -13,7 +13,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"domContentEventFired"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `timestamp`.
 #' 
 #' @return An async value of class `promise`.
@@ -51,7 +52,8 @@ Page.domContentEventFired <- function(promise, timestamp = NULL, .callback = NUL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameAttached"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`, `parentFrameId`, `stack` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -85,7 +87,8 @@ Page.frameAttached <- function(promise, frameId = NULL, parentFrameId = NULL, st
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameClearedScheduledNavigation"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`.
 #' 
 #' @return An async value of class `promise`.
@@ -119,7 +122,8 @@ Page.frameClearedScheduledNavigation <- function(promise, frameId = NULL, .callb
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameDetached"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`.
 #' 
 #' @return An async value of class `promise`.
@@ -153,7 +157,8 @@ Page.frameDetached <- function(promise, frameId = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameNavigated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frame`.
 #' 
 #' @return An async value of class `promise`.
@@ -185,8 +190,8 @@ Page.frameNavigated <- function(promise, frame = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameResized"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -198,7 +203,7 @@ Page.frameNavigated <- function(promise, frame = NULL, .callback = NULL) {
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-Page.frameResized <- function(promise,  = NULL, .callback = NULL) {
+Page.frameResized <- function(promise, .callback = NULL) {
   method <- 'Page.frameResized'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -226,7 +231,8 @@ Page.frameResized <- function(promise,  = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameScheduledNavigation"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`, `delay`, `reason`, `url`.
 #' 
 #' @return An async value of class `promise`.
@@ -260,7 +266,8 @@ Page.frameScheduledNavigation <- function(promise, frameId = NULL, delay = NULL,
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameStartedLoading"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`.
 #' 
 #' @return An async value of class `promise`.
@@ -294,7 +301,8 @@ Page.frameStartedLoading <- function(promise, frameId = NULL, .callback = NULL) 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"frameStoppedLoading"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`.
 #' 
 #' @return An async value of class `promise`.
@@ -326,8 +334,8 @@ Page.frameStoppedLoading <- function(promise, frameId = NULL, .callback = NULL) 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"interstitialHidden"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -339,7 +347,7 @@ Page.frameStoppedLoading <- function(promise, frameId = NULL, .callback = NULL) 
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-Page.interstitialHidden <- function(promise,  = NULL, .callback = NULL) {
+Page.interstitialHidden <- function(promise, .callback = NULL) {
   method <- 'Page.interstitialHidden'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -358,8 +366,8 @@ Page.interstitialHidden <- function(promise,  = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"interstitialShown"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -371,7 +379,7 @@ Page.interstitialHidden <- function(promise,  = NULL, .callback = NULL) {
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-Page.interstitialShown <- function(promise,  = NULL, .callback = NULL) {
+Page.interstitialShown <- function(promise, .callback = NULL) {
   method <- 'Page.interstitialShown'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -395,7 +403,8 @@ Page.interstitialShown <- function(promise,  = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"javascriptDialogClosed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `result`, `userInput`.
 #' 
 #' @return An async value of class `promise`.
@@ -440,7 +449,8 @@ Page.javascriptDialogClosed <- function(promise, result = NULL, userInput = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"javascriptDialogOpening"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `url`, `message`, `type`, `hasBrowserHandler`, `defaultPrompt` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -480,7 +490,8 @@ Page.javascriptDialogOpening <- function(promise, url = NULL, message = NULL, ty
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"lifecycleEvent"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`, `loaderId`, `name`, `timestamp`.
 #' 
 #' @return An async value of class `promise`.
@@ -514,7 +525,8 @@ Page.lifecycleEvent <- function(promise, frameId = NULL, loaderId = NULL, name =
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"loadEventFired"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `timestamp`.
 #' 
 #' @return An async value of class `promise`.
@@ -550,7 +562,8 @@ Page.loadEventFired <- function(promise, timestamp = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"navigatedWithinDocument"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `frameId`, `url`.
 #' 
 #' @return An async value of class `promise`.
@@ -588,7 +601,8 @@ Page.navigatedWithinDocument <- function(promise, frameId = NULL, url = NULL, .c
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"screencastFrame"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `data`, `metadata`, `sessionId`.
 #' 
 #' @return An async value of class `promise`.
@@ -622,7 +636,8 @@ Page.screencastFrame <- function(promise, data = NULL, metadata = NULL, sessionI
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"screencastVisibilityChanged"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `visible`.
 #' 
 #' @return An async value of class `promise`.
@@ -663,7 +678,8 @@ Page.screencastVisibilityChanged <- function(promise, visible = NULL, .callback 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"windowOpen"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `url`, `windowName`, `windowFeatures`, `userGesture`.
 #' 
 #' @return An async value of class `promise`.
@@ -700,7 +716,8 @@ Page.windowOpen <- function(promise, url = NULL, windowName = NULL, windowFeatur
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"compilationCacheProduced"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `url`, `data`.
 #' 
 #' @return An async value of class `promise`.

@@ -20,7 +20,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"certificateError"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `eventId`, `errorType`, `requestURL`.
 #' 
 #' @return An async value of class `promise`.
@@ -63,7 +64,8 @@ Security.certificateError <- function(promise, eventId = NULL, errorType = NULL,
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"securityStateChanged"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `securityState`, `schemeIsCryptographic`, `explanations`, `insecureContentStatus`, `summary` (optional) .
 #' 
 #' @return An async value of class `promise`.

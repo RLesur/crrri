@@ -8,10 +8,10 @@ Input.synthesizeScrollGesture(promise, x, y, xDistance = NULL,
   yDistance = NULL, xOverscroll = NULL, yOverscroll = NULL,
   preventFling = NULL, speed = NULL, gestureSourceType = NULL,
   repeatCount = NULL, repeatDelayMs = NULL,
-  interactionMarkerName = NULL)
+  interactionMarkerName = NULL, awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{x}{A numeric.
 X coordinate of the start of the gesture in CSS pixels.}
@@ -51,10 +51,18 @@ The number of milliseconds delay between each repeat. (default: 250).}
 
 \item{interactionMarkerName}{Optional. A character string.
 The name of the interaction markers to generate, if not empty (default: "").}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Synthesizes a scroll gesture over a time period by issuing appropriate touch events.

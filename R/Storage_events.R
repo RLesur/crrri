@@ -15,7 +15,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"cacheStorageContentUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `origin`, `cacheName`.
 #' 
 #' @return An async value of class `promise`.
@@ -49,7 +50,8 @@ Storage.cacheStorageContentUpdated <- function(promise, origin = NULL, cacheName
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"cacheStorageListUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `origin`.
 #' 
 #' @return An async value of class `promise`.
@@ -87,7 +89,8 @@ Storage.cacheStorageListUpdated <- function(promise, origin = NULL, .callback = 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"indexedDBContentUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `origin`, `databaseName`, `objectStoreName`.
 #' 
 #' @return An async value of class `promise`.
@@ -121,7 +124,8 @@ Storage.indexedDBContentUpdated <- function(promise, origin = NULL, databaseName
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"indexedDBListUpdated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `origin`.
 #' 
 #' @return An async value of class `promise`.

@@ -4,10 +4,11 @@
 \alias{Fetch.enable}
 \title{Send the command Fetch.enable}
 \usage{
-Fetch.enable(promise, patterns = NULL, handleAuthRequests = NULL)
+Fetch.enable(promise, patterns = NULL, handleAuthRequests = NULL,
+  awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{patterns}{Optional. A list of RequestPattern.
 If specified, only requests matching any of these patterns will produce
@@ -17,10 +18,18 @@ all requests will be affected.}
 \item{handleAuthRequests}{Optional. A logical.
 If true, authRequired events will be issued and requests will be paused
 expecting a call to continueWithAuth.}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Enables issuing of requestPaused events. A request will be paused until client

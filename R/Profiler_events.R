@@ -19,7 +19,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"consoleProfileFinished"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `id`, `location`, `profile`, `title` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -57,7 +58,8 @@ Profiler.consoleProfileFinished <- function(promise, id = NULL, location = NULL,
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"consoleProfileStarted"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `id`, `location`, `title` (optional) .
 #' 
 #' @return An async value of class `promise`.

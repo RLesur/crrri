@@ -17,7 +17,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"bindingCalled"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `name`, `payload`, `executionContextId`.
 #' 
 #' @return An async value of class `promise`.
@@ -63,7 +64,8 @@ Runtime.bindingCalled <- function(promise, name = NULL, payload = NULL, executio
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"consoleAPICalled"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `type`, `args`, `executionContextId`, `timestamp`, `stackTrace` (optional) , `context` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -99,7 +101,8 @@ Runtime.consoleAPICalled <- function(promise, type = NULL, args = NULL, executio
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"exceptionRevoked"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `reason`, `exceptionId`.
 #' 
 #' @return An async value of class `promise`.
@@ -135,7 +138,8 @@ Runtime.exceptionRevoked <- function(promise, reason = NULL, exceptionId = NULL,
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"exceptionThrown"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `timestamp`, `exceptionDetails`.
 #' 
 #' @return An async value of class `promise`.
@@ -169,7 +173,8 @@ Runtime.exceptionThrown <- function(promise, timestamp = NULL, exceptionDetails 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"executionContextCreated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `context`.
 #' 
 #' @return An async value of class `promise`.
@@ -203,7 +208,8 @@ Runtime.executionContextCreated <- function(promise, context = NULL, .callback =
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"executionContextDestroyed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `executionContextId`.
 #' 
 #' @return An async value of class `promise`.
@@ -235,8 +241,8 @@ Runtime.executionContextDestroyed <- function(promise, executionContextId = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"executionContextsCleared"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
-#'        the following element(s): ``.
+#'        and an element `params` which is a named list.
+#'        For this event, `params` is void.
 #' 
 #' @return An async value of class `promise`.
 #'         The value and the completion of the promise differ according to the use of a callback function.
@@ -248,7 +254,7 @@ Runtime.executionContextDestroyed <- function(promise, executionContextId = NULL
 #'         is a function without any argument that can be called to cancel the callback. When you use the
 #'         `.callback` argument, you cannot send the result to any other command or event listener.
 #' @export
-Runtime.executionContextsCleared <- function(promise,  = NULL, .callback = NULL) {
+Runtime.executionContextsCleared <- function(promise, .callback = NULL) {
   method <- 'Runtime.executionContextsCleared'
   args <- head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
@@ -272,7 +278,8 @@ Runtime.executionContextsCleared <- function(promise,  = NULL, .callback = NULL)
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"inspectRequested"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `object`, `hints`.
 #' 
 #' @return An async value of class `promise`.

@@ -4,10 +4,11 @@
 \alias{DOM.requestChildNodes}
 \title{Send the command DOM.requestChildNodes}
 \usage{
-DOM.requestChildNodes(promise, nodeId, depth = NULL, pierce = NULL)
+DOM.requestChildNodes(promise, nodeId, depth = NULL, pierce = NULL,
+  awaitResult = TRUE)
 }
 \arguments{
-\item{promise}{An aynchronous result object.}
+\item{promise}{An asynchronous result.}
 
 \item{nodeId}{A NodeId.
 Id of the node to get children for.}
@@ -19,10 +20,18 @@ entire subtree or provide an integer larger than 0.}
 \item{pierce}{Optional. A logical.
 Whether or not iframes and shadow roots should be traversed when returning the sub-tree
 (default is false).}
+
+\item{awaitResult}{Await for the command result?}
 }
 \value{
-A promise (following the definition of the promises package).
-The value of the fulfilled promise is a named list of length 0.
+An async value of class \code{promise}.
+The value and the completion of the promise differ according to the value of \code{awaitResult}.
+Its value is a named list of two elements: \code{ws} (the websocket connexion) and \code{result}.
+When \code{awaitResult} is \code{TRUE}, the promise is fulfilled once the result of the command is received. In this case,
+\code{result} is a void named list.
+When \code{awaitResult} is \code{FALSE}, the promise is fulfilled once the command is sent:
+\code{result} is equal to the previous result (\code{promise$result}).
+In both cases, you can chain this promise with another command or event listener.
 }
 \description{
 Requests that children of the node with given id are returned to the caller in form of

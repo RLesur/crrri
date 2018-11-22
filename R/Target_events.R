@@ -17,7 +17,8 @@ NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"attachedToTarget"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `sessionId`, `targetInfo`, `waitingForDebugger`.
 #' 
 #' @return An async value of class `promise`.
@@ -54,7 +55,8 @@ Target.attachedToTarget <- function(promise, sessionId = NULL, targetInfo = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"detachedFromTarget"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `sessionId`, `targetId` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -93,7 +95,8 @@ Target.detachedFromTarget <- function(promise, sessionId = NULL, targetId = NULL
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"receivedMessageFromTarget"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `sessionId`, `message`, `targetId` (optional) .
 #' 
 #' @return An async value of class `promise`.
@@ -127,7 +130,8 @@ Target.receivedMessageFromTarget <- function(promise, sessionId = NULL, message 
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"targetCreated"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `targetInfo`.
 #' 
 #' @return An async value of class `promise`.
@@ -161,7 +165,8 @@ Target.targetCreated <- function(promise, targetInfo = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"targetDestroyed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `targetId`.
 #' 
 #' @return An async value of class `promise`.
@@ -199,7 +204,8 @@ Target.targetDestroyed <- function(promise, targetId = NULL, .callback = NULL) {
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"targetCrashed"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `targetId`, `status`, `errorCode`.
 #' 
 #' @return An async value of class `promise`.
@@ -234,7 +240,8 @@ Target.targetCrashed <- function(promise, targetId = NULL, status = NULL, errorC
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
 #'        with an element `method` (that is equal to `"targetInfoChanged"`)
-#'        and an element `params` which is a named list. The `params` list is composed of
+#'        and an element `params` which is a named list.
+#'        The `params` list is composed of
 #'        the following element(s): `targetInfo`.
 #' 
 #' @return An async value of class `promise`.
