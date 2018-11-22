@@ -16,7 +16,8 @@ send <- function(promise, method, params = NULL) {
 
 
 # each param could be of the form ~ .res$param or ~ .$param or ~ .x$param (all work)
-listen <- function(promise, method, params = NULL, callback = NULL, once = TRUE) {
+listen <- function(promise, method, params = NULL, callback = NULL) {
+  once <- is.null(callback)
   promises::then(
     promise,
     onFulfilled = function(value) {
