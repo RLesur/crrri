@@ -170,14 +170,14 @@ as.promise.DevToolsConnexion <- function(x) {
   promises::promise(function(resolve, reject) {
     if (x$readyState() <= 0) {
       x$onOpen(function(event) {
-        resolve(list(ws = x, result = x$lastResponse))
+        resolve(list(ws = x, result = x$lastCaughtResponse))
       })
     }
     if (x$readyState() == 2 | x$readyState() == 3) {
       reject("Closed connexion.")
     }
     if (x$readyState() == 1) {
-      resolve(list(ws = x, result = x$lastResponse))
+      resolve(list(ws = x, result = x$lastCaughtResponse))
     }
   })
 }
