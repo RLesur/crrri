@@ -303,7 +303,7 @@ chr_close <- function(chr_process, work_dir) {
     cat("Closing headless Chrome...\n")
     chr_process$kill()
     if (chr_process$is_alive())
-      cat("Cannot close headless Chrome.\n")
+      stop("Cannot close headless Chrome.\n")
     else
       cat("...headless Chrome closed.\n")
   }
@@ -324,7 +324,7 @@ chr_clean_work_dir <- function(work_dir) {
     if (cleaned)
       cat("...Chrome working directory succesfully deleted.\n")
     else
-      cat("...cannot supress the Chrome working directory: ", work_dir,
+      stop("...cannot supress the Chrome working directory: ", work_dir,
           "\nPlease remove it manually.\n",
           sep = ""
       )
