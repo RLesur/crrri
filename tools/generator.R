@@ -170,6 +170,7 @@ generate_event <- function(event, domain_name = NULL) {
 
 generate_events_source_code <- function(domain) {
   events <- domain$events
+  if (is.null(events)) return()
   file_content <- paste0(c(
     "# DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
     purrr::map_chr(events, generate_event, domain_name = domain$domain)
