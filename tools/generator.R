@@ -15,6 +15,10 @@ is_cmd_deprecated <- function(command) {
   isTRUE(command$deprecated)
 }
 
+sanitize_help <- function(text) {
+  gsub("\\n", "\n#'        ", text)
+}
+
 # Build command -----------------------------------------------------------
 build_command_signature <- function(command) {
   par_names <- c("promise", purrr::map_chr(command$parameters, "name"))
@@ -24,10 +28,6 @@ build_command_signature <- function(command) {
                       ifelse(optionals, " = NULL", "")
          ), collapse = ", "),
          ", awaitResult = TRUE)")
-}
-
-sanitize_help <- function(text) {
-  gsub("\\n", "\n#'        ", text)
 }
 
 build_command_parameter_help <- function(parameter) {
@@ -110,7 +110,7 @@ build_event_parameter_help <- function(parameter) {
   )
   details <- paste(
     parameter$description,
-    paste0("Accepted values: ", paste(c(paste0("`~ .res$", parameter$name, "` (for referring to the previous result)"), parameter$enum), collapse = ", "), ".")
+    paste0("Accepted values: ", paste(c(paste0("`~ .res$", parameter$name, "` (to refer to the previous result)"), parameter$enum), collapse = ", "), ".")
   )
   text <- paste0(declaration, if (length(details) > 0) "\n", details)
   sanitize_help(text)
