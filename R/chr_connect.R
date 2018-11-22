@@ -1,3 +1,6 @@
+#' @include DevToolsConnexion.R
+NULL
+
 #' Connect R to a new Chrome instance
 #'
 #' @param bin Command or path to the Chrome exe.
@@ -48,7 +51,7 @@ chr_connect <- function(
   }
 
   if (is.null(ws) & !is.null(chr_process)) {
-    chr_close(chr_process)
+    chr_close(chr_process, work_dir)
   }
 
   # Step 5: build the result object and open the connexion if relevant
@@ -63,7 +66,7 @@ chr_connect <- function(
         return()
       }
       ws$onOpen(function(event) {
-        resolve(devtoolscnx(ws, NULL))
+        resolve(list(ws = ws, result = NULL))
       })
       ws$onError(function(event) {
         msg <- paste0("Client failed to connect: ", event$message, ".")
@@ -77,7 +80,7 @@ chr_connect <- function(
     if (is.null(ws)) {
       stop("Failed to configure the websocket connexion.")
     }
-    result <- devtoolscnx(ws, NULL)
+    result <- ws
   }
 
   if (isTRUE(auto_connect) & !is.null(ws)) {
@@ -91,34 +94,6 @@ chr_connect <- function(
 chr_new_data_dir <- function(length = 8, slug = "chrome-data-dir-") {
   random_string <- paste(sample(letters, size = length, replace = TRUE), collapse = "")
   paste0(slug, random_string)
-}
-
-devtoolscnx <- function(ws, result) {
-  obj <- list(ws = ws, result = result)
-  class(obj) <- "devtoolscnx"
-  obj
-}
-
-#' Coerce to a promise
-#'
-#' @param obj A DevTools connexion.
-#'
-#' @return A promise.
-#' @export
-as.promise.devtoolscnx <- function(x) {
-  promises::promise(function(resolve, reject) {
-    if (x$ws$readyState() == 0) {
-      x$ws$onOpen(function(event) {
-        resolve(x)
-      })
-    }
-    if (x$ws$readyState() == 2 | x$ws$readyState() == 3) {
-      reject("Closed connexion.")
-    }
-    if (x$ws$readyState() == 1) {
-      resolve(x)
-    }
-  })
 }
 
 #' Disconnect R from a Chrome instance and close it
@@ -288,7 +263,7 @@ chr_get_ws_addr <- function(debug_port) {
 # Step 4: configure the websocket connexion -------------------------------
 ws_configure <- function(ws_endpoint, chr_process, work_dir) {
   cat("Configuring the websocket connexion...\n")
-  ws <- tryCatch(websocket::WebSocket$new(ws_endpoint, autoConnect = FALSE),
+  ws <- tryCatch(DevToolsConnexion$new(ws_endpoint, autoConnect = FALSE),
                  error = function(e) NULL)
 
   if(is.null(ws)) {
@@ -326,11 +301,11 @@ chr_close <- function(chr_process, work_dir) {
 
   if (!killed) {
     cat("Closing headless Chrome...\n")
-    killed <- chr_process$kill()
-    if (killed)
-      cat("...headless Chrome closed.\n")
+    chr_process$kill()
+    if (chr_process$is_alive())
+      cat("Cannot close headless Chrome.\n")
     else
-      cat("Cannot close headless Chrome.")
+      cat("...headless Chrome closed.\n")
   }
 
   cleaned <- later::later(~chr_clean_work_dir(work_dir), 0.2)
