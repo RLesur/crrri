@@ -99,6 +99,13 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
         }
       })
 
+      if (is.null(.id))
+        cat('Now listening for the event "', method, '"',
+            if (!is.null(params)) paste0(" with parameters ",
+                                         paste(names(params), '="', params, '"', sep = '', collapse = ", ")),
+            ".\n", sep = ""
+        )
+
       if (isTRUE(once)) {
         return(invisible(self))
       } else {
