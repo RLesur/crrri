@@ -20,19 +20,19 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
             NULL
           }
         )
-      }
-      newCallback <- function(value) {
-        cat(sprintf("A response to the command #%i-%s was received.\n", id, method))
-        private$response <- value$result
-        if (!is.null(callback)) {
+        newCallback <- function(value) {
+          cat(sprintf("A response to the command #%i-%s was received.\n", id, method))
+          private$response <- value$result
           return(callback(value))
         }
+        self$onEvent(method, params, newCallback, onerror, once = TRUE, .id = id)
       }
-      self$onEvent(method, params, newCallback, onerror, once = TRUE, .id = id)
+
       super$send(msg)
       cat(sprintf("Command #%i-%s sent.\n", id, method))
       invisible(self)
     },
+
     onEvent = function(method = NULL, params = NULL, callback = NULL, onerror = cat, once = TRUE, .id = NULL) {
       target <- list()
       if (is.null(.id)) {
@@ -122,7 +122,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
 # Active bindings ---------------------------------------------------------
   active = list(
     lastCallbackResult = function() private$callbackResult,
-    lastResponse = function() private$response
+    lastCaughtResponse = function() private$response
   ),
 # Private -----------------------------------------------------------------
   private = list(
