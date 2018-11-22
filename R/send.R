@@ -15,7 +15,7 @@ send <- function(promise, method, params = NULL) {
 }
 
 
-# each param could be of the form ~.$result$param
+# each param could be of the form ~ .res$param or ~ .$param or ~ .x$param (all work)
 listen <- function(promise, method, params = NULL, callback = NULL, once = TRUE) {
   promises::then(
     promise,
@@ -23,8 +23,11 @@ listen <- function(promise, method, params = NULL, callback = NULL, once = TRUE)
       ws <- value$ws
       params <- sapply(simplify = FALSE, USE.NAMES = TRUE,
         params, function(x) {
-          if ("formula" %in% class(x))
-            rlang::as_function(x)(value)
+          if ("formula" %in% class(x)) {
+            f <- rlang::as_function(x)
+            rlang::fn_fmls(f) <- c(rlang::fn_fmls(f), list(.res = quote(..1)))
+            f(value$result)
+          }
           else
             x
         }
@@ -48,7 +51,7 @@ listen <- function(promise, method, params = NULL, callback = NULL, once = TRUE)
 # tmp <- chrome %>%
 #   Page.enable() %>%
 #   Page.navigate(url = "https://www.r-project.org/") %>%
-#   listen("Page.frameStoppedLoading", params = list(frameId = ~ .$result$frameId)) %>%
+#   listen("Page.frameStoppedLoading", params = list(frameId = ~ .res$frameId)) %>%
 #   Page.printToPDF() %...>% {
 #     .$result$data %>% base64_dec() %>% writeBin("r-project.pdf")
 #   } %...!% {
