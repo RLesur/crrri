@@ -20,7 +20,6 @@ send <- function(promise, method, params = NULL, awaitResult = TRUE) {
   )
 }
 
-
 # each param could be of the form ~ .res$param or ~ .$param or ~ .x$param (all work)
 listen <- function(promise, method, params = NULL, callback = NULL) {
   once <- is.null(callback)
@@ -52,16 +51,3 @@ listen <- function(promise, method, params = NULL, callback = NULL) {
     }
   )
 }
-# example:
-# chrome <- chr_connect()
-#
-# tmp <- chrome %>%
-#   Page.enable() %>%
-#   Page.navigate(url = "https://www.r-project.org/") %>%
-#   listen("Page.frameStoppedLoading", params = list(frameId = ~ .res$frameId)) %>%
-#   Page.printToPDF() %...>% {
-#     .$result$data %>% base64_dec() %>% writeBin("r-project.pdf")
-#   } %...!% {
-#     cat(c("An error has occured:", as.character(.)), sep = "\n")
-#   } %>%
-#   finally(~ chr_disconnect(chrome))
