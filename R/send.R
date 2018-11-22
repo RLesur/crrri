@@ -14,3 +14,44 @@ send <- function(promise, method, params = NULL) {
   )
 }
 
+
+# each param could be of the form ~.$result$param
+listen <- function(promise, method, params = NULL, callback = NULL, once = TRUE) {
+  promises::then(
+    promise,
+    onFulfilled = function(value) {
+      ws <- value$ws
+      params <- sapply(simplify = FALSE, USE.NAMES = TRUE,
+        params, function(x) {
+          if ("formula" %in% class(x))
+            rlang::as_function(x)(value)
+          else
+            x
+        }
+      )
+
+      if (isTRUE(once)) return(
+        promises::promise(function(resolve, reject) {
+          resolver <- function(message) {
+            resolve(list(ws = ws, result = message$params))
+          }
+          ws$onEvent(method, params, resolver, reject)
+        })
+      )
+      ws$onEvent(method, params, callback, stop, once)
+    }
+  )
+}
+# example:
+# chrome <- chr_connect()
+#
+# tmp <- chrome %>%
+#   Page.enable() %>%
+#   Page.navigate(url = "https://www.r-project.org/") %>%
+#   listen("Page.frameStoppedLoading", params = list(frameId = ~ .$result$frameId)) %>%
+#   Page.printToPDF() %...>% {
+#     .$result$data %>% base64_dec() %>% writeBin("r-project.pdf")
+#   } %...!% {
+#     cat(c("An error has occured:", as.character(.)), sep = "\n")
+#   } %>%
+#   finally(~ chr_disconnect(chrome))
