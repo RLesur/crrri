@@ -4,7 +4,7 @@
 \alias{as.promise.DevToolsConnexion}
 \title{Coerce to a promise}
 \usage{
-\method{as.promise}{DevToolsConnexion}(x)
+as.promise.DevToolsConnexion(x)
 }
 \arguments{
 \item{obj}{A DevTools connexion.}
