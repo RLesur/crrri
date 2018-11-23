@@ -122,10 +122,12 @@ chrome %>%
   }
 ```
 
-### Transposing `chrome-remote-interface` JS scripts: dumping the DOM
+### Transpose `chrome-remote-interface` JS scripts: dump the DOM
 
 With `crrri`, you should be able to transpose with minimal efforts some
-JS scripts written for the `chrome-remote-interface` node.js module.
+JS scripts written with the
+[`chrome-remote-interface`](https://github.com/cyrus-and/chrome-remote-interface)
+node.js module.
 
 For instance, take [this JS
 script](https://github.com/cyrus-and/chrome-remote-interface/wiki/Dump-HTML-after-page-load)
