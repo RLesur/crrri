@@ -20,13 +20,13 @@ This is a low-level implementation of the protocol. Deprecated commands are not 
 
 This package is intended to R packages developers who need to orchestrate Chrome: **with `crrri`, you can easily interact with a (headless) Chrome using R**. We worked a lot to provide the most simple API. However, you will have the bulk of the work. Interacting with Chrome using the DevTools Protocol is a highly technical task and prone to errors: you will be close to the metal and have full power (be cautious!). It is highly recommended to know how the DevTools Protocol works.
 
-This package is built on top of the packages [`websocket`](https://github.com/rstudio/websocket) and [`promises`](https://cran.r-project.org/package=promises). The default design of the `crrri` functions is to use promises. However, you can also use it with callbacks if you prefer. 
+This package is built on top of the packages [`websocket`](https://github.com/rstudio/websocket) and [`promises`](https://cran.r-project.org/package=promises). The default design of the `crrri` functions is to use promises. However, you can also use `crrri` with callbacks if you prefer. 
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain) for his seminal work on [`chradle`](https://github.com/milesmcbain/chradle) that inspired us. Many thanks!
 
 ## System requirements
 
-First of all, you **do not need to have a `node.js` configuration**: `crrri` is fully written in R.  
+First of all, you **do not need a `node.js` configuration** because **`crrri` is fully written in R**.  
 
 You only need a recent version of Chromium or Chrome: a standalone version works perfectly well on Windows. It is recommended to set the value of the `HEADLESS_CHROME` environment variable to the path of Chromium or Chrome (this is the same variable that is used in [`decapitated`](https://github.com/hrbrmstr/decapitated)). Otherwise, you can use the `bin` argument of the `chr_connect()` function.
 

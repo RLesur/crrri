@@ -24,7 +24,7 @@ This package is built on top of the packages
 [`websocket`](https://github.com/rstudio/websocket) and
 [`promises`](https://cran.r-project.org/package=promises). The default
 design of the `crrri` functions is to use promises. However, you can
-also use it with callbacks if you prefer.
+also use `crrri` with callbacks if you prefer.
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain)
 for his seminal work on
@@ -33,8 +33,8 @@ Many thanks\!
 
 ## System requirements
 
-First of all, you **do not need to have a `node.js` configuration**:
-`crrri` is fully written in R.
+First of all, you **do not need a `node.js` configuration** because
+**`crrri` is fully written in R**.
 
 You only need a recent version of Chromium or Chrome: a standalone
 version works perfectly well on Windows. It is recommended to set the
