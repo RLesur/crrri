@@ -15,16 +15,24 @@ knitr::opts_chunk$set(
 ```
 # crrri
 
-The goal of crrri is to provide a native Chrome Remote Interface in R using the Chrome DevTools Protocol.  
+The goal of `crrri` is to provide a native Chrome Remote Interface in R using the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/).  
 This is a low-level implementation of the protocol. Deprecated commands are not included.  
 
-Even if he DevTools protocol is not user-friendly, **with this package, you can easily interact with a headless Chrome using R**. The only system requirement is to have a recent version of Chromium or Chrome (a standalone version works perfectly well).
-This package is mainly intended for developers and provides no helpers for current tasks, like taking a screenshot or scraping web pages.  
-This is your responsibility to correctly use this package: interacting with a browser is not straightforward.
+This package is intended to R packages developers who need to orchestrate Chrome: **with `crrri`, you can easily interact with a (headless) Chrome using R**. We worked a lot to provide the most simple API. However, you will have the bulk of the work. Interacting with Chrome using the DevTools Protocol is a highly technical task and prone to errors: you will be close to the metal and have full power (be cautious!). It is highly recommended to know how the DevTools Protocol works.
+
+This package is built on top of the packages [`websocket`](https://github.com/rstudio/websocket) and [`promises`](https://cran.r-project.org/package=promises). The default design of the `crrri` functions is to use promises. However, you can also use it with callbacks if you prefer. 
+
+We are highly indebted to [Miles McBain](https://github.com/milesmcbain) for his seminal work on [`chradle`](https://github.com/milesmcbain/chradle) that inspired us. Many thanks!
+
+## System requirements
+
+First of all, you **do not need to have a `node.js` configuration**: `crrri` is fully written in R.  
+
+You only need a recent version of Chromium or Chrome: a standalone version works perfectly well on Windows. It is recommended to set the value of the `HEADLESS_CHROME` environment variable to the path of Chromium or Chrome (this is the same variable that is used in [`decapitated`](https://github.com/hrbrmstr/decapitated)). Otherwise, you can use the `bin` argument of the `chr_connect()` function.
 
 ## Installation
 
-You can install the development version of crrri from GitHub with:
+You can install the development version of `crrri` from GitHub with:
 
 ``` r
 remotes::install_github('rlesur/crrri')
@@ -32,58 +40,58 @@ remotes::install_github('rlesur/crrri')
 
 ## Example
 
-You need to set an environment variable named `HEADLESS_CHROME` (same variable as in `hrbrmstr/decapitated`) that contains the path to the Chrome (or Chromium) executable.
+Assuming that you have configured the `HEADLESS_CHROME` environment (see before), here is an example that produces a PDF of the [R Project website](https://www.r-project.org/) (please, do not re-use this example in production because it is absolutely not reliable): 
 
 ``` r
-library(crrri)
 library(promises)
+library(crrri)
 library(jsonlite)
 
-chrome <- chr_connect()
-```
+chrome <- chr_connect() 
 
-``` r
-#> Chrome succesfully launched in headless mode 
-#> R succesfully connected to headless Chrome through DevTools Protocol.
-```
-
-Since all the operations that we can do with the DevTools Protocol are asynchronous, all the functions return Promises (in the sense of the promises package). For instance:
-
-```r
-chrome
-```
-
-```r
-#> <Promise [fulfilled: list]>
-```
-
-Chrome DevTools commands are built on top of the `promises::then()` function. So, you can use the single magrittr pipe operator `%>%` to chain operations:
-
-``` r
-r_project <- 
-  chrome %>% 
-  Page.enable() %>%
-  Page.navigate(url = "https://www.r-project.org/")
-
-# event listeners have to be developed
-# For now, you have to wait that the frame is loaded
-```
-
-The value of the fulfilled promise is a list of 2 objects:
-
-- `cnx`: information about the connexion. It is used internally, so do not use it.
-- `result`: a list composed of the objects received from Chrome.
-
-For instance, if you want to print a PDF of the R Project website:
-
-```r
-r_project %>%
-  Page.printToPDF() %...>% {
-    .$result$data %>% base64_dec() %>% writeBin("r-project.pdf")
-  } %...!% {
-    cat(c("An error has occured:", as.character(.)), sep = "\n")
+chrome %>% # await R connexion to headless Chrome
+  Page.enable() %>% # await enablement of the Page domain
+  Page.navigate(url = "https://www.r-project.org/") %>% # await navigation starts
+  Page.frameStoppedLoading(frameId = ~ .res$frameId) %>% # await the event "Page.frameStoppedLoading" 
+  Page.printToPDF() %...T>% { # await PDF reception
+    .$result$data %>% base64_dec() %>% writeBin("r_project.pdf") 
   } %>%
-  finally(~ chr_disconnect(chrome))
+  finally(~ chr_disconnect(chrome)) %...!% { # disconnect and close Chrome
+    cat(c("An error has occured:\n", .$message, "\n")) # handle errors
+  }
+```
+
+All the functions of the `crrri` package (commands and event listeners) are built on top of the `promises::then()` function. So, you can pass arguments to these functions and use the `%>%` `magrittr`'s pipe. However, when building higher level functions, don't forget that you have to deal with promises (those will prevent you to fall into the Callback Hell).
+
+For instance, you can write a `saveAsPDF` function with a timeout (the `crrri::timeout()` function returns a promise that is rejected after a delay) as follow:
+
+``` r
+saveAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/"), delay = 30) {
+  promise_race(
+    timeout(delay),
+    chrome %>% 
+      Page.enable() %>%
+      Page.navigate(url = url) %>% 
+      Page.frameStoppedLoading(frameId = ~ .res$frameId) %>%  
+      Page.printToPDF() %...T>% { 
+        .$result$data %>% base64_dec() %>% writeBin(paste0(names(url), ".pdf")) 
+      }
+  )
+}
+```
+
+Now, you can use it multiple times:
+
+``` r
+chrome <- chr_connect()
+
+chrome %>% 
+  saveAsPDF(c(r_project = "https://www.r-project.org/")) %>%
+  saveAsPDF(c(rstudio = "https://rstudio.com/")) %>%
+  saveAsPDF(c(ropensci = "https://ropensci.org/")) %>%
+  finally(~ chr_disconnect(chrome)) %...!% {
+    cat(.$message)
+  }
 ```
 
 ## Credits
