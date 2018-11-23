@@ -5,6 +5,8 @@
 
 # crrri
 
+**Work in progress**
+
 The goal of `crrri` is to provide a native Chrome Remote Interface in R
 using the [Chrome DevTools
 Protocol](https://chromedevtools.github.io/devtools-protocol/).  
@@ -51,7 +53,9 @@ You can install the development version of `crrri` from GitHub with:
 remotes::install_github('rlesur/crrri')
 ```
 
-## Example
+## Examples
+
+### Generate a PDF
 
 Assuming that you have configured the `HEADLESS_CHROME` environment (see
 before), here is an example that produces a PDF of the [R Project
@@ -116,6 +120,96 @@ chrome %>%
   finally(~ chr_disconnect(chrome)) %...!% {
     cat(.$message)
   }
+```
+
+### Transposing `chrome-remote-interface` JS scripts: dumping the DOM
+
+With `crrri`, you should be able to transpose with minimal efforts some
+JS scripts written for the `chrome-remote-interface` node.js module.
+
+For instance, take [this JS
+script](https://github.com/cyrus-and/chrome-remote-interface/wiki/Dump-HTML-after-page-load)
+that dumps the DOM:
+
+``` js
+const CDP = require('chrome-remote-interface');
+
+CDP(async(client) => {
+    const {Network, Page, Runtime} = client;
+    try {
+        await Network.enable();
+        await Page.enable();
+        await Network.setCacheDisabled({cacheDisabled: true});
+        await Page.navigate({url: 'https://github.com'});
+        await Page.loadEventFired();
+        const result = await Runtime.evaluate({
+            expression: 'document.documentElement.outerHTML'
+        });
+        const html = result.result.value;
+        console.log(html);
+    } catch (err) {
+        console.error(err);
+    } finally {
+        client.close();
+    }
+}).on('error', (err) => {
+    console.error(err);
+});
+```
+
+Using `crrri`, you can write:
+
+``` r
+library(promises)
+library(crrri)
+
+chrome <- chr_connect()
+
+chrome %>%
+  Network.enable() %>%
+  Page.enable() %>%
+  Network.setCacheDisabled(cacheDisabled = TRUE) %>%
+  Page.navigate(url = "https://github.com", awaitResult = FALSE) %>% # because the following event listener does not use this result, it is safer to use awaitResult = FALSE
+  Page.loadEventFired() %>%
+  Runtime.evaluate(expression = 'document.documentElement.outerHTML') %...>% {
+   cat(.$result$result$value, "\n") 
+  } %>%
+  finally(~ chr_disconnect(chrome)) %...!% {
+    cat(.$message)
+  }
+```
+
+If you want to write a higher level function that dump the DOM, you can
+embed this script in a function. **Remind you to handle infinite pending
+promise** (with a timeout for instance) and rejected promises:
+
+``` r
+dumpDOM <- function(chrome, url, delay = 30) {
+  chrome <- chr_connect()
+  promise_race(
+    timeout(delay),
+    chrome %>%
+      Network.enable() %>%
+      Page.enable() %>%
+      Network.setCacheDisabled(cacheDisabled = TRUE) %>%
+      Page.navigate(url, awaitResult = FALSE) %>%
+      Page.loadEventFired() %>%
+      Runtime.evaluate(expression = "document.documentElement.outerHTML") %...T>% {
+        cat(.$result$result$value, "\n") 
+      }
+  ) %>%
+  finally(~ chr_disconnect(chrome)) %...!% {
+    cat(.$message)
+  }
+}
+```
+
+Now, you can use it for dumping [David
+Gohel](https://github.com/davidgohel)’s
+[blog](http://www.ardata.fr/blog/):
+
+``` r
+dumpDOM(url = "http://www.ardata.fr/blog/")
 ```
 
 ## Credits
