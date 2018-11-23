@@ -69,7 +69,7 @@ chr_connect <- function(
         resolve(list(ws = ws, result = NULL))
       })
       ws$onError(function(event) {
-        msg <- paste0("Client failed to connect: ", event$message, ".")
+        msg <- paste0("R failed to connect to Chrome: ", event$message, ".")
         reject(msg)
       })
     })
