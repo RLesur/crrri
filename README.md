@@ -214,6 +214,10 @@ Gohel](https://github.com/davidgohel)’s
 dumpDOM(url = "http://www.ardata.fr/blog/")
 ```
 
+You can find many other examples in the
+[wiki](https://github.com/cyrus-and/chrome-remote-interface/wiki) of the
+`chrome-remote-interface` module.
+
 ## Credits
 
 Miles McBain for `chradle`.
