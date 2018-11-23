@@ -13,7 +13,7 @@ send <- function(promise, method, params = NULL, awaitResult = TRUE) {
           ws$sendCommand(method, params, callback, reject)
         }))
       } else {
-        ws$sendCommand(method, params, callback, reject)
+        ws$sendCommand(method, params, callback = NULL, onerror = stop)
         return(list(ws = ws, result = previous_result))
       }
     }
