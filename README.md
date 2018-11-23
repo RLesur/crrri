@@ -186,7 +186,7 @@ embed this script in a function. **Remind you to handle infinite pending
 promise** (with a timeout for instance) and rejected promises:
 
 ``` r
-dumpDOM <- function(chrome, url, delay = 30) {
+dumpDOM <- function(url, delay = 30) {
   chrome <- chr_connect()
   promise_race(
     timeout(delay),
