@@ -94,7 +94,7 @@ delay) as
 follow:
 
 ``` r
-saveAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/"), delay = 30) {
+saveUrlAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/"), delay = 30) {
   promise_race(
     timeout(delay),
     chrome %>% 
@@ -108,18 +108,28 @@ saveAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/"),
 }
 ```
 
-Now, you can use it multiple times:
+Now, you can implement a dot argument (PDF will be generated
+sequentially because Chrome cannot create multiple PDF at the same
+time):
 
 ``` r
-chrome <- chr_connect()
+saveAsPDF <- function(...) {
+  chrome <- chr_connect()
+  purrr::reduce(list(...), saveUrlAsPDF, .init = chrome) %>%
+    finally(~ chr_disconnect(chrome)) %...!% {
+      cat(.$message)
+    }
+}
+```
 
-chrome %>% 
-  saveAsPDF(c(r_project = "https://www.r-project.org/")) %>%
-  saveAsPDF(c(rstudio = "https://rstudio.com/")) %>%
-  saveAsPDF(c(ropensci = "https://ropensci.org/")) %>%
-  finally(~ chr_disconnect(chrome)) %...!% {
-    cat(.$message)
-  }
+You have created a `saveAsPDF(...)` function that can handle multiple
+URLs:
+
+``` r
+saveAsPDF(c(r_project = "https://www.r-project.org/"),
+          c(rstudio = "https://rstudio.com/"),
+          c(ropensci = "https://ropensci.org/")
+)
 ```
 
 ### Transpose `chrome-remote-interface` JS scripts: dump the DOM
