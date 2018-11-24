@@ -164,10 +164,16 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
 
 #' Coerce to a promise
 #'
-#' @param obj A DevTools connexion.
+#' See \code{promises::\link[promises]{is.promise}} for details.
 #'
-#' @return A promise.
+#' @name as.promise
+#' @keywords internal
+#' @importFrom promises as.promise
 #' @export
+NULL
+
+#' @export
+#' @rdname as.promise
 as.promise.DevToolsConnexion <- function(x) {
   promises::promise(function(resolve, reject) {
     if (x$readyState() <= 0) {
@@ -183,3 +189,4 @@ as.promise.DevToolsConnexion <- function(x) {
     }
   })
 }
+
