@@ -24,7 +24,7 @@ NULL
 #' @export
 Storage.clearDataForOrigin <- function(promise, origin, storageTypes, awaitResult = TRUE) {
   method <- 'Storage.clearDataForOrigin'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -52,7 +52,7 @@ Storage.clearDataForOrigin <- function(promise, origin, storageTypes, awaitResul
 #' @export
 Storage.getUsageAndQuota <- function(promise, origin, awaitResult = TRUE) {
   method <- 'Storage.getUsageAndQuota'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -80,7 +80,7 @@ Storage.getUsageAndQuota <- function(promise, origin, awaitResult = TRUE) {
 #' @export
 Storage.trackCacheStorageForOrigin <- function(promise, origin, awaitResult = TRUE) {
   method <- 'Storage.trackCacheStorageForOrigin'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -108,7 +108,7 @@ Storage.trackCacheStorageForOrigin <- function(promise, origin, awaitResult = TR
 #' @export
 Storage.trackIndexedDBForOrigin <- function(promise, origin, awaitResult = TRUE) {
   method <- 'Storage.trackIndexedDBForOrigin'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -136,7 +136,7 @@ Storage.trackIndexedDBForOrigin <- function(promise, origin, awaitResult = TRUE)
 #' @export
 Storage.untrackCacheStorageForOrigin <- function(promise, origin, awaitResult = TRUE) {
   method <- 'Storage.untrackCacheStorageForOrigin'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -164,7 +164,7 @@ Storage.untrackCacheStorageForOrigin <- function(promise, origin, awaitResult = 
 #' @export
 Storage.untrackIndexedDBForOrigin <- function(promise, origin, awaitResult = TRUE) {
   method <- 'Storage.untrackIndexedDBForOrigin'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

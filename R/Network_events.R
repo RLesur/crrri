@@ -35,7 +35,7 @@ NULL
 #' @export
 Network.dataReceived <- function(promise, requestId = NULL, timestamp = NULL, dataLength = NULL, encodedDataLength = NULL, .callback = NULL) {
   method <- 'Network.dataReceived'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -78,7 +78,7 @@ Network.dataReceived <- function(promise, requestId = NULL, timestamp = NULL, da
 #' @export
 Network.eventSourceMessageReceived <- function(promise, requestId = NULL, timestamp = NULL, eventName = NULL, eventId = NULL, data = NULL, .callback = NULL) {
   method <- 'Network.eventSourceMessageReceived'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -123,7 +123,7 @@ Network.eventSourceMessageReceived <- function(promise, requestId = NULL, timest
 #' @export
 Network.loadingFailed <- function(promise, requestId = NULL, timestamp = NULL, type = NULL, errorText = NULL, canceled = NULL, blockedReason = NULL, .callback = NULL) {
   method <- 'Network.loadingFailed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -165,7 +165,7 @@ Network.loadingFailed <- function(promise, requestId = NULL, timestamp = NULL, t
 #' @export
 Network.loadingFinished <- function(promise, requestId = NULL, timestamp = NULL, encodedDataLength = NULL, shouldReportCorbBlocking = NULL, .callback = NULL) {
   method <- 'Network.loadingFinished'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -228,7 +228,7 @@ Network.loadingFinished <- function(promise, requestId = NULL, timestamp = NULL,
 #' @export
 Network.requestIntercepted <- function(promise, interceptionId = NULL, request = NULL, frameId = NULL, resourceType = NULL, isNavigationRequest = NULL, isDownload = NULL, redirectUrl = NULL, authChallenge = NULL, responseErrorReason = NULL, responseStatusCode = NULL, responseHeaders = NULL, .callback = NULL) {
   method <- 'Network.requestIntercepted'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -263,7 +263,7 @@ Network.requestIntercepted <- function(promise, interceptionId = NULL, request =
 #' @export
 Network.requestServedFromCache <- function(promise, requestId = NULL, .callback = NULL) {
   method <- 'Network.requestServedFromCache'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -318,7 +318,7 @@ Network.requestServedFromCache <- function(promise, requestId = NULL, .callback 
 #' @export
 Network.requestWillBeSent <- function(promise, requestId = NULL, loaderId = NULL, documentURL = NULL, request = NULL, timestamp = NULL, wallTime = NULL, initiator = NULL, redirectResponse = NULL, type = NULL, frameId = NULL, hasUserGesture = NULL, .callback = NULL) {
   method <- 'Network.requestWillBeSent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -357,7 +357,7 @@ Network.requestWillBeSent <- function(promise, requestId = NULL, loaderId = NULL
 #' @export
 Network.resourceChangedPriority <- function(promise, requestId = NULL, newPriority = NULL, timestamp = NULL, .callback = NULL) {
   method <- 'Network.resourceChangedPriority'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -394,7 +394,7 @@ Network.resourceChangedPriority <- function(promise, requestId = NULL, newPriori
 #' @export
 Network.signedExchangeReceived <- function(promise, requestId = NULL, info = NULL, .callback = NULL) {
   method <- 'Network.signedExchangeReceived'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -439,7 +439,7 @@ Network.signedExchangeReceived <- function(promise, requestId = NULL, info = NUL
 #' @export
 Network.responseReceived <- function(promise, requestId = NULL, loaderId = NULL, timestamp = NULL, type = NULL, response = NULL, frameId = NULL, .callback = NULL) {
   method <- 'Network.responseReceived'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -476,7 +476,7 @@ Network.responseReceived <- function(promise, requestId = NULL, loaderId = NULL,
 #' @export
 Network.webSocketClosed <- function(promise, requestId = NULL, timestamp = NULL, .callback = NULL) {
   method <- 'Network.webSocketClosed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -515,7 +515,7 @@ Network.webSocketClosed <- function(promise, requestId = NULL, timestamp = NULL,
 #' @export
 Network.webSocketCreated <- function(promise, requestId = NULL, url = NULL, initiator = NULL, .callback = NULL) {
   method <- 'Network.webSocketCreated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -554,7 +554,7 @@ Network.webSocketCreated <- function(promise, requestId = NULL, url = NULL, init
 #' @export
 Network.webSocketFrameError <- function(promise, requestId = NULL, timestamp = NULL, errorMessage = NULL, .callback = NULL) {
   method <- 'Network.webSocketFrameError'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -593,7 +593,7 @@ Network.webSocketFrameError <- function(promise, requestId = NULL, timestamp = N
 #' @export
 Network.webSocketFrameReceived <- function(promise, requestId = NULL, timestamp = NULL, response = NULL, .callback = NULL) {
   method <- 'Network.webSocketFrameReceived'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -632,7 +632,7 @@ Network.webSocketFrameReceived <- function(promise, requestId = NULL, timestamp 
 #' @export
 Network.webSocketFrameSent <- function(promise, requestId = NULL, timestamp = NULL, response = NULL, .callback = NULL) {
   method <- 'Network.webSocketFrameSent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -671,7 +671,7 @@ Network.webSocketFrameSent <- function(promise, requestId = NULL, timestamp = NU
 #' @export
 Network.webSocketHandshakeResponseReceived <- function(promise, requestId = NULL, timestamp = NULL, response = NULL, .callback = NULL) {
   method <- 'Network.webSocketHandshakeResponseReceived'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -712,7 +712,7 @@ Network.webSocketHandshakeResponseReceived <- function(promise, requestId = NULL
 #' @export
 Network.webSocketWillSendHandshakeRequest <- function(promise, requestId = NULL, timestamp = NULL, wallTime = NULL, request = NULL, .callback = NULL) {
   method <- 'Network.webSocketWillSendHandshakeRequest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

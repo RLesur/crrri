@@ -20,7 +20,7 @@ NULL
 #' @export
 Network.clearBrowserCache <- function(promise, awaitResult = TRUE) {
   method <- 'Network.clearBrowserCache'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Network.clearBrowserCache <- function(promise, awaitResult = TRUE) {
 #' @export
 Network.clearBrowserCookies <- function(promise, awaitResult = TRUE) {
   method <- 'Network.clearBrowserCookies'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -96,7 +96,7 @@ Network.clearBrowserCookies <- function(promise, awaitResult = TRUE) {
 #' @export
 Network.continueInterceptedRequest <- function(promise, interceptionId, errorReason = NULL, rawResponse = NULL, url = NULL, method = NULL, postData = NULL, headers = NULL, authChallengeResponse = NULL, awaitResult = TRUE) {
   method <- 'Network.continueInterceptedRequest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -131,7 +131,7 @@ Network.continueInterceptedRequest <- function(promise, interceptionId, errorRea
 #' @export
 Network.deleteCookies <- function(promise, name, url = NULL, domain = NULL, path = NULL, awaitResult = TRUE) {
   method <- 'Network.deleteCookies'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -157,7 +157,7 @@ Network.deleteCookies <- function(promise, name, url = NULL, domain = NULL, path
 #' @export
 Network.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Network.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -193,7 +193,7 @@ Network.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Network.emulateNetworkConditions <- function(promise, offline, latency, downloadThroughput, uploadThroughput, connectionType = NULL, awaitResult = TRUE) {
   method <- 'Network.emulateNetworkConditions'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -225,7 +225,7 @@ Network.emulateNetworkConditions <- function(promise, offline, latency, download
 #' @export
 Network.enable <- function(promise, maxTotalBufferSize = NULL, maxResourceBufferSize = NULL, maxPostDataSize = NULL, awaitResult = TRUE) {
   method <- 'Network.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -252,7 +252,7 @@ Network.enable <- function(promise, maxTotalBufferSize = NULL, maxResourceBuffer
 #' @export
 Network.getAllCookies <- function(promise, awaitResult = TRUE) {
   method <- 'Network.getAllCookies'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -280,7 +280,7 @@ Network.getAllCookies <- function(promise, awaitResult = TRUE) {
 #' @export
 Network.getCertificate <- function(promise, origin, awaitResult = TRUE) {
   method <- 'Network.getCertificate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -309,7 +309,7 @@ Network.getCertificate <- function(promise, origin, awaitResult = TRUE) {
 #' @export
 Network.getCookies <- function(promise, urls = NULL, awaitResult = TRUE) {
   method <- 'Network.getCookies'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -337,7 +337,7 @@ Network.getCookies <- function(promise, urls = NULL, awaitResult = TRUE) {
 #' @export
 Network.getResponseBody <- function(promise, requestId, awaitResult = TRUE) {
   method <- 'Network.getResponseBody'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -365,7 +365,7 @@ Network.getResponseBody <- function(promise, requestId, awaitResult = TRUE) {
 #' @export
 Network.getRequestPostData <- function(promise, requestId, awaitResult = TRUE) {
   method <- 'Network.getRequestPostData'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -393,7 +393,7 @@ Network.getRequestPostData <- function(promise, requestId, awaitResult = TRUE) {
 #' @export
 Network.getResponseBodyForInterception <- function(promise, interceptionId, awaitResult = TRUE) {
   method <- 'Network.getResponseBodyForInterception'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -423,7 +423,7 @@ Network.getResponseBodyForInterception <- function(promise, interceptionId, awai
 #' @export
 Network.takeResponseBodyForInterceptionAsStream <- function(promise, interceptionId, awaitResult = TRUE) {
   method <- 'Network.takeResponseBodyForInterceptionAsStream'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -453,7 +453,7 @@ Network.takeResponseBodyForInterceptionAsStream <- function(promise, interceptio
 #' @export
 Network.replayXHR <- function(promise, requestId, awaitResult = TRUE) {
   method <- 'Network.replayXHR'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -487,7 +487,7 @@ Network.replayXHR <- function(promise, requestId, awaitResult = TRUE) {
 #' @export
 Network.searchInResponseBody <- function(promise, requestId, query, caseSensitive = NULL, isRegex = NULL, awaitResult = TRUE) {
   method <- 'Network.searchInResponseBody'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -515,7 +515,7 @@ Network.searchInResponseBody <- function(promise, requestId, query, caseSensitiv
 #' @export
 Network.setBlockedURLs <- function(promise, urls, awaitResult = TRUE) {
   method <- 'Network.setBlockedURLs'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -543,7 +543,7 @@ Network.setBlockedURLs <- function(promise, urls, awaitResult = TRUE) {
 #' @export
 Network.setBypassServiceWorker <- function(promise, bypass, awaitResult = TRUE) {
   method <- 'Network.setBypassServiceWorker'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -571,7 +571,7 @@ Network.setBypassServiceWorker <- function(promise, bypass, awaitResult = TRUE) 
 #' @export
 Network.setCacheDisabled <- function(promise, cacheDisabled, awaitResult = TRUE) {
   method <- 'Network.setCacheDisabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -616,7 +616,7 @@ Network.setCacheDisabled <- function(promise, cacheDisabled, awaitResult = TRUE)
 #' @export
 Network.setCookie <- function(promise, name, value, url = NULL, domain = NULL, path = NULL, secure = NULL, httpOnly = NULL, sameSite = NULL, expires = NULL, awaitResult = TRUE) {
   method <- 'Network.setCookie'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -644,7 +644,7 @@ Network.setCookie <- function(promise, name, value, url = NULL, domain = NULL, p
 #' @export
 Network.setCookies <- function(promise, cookies, awaitResult = TRUE) {
   method <- 'Network.setCookies'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -674,7 +674,7 @@ Network.setCookies <- function(promise, cookies, awaitResult = TRUE) {
 #' @export
 Network.setDataSizeLimitsForTest <- function(promise, maxTotalSize, maxResourceSize, awaitResult = TRUE) {
   method <- 'Network.setDataSizeLimitsForTest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -702,7 +702,7 @@ Network.setDataSizeLimitsForTest <- function(promise, maxTotalSize, maxResourceS
 #' @export
 Network.setExtraHTTPHeaders <- function(promise, headers, awaitResult = TRUE) {
   method <- 'Network.setExtraHTTPHeaders'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -731,7 +731,7 @@ Network.setExtraHTTPHeaders <- function(promise, headers, awaitResult = TRUE) {
 #' @export
 Network.setRequestInterception <- function(promise, patterns, awaitResult = TRUE) {
   method <- 'Network.setRequestInterception'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -763,7 +763,7 @@ Network.setRequestInterception <- function(promise, patterns, awaitResult = TRUE
 #' @export
 Network.setUserAgentOverride <- function(promise, userAgent, acceptLanguage = NULL, platform = NULL, awaitResult = TRUE) {
   method <- 'Network.setUserAgentOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

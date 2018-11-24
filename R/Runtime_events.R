@@ -33,7 +33,7 @@ NULL
 #' @export
 Runtime.bindingCalled <- function(promise, name = NULL, payload = NULL, executionContextId = NULL, .callback = NULL) {
   method <- 'Runtime.bindingCalled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -80,7 +80,7 @@ Runtime.bindingCalled <- function(promise, name = NULL, payload = NULL, executio
 #' @export
 Runtime.consoleAPICalled <- function(promise, type = NULL, args = NULL, executionContextId = NULL, timestamp = NULL, stackTrace = NULL, context = NULL, .callback = NULL) {
   method <- 'Runtime.consoleAPICalled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -117,7 +117,7 @@ Runtime.consoleAPICalled <- function(promise, type = NULL, args = NULL, executio
 #' @export
 Runtime.exceptionRevoked <- function(promise, reason = NULL, exceptionId = NULL, .callback = NULL) {
   method <- 'Runtime.exceptionRevoked'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -154,7 +154,7 @@ Runtime.exceptionRevoked <- function(promise, reason = NULL, exceptionId = NULL,
 #' @export
 Runtime.exceptionThrown <- function(promise, timestamp = NULL, exceptionDetails = NULL, .callback = NULL) {
   method <- 'Runtime.exceptionThrown'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -189,7 +189,7 @@ Runtime.exceptionThrown <- function(promise, timestamp = NULL, exceptionDetails 
 #' @export
 Runtime.executionContextCreated <- function(promise, context = NULL, .callback = NULL) {
   method <- 'Runtime.executionContextCreated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -224,7 +224,7 @@ Runtime.executionContextCreated <- function(promise, context = NULL, .callback =
 #' @export
 Runtime.executionContextDestroyed <- function(promise, executionContextId = NULL, .callback = NULL) {
   method <- 'Runtime.executionContextDestroyed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -256,7 +256,7 @@ Runtime.executionContextDestroyed <- function(promise, executionContextId = NULL
 #' @export
 Runtime.executionContextsCleared <- function(promise, .callback = NULL) {
   method <- 'Runtime.executionContextsCleared'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -294,7 +294,7 @@ Runtime.executionContextsCleared <- function(promise, .callback = NULL) {
 #' @export
 Runtime.inspectRequested <- function(promise, object = NULL, hints = NULL, .callback = NULL) {
   method <- 'Runtime.inspectRequested'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

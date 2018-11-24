@@ -26,7 +26,7 @@ NULL
 #' @export
 IndexedDB.clearObjectStore <- function(promise, securityOrigin, databaseName, objectStoreName, awaitResult = TRUE) {
   method <- 'IndexedDB.clearObjectStore'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -56,7 +56,7 @@ IndexedDB.clearObjectStore <- function(promise, securityOrigin, databaseName, ob
 #' @export
 IndexedDB.deleteDatabase <- function(promise, securityOrigin, databaseName, awaitResult = TRUE) {
   method <- 'IndexedDB.deleteDatabase'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -87,7 +87,7 @@ IndexedDB.deleteDatabase <- function(promise, securityOrigin, databaseName, awai
 #' @export
 IndexedDB.deleteObjectStoreEntries <- function(promise, securityOrigin, databaseName, objectStoreName, keyRange, awaitResult = TRUE) {
   method <- 'IndexedDB.deleteObjectStoreEntries'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -113,7 +113,7 @@ IndexedDB.deleteObjectStoreEntries <- function(promise, securityOrigin, database
 #' @export
 IndexedDB.disable <- function(promise, awaitResult = TRUE) {
   method <- 'IndexedDB.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -139,7 +139,7 @@ IndexedDB.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 IndexedDB.enable <- function(promise, awaitResult = TRUE) {
   method <- 'IndexedDB.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -179,7 +179,7 @@ IndexedDB.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 IndexedDB.requestData <- function(promise, securityOrigin, databaseName, objectStoreName, indexName, skipCount, pageSize, keyRange = NULL, awaitResult = TRUE) {
   method <- 'IndexedDB.requestData'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -209,7 +209,7 @@ IndexedDB.requestData <- function(promise, securityOrigin, databaseName, objectS
 #' @export
 IndexedDB.requestDatabase <- function(promise, securityOrigin, databaseName, awaitResult = TRUE) {
   method <- 'IndexedDB.requestDatabase'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -237,7 +237,7 @@ IndexedDB.requestDatabase <- function(promise, securityOrigin, databaseName, awa
 #' @export
 IndexedDB.requestDatabaseNames <- function(promise, securityOrigin, awaitResult = TRUE) {
   method <- 'IndexedDB.requestDatabaseNames'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

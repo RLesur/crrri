@@ -29,7 +29,7 @@ NULL
 #' @export
 Audits.getEncodedResponse <- function(promise, requestId, encoding, quality = NULL, sizeOnly = NULL, awaitResult = TRUE) {
   method <- 'Audits.getEncodedResponse'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

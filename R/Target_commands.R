@@ -21,7 +21,7 @@ NULL
 #' @export
 Target.activateTarget <- function(promise, targetId, awaitResult = TRUE) {
   method <- 'Target.activateTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -50,7 +50,7 @@ Target.activateTarget <- function(promise, targetId, awaitResult = TRUE) {
 #' @export
 Target.attachToTarget <- function(promise, targetId, flatten = NULL, awaitResult = TRUE) {
   method <- 'Target.attachToTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -76,7 +76,7 @@ Target.attachToTarget <- function(promise, targetId, flatten = NULL, awaitResult
 #' @export
 Target.attachToBrowserTarget <- function(promise, awaitResult = TRUE) {
   method <- 'Target.attachToBrowserTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -103,7 +103,7 @@ Target.attachToBrowserTarget <- function(promise, awaitResult = TRUE) {
 #' @export
 Target.closeTarget <- function(promise, targetId, awaitResult = TRUE) {
   method <- 'Target.closeTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -139,7 +139,7 @@ Target.closeTarget <- function(promise, targetId, awaitResult = TRUE) {
 #' @export
 Target.exposeDevToolsProtocol <- function(promise, targetId, bindingName = NULL, awaitResult = TRUE) {
   method <- 'Target.exposeDevToolsProtocol'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -166,7 +166,7 @@ Target.exposeDevToolsProtocol <- function(promise, targetId, bindingName = NULL,
 #' @export
 Target.createBrowserContext <- function(promise, awaitResult = TRUE) {
   method <- 'Target.createBrowserContext'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -192,7 +192,7 @@ Target.createBrowserContext <- function(promise, awaitResult = TRUE) {
 #' @export
 Target.getBrowserContexts <- function(promise, awaitResult = TRUE) {
   method <- 'Target.getBrowserContexts'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -229,7 +229,7 @@ Target.getBrowserContexts <- function(promise, awaitResult = TRUE) {
 #' @export
 Target.createTarget <- function(promise, url, width = NULL, height = NULL, browserContextId = NULL, enableBeginFrameControl = NULL, awaitResult = TRUE) {
   method <- 'Target.createTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -259,7 +259,7 @@ Target.createTarget <- function(promise, url, width = NULL, height = NULL, brows
 #' @export
 Target.detachFromTarget <- function(promise, sessionId = NULL, targetId = NULL, awaitResult = TRUE) {
   method <- 'Target.detachFromTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -287,7 +287,7 @@ Target.detachFromTarget <- function(promise, sessionId = NULL, targetId = NULL, 
 #' @export
 Target.disposeBrowserContext <- function(promise, browserContextId, awaitResult = TRUE) {
   method <- 'Target.disposeBrowserContext'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -314,7 +314,7 @@ Target.disposeBrowserContext <- function(promise, browserContextId, awaitResult 
 #' @export
 Target.getTargetInfo <- function(promise, targetId = NULL, awaitResult = TRUE) {
   method <- 'Target.getTargetInfo'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -340,7 +340,7 @@ Target.getTargetInfo <- function(promise, targetId = NULL, awaitResult = TRUE) {
 #' @export
 Target.getTargets <- function(promise, awaitResult = TRUE) {
   method <- 'Target.getTargets'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -371,7 +371,7 @@ Target.getTargets <- function(promise, awaitResult = TRUE) {
 #' @export
 Target.sendMessageToTarget <- function(promise, message, sessionId = NULL, targetId = NULL, awaitResult = TRUE) {
   method <- 'Target.sendMessageToTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -406,7 +406,7 @@ Target.sendMessageToTarget <- function(promise, message, sessionId = NULL, targe
 #' @export
 Target.setAutoAttach <- function(promise, autoAttach, waitForDebuggerOnStart, flatten = NULL, awaitResult = TRUE) {
   method <- 'Target.setAutoAttach'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -435,7 +435,7 @@ Target.setAutoAttach <- function(promise, autoAttach, waitForDebuggerOnStart, fl
 #' @export
 Target.setDiscoverTargets <- function(promise, discover, awaitResult = TRUE) {
   method <- 'Target.setDiscoverTargets'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -464,7 +464,7 @@ Target.setDiscoverTargets <- function(promise, discover, awaitResult = TRUE) {
 #' @export
 Target.setRemoteLocations <- function(promise, locations, awaitResult = TRUE) {
   method <- 'Target.setRemoteLocations'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

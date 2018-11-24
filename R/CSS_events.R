@@ -30,7 +30,7 @@ NULL
 #' @export
 CSS.fontsUpdated <- function(promise, font = NULL, .callback = NULL) {
   method <- 'CSS.fontsUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -63,7 +63,7 @@ CSS.fontsUpdated <- function(promise, font = NULL, .callback = NULL) {
 #' @export
 CSS.mediaQueryResultChanged <- function(promise, .callback = NULL) {
   method <- 'CSS.mediaQueryResultChanged'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -98,7 +98,7 @@ CSS.mediaQueryResultChanged <- function(promise, .callback = NULL) {
 #' @export
 CSS.styleSheetAdded <- function(promise, header = NULL, .callback = NULL) {
   method <- 'CSS.styleSheetAdded'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -133,7 +133,7 @@ CSS.styleSheetAdded <- function(promise, header = NULL, .callback = NULL) {
 #' @export
 CSS.styleSheetChanged <- function(promise, styleSheetId = NULL, .callback = NULL) {
   method <- 'CSS.styleSheetChanged'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -168,7 +168,7 @@ CSS.styleSheetChanged <- function(promise, styleSheetId = NULL, .callback = NULL
 #' @export
 CSS.styleSheetRemoved <- function(promise, styleSheetId = NULL, .callback = NULL) {
   method <- 'CSS.styleSheetRemoved'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

@@ -29,7 +29,7 @@ NULL
 #' @export
 Animation.animationCanceled <- function(promise, id = NULL, .callback = NULL) {
   method <- 'Animation.animationCanceled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -64,7 +64,7 @@ Animation.animationCanceled <- function(promise, id = NULL, .callback = NULL) {
 #' @export
 Animation.animationCreated <- function(promise, id = NULL, .callback = NULL) {
   method <- 'Animation.animationCreated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -99,7 +99,7 @@ Animation.animationCreated <- function(promise, id = NULL, .callback = NULL) {
 #' @export
 Animation.animationStarted <- function(promise, animation = NULL, .callback = NULL) {
   method <- 'Animation.animationStarted'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

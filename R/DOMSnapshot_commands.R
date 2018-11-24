@@ -20,7 +20,7 @@ NULL
 #' @export
 DOMSnapshot.disable <- function(promise, awaitResult = TRUE) {
   method <- 'DOMSnapshot.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ DOMSnapshot.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 DOMSnapshot.enable <- function(promise, awaitResult = TRUE) {
   method <- 'DOMSnapshot.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -77,7 +77,7 @@ DOMSnapshot.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 DOMSnapshot.captureSnapshot <- function(promise, computedStyles, awaitResult = TRUE) {
   method <- 'DOMSnapshot.captureSnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

@@ -36,7 +36,7 @@ NULL
 #' @export
 Security.certificateError <- function(promise, eventId = NULL, errorType = NULL, requestURL = NULL, .callback = NULL) {
   method <- 'Security.certificateError'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -80,7 +80,7 @@ Security.certificateError <- function(promise, eventId = NULL, errorType = NULL,
 #' @export
 Security.securityStateChanged <- function(promise, securityState = NULL, schemeIsCryptographic = NULL, explanations = NULL, insecureContentStatus = NULL, summary = NULL, .callback = NULL) {
   method <- 'Security.securityStateChanged'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

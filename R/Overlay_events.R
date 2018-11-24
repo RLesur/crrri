@@ -30,7 +30,7 @@ NULL
 #' @export
 Overlay.inspectNodeRequested <- function(promise, backendNodeId = NULL, .callback = NULL) {
   method <- 'Overlay.inspectNodeRequested'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -65,7 +65,7 @@ Overlay.inspectNodeRequested <- function(promise, backendNodeId = NULL, .callbac
 #' @export
 Overlay.nodeHighlightRequested <- function(promise, nodeId = NULL, .callback = NULL) {
   method <- 'Overlay.nodeHighlightRequested'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -100,7 +100,7 @@ Overlay.nodeHighlightRequested <- function(promise, nodeId = NULL, .callback = N
 #' @export
 Overlay.screenshotRequested <- function(promise, viewport = NULL, .callback = NULL) {
   method <- 'Overlay.screenshotRequested'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

@@ -24,7 +24,7 @@ NULL
 #' @export
 Testing.generateTestReport <- function(promise, message, group = NULL, awaitResult = TRUE) {
   method <- 'Testing.generateTestReport'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

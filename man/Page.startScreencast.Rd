@@ -15,7 +15,7 @@ Page.startScreencast(promise, format = NULL, quality = NULL,
 Image compression format. Accepted values: jpeg, png.}
 
 \item{quality}{Optional. An integer.
-Compression quality from range \link{0..100}.}
+Compression quality from range \code{[0..100]}.}
 
 \item{maxWidth}{Optional. An integer.
 Maximum screenshot width.}

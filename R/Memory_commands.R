@@ -20,7 +20,7 @@ NULL
 #' @export
 Memory.getDOMCounters <- function(promise, awaitResult = TRUE) {
   method <- 'Memory.getDOMCounters'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Memory.getDOMCounters <- function(promise, awaitResult = TRUE) {
 #' @export
 Memory.prepareForLeakDetection <- function(promise, awaitResult = TRUE) {
   method <- 'Memory.prepareForLeakDetection'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ Memory.prepareForLeakDetection <- function(promise, awaitResult = TRUE) {
 #' @export
 Memory.setPressureNotificationsSuppressed <- function(promise, suppressed, awaitResult = TRUE) {
   method <- 'Memory.setPressureNotificationsSuppressed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -102,7 +102,7 @@ Memory.setPressureNotificationsSuppressed <- function(promise, suppressed, await
 #' @export
 Memory.simulatePressureNotification <- function(promise, level, awaitResult = TRUE) {
   method <- 'Memory.simulatePressureNotification'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -132,7 +132,7 @@ Memory.simulatePressureNotification <- function(promise, level, awaitResult = TR
 #' @export
 Memory.startSampling <- function(promise, samplingInterval = NULL, suppressRandomness = NULL, awaitResult = TRUE) {
   method <- 'Memory.startSampling'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -158,7 +158,7 @@ Memory.startSampling <- function(promise, samplingInterval = NULL, suppressRando
 #' @export
 Memory.stopSampling <- function(promise, awaitResult = TRUE) {
   method <- 'Memory.stopSampling'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -185,7 +185,7 @@ Memory.stopSampling <- function(promise, awaitResult = TRUE) {
 #' @export
 Memory.getAllTimeSamplingProfile <- function(promise, awaitResult = TRUE) {
   method <- 'Memory.getAllTimeSamplingProfile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -212,7 +212,7 @@ Memory.getAllTimeSamplingProfile <- function(promise, awaitResult = TRUE) {
 #' @export
 Memory.getBrowserSamplingProfile <- function(promise, awaitResult = TRUE) {
   method <- 'Memory.getBrowserSamplingProfile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -239,7 +239,7 @@ Memory.getBrowserSamplingProfile <- function(promise, awaitResult = TRUE) {
 #' @export
 Memory.getSamplingProfile <- function(promise, awaitResult = TRUE) {
   method <- 'Memory.getSamplingProfile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

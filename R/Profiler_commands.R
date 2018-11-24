@@ -20,7 +20,7 @@ NULL
 #' @export
 Profiler.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Profiler.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -73,7 +73,7 @@ Profiler.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.getBestEffortCoverage <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.getBestEffortCoverage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -101,7 +101,7 @@ Profiler.getBestEffortCoverage <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.setSamplingInterval <- function(promise, interval, awaitResult = TRUE) {
   method <- 'Profiler.setSamplingInterval'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -127,7 +127,7 @@ Profiler.setSamplingInterval <- function(promise, interval, awaitResult = TRUE) 
 #' @export
 Profiler.start <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.start'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -159,7 +159,7 @@ Profiler.start <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.startPreciseCoverage <- function(promise, callCount = NULL, detailed = NULL, awaitResult = TRUE) {
   method <- 'Profiler.startPreciseCoverage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -185,7 +185,7 @@ Profiler.startPreciseCoverage <- function(promise, callCount = NULL, detailed = 
 #' @export
 Profiler.startTypeProfile <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.startTypeProfile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -211,7 +211,7 @@ Profiler.startTypeProfile <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.stop <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.stop'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -238,7 +238,7 @@ Profiler.stop <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.stopPreciseCoverage <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.stopPreciseCoverage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -264,7 +264,7 @@ Profiler.stopPreciseCoverage <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.stopTypeProfile <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.stopTypeProfile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -291,7 +291,7 @@ Profiler.stopTypeProfile <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.takePreciseCoverage <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.takePreciseCoverage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -317,7 +317,7 @@ Profiler.takePreciseCoverage <- function(promise, awaitResult = TRUE) {
 #' @export
 Profiler.takeTypeProfile <- function(promise, awaitResult = TRUE) {
   method <- 'Profiler.takeTypeProfile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

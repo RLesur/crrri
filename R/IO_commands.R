@@ -22,7 +22,7 @@ NULL
 #' @export
 IO.close <- function(promise, handle, awaitResult = TRUE) {
   method <- 'IO.close'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -55,7 +55,7 @@ IO.close <- function(promise, handle, awaitResult = TRUE) {
 #' @export
 IO.read <- function(promise, handle, offset = NULL, size = NULL, awaitResult = TRUE) {
   method <- 'IO.read'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -83,7 +83,7 @@ IO.read <- function(promise, handle, offset = NULL, size = NULL, awaitResult = T
 #' @export
 IO.resolveBlob <- function(promise, objectId, awaitResult = TRUE) {
   method <- 'IO.resolveBlob'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

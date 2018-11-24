@@ -33,7 +33,7 @@ NULL
 #' @export
 Target.attachedToTarget <- function(promise, sessionId = NULL, targetInfo = NULL, waitingForDebugger = NULL, .callback = NULL) {
   method <- 'Target.attachedToTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -71,7 +71,7 @@ Target.attachedToTarget <- function(promise, sessionId = NULL, targetInfo = NULL
 #' @export
 Target.detachedFromTarget <- function(promise, sessionId = NULL, targetId = NULL, .callback = NULL) {
   method <- 'Target.detachedFromTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -111,7 +111,7 @@ Target.detachedFromTarget <- function(promise, sessionId = NULL, targetId = NULL
 #' @export
 Target.receivedMessageFromTarget <- function(promise, sessionId = NULL, message = NULL, targetId = NULL, .callback = NULL) {
   method <- 'Target.receivedMessageFromTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -146,7 +146,7 @@ Target.receivedMessageFromTarget <- function(promise, sessionId = NULL, message 
 #' @export
 Target.targetCreated <- function(promise, targetInfo = NULL, .callback = NULL) {
   method <- 'Target.targetCreated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -181,7 +181,7 @@ Target.targetCreated <- function(promise, targetInfo = NULL, .callback = NULL) {
 #' @export
 Target.targetDestroyed <- function(promise, targetId = NULL, .callback = NULL) {
   method <- 'Target.targetDestroyed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -220,7 +220,7 @@ Target.targetDestroyed <- function(promise, targetId = NULL, .callback = NULL) {
 #' @export
 Target.targetCrashed <- function(promise, targetId = NULL, status = NULL, errorCode = NULL, .callback = NULL) {
   method <- 'Target.targetCrashed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -256,7 +256,7 @@ Target.targetCrashed <- function(promise, targetId = NULL, status = NULL, errorC
 #' @export
 Target.targetInfoChanged <- function(promise, targetInfo = NULL, .callback = NULL) {
   method <- 'Target.targetInfoChanged'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

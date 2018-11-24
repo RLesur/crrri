@@ -33,7 +33,7 @@ NULL
 #' @export
 DOMStorage.domStorageItemAdded <- function(promise, storageId = NULL, key = NULL, newValue = NULL, .callback = NULL) {
   method <- 'DOMStorage.domStorageItemAdded'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -70,7 +70,7 @@ DOMStorage.domStorageItemAdded <- function(promise, storageId = NULL, key = NULL
 #' @export
 DOMStorage.domStorageItemRemoved <- function(promise, storageId = NULL, key = NULL, .callback = NULL) {
   method <- 'DOMStorage.domStorageItemRemoved'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -111,7 +111,7 @@ DOMStorage.domStorageItemRemoved <- function(promise, storageId = NULL, key = NU
 #' @export
 DOMStorage.domStorageItemUpdated <- function(promise, storageId = NULL, key = NULL, oldValue = NULL, newValue = NULL, .callback = NULL) {
   method <- 'DOMStorage.domStorageItemUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -146,7 +146,7 @@ DOMStorage.domStorageItemUpdated <- function(promise, storageId = NULL, key = NU
 #' @export
 DOMStorage.domStorageItemsCleared <- function(promise, storageId = NULL, .callback = NULL) {
   method <- 'DOMStorage.domStorageItemsCleared'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

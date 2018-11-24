@@ -46,7 +46,7 @@ NULL
 #' @export
 Fetch.requestPaused <- function(promise, requestId = NULL, request = NULL, frameId = NULL, resourceType = NULL, responseErrorReason = NULL, responseStatusCode = NULL, responseHeaders = NULL, .callback = NULL) {
   method <- 'Fetch.requestPaused'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -92,7 +92,7 @@ Fetch.requestPaused <- function(promise, requestId = NULL, request = NULL, frame
 #' @export
 Fetch.authRequired <- function(promise, requestId = NULL, request = NULL, frameId = NULL, resourceType = NULL, authChallenge = NULL, .callback = NULL) {
   method <- 'Fetch.authRequired'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

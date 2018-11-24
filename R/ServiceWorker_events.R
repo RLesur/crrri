@@ -29,7 +29,7 @@ NULL
 #' @export
 ServiceWorker.workerErrorReported <- function(promise, errorMessage = NULL, .callback = NULL) {
   method <- 'ServiceWorker.workerErrorReported'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -64,7 +64,7 @@ ServiceWorker.workerErrorReported <- function(promise, errorMessage = NULL, .cal
 #' @export
 ServiceWorker.workerRegistrationUpdated <- function(promise, registrations = NULL, .callback = NULL) {
   method <- 'ServiceWorker.workerRegistrationUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -99,7 +99,7 @@ ServiceWorker.workerRegistrationUpdated <- function(promise, registrations = NUL
 #' @export
 ServiceWorker.workerVersionUpdated <- function(promise, versions = NULL, .callback = NULL) {
   method <- 'ServiceWorker.workerVersionUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

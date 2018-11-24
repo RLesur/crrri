@@ -11,14 +11,14 @@ Tracing.bufferUsage(promise, percentFull = NULL, eventCount = NULL,
 \item{promise}{An asynchronous result object.}
 
 \item{percentFull}{A numeric.
-A number in range \link{0..1} that indicates the used size of event buffer as a fraction of its
+A number in range \code{[0..1]} that indicates the used size of event buffer as a fraction of its
 total size. Accepted values: \code{~ .res$percentFull} (to refer to the previous result).}
 
 \item{eventCount}{A numeric.
 An approximate number of events in the trace log. Accepted values: \code{~ .res$eventCount} (to refer to the previous result).}
 
 \item{value}{A numeric.
-A number in range \link{0..1} that indicates the used size of event buffer as a fraction of its
+A number in range \code{[0..1]} that indicates the used size of event buffer as a fraction of its
 total size. Accepted values: \code{~ .res$value} (to refer to the previous result).}
 
 \item{.callback}{A callback function taking one argument. The object passed to

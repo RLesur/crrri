@@ -23,7 +23,7 @@ NULL
 #' @export
 ServiceWorker.deliverPushMessage <- function(promise, origin, registrationId, data, awaitResult = TRUE) {
   method <- 'ServiceWorker.deliverPushMessage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -49,7 +49,7 @@ ServiceWorker.deliverPushMessage <- function(promise, origin, registrationId, da
 #' @export
 ServiceWorker.disable <- function(promise, awaitResult = TRUE) {
   method <- 'ServiceWorker.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -79,7 +79,7 @@ ServiceWorker.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 ServiceWorker.dispatchSyncEvent <- function(promise, origin, registrationId, tag, lastChance, awaitResult = TRUE) {
   method <- 'ServiceWorker.dispatchSyncEvent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -105,7 +105,7 @@ ServiceWorker.dispatchSyncEvent <- function(promise, origin, registrationId, tag
 #' @export
 ServiceWorker.enable <- function(promise, awaitResult = TRUE) {
   method <- 'ServiceWorker.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -132,7 +132,7 @@ ServiceWorker.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 ServiceWorker.inspectWorker <- function(promise, versionId, awaitResult = TRUE) {
   method <- 'ServiceWorker.inspectWorker'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -159,7 +159,7 @@ ServiceWorker.inspectWorker <- function(promise, versionId, awaitResult = TRUE) 
 #' @export
 ServiceWorker.setForceUpdateOnPageLoad <- function(promise, forceUpdateOnPageLoad, awaitResult = TRUE) {
   method <- 'ServiceWorker.setForceUpdateOnPageLoad'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -186,7 +186,7 @@ ServiceWorker.setForceUpdateOnPageLoad <- function(promise, forceUpdateOnPageLoa
 #' @export
 ServiceWorker.skipWaiting <- function(promise, scopeURL, awaitResult = TRUE) {
   method <- 'ServiceWorker.skipWaiting'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -213,7 +213,7 @@ ServiceWorker.skipWaiting <- function(promise, scopeURL, awaitResult = TRUE) {
 #' @export
 ServiceWorker.startWorker <- function(promise, scopeURL, awaitResult = TRUE) {
   method <- 'ServiceWorker.startWorker'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -239,7 +239,7 @@ ServiceWorker.startWorker <- function(promise, scopeURL, awaitResult = TRUE) {
 #' @export
 ServiceWorker.stopAllWorkers <- function(promise, awaitResult = TRUE) {
   method <- 'ServiceWorker.stopAllWorkers'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -266,7 +266,7 @@ ServiceWorker.stopAllWorkers <- function(promise, awaitResult = TRUE) {
 #' @export
 ServiceWorker.stopWorker <- function(promise, versionId, awaitResult = TRUE) {
   method <- 'ServiceWorker.stopWorker'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -293,7 +293,7 @@ ServiceWorker.stopWorker <- function(promise, versionId, awaitResult = TRUE) {
 #' @export
 ServiceWorker.unregister <- function(promise, scopeURL, awaitResult = TRUE) {
   method <- 'ServiceWorker.unregister'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -320,7 +320,7 @@ ServiceWorker.unregister <- function(promise, scopeURL, awaitResult = TRUE) {
 #' @export
 ServiceWorker.updateRegistration <- function(promise, scopeURL, awaitResult = TRUE) {
   method <- 'ServiceWorker.updateRegistration'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

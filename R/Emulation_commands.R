@@ -20,7 +20,7 @@ NULL
 #' @export
 Emulation.canEmulate <- function(promise, awaitResult = TRUE) {
   method <- 'Emulation.canEmulate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Emulation.canEmulate <- function(promise, awaitResult = TRUE) {
 #' @export
 Emulation.clearDeviceMetricsOverride <- function(promise, awaitResult = TRUE) {
   method <- 'Emulation.clearDeviceMetricsOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -72,7 +72,7 @@ Emulation.clearDeviceMetricsOverride <- function(promise, awaitResult = TRUE) {
 #' @export
 Emulation.clearGeolocationOverride <- function(promise, awaitResult = TRUE) {
   method <- 'Emulation.clearGeolocationOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -98,7 +98,7 @@ Emulation.clearGeolocationOverride <- function(promise, awaitResult = TRUE) {
 #' @export
 Emulation.resetPageScaleFactor <- function(promise, awaitResult = TRUE) {
   method <- 'Emulation.resetPageScaleFactor'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -126,7 +126,7 @@ Emulation.resetPageScaleFactor <- function(promise, awaitResult = TRUE) {
 #' @export
 Emulation.setFocusEmulationEnabled <- function(promise, enabled, awaitResult = TRUE) {
   method <- 'Emulation.setFocusEmulationEnabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -154,7 +154,7 @@ Emulation.setFocusEmulationEnabled <- function(promise, enabled, awaitResult = T
 #' @export
 Emulation.setCPUThrottlingRate <- function(promise, rate, awaitResult = TRUE) {
   method <- 'Emulation.setCPUThrottlingRate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -184,7 +184,7 @@ Emulation.setCPUThrottlingRate <- function(promise, rate, awaitResult = TRUE) {
 #' @export
 Emulation.setDefaultBackgroundColorOverride <- function(promise, color = NULL, awaitResult = TRUE) {
   method <- 'Emulation.setDefaultBackgroundColorOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -238,7 +238,7 @@ Emulation.setDefaultBackgroundColorOverride <- function(promise, color = NULL, a
 #' @export
 Emulation.setDeviceMetricsOverride <- function(promise, width, height, deviceScaleFactor, mobile, scale = NULL, screenWidth = NULL, screenHeight = NULL, positionX = NULL, positionY = NULL, dontSetVisibleSize = NULL, screenOrientation = NULL, viewport = NULL, awaitResult = TRUE) {
   method <- 'Emulation.setDeviceMetricsOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -266,7 +266,7 @@ Emulation.setDeviceMetricsOverride <- function(promise, width, height, deviceSca
 #' @export
 Emulation.setScrollbarsHidden <- function(promise, hidden, awaitResult = TRUE) {
   method <- 'Emulation.setScrollbarsHidden'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -294,7 +294,7 @@ Emulation.setScrollbarsHidden <- function(promise, hidden, awaitResult = TRUE) {
 #' @export
 Emulation.setDocumentCookieDisabled <- function(promise, disabled, awaitResult = TRUE) {
   method <- 'Emulation.setDocumentCookieDisabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -324,7 +324,7 @@ Emulation.setDocumentCookieDisabled <- function(promise, disabled, awaitResult =
 #' @export
 Emulation.setEmitTouchEventsForMouse <- function(promise, enabled, configuration = NULL, awaitResult = TRUE) {
   method <- 'Emulation.setEmitTouchEventsForMouse'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -352,7 +352,7 @@ Emulation.setEmitTouchEventsForMouse <- function(promise, enabled, configuration
 #' @export
 Emulation.setEmulatedMedia <- function(promise, media, awaitResult = TRUE) {
   method <- 'Emulation.setEmulatedMedia'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -385,7 +385,7 @@ Emulation.setEmulatedMedia <- function(promise, media, awaitResult = TRUE) {
 #' @export
 Emulation.setGeolocationOverride <- function(promise, latitude = NULL, longitude = NULL, accuracy = NULL, awaitResult = TRUE) {
   method <- 'Emulation.setGeolocationOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -413,7 +413,7 @@ Emulation.setGeolocationOverride <- function(promise, latitude = NULL, longitude
 #' @export
 Emulation.setPageScaleFactor <- function(promise, pageScaleFactor, awaitResult = TRUE) {
   method <- 'Emulation.setPageScaleFactor'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -441,7 +441,7 @@ Emulation.setPageScaleFactor <- function(promise, pageScaleFactor, awaitResult =
 #' @export
 Emulation.setScriptExecutionDisabled <- function(promise, value, awaitResult = TRUE) {
   method <- 'Emulation.setScriptExecutionDisabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -471,7 +471,7 @@ Emulation.setScriptExecutionDisabled <- function(promise, value, awaitResult = T
 #' @export
 Emulation.setTouchEmulationEnabled <- function(promise, enabled, maxTouchPoints = NULL, awaitResult = TRUE) {
   method <- 'Emulation.setTouchEmulationEnabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -510,7 +510,7 @@ Emulation.setTouchEmulationEnabled <- function(promise, enabled, maxTouchPoints 
 #' @export
 Emulation.setVirtualTimePolicy <- function(promise, policy, budget = NULL, maxVirtualTimeTaskStarvationCount = NULL, waitForNavigation = NULL, initialVirtualTime = NULL, awaitResult = TRUE) {
   method <- 'Emulation.setVirtualTimePolicy'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -542,7 +542,7 @@ Emulation.setVirtualTimePolicy <- function(promise, policy, budget = NULL, maxVi
 #' @export
 Emulation.setUserAgentOverride <- function(promise, userAgent, acceptLanguage = NULL, platform = NULL, awaitResult = TRUE) {
   method <- 'Emulation.setUserAgentOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

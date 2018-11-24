@@ -37,7 +37,7 @@ NULL
 #' @export
 HeadlessExperimental.beginFrame <- function(promise, frameTimeTicks = NULL, interval = NULL, noDisplayUpdates = NULL, screenshot = NULL, awaitResult = TRUE) {
   method <- 'HeadlessExperimental.beginFrame'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -63,7 +63,7 @@ HeadlessExperimental.beginFrame <- function(promise, frameTimeTicks = NULL, inte
 #' @export
 HeadlessExperimental.disable <- function(promise, awaitResult = TRUE) {
   method <- 'HeadlessExperimental.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -89,7 +89,7 @@ HeadlessExperimental.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 HeadlessExperimental.enable <- function(promise, awaitResult = TRUE) {
   method <- 'HeadlessExperimental.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

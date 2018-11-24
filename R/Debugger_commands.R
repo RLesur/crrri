@@ -24,7 +24,7 @@ NULL
 #' @export
 Debugger.continueToLocation <- function(promise, location, targetCallFrames = NULL, awaitResult = TRUE) {
   method <- 'Debugger.continueToLocation'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -50,7 +50,7 @@ Debugger.continueToLocation <- function(promise, location, targetCallFrames = NU
 #' @export
 Debugger.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Debugger.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -77,7 +77,7 @@ Debugger.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Debugger.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Debugger.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -124,7 +124,7 @@ Debugger.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Debugger.evaluateOnCallFrame <- function(promise, callFrameId, expression, objectGroup = NULL, includeCommandLineAPI = NULL, silent = NULL, returnByValue = NULL, generatePreview = NULL, throwOnSideEffect = NULL, timeout = NULL, awaitResult = TRUE) {
   method <- 'Debugger.evaluateOnCallFrame'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -158,7 +158,7 @@ Debugger.evaluateOnCallFrame <- function(promise, callFrameId, expression, objec
 #' @export
 Debugger.getPossibleBreakpoints <- function(promise, start, end = NULL, restrictToFunction = NULL, awaitResult = TRUE) {
   method <- 'Debugger.getPossibleBreakpoints'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -186,7 +186,7 @@ Debugger.getPossibleBreakpoints <- function(promise, start, end = NULL, restrict
 #' @export
 Debugger.getScriptSource <- function(promise, scriptId, awaitResult = TRUE) {
   method <- 'Debugger.getScriptSource'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -213,7 +213,7 @@ Debugger.getScriptSource <- function(promise, scriptId, awaitResult = TRUE) {
 #' @export
 Debugger.getStackTrace <- function(promise, stackTraceId, awaitResult = TRUE) {
   method <- 'Debugger.getStackTrace'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -239,7 +239,7 @@ Debugger.getStackTrace <- function(promise, stackTraceId, awaitResult = TRUE) {
 #' @export
 Debugger.pause <- function(promise, awaitResult = TRUE) {
   method <- 'Debugger.pause'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -267,7 +267,7 @@ Debugger.pause <- function(promise, awaitResult = TRUE) {
 #' @export
 Debugger.pauseOnAsyncCall <- function(promise, parentStackTraceId, awaitResult = TRUE) {
   method <- 'Debugger.pauseOnAsyncCall'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -294,7 +294,7 @@ Debugger.pauseOnAsyncCall <- function(promise, parentStackTraceId, awaitResult =
 #' @export
 Debugger.removeBreakpoint <- function(promise, breakpointId, awaitResult = TRUE) {
   method <- 'Debugger.removeBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -322,7 +322,7 @@ Debugger.removeBreakpoint <- function(promise, breakpointId, awaitResult = TRUE)
 #' @export
 Debugger.restartFrame <- function(promise, callFrameId, awaitResult = TRUE) {
   method <- 'Debugger.restartFrame'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -348,7 +348,7 @@ Debugger.restartFrame <- function(promise, callFrameId, awaitResult = TRUE) {
 #' @export
 Debugger.resume <- function(promise, awaitResult = TRUE) {
   method <- 'Debugger.resume'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -377,7 +377,7 @@ Debugger.resume <- function(promise, awaitResult = TRUE) {
 #' @export
 Debugger.scheduleStepIntoAsync <- function(promise, awaitResult = TRUE) {
   method <- 'Debugger.scheduleStepIntoAsync'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -411,7 +411,7 @@ Debugger.scheduleStepIntoAsync <- function(promise, awaitResult = TRUE) {
 #' @export
 Debugger.searchInContent <- function(promise, scriptId, query, caseSensitive = NULL, isRegex = NULL, awaitResult = TRUE) {
   method <- 'Debugger.searchInContent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -440,7 +440,7 @@ Debugger.searchInContent <- function(promise, scriptId, query, caseSensitive = N
 #' @export
 Debugger.setAsyncCallStackDepth <- function(promise, maxDepth, awaitResult = TRUE) {
   method <- 'Debugger.setAsyncCallStackDepth'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -470,7 +470,7 @@ Debugger.setAsyncCallStackDepth <- function(promise, maxDepth, awaitResult = TRU
 #' @export
 Debugger.setBlackboxPatterns <- function(promise, patterns, awaitResult = TRUE) {
   method <- 'Debugger.setBlackboxPatterns'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -502,7 +502,7 @@ Debugger.setBlackboxPatterns <- function(promise, patterns, awaitResult = TRUE) 
 #' @export
 Debugger.setBlackboxedRanges <- function(promise, scriptId, positions, awaitResult = TRUE) {
   method <- 'Debugger.setBlackboxedRanges'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -533,7 +533,7 @@ Debugger.setBlackboxedRanges <- function(promise, scriptId, positions, awaitResu
 #' @export
 Debugger.setBreakpoint <- function(promise, location, condition = NULL, awaitResult = TRUE) {
   method <- 'Debugger.setBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -576,7 +576,7 @@ Debugger.setBreakpoint <- function(promise, location, condition = NULL, awaitRes
 #' @export
 Debugger.setBreakpointByUrl <- function(promise, lineNumber, url = NULL, urlRegex = NULL, scriptHash = NULL, columnNumber = NULL, condition = NULL, awaitResult = TRUE) {
   method <- 'Debugger.setBreakpointByUrl'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -609,7 +609,7 @@ Debugger.setBreakpointByUrl <- function(promise, lineNumber, url = NULL, urlRege
 #' @export
 Debugger.setBreakpointOnFunctionCall <- function(promise, objectId, condition = NULL, awaitResult = TRUE) {
   method <- 'Debugger.setBreakpointOnFunctionCall'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -637,7 +637,7 @@ Debugger.setBreakpointOnFunctionCall <- function(promise, objectId, condition = 
 #' @export
 Debugger.setBreakpointsActive <- function(promise, active, awaitResult = TRUE) {
   method <- 'Debugger.setBreakpointsActive'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -666,7 +666,7 @@ Debugger.setBreakpointsActive <- function(promise, active, awaitResult = TRUE) {
 #' @export
 Debugger.setPauseOnExceptions <- function(promise, state, awaitResult = TRUE) {
   method <- 'Debugger.setPauseOnExceptions'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -694,7 +694,7 @@ Debugger.setPauseOnExceptions <- function(promise, state, awaitResult = TRUE) {
 #' @export
 Debugger.setReturnValue <- function(promise, newValue, awaitResult = TRUE) {
   method <- 'Debugger.setReturnValue'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -727,7 +727,7 @@ Debugger.setReturnValue <- function(promise, newValue, awaitResult = TRUE) {
 #' @export
 Debugger.setScriptSource <- function(promise, scriptId, scriptSource, dryRun = NULL, awaitResult = TRUE) {
   method <- 'Debugger.setScriptSource'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -755,7 +755,7 @@ Debugger.setScriptSource <- function(promise, scriptId, scriptSource, dryRun = N
 #' @export
 Debugger.setSkipAllPauses <- function(promise, skip, awaitResult = TRUE) {
   method <- 'Debugger.setSkipAllPauses'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -791,7 +791,7 @@ Debugger.setSkipAllPauses <- function(promise, skip, awaitResult = TRUE) {
 #' @export
 Debugger.setVariableValue <- function(promise, scopeNumber, variableName, newValue, callFrameId, awaitResult = TRUE) {
   method <- 'Debugger.setVariableValue'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -820,7 +820,7 @@ Debugger.setVariableValue <- function(promise, scopeNumber, variableName, newVal
 #' @export
 Debugger.stepInto <- function(promise, breakOnAsyncCall = NULL, awaitResult = TRUE) {
   method <- 'Debugger.stepInto'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -846,7 +846,7 @@ Debugger.stepInto <- function(promise, breakOnAsyncCall = NULL, awaitResult = TR
 #' @export
 Debugger.stepOut <- function(promise, awaitResult = TRUE) {
   method <- 'Debugger.stepOut'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -872,7 +872,7 @@ Debugger.stepOut <- function(promise, awaitResult = TRUE) {
 #' @export
 Debugger.stepOver <- function(promise, awaitResult = TRUE) {
   method <- 'Debugger.stepOver'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

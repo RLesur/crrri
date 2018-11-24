@@ -20,7 +20,7 @@ NULL
 #' @export
 Performance.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Performance.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Performance.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Performance.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Performance.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -76,7 +76,7 @@ Performance.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Performance.setTimeDomain <- function(promise, timeDomain, awaitResult = TRUE) {
   method <- 'Performance.setTimeDomain'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -102,7 +102,7 @@ Performance.setTimeDomain <- function(promise, timeDomain, awaitResult = TRUE) {
 #' @export
 Performance.getMetrics <- function(promise, awaitResult = TRUE) {
   method <- 'Performance.getMetrics'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

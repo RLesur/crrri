@@ -31,7 +31,7 @@ NULL
 #' @export
 Storage.cacheStorageContentUpdated <- function(promise, origin = NULL, cacheName = NULL, .callback = NULL) {
   method <- 'Storage.cacheStorageContentUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -66,7 +66,7 @@ Storage.cacheStorageContentUpdated <- function(promise, origin = NULL, cacheName
 #' @export
 Storage.cacheStorageListUpdated <- function(promise, origin = NULL, .callback = NULL) {
   method <- 'Storage.cacheStorageListUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -105,7 +105,7 @@ Storage.cacheStorageListUpdated <- function(promise, origin = NULL, .callback = 
 #' @export
 Storage.indexedDBContentUpdated <- function(promise, origin = NULL, databaseName = NULL, objectStoreName = NULL, .callback = NULL) {
   method <- 'Storage.indexedDBContentUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -140,7 +140,7 @@ Storage.indexedDBContentUpdated <- function(promise, origin = NULL, databaseName
 #' @export
 Storage.indexedDBListUpdated <- function(promise, origin = NULL, .callback = NULL) {
   method <- 'Storage.indexedDBListUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

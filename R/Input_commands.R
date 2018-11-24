@@ -53,7 +53,7 @@ NULL
 #' @export
 Input.dispatchKeyEvent <- function(promise, type, modifiers = NULL, timestamp = NULL, text = NULL, unmodifiedText = NULL, keyIdentifier = NULL, code = NULL, key = NULL, windowsVirtualKeyCode = NULL, nativeVirtualKeyCode = NULL, autoRepeat = NULL, isKeypad = NULL, isSystemKey = NULL, location = NULL, awaitResult = TRUE) {
   method <- 'Input.dispatchKeyEvent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -82,7 +82,7 @@ Input.dispatchKeyEvent <- function(promise, type, modifiers = NULL, timestamp = 
 #' @export
 Input.insertText <- function(promise, text, awaitResult = TRUE) {
   method <- 'Input.insertText'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -128,7 +128,7 @@ Input.insertText <- function(promise, text, awaitResult = TRUE) {
 #' @export
 Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, timestamp = NULL, button = NULL, clickCount = NULL, deltaX = NULL, deltaY = NULL, awaitResult = TRUE) {
   method <- 'Input.dispatchMouseEvent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -166,7 +166,7 @@ Input.dispatchMouseEvent <- function(promise, type, x, y, modifiers = NULL, time
 #' @export
 Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NULL, timestamp = NULL, awaitResult = TRUE) {
   method <- 'Input.dispatchTouchEvent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -211,7 +211,7 @@ Input.dispatchTouchEvent <- function(promise, type, touchPoints, modifiers = NUL
 #' @export
 Input.emulateTouchFromMouseEvent <- function(promise, type, x, y, button, timestamp = NULL, deltaX = NULL, deltaY = NULL, modifiers = NULL, clickCount = NULL, awaitResult = TRUE) {
   method <- 'Input.emulateTouchFromMouseEvent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -239,7 +239,7 @@ Input.emulateTouchFromMouseEvent <- function(promise, type, x, y, button, timest
 #' @export
 Input.setIgnoreInputEvents <- function(promise, ignore, awaitResult = TRUE) {
   method <- 'Input.setIgnoreInputEvents'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -276,7 +276,7 @@ Input.setIgnoreInputEvents <- function(promise, ignore, awaitResult = TRUE) {
 #' @export
 Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpeed = NULL, gestureSourceType = NULL, awaitResult = TRUE) {
   method <- 'Input.synthesizePinchGesture'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -329,7 +329,7 @@ Input.synthesizePinchGesture <- function(promise, x, y, scaleFactor, relativeSpe
 #' @export
 Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDistance = NULL, xOverscroll = NULL, yOverscroll = NULL, preventFling = NULL, speed = NULL, gestureSourceType = NULL, repeatCount = NULL, repeatDelayMs = NULL, interactionMarkerName = NULL, awaitResult = TRUE) {
   method <- 'Input.synthesizeScrollGesture'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -366,7 +366,7 @@ Input.synthesizeScrollGesture <- function(promise, x, y, xDistance = NULL, yDist
 #' @export
 Input.synthesizeTapGesture <- function(promise, x, y, duration = NULL, tapCount = NULL, gestureSourceType = NULL, awaitResult = TRUE) {
   method <- 'Input.synthesizeTapGesture'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

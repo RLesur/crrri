@@ -24,7 +24,7 @@ NULL
 #' @export
 Browser.grantPermissions <- function(promise, origin, permissions, browserContextId = NULL, awaitResult = TRUE) {
   method <- 'Browser.grantPermissions'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -52,7 +52,7 @@ Browser.grantPermissions <- function(promise, origin, permissions, browserContex
 #' @export
 Browser.resetPermissions <- function(promise, browserContextId = NULL, awaitResult = TRUE) {
   method <- 'Browser.resetPermissions'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -78,7 +78,7 @@ Browser.resetPermissions <- function(promise, browserContextId = NULL, awaitResu
 #' @export
 Browser.close <- function(promise, awaitResult = TRUE) {
   method <- 'Browser.close'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -104,7 +104,7 @@ Browser.close <- function(promise, awaitResult = TRUE) {
 #' @export
 Browser.crash <- function(promise, awaitResult = TRUE) {
   method <- 'Browser.crash'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -130,7 +130,7 @@ Browser.crash <- function(promise, awaitResult = TRUE) {
 #' @export
 Browser.getVersion <- function(promise, awaitResult = TRUE) {
   method <- 'Browser.getVersion'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -157,7 +157,7 @@ Browser.getVersion <- function(promise, awaitResult = TRUE) {
 #' @export
 Browser.getBrowserCommandLine <- function(promise, awaitResult = TRUE) {
   method <- 'Browser.getBrowserCommandLine'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -189,7 +189,7 @@ Browser.getBrowserCommandLine <- function(promise, awaitResult = TRUE) {
 #' @export
 Browser.getHistograms <- function(promise, query = NULL, delta = NULL, awaitResult = TRUE) {
   method <- 'Browser.getHistograms'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -219,7 +219,7 @@ Browser.getHistograms <- function(promise, query = NULL, delta = NULL, awaitResu
 #' @export
 Browser.getHistogram <- function(promise, name, delta = NULL, awaitResult = TRUE) {
   method <- 'Browser.getHistogram'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -247,7 +247,7 @@ Browser.getHistogram <- function(promise, name, delta = NULL, awaitResult = TRUE
 #' @export
 Browser.getWindowBounds <- function(promise, windowId, awaitResult = TRUE) {
   method <- 'Browser.getWindowBounds'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -275,7 +275,7 @@ Browser.getWindowBounds <- function(promise, windowId, awaitResult = TRUE) {
 #' @export
 Browser.getWindowForTarget <- function(promise, targetId = NULL, awaitResult = TRUE) {
   method <- 'Browser.getWindowForTarget'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -306,7 +306,7 @@ Browser.getWindowForTarget <- function(promise, targetId = NULL, awaitResult = T
 #' @export
 Browser.setWindowBounds <- function(promise, windowId, bounds, awaitResult = TRUE) {
   method <- 'Browser.setWindowBounds'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -335,7 +335,7 @@ Browser.setWindowBounds <- function(promise, windowId, bounds, awaitResult = TRU
 #' @export
 Browser.setDockTile <- function(promise, badgeLabel = NULL, image = NULL, awaitResult = TRUE) {
   method <- 'Browser.setDockTile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

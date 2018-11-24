@@ -29,7 +29,7 @@ NULL
 #' @export
 Inspector.detached <- function(promise, reason = NULL, .callback = NULL) {
   method <- 'Inspector.detached'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -61,7 +61,7 @@ Inspector.detached <- function(promise, reason = NULL, .callback = NULL) {
 #' @export
 Inspector.targetCrashed <- function(promise, .callback = NULL) {
   method <- 'Inspector.targetCrashed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -93,7 +93,7 @@ Inspector.targetCrashed <- function(promise, .callback = NULL) {
 #' @export
 Inspector.targetReloadedAfterCrash <- function(promise, .callback = NULL) {
   method <- 'Inspector.targetReloadedAfterCrash'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

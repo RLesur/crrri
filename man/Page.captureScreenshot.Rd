@@ -14,7 +14,7 @@ Page.captureScreenshot(promise, format = NULL, quality = NULL,
 Image compression format (defaults to png). Accepted values: jpeg, png.}
 
 \item{quality}{Optional. An integer.
-Compression quality from range \link{0..100} (jpeg only).}
+Compression quality from range \code{[0..100]} (jpeg only).}
 
 \item{clip}{Optional. A Viewport.
 Capture the screenshot of a given region only.}

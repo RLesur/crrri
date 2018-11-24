@@ -20,7 +20,7 @@ NULL
 #' @export
 Console.clearMessages <- function(promise, awaitResult = TRUE) {
   method <- 'Console.clearMessages'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Console.clearMessages <- function(promise, awaitResult = TRUE) {
 #' @export
 Console.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Console.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -73,7 +73,7 @@ Console.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Console.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Console.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

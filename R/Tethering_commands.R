@@ -22,7 +22,7 @@ NULL
 #' @export
 Tethering.bind <- function(promise, port, awaitResult = TRUE) {
   method <- 'Tethering.bind'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -50,7 +50,7 @@ Tethering.bind <- function(promise, port, awaitResult = TRUE) {
 #' @export
 Tethering.unbind <- function(promise, port, awaitResult = TRUE) {
   method <- 'Tethering.unbind'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

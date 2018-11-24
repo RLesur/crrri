@@ -20,7 +20,7 @@ NULL
 #' @export
 Overlay.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Overlay.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Overlay.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Overlay.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Overlay.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ Overlay.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Overlay.getHighlightObjectForTest <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'Overlay.getHighlightObjectForTest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -100,7 +100,7 @@ Overlay.getHighlightObjectForTest <- function(promise, nodeId, awaitResult = TRU
 #' @export
 Overlay.hideHighlight <- function(promise, awaitResult = TRUE) {
   method <- 'Overlay.hideHighlight'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -132,7 +132,7 @@ Overlay.hideHighlight <- function(promise, awaitResult = TRUE) {
 #' @export
 Overlay.highlightFrame <- function(promise, frameId, contentColor = NULL, contentOutlineColor = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightFrame'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -167,7 +167,7 @@ Overlay.highlightFrame <- function(promise, frameId, contentColor = NULL, conten
 #' @export
 Overlay.highlightNode <- function(promise, highlightConfig, nodeId = NULL, backendNodeId = NULL, objectId = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -199,7 +199,7 @@ Overlay.highlightNode <- function(promise, highlightConfig, nodeId = NULL, backe
 #' @export
 Overlay.highlightQuad <- function(promise, quad, color = NULL, outlineColor = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightQuad'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -237,7 +237,7 @@ Overlay.highlightQuad <- function(promise, quad, color = NULL, outlineColor = NU
 #' @export
 Overlay.highlightRect <- function(promise, x, y, width, height, color = NULL, outlineColor = NULL, awaitResult = TRUE) {
   method <- 'Overlay.highlightRect'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -269,7 +269,7 @@ Overlay.highlightRect <- function(promise, x, y, width, height, color = NULL, ou
 #' @export
 Overlay.setInspectMode <- function(promise, mode, highlightConfig = NULL, awaitResult = TRUE) {
   method <- 'Overlay.setInspectMode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -297,7 +297,7 @@ Overlay.setInspectMode <- function(promise, mode, highlightConfig = NULL, awaitR
 #' @export
 Overlay.setPausedInDebuggerMessage <- function(promise, message = NULL, awaitResult = TRUE) {
   method <- 'Overlay.setPausedInDebuggerMessage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -325,7 +325,7 @@ Overlay.setPausedInDebuggerMessage <- function(promise, message = NULL, awaitRes
 #' @export
 Overlay.setShowDebugBorders <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowDebugBorders'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -353,7 +353,7 @@ Overlay.setShowDebugBorders <- function(promise, show, awaitResult = TRUE) {
 #' @export
 Overlay.setShowFPSCounter <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowFPSCounter'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -381,7 +381,7 @@ Overlay.setShowFPSCounter <- function(promise, show, awaitResult = TRUE) {
 #' @export
 Overlay.setShowPaintRects <- function(promise, result, awaitResult = TRUE) {
   method <- 'Overlay.setShowPaintRects'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -409,7 +409,7 @@ Overlay.setShowPaintRects <- function(promise, result, awaitResult = TRUE) {
 #' @export
 Overlay.setShowScrollBottleneckRects <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowScrollBottleneckRects'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -437,7 +437,7 @@ Overlay.setShowScrollBottleneckRects <- function(promise, show, awaitResult = TR
 #' @export
 Overlay.setShowHitTestBorders <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowHitTestBorders'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -465,7 +465,7 @@ Overlay.setShowHitTestBorders <- function(promise, show, awaitResult = TRUE) {
 #' @export
 Overlay.setShowViewportSizeOnResize <- function(promise, show, awaitResult = TRUE) {
   method <- 'Overlay.setShowViewportSizeOnResize'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -493,7 +493,7 @@ Overlay.setShowViewportSizeOnResize <- function(promise, show, awaitResult = TRU
 #' @export
 Overlay.setSuspended <- function(promise, suspended, awaitResult = TRUE) {
   method <- 'Overlay.setSuspended'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

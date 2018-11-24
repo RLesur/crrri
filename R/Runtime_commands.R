@@ -26,7 +26,7 @@ NULL
 #' @export
 Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL, generatePreview = NULL, awaitResult = TRUE) {
   method <- 'Runtime.awaitPromise'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -79,7 +79,7 @@ Runtime.awaitPromise <- function(promise, promiseObjectId, returnByValue = NULL,
 #' @export
 Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL, arguments = NULL, silent = NULL, returnByValue = NULL, generatePreview = NULL, userGesture = NULL, awaitPromise = NULL, executionContextId = NULL, objectGroup = NULL, awaitResult = TRUE) {
   method <- 'Runtime.callFunctionOn'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -114,7 +114,7 @@ Runtime.callFunctionOn <- function(promise, functionDeclaration, objectId = NULL
 #' @export
 Runtime.compileScript <- function(promise, expression, sourceURL, persistScript, executionContextId = NULL, awaitResult = TRUE) {
   method <- 'Runtime.compileScript'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -140,7 +140,7 @@ Runtime.compileScript <- function(promise, expression, sourceURL, persistScript,
 #' @export
 Runtime.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -166,7 +166,7 @@ Runtime.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Runtime.discardConsoleEntries <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.discardConsoleEntries'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -194,7 +194,7 @@ Runtime.discardConsoleEntries <- function(promise, awaitResult = TRUE) {
 #' @export
 Runtime.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -245,7 +245,7 @@ Runtime.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Runtime.evaluate <- function(promise, expression, objectGroup = NULL, includeCommandLineAPI = NULL, silent = NULL, contextId = NULL, returnByValue = NULL, generatePreview = NULL, userGesture = NULL, awaitPromise = NULL, throwOnSideEffect = NULL, timeout = NULL, awaitResult = TRUE) {
   method <- 'Runtime.evaluate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -271,7 +271,7 @@ Runtime.evaluate <- function(promise, expression, objectGroup = NULL, includeCom
 #' @export
 Runtime.getIsolateId <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.getIsolateId'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -298,7 +298,7 @@ Runtime.getIsolateId <- function(promise, awaitResult = TRUE) {
 #' @export
 Runtime.getHeapUsage <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.getHeapUsage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -335,7 +335,7 @@ Runtime.getHeapUsage <- function(promise, awaitResult = TRUE) {
 #' @export
 Runtime.getProperties <- function(promise, objectId, ownProperties = NULL, accessorPropertiesOnly = NULL, generatePreview = NULL, awaitResult = TRUE) {
   method <- 'Runtime.getProperties'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -363,7 +363,7 @@ Runtime.getProperties <- function(promise, objectId, ownProperties = NULL, acces
 #' @export
 Runtime.globalLexicalScopeNames <- function(promise, executionContextId = NULL, awaitResult = TRUE) {
   method <- 'Runtime.globalLexicalScopeNames'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -393,7 +393,7 @@ Runtime.globalLexicalScopeNames <- function(promise, executionContextId = NULL, 
 #' @export
 Runtime.queryObjects <- function(promise, prototypeObjectId, objectGroup = NULL, awaitResult = TRUE) {
   method <- 'Runtime.queryObjects'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -421,7 +421,7 @@ Runtime.queryObjects <- function(promise, prototypeObjectId, objectGroup = NULL,
 #' @export
 Runtime.releaseObject <- function(promise, objectId, awaitResult = TRUE) {
   method <- 'Runtime.releaseObject'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -449,7 +449,7 @@ Runtime.releaseObject <- function(promise, objectId, awaitResult = TRUE) {
 #' @export
 Runtime.releaseObjectGroup <- function(promise, objectGroup, awaitResult = TRUE) {
   method <- 'Runtime.releaseObjectGroup'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -475,7 +475,7 @@ Runtime.releaseObjectGroup <- function(promise, objectGroup, awaitResult = TRUE)
 #' @export
 Runtime.runIfWaitingForDebugger <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.runIfWaitingForDebugger'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -520,7 +520,7 @@ Runtime.runIfWaitingForDebugger <- function(promise, awaitResult = TRUE) {
 #' @export
 Runtime.runScript <- function(promise, scriptId, executionContextId = NULL, objectGroup = NULL, silent = NULL, includeCommandLineAPI = NULL, returnByValue = NULL, generatePreview = NULL, awaitPromise = NULL, awaitResult = TRUE) {
   method <- 'Runtime.runScript'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -549,7 +549,7 @@ Runtime.runScript <- function(promise, scriptId, executionContextId = NULL, obje
 #' @export
 Runtime.setAsyncCallStackDepth <- function(promise, maxDepth, awaitResult = TRUE) {
   method <- 'Runtime.setAsyncCallStackDepth'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -576,7 +576,7 @@ Runtime.setAsyncCallStackDepth <- function(promise, maxDepth, awaitResult = TRUE
 #' @export
 Runtime.setCustomObjectFormatterEnabled <- function(promise, enabled, awaitResult = TRUE) {
   method <- 'Runtime.setCustomObjectFormatterEnabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -603,7 +603,7 @@ Runtime.setCustomObjectFormatterEnabled <- function(promise, enabled, awaitResul
 #' @export
 Runtime.setMaxCallStackSizeToCapture <- function(promise, size, awaitResult = TRUE) {
   method <- 'Runtime.setMaxCallStackSizeToCapture'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -630,7 +630,7 @@ Runtime.setMaxCallStackSizeToCapture <- function(promise, size, awaitResult = TR
 #' @export
 Runtime.terminateExecution <- function(promise, awaitResult = TRUE) {
   method <- 'Runtime.terminateExecution'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -665,7 +665,7 @@ Runtime.terminateExecution <- function(promise, awaitResult = TRUE) {
 #' @export
 Runtime.addBinding <- function(promise, name, executionContextId = NULL, awaitResult = TRUE) {
   method <- 'Runtime.addBinding'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -693,7 +693,7 @@ Runtime.addBinding <- function(promise, name, executionContextId = NULL, awaitRe
 #' @export
 Runtime.removeBinding <- function(promise, name, awaitResult = TRUE) {
   method <- 'Runtime.removeBinding'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

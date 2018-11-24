@@ -20,7 +20,7 @@ NULL
 #' @export
 Fetch.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Fetch.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -54,7 +54,7 @@ Fetch.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Fetch.enable <- function(promise, patterns = NULL, handleAuthRequests = NULL, awaitResult = TRUE) {
   method <- 'Fetch.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -84,7 +84,7 @@ Fetch.enable <- function(promise, patterns = NULL, handleAuthRequests = NULL, aw
 #' @export
 Fetch.failRequest <- function(promise, requestId, errorReason, awaitResult = TRUE) {
   method <- 'Fetch.failRequest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -121,7 +121,7 @@ Fetch.failRequest <- function(promise, requestId, errorReason, awaitResult = TRU
 #' @export
 Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeaders, body = NULL, responsePhrase = NULL, awaitResult = TRUE) {
   method <- 'Fetch.fulfillRequest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -157,7 +157,7 @@ Fetch.fulfillRequest <- function(promise, requestId, responseCode, responseHeade
 #' @export
 Fetch.continueRequest <- function(promise, requestId, url = NULL, method = NULL, postData = NULL, headers = NULL, awaitResult = TRUE) {
   method <- 'Fetch.continueRequest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -187,7 +187,7 @@ Fetch.continueRequest <- function(promise, requestId, url = NULL, method = NULL,
 #' @export
 Fetch.continueWithAuth <- function(promise, requestId, authChallengeResponse, awaitResult = TRUE) {
   method <- 'Fetch.continueWithAuth'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -220,7 +220,7 @@ Fetch.continueWithAuth <- function(promise, requestId, authChallengeResponse, aw
 #' @export
 Fetch.getResponseBody <- function(promise, requestId, awaitResult = TRUE) {
   method <- 'Fetch.getResponseBody'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -256,7 +256,7 @@ Fetch.getResponseBody <- function(promise, requestId, awaitResult = TRUE) {
 #' @export
 Fetch.takeResponseBodyAsStream <- function(promise, requestId, awaitResult = TRUE) {
   method <- 'Fetch.takeResponseBodyAsStream'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

@@ -9,12 +9,12 @@ NULL
 #' 
 #' @param promise An asynchronous result object.
 #' @param percentFull A numeric. 
-#'        A number in range [0..1] that indicates the used size of event buffer as a fraction of its
+#'        A number in range `[0..1]` that indicates the used size of event buffer as a fraction of its
 #'        total size. Accepted values: `~ .res$percentFull` (to refer to the previous result).
 #' @param eventCount A numeric. 
 #'        An approximate number of events in the trace log. Accepted values: `~ .res$eventCount` (to refer to the previous result).
 #' @param value A numeric. 
-#'        A number in range [0..1] that indicates the used size of event buffer as a fraction of its
+#'        A number in range `[0..1]` that indicates the used size of event buffer as a fraction of its
 #'        total size. Accepted values: `~ .res$value` (to refer to the previous result).
 #' @param .callback A callback function taking one argument. The object passed to
 #'        this function is the message received from Chrome: this is a named list
@@ -35,7 +35,7 @@ NULL
 #' @export
 Tracing.bufferUsage <- function(promise, percentFull = NULL, eventCount = NULL, value = NULL, .callback = NULL) {
   method <- 'Tracing.bufferUsage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -71,7 +71,7 @@ Tracing.bufferUsage <- function(promise, percentFull = NULL, eventCount = NULL, 
 #' @export
 Tracing.dataCollected <- function(promise, value = NULL, .callback = NULL) {
   method <- 'Tracing.dataCollected'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -109,7 +109,7 @@ Tracing.dataCollected <- function(promise, value = NULL, .callback = NULL) {
 #' @export
 Tracing.tracingComplete <- function(promise, stream = NULL, streamCompression = NULL, .callback = NULL) {
   method <- 'Tracing.tracingComplete'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

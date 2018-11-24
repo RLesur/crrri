@@ -20,7 +20,7 @@ NULL
 #' @export
 DeviceOrientation.clearDeviceOrientationOverride <- function(promise, awaitResult = TRUE) {
   method <- 'DeviceOrientation.clearDeviceOrientationOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -52,7 +52,7 @@ DeviceOrientation.clearDeviceOrientationOverride <- function(promise, awaitResul
 #' @export
 DeviceOrientation.setDeviceOrientationOverride <- function(promise, alpha, beta, gamma, awaitResult = TRUE) {
   method <- 'DeviceOrientation.setDeviceOrientationOverride'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

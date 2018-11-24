@@ -22,7 +22,7 @@ NULL
 #' @export
 DOM.collectClassNamesFromSubtree <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'DOM.collectClassNamesFromSubtree'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -56,7 +56,7 @@ DOM.collectClassNamesFromSubtree <- function(promise, nodeId, awaitResult = TRUE
 #' @export
 DOM.copyTo <- function(promise, nodeId, targetNodeId, insertBeforeNodeId = NULL, awaitResult = TRUE) {
   method <- 'DOM.copyTo'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -95,7 +95,7 @@ DOM.copyTo <- function(promise, nodeId, targetNodeId, insertBeforeNodeId = NULL,
 #' @export
 DOM.describeNode <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, depth = NULL, pierce = NULL, awaitResult = TRUE) {
   method <- 'DOM.describeNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -121,7 +121,7 @@ DOM.describeNode <- function(promise, nodeId = NULL, backendNodeId = NULL, objec
 #' @export
 DOM.disable <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -150,7 +150,7 @@ DOM.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.discardSearchResults <- function(promise, searchId, awaitResult = TRUE) {
   method <- 'DOM.discardSearchResults'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -176,7 +176,7 @@ DOM.discardSearchResults <- function(promise, searchId, awaitResult = TRUE) {
 #' @export
 DOM.enable <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -208,7 +208,7 @@ DOM.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.focus <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, awaitResult = TRUE) {
   method <- 'DOM.focus'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -236,7 +236,7 @@ DOM.focus <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = N
 #' @export
 DOM.getAttributes <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'DOM.getAttributes'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -268,7 +268,7 @@ DOM.getAttributes <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 DOM.getBoxModel <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, awaitResult = TRUE) {
   method <- 'DOM.getBoxModel'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -301,7 +301,7 @@ DOM.getBoxModel <- function(promise, nodeId = NULL, backendNodeId = NULL, object
 #' @export
 DOM.getContentQuads <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, awaitResult = TRUE) {
   method <- 'DOM.getContentQuads'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -333,7 +333,7 @@ DOM.getContentQuads <- function(promise, nodeId = NULL, backendNodeId = NULL, ob
 #' @export
 DOM.getDocument <- function(promise, depth = NULL, pierce = NULL, awaitResult = TRUE) {
   method <- 'DOM.getDocument'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -365,7 +365,7 @@ DOM.getDocument <- function(promise, depth = NULL, pierce = NULL, awaitResult = 
 #' @export
 DOM.getFlattenedDocument <- function(promise, depth = NULL, pierce = NULL, awaitResult = TRUE) {
   method <- 'DOM.getFlattenedDocument'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -398,7 +398,7 @@ DOM.getFlattenedDocument <- function(promise, depth = NULL, pierce = NULL, await
 #' @export
 DOM.getNodeForLocation <- function(promise, x, y, includeUserAgentShadowDOM = NULL, awaitResult = TRUE) {
   method <- 'DOM.getNodeForLocation'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -430,7 +430,7 @@ DOM.getNodeForLocation <- function(promise, x, y, includeUserAgentShadowDOM = NU
 #' @export
 DOM.getOuterHTML <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, awaitResult = TRUE) {
   method <- 'DOM.getOuterHTML'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -458,7 +458,7 @@ DOM.getOuterHTML <- function(promise, nodeId = NULL, backendNodeId = NULL, objec
 #' @export
 DOM.getRelayoutBoundary <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'DOM.getRelayoutBoundary'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -491,7 +491,7 @@ DOM.getRelayoutBoundary <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 DOM.getSearchResults <- function(promise, searchId, fromIndex, toIndex, awaitResult = TRUE) {
   method <- 'DOM.getSearchResults'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -517,7 +517,7 @@ DOM.getSearchResults <- function(promise, searchId, fromIndex, toIndex, awaitRes
 #' @export
 DOM.hideHighlight <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.hideHighlight'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -543,7 +543,7 @@ DOM.hideHighlight <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.highlightNode <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.highlightNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -569,7 +569,7 @@ DOM.highlightNode <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.highlightRect <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.highlightRect'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -595,7 +595,7 @@ DOM.highlightRect <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.markUndoableState <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.markUndoableState'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -628,7 +628,7 @@ DOM.markUndoableState <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.moveTo <- function(promise, nodeId, targetNodeId, insertBeforeNodeId = NULL, awaitResult = TRUE) {
   method <- 'DOM.moveTo'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -659,7 +659,7 @@ DOM.moveTo <- function(promise, nodeId, targetNodeId, insertBeforeNodeId = NULL,
 #' @export
 DOM.performSearch <- function(promise, query, includeUserAgentShadowDOM = NULL, awaitResult = TRUE) {
   method <- 'DOM.performSearch'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -687,7 +687,7 @@ DOM.performSearch <- function(promise, query, includeUserAgentShadowDOM = NULL, 
 #' @export
 DOM.pushNodeByPathToFrontend <- function(promise, path, awaitResult = TRUE) {
   method <- 'DOM.pushNodeByPathToFrontend'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -715,7 +715,7 @@ DOM.pushNodeByPathToFrontend <- function(promise, path, awaitResult = TRUE) {
 #' @export
 DOM.pushNodesByBackendIdsToFrontend <- function(promise, backendNodeIds, awaitResult = TRUE) {
   method <- 'DOM.pushNodesByBackendIdsToFrontend'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -745,7 +745,7 @@ DOM.pushNodesByBackendIdsToFrontend <- function(promise, backendNodeIds, awaitRe
 #' @export
 DOM.querySelector <- function(promise, nodeId, selector, awaitResult = TRUE) {
   method <- 'DOM.querySelector'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -775,7 +775,7 @@ DOM.querySelector <- function(promise, nodeId, selector, awaitResult = TRUE) {
 #' @export
 DOM.querySelectorAll <- function(promise, nodeId, selector, awaitResult = TRUE) {
   method <- 'DOM.querySelectorAll'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -801,7 +801,7 @@ DOM.querySelectorAll <- function(promise, nodeId, selector, awaitResult = TRUE) 
 #' @export
 DOM.redo <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.redo'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -831,7 +831,7 @@ DOM.redo <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.removeAttribute <- function(promise, nodeId, name, awaitResult = TRUE) {
   method <- 'DOM.removeAttribute'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -859,7 +859,7 @@ DOM.removeAttribute <- function(promise, nodeId, name, awaitResult = TRUE) {
 #' @export
 DOM.removeNode <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'DOM.removeNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -895,7 +895,7 @@ DOM.removeNode <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 DOM.requestChildNodes <- function(promise, nodeId, depth = NULL, pierce = NULL, awaitResult = TRUE) {
   method <- 'DOM.requestChildNodes'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -925,7 +925,7 @@ DOM.requestChildNodes <- function(promise, nodeId, depth = NULL, pierce = NULL, 
 #' @export
 DOM.requestNode <- function(promise, objectId, awaitResult = TRUE) {
   method <- 'DOM.requestNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -957,7 +957,7 @@ DOM.requestNode <- function(promise, objectId, awaitResult = TRUE) {
 #' @export
 DOM.resolveNode <- function(promise, nodeId = NULL, backendNodeId = NULL, objectGroup = NULL, awaitResult = TRUE) {
   method <- 'DOM.resolveNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -989,7 +989,7 @@ DOM.resolveNode <- function(promise, nodeId = NULL, backendNodeId = NULL, object
 #' @export
 DOM.setAttributeValue <- function(promise, nodeId, name, value, awaitResult = TRUE) {
   method <- 'DOM.setAttributeValue'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1023,7 +1023,7 @@ DOM.setAttributeValue <- function(promise, nodeId, name, value, awaitResult = TR
 #' @export
 DOM.setAttributesAsText <- function(promise, nodeId, text, name = NULL, awaitResult = TRUE) {
   method <- 'DOM.setAttributesAsText'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1057,7 +1057,7 @@ DOM.setAttributesAsText <- function(promise, nodeId, text, name = NULL, awaitRes
 #' @export
 DOM.setFileInputFiles <- function(promise, files, nodeId = NULL, backendNodeId = NULL, objectId = NULL, awaitResult = TRUE) {
   method <- 'DOM.setFileInputFiles'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1086,7 +1086,7 @@ DOM.setFileInputFiles <- function(promise, files, nodeId = NULL, backendNodeId =
 #' @export
 DOM.setInspectedNode <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'DOM.setInspectedNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1116,7 +1116,7 @@ DOM.setInspectedNode <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 DOM.setNodeName <- function(promise, nodeId, name, awaitResult = TRUE) {
   method <- 'DOM.setNodeName'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1146,7 +1146,7 @@ DOM.setNodeName <- function(promise, nodeId, name, awaitResult = TRUE) {
 #' @export
 DOM.setNodeValue <- function(promise, nodeId, value, awaitResult = TRUE) {
   method <- 'DOM.setNodeValue'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1176,7 +1176,7 @@ DOM.setNodeValue <- function(promise, nodeId, value, awaitResult = TRUE) {
 #' @export
 DOM.setOuterHTML <- function(promise, nodeId, outerHTML, awaitResult = TRUE) {
   method <- 'DOM.setOuterHTML'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1202,7 +1202,7 @@ DOM.setOuterHTML <- function(promise, nodeId, outerHTML, awaitResult = TRUE) {
 #' @export
 DOM.undo <- function(promise, awaitResult = TRUE) {
   method <- 'DOM.undo'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1229,7 +1229,7 @@ DOM.undo <- function(promise, awaitResult = TRUE) {
 #' @export
 DOM.getFrameOwner <- function(promise, frameId, awaitResult = TRUE) {
   method <- 'DOM.getFrameOwner'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

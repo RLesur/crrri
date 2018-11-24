@@ -28,7 +28,7 @@ NULL
 #' @export
 DOMDebugger.getEventListeners <- function(promise, objectId, depth = NULL, pierce = NULL, awaitResult = TRUE) {
   method <- 'DOMDebugger.getEventListeners'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -58,7 +58,7 @@ DOMDebugger.getEventListeners <- function(promise, objectId, depth = NULL, pierc
 #' @export
 DOMDebugger.removeDOMBreakpoint <- function(promise, nodeId, type, awaitResult = TRUE) {
   method <- 'DOMDebugger.removeDOMBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -88,7 +88,7 @@ DOMDebugger.removeDOMBreakpoint <- function(promise, nodeId, type, awaitResult =
 #' @export
 DOMDebugger.removeEventListenerBreakpoint <- function(promise, eventName, targetName = NULL, awaitResult = TRUE) {
   method <- 'DOMDebugger.removeEventListenerBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -116,7 +116,7 @@ DOMDebugger.removeEventListenerBreakpoint <- function(promise, eventName, target
 #' @export
 DOMDebugger.removeInstrumentationBreakpoint <- function(promise, eventName, awaitResult = TRUE) {
   method <- 'DOMDebugger.removeInstrumentationBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -144,7 +144,7 @@ DOMDebugger.removeInstrumentationBreakpoint <- function(promise, eventName, awai
 #' @export
 DOMDebugger.removeXHRBreakpoint <- function(promise, url, awaitResult = TRUE) {
   method <- 'DOMDebugger.removeXHRBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -174,7 +174,7 @@ DOMDebugger.removeXHRBreakpoint <- function(promise, url, awaitResult = TRUE) {
 #' @export
 DOMDebugger.setDOMBreakpoint <- function(promise, nodeId, type, awaitResult = TRUE) {
   method <- 'DOMDebugger.setDOMBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -205,7 +205,7 @@ DOMDebugger.setDOMBreakpoint <- function(promise, nodeId, type, awaitResult = TR
 #' @export
 DOMDebugger.setEventListenerBreakpoint <- function(promise, eventName, targetName = NULL, awaitResult = TRUE) {
   method <- 'DOMDebugger.setEventListenerBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -233,7 +233,7 @@ DOMDebugger.setEventListenerBreakpoint <- function(promise, eventName, targetNam
 #' @export
 DOMDebugger.setInstrumentationBreakpoint <- function(promise, eventName, awaitResult = TRUE) {
   method <- 'DOMDebugger.setInstrumentationBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -261,7 +261,7 @@ DOMDebugger.setInstrumentationBreakpoint <- function(promise, eventName, awaitRe
 #' @export
 DOMDebugger.setXHRBreakpoint <- function(promise, url, awaitResult = TRUE) {
   method <- 'DOMDebugger.setXHRBreakpoint'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

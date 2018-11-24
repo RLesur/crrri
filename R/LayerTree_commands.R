@@ -22,7 +22,7 @@ NULL
 #' @export
 LayerTree.compositingReasons <- function(promise, layerId, awaitResult = TRUE) {
   method <- 'LayerTree.compositingReasons'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -48,7 +48,7 @@ LayerTree.compositingReasons <- function(promise, layerId, awaitResult = TRUE) {
 #' @export
 LayerTree.disable <- function(promise, awaitResult = TRUE) {
   method <- 'LayerTree.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ LayerTree.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 LayerTree.enable <- function(promise, awaitResult = TRUE) {
   method <- 'LayerTree.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -102,7 +102,7 @@ LayerTree.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 LayerTree.loadSnapshot <- function(promise, tiles, awaitResult = TRUE) {
   method <- 'LayerTree.loadSnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -130,7 +130,7 @@ LayerTree.loadSnapshot <- function(promise, tiles, awaitResult = TRUE) {
 #' @export
 LayerTree.makeSnapshot <- function(promise, layerId, awaitResult = TRUE) {
   method <- 'LayerTree.makeSnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -164,7 +164,7 @@ LayerTree.makeSnapshot <- function(promise, layerId, awaitResult = TRUE) {
 #' @export
 LayerTree.profileSnapshot <- function(promise, snapshotId, minRepeatCount = NULL, minDuration = NULL, clipRect = NULL, awaitResult = TRUE) {
   method <- 'LayerTree.profileSnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -192,7 +192,7 @@ LayerTree.profileSnapshot <- function(promise, snapshotId, minRepeatCount = NULL
 #' @export
 LayerTree.releaseSnapshot <- function(promise, snapshotId, awaitResult = TRUE) {
   method <- 'LayerTree.releaseSnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -226,7 +226,7 @@ LayerTree.releaseSnapshot <- function(promise, snapshotId, awaitResult = TRUE) {
 #' @export
 LayerTree.replaySnapshot <- function(promise, snapshotId, fromStep = NULL, toStep = NULL, scale = NULL, awaitResult = TRUE) {
   method <- 'LayerTree.replaySnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -254,7 +254,7 @@ LayerTree.replaySnapshot <- function(promise, snapshotId, fromStep = NULL, toSte
 #' @export
 LayerTree.snapshotCommandLog <- function(promise, snapshotId, awaitResult = TRUE) {
   method <- 'LayerTree.snapshotCommandLog'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

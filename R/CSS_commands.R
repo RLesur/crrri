@@ -27,7 +27,7 @@ NULL
 #' @export
 CSS.addRule <- function(promise, styleSheetId, ruleText, location, awaitResult = TRUE) {
   method <- 'CSS.addRule'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -54,7 +54,7 @@ CSS.addRule <- function(promise, styleSheetId, ruleText, location, awaitResult =
 #' @export
 CSS.collectClassNames <- function(promise, styleSheetId, awaitResult = TRUE) {
   method <- 'CSS.collectClassNames'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -82,7 +82,7 @@ CSS.collectClassNames <- function(promise, styleSheetId, awaitResult = TRUE) {
 #' @export
 CSS.createStyleSheet <- function(promise, frameId, awaitResult = TRUE) {
   method <- 'CSS.createStyleSheet'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -108,7 +108,7 @@ CSS.createStyleSheet <- function(promise, frameId, awaitResult = TRUE) {
 #' @export
 CSS.disable <- function(promise, awaitResult = TRUE) {
   method <- 'CSS.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -135,7 +135,7 @@ CSS.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 CSS.enable <- function(promise, awaitResult = TRUE) {
   method <- 'CSS.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -166,7 +166,7 @@ CSS.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 CSS.forcePseudoState <- function(promise, nodeId, forcedPseudoClasses, awaitResult = TRUE) {
   method <- 'CSS.forcePseudoState'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -194,7 +194,7 @@ CSS.forcePseudoState <- function(promise, nodeId, forcedPseudoClasses, awaitResu
 #' @export
 CSS.getBackgroundColors <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'CSS.getBackgroundColors'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -221,7 +221,7 @@ CSS.getBackgroundColors <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 CSS.getComputedStyleForNode <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'CSS.getComputedStyleForNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -249,7 +249,7 @@ CSS.getComputedStyleForNode <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 CSS.getInlineStylesForNode <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'CSS.getInlineStylesForNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -276,7 +276,7 @@ CSS.getInlineStylesForNode <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 CSS.getMatchedStylesForNode <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'CSS.getMatchedStylesForNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -302,7 +302,7 @@ CSS.getMatchedStylesForNode <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 CSS.getMediaQueries <- function(promise, awaitResult = TRUE) {
   method <- 'CSS.getMediaQueries'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -330,7 +330,7 @@ CSS.getMediaQueries <- function(promise, awaitResult = TRUE) {
 #' @export
 CSS.getPlatformFontsForNode <- function(promise, nodeId, awaitResult = TRUE) {
   method <- 'CSS.getPlatformFontsForNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -357,7 +357,7 @@ CSS.getPlatformFontsForNode <- function(promise, nodeId, awaitResult = TRUE) {
 #' @export
 CSS.getStyleSheetText <- function(promise, styleSheetId, awaitResult = TRUE) {
   method <- 'CSS.getStyleSheetText'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -388,7 +388,7 @@ CSS.getStyleSheetText <- function(promise, styleSheetId, awaitResult = TRUE) {
 #' @export
 CSS.setEffectivePropertyValueForNode <- function(promise, nodeId, propertyName, value, awaitResult = TRUE) {
   method <- 'CSS.setEffectivePropertyValueForNode'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -417,7 +417,7 @@ CSS.setEffectivePropertyValueForNode <- function(promise, nodeId, propertyName, 
 #' @export
 CSS.setKeyframeKey <- function(promise, styleSheetId, range, keyText, awaitResult = TRUE) {
   method <- 'CSS.setKeyframeKey'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -446,7 +446,7 @@ CSS.setKeyframeKey <- function(promise, styleSheetId, range, keyText, awaitResul
 #' @export
 CSS.setMediaText <- function(promise, styleSheetId, range, text, awaitResult = TRUE) {
   method <- 'CSS.setMediaText'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -475,7 +475,7 @@ CSS.setMediaText <- function(promise, styleSheetId, range, text, awaitResult = T
 #' @export
 CSS.setRuleSelector <- function(promise, styleSheetId, range, selector, awaitResult = TRUE) {
   method <- 'CSS.setRuleSelector'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -503,7 +503,7 @@ CSS.setRuleSelector <- function(promise, styleSheetId, range, selector, awaitRes
 #' @export
 CSS.setStyleSheetText <- function(promise, styleSheetId, text, awaitResult = TRUE) {
   method <- 'CSS.setStyleSheetText'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -530,7 +530,7 @@ CSS.setStyleSheetText <- function(promise, styleSheetId, text, awaitResult = TRU
 #' @export
 CSS.setStyleTexts <- function(promise, edits, awaitResult = TRUE) {
   method <- 'CSS.setStyleTexts'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -556,7 +556,7 @@ CSS.setStyleTexts <- function(promise, edits, awaitResult = TRUE) {
 #' @export
 CSS.startRuleUsageTracking <- function(promise, awaitResult = TRUE) {
   method <- 'CSS.startRuleUsageTracking'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -583,7 +583,7 @@ CSS.startRuleUsageTracking <- function(promise, awaitResult = TRUE) {
 #' @export
 CSS.stopRuleUsageTracking <- function(promise, awaitResult = TRUE) {
   method <- 'CSS.stopRuleUsageTracking'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -610,7 +610,7 @@ CSS.stopRuleUsageTracking <- function(promise, awaitResult = TRUE) {
 #' @export
 CSS.takeCoverageDelta <- function(promise, awaitResult = TRUE) {
   method <- 'CSS.takeCoverageDelta'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

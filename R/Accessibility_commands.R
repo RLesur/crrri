@@ -20,7 +20,7 @@ NULL
 #' @export
 Accessibility.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Accessibility.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -47,7 +47,7 @@ Accessibility.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Accessibility.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Accessibility.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -81,7 +81,7 @@ Accessibility.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Accessibility.getPartialAXTree <- function(promise, nodeId = NULL, backendNodeId = NULL, objectId = NULL, fetchRelatives = NULL, awaitResult = TRUE) {
   method <- 'Accessibility.getPartialAXTree'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -107,7 +107,7 @@ Accessibility.getPartialAXTree <- function(promise, nodeId = NULL, backendNodeId
 #' @export
 Accessibility.getFullAXTree <- function(promise, awaitResult = TRUE) {
   method <- 'Accessibility.getFullAXTree'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

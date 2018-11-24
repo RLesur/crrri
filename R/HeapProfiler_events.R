@@ -29,7 +29,7 @@ NULL
 #' @export
 HeapProfiler.addHeapSnapshotChunk <- function(promise, chunk = NULL, .callback = NULL) {
   method <- 'HeapProfiler.addHeapSnapshotChunk'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -66,7 +66,7 @@ HeapProfiler.addHeapSnapshotChunk <- function(promise, chunk = NULL, .callback =
 #' @export
 HeapProfiler.heapStatsUpdate <- function(promise, statsUpdate = NULL, .callback = NULL) {
   method <- 'HeapProfiler.heapStatsUpdate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -105,7 +105,7 @@ HeapProfiler.heapStatsUpdate <- function(promise, statsUpdate = NULL, .callback 
 #' @export
 HeapProfiler.lastSeenObjectId <- function(promise, lastSeenObjectId = NULL, timestamp = NULL, .callback = NULL) {
   method <- 'HeapProfiler.lastSeenObjectId'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -144,7 +144,7 @@ HeapProfiler.lastSeenObjectId <- function(promise, lastSeenObjectId = NULL, time
 #' @export
 HeapProfiler.reportHeapSnapshotProgress <- function(promise, done = NULL, total = NULL, finished = NULL, .callback = NULL) {
   method <- 'HeapProfiler.reportHeapSnapshotProgress'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -176,7 +176,7 @@ HeapProfiler.reportHeapSnapshotProgress <- function(promise, done = NULL, total 
 #' @export
 HeapProfiler.resetProfiles <- function(promise, .callback = NULL) {
   method <- 'HeapProfiler.resetProfiles'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

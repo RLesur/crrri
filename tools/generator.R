@@ -16,6 +16,8 @@ is_cmd_deprecated <- function(command) {
 }
 
 sanitize_help <- function(text) {
+  text <- gsub("[0..100]", "`[0..100]`", text, fixed = TRUE)
+  text <- gsub("[0..1]", "`[0..1]`", text, fixed = TRUE)
   gsub("\\n", "\n#'        ", text)
 }
 
@@ -76,7 +78,7 @@ generate_command <- function(command, domain_name = NULL) {
   r2help <- build_command_help(domain_name, command)
   body <- paste0(paste(domain_name, command$name, sep = "."), " <- ", build_command_signature(command), " {\n",
                 sprintf("  method <- '%s.%s'\n", domain_name, command$name),
-                "  args <- head(rlang::fn_fmls_names(), -1)\n",
+                "  args <- utils::head(rlang::fn_fmls_names(), -1)\n",
                 "  args <- args[!sapply(mget(args), is.null)]\n",
                 "  params <- mget(args)\n",
                 "  params <- if (length(params) > 1) params[2:length(params)] else NULL\n",
@@ -163,7 +165,7 @@ generate_event <- function(event, domain_name = NULL) {
   r2help <- build_event_help(domain_name, event)
   body <- paste0(paste(domain_name, event$name, sep = "."), " <- ", build_event_signature(event), " {\n",
                  sprintf("  method <- '%s.%s'\n", domain_name, event$name),
-                 "  args <- head(rlang::fn_fmls_names(), -1)\n",
+                 "  args <- utils::head(rlang::fn_fmls_names(), -1)\n",
                  "  args <- args[!sapply(mget(args), is.null)]\n",
                  "  params <- mget(args)\n",
                  "  params <- if (length(params) > 1) params[2:length(params)] else NULL\n",

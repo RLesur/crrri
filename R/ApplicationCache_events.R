@@ -33,7 +33,7 @@ NULL
 #' @export
 ApplicationCache.applicationCacheStatusUpdated <- function(promise, frameId = NULL, manifestURL = NULL, status = NULL, .callback = NULL) {
   method <- 'ApplicationCache.applicationCacheStatusUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -68,7 +68,7 @@ ApplicationCache.applicationCacheStatusUpdated <- function(promise, frameId = NU
 #' @export
 ApplicationCache.networkStateUpdated <- function(promise, isNowOnline = NULL, .callback = NULL) {
   method <- 'ApplicationCache.networkStateUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

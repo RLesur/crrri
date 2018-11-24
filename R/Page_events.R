@@ -29,7 +29,7 @@ NULL
 #' @export
 Page.domContentEventFired <- function(promise, timestamp = NULL, .callback = NULL) {
   method <- 'Page.domContentEventFired'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -68,7 +68,7 @@ Page.domContentEventFired <- function(promise, timestamp = NULL, .callback = NUL
 #' @export
 Page.frameAttached <- function(promise, frameId = NULL, parentFrameId = NULL, stack = NULL, .callback = NULL) {
   method <- 'Page.frameAttached'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -103,7 +103,7 @@ Page.frameAttached <- function(promise, frameId = NULL, parentFrameId = NULL, st
 #' @export
 Page.frameClearedScheduledNavigation <- function(promise, frameId = NULL, .callback = NULL) {
   method <- 'Page.frameClearedScheduledNavigation'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -138,7 +138,7 @@ Page.frameClearedScheduledNavigation <- function(promise, frameId = NULL, .callb
 #' @export
 Page.frameDetached <- function(promise, frameId = NULL, .callback = NULL) {
   method <- 'Page.frameDetached'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -173,7 +173,7 @@ Page.frameDetached <- function(promise, frameId = NULL, .callback = NULL) {
 #' @export
 Page.frameNavigated <- function(promise, frame = NULL, .callback = NULL) {
   method <- 'Page.frameNavigated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -205,7 +205,7 @@ Page.frameNavigated <- function(promise, frame = NULL, .callback = NULL) {
 #' @export
 Page.frameResized <- function(promise, .callback = NULL) {
   method <- 'Page.frameResized'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -247,7 +247,7 @@ Page.frameResized <- function(promise, .callback = NULL) {
 #' @export
 Page.frameScheduledNavigation <- function(promise, frameId = NULL, delay = NULL, reason = NULL, url = NULL, .callback = NULL) {
   method <- 'Page.frameScheduledNavigation'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -282,7 +282,7 @@ Page.frameScheduledNavigation <- function(promise, frameId = NULL, delay = NULL,
 #' @export
 Page.frameStartedLoading <- function(promise, frameId = NULL, .callback = NULL) {
   method <- 'Page.frameStartedLoading'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -317,7 +317,7 @@ Page.frameStartedLoading <- function(promise, frameId = NULL, .callback = NULL) 
 #' @export
 Page.frameStoppedLoading <- function(promise, frameId = NULL, .callback = NULL) {
   method <- 'Page.frameStoppedLoading'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -349,7 +349,7 @@ Page.frameStoppedLoading <- function(promise, frameId = NULL, .callback = NULL) 
 #' @export
 Page.interstitialHidden <- function(promise, .callback = NULL) {
   method <- 'Page.interstitialHidden'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -381,7 +381,7 @@ Page.interstitialHidden <- function(promise, .callback = NULL) {
 #' @export
 Page.interstitialShown <- function(promise, .callback = NULL) {
   method <- 'Page.interstitialShown'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -419,7 +419,7 @@ Page.interstitialShown <- function(promise, .callback = NULL) {
 #' @export
 Page.javascriptDialogClosed <- function(promise, result = NULL, userInput = NULL, .callback = NULL) {
   method <- 'Page.javascriptDialogClosed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -465,7 +465,7 @@ Page.javascriptDialogClosed <- function(promise, result = NULL, userInput = NULL
 #' @export
 Page.javascriptDialogOpening <- function(promise, url = NULL, message = NULL, type = NULL, hasBrowserHandler = NULL, defaultPrompt = NULL, .callback = NULL) {
   method <- 'Page.javascriptDialogOpening'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -506,7 +506,7 @@ Page.javascriptDialogOpening <- function(promise, url = NULL, message = NULL, ty
 #' @export
 Page.lifecycleEvent <- function(promise, frameId = NULL, loaderId = NULL, name = NULL, timestamp = NULL, .callback = NULL) {
   method <- 'Page.lifecycleEvent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -541,7 +541,7 @@ Page.lifecycleEvent <- function(promise, frameId = NULL, loaderId = NULL, name =
 #' @export
 Page.loadEventFired <- function(promise, timestamp = NULL, .callback = NULL) {
   method <- 'Page.loadEventFired'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -578,7 +578,7 @@ Page.loadEventFired <- function(promise, timestamp = NULL, .callback = NULL) {
 #' @export
 Page.navigatedWithinDocument <- function(promise, frameId = NULL, url = NULL, .callback = NULL) {
   method <- 'Page.navigatedWithinDocument'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -617,7 +617,7 @@ Page.navigatedWithinDocument <- function(promise, frameId = NULL, url = NULL, .c
 #' @export
 Page.screencastFrame <- function(promise, data = NULL, metadata = NULL, sessionId = NULL, .callback = NULL) {
   method <- 'Page.screencastFrame'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -652,7 +652,7 @@ Page.screencastFrame <- function(promise, data = NULL, metadata = NULL, sessionI
 #' @export
 Page.screencastVisibilityChanged <- function(promise, visible = NULL, .callback = NULL) {
   method <- 'Page.screencastVisibilityChanged'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -694,7 +694,7 @@ Page.screencastVisibilityChanged <- function(promise, visible = NULL, .callback 
 #' @export
 Page.windowOpen <- function(promise, url = NULL, windowName = NULL, windowFeatures = NULL, userGesture = NULL, .callback = NULL) {
   method <- 'Page.windowOpen'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -732,7 +732,7 @@ Page.windowOpen <- function(promise, url = NULL, windowName = NULL, windowFeatur
 #' @export
 Page.compilationCacheProduced <- function(promise, url = NULL, data = NULL, .callback = NULL) {
   method <- 'Page.compilationCacheProduced'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

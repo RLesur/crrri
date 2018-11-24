@@ -20,7 +20,7 @@ NULL
 #' @export
 ApplicationCache.enable <- function(promise, awaitResult = TRUE) {
   method <- 'ApplicationCache.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -48,7 +48,7 @@ ApplicationCache.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 ApplicationCache.getApplicationCacheForFrame <- function(promise, frameId, awaitResult = TRUE) {
   method <- 'ApplicationCache.getApplicationCacheForFrame'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -75,7 +75,7 @@ ApplicationCache.getApplicationCacheForFrame <- function(promise, frameId, await
 #' @export
 ApplicationCache.getFramesWithManifests <- function(promise, awaitResult = TRUE) {
   method <- 'ApplicationCache.getFramesWithManifests'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -103,7 +103,7 @@ ApplicationCache.getFramesWithManifests <- function(promise, awaitResult = TRUE)
 #' @export
 ApplicationCache.getManifestForFrame <- function(promise, frameId, awaitResult = TRUE) {
   method <- 'ApplicationCache.getManifestForFrame'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

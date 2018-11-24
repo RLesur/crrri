@@ -20,7 +20,7 @@ NULL
 #' @export
 Database.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Database.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Database.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Database.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Database.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ Database.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Database.executeSQL <- function(promise, databaseId, query, awaitResult = TRUE) {
   method <- 'Database.executeSQL'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -101,7 +101,7 @@ Database.executeSQL <- function(promise, databaseId, query, awaitResult = TRUE) 
 #' @export
 Database.getDatabaseTableNames <- function(promise, databaseId, awaitResult = TRUE) {
   method <- 'Database.getDatabaseTableNames'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

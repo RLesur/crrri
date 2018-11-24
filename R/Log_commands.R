@@ -20,7 +20,7 @@ NULL
 #' @export
 Log.clear <- function(promise, awaitResult = TRUE) {
   method <- 'Log.clear'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Log.clear <- function(promise, awaitResult = TRUE) {
 #' @export
 Log.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Log.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -73,7 +73,7 @@ Log.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Log.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Log.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -101,7 +101,7 @@ Log.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Log.startViolationsReport <- function(promise, config, awaitResult = TRUE) {
   method <- 'Log.startViolationsReport'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -127,7 +127,7 @@ Log.startViolationsReport <- function(promise, config, awaitResult = TRUE) {
 #' @export
 Log.stopViolationsReport <- function(promise, awaitResult = TRUE) {
   method <- 'Log.stopViolationsReport'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

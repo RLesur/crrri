@@ -23,7 +23,7 @@ NULL
 #' @export
 HeapProfiler.addInspectedHeapObject <- function(promise, heapObjectId, awaitResult = TRUE) {
   method <- 'HeapProfiler.addInspectedHeapObject'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -49,7 +49,7 @@ HeapProfiler.addInspectedHeapObject <- function(promise, heapObjectId, awaitResu
 #' @export
 HeapProfiler.collectGarbage <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.collectGarbage'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -75,7 +75,7 @@ HeapProfiler.collectGarbage <- function(promise, awaitResult = TRUE) {
 #' @export
 HeapProfiler.disable <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -101,7 +101,7 @@ HeapProfiler.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 HeapProfiler.enable <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -129,7 +129,7 @@ HeapProfiler.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 HeapProfiler.getHeapObjectId <- function(promise, objectId, awaitResult = TRUE) {
   method <- 'HeapProfiler.getHeapObjectId'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -158,7 +158,7 @@ HeapProfiler.getHeapObjectId <- function(promise, objectId, awaitResult = TRUE) 
 #' @export
 HeapProfiler.getObjectByHeapObjectId <- function(promise, objectId, objectGroup = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.getObjectByHeapObjectId'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -184,7 +184,7 @@ HeapProfiler.getObjectByHeapObjectId <- function(promise, objectId, objectGroup 
 #' @export
 HeapProfiler.getSamplingProfile <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.getSamplingProfile'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -213,7 +213,7 @@ HeapProfiler.getSamplingProfile <- function(promise, awaitResult = TRUE) {
 #' @export
 HeapProfiler.startSampling <- function(promise, samplingInterval = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.startSampling'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -240,7 +240,7 @@ HeapProfiler.startSampling <- function(promise, samplingInterval = NULL, awaitRe
 #' @export
 HeapProfiler.startTrackingHeapObjects <- function(promise, trackAllocations = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.startTrackingHeapObjects'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -266,7 +266,7 @@ HeapProfiler.startTrackingHeapObjects <- function(promise, trackAllocations = NU
 #' @export
 HeapProfiler.stopSampling <- function(promise, awaitResult = TRUE) {
   method <- 'HeapProfiler.stopSampling'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -295,7 +295,7 @@ HeapProfiler.stopSampling <- function(promise, awaitResult = TRUE) {
 #' @export
 HeapProfiler.stopTrackingHeapObjects <- function(promise, reportProgress = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.stopTrackingHeapObjects'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -323,7 +323,7 @@ HeapProfiler.stopTrackingHeapObjects <- function(promise, reportProgress = NULL,
 #' @export
 HeapProfiler.takeHeapSnapshot <- function(promise, reportProgress = NULL, awaitResult = TRUE) {
   method <- 'HeapProfiler.takeHeapSnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

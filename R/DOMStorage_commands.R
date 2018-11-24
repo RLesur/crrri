@@ -21,7 +21,7 @@ NULL
 #' @export
 DOMStorage.clear <- function(promise, storageId, awaitResult = TRUE) {
   method <- 'DOMStorage.clear'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -47,7 +47,7 @@ DOMStorage.clear <- function(promise, storageId, awaitResult = TRUE) {
 #' @export
 DOMStorage.disable <- function(promise, awaitResult = TRUE) {
   method <- 'DOMStorage.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -73,7 +73,7 @@ DOMStorage.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 DOMStorage.enable <- function(promise, awaitResult = TRUE) {
   method <- 'DOMStorage.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -100,7 +100,7 @@ DOMStorage.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 DOMStorage.getDOMStorageItems <- function(promise, storageId, awaitResult = TRUE) {
   method <- 'DOMStorage.getDOMStorageItems'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -128,7 +128,7 @@ DOMStorage.getDOMStorageItems <- function(promise, storageId, awaitResult = TRUE
 #' @export
 DOMStorage.removeDOMStorageItem <- function(promise, storageId, key, awaitResult = TRUE) {
   method <- 'DOMStorage.removeDOMStorageItem'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -157,7 +157,7 @@ DOMStorage.removeDOMStorageItem <- function(promise, storageId, key, awaitResult
 #' @export
 DOMStorage.setDOMStorageItem <- function(promise, storageId, key, value, awaitResult = TRUE) {
   method <- 'DOMStorage.setDOMStorageItem'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

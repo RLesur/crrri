@@ -22,7 +22,7 @@ NULL
 #' @export
 CacheStorage.deleteCache <- function(promise, cacheId, awaitResult = TRUE) {
   method <- 'CacheStorage.deleteCache'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -52,7 +52,7 @@ CacheStorage.deleteCache <- function(promise, cacheId, awaitResult = TRUE) {
 #' @export
 CacheStorage.deleteEntry <- function(promise, cacheId, request, awaitResult = TRUE) {
   method <- 'CacheStorage.deleteEntry'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -80,7 +80,7 @@ CacheStorage.deleteEntry <- function(promise, cacheId, request, awaitResult = TR
 #' @export
 CacheStorage.requestCacheNames <- function(promise, securityOrigin, awaitResult = TRUE) {
   method <- 'CacheStorage.requestCacheNames'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -110,7 +110,7 @@ CacheStorage.requestCacheNames <- function(promise, securityOrigin, awaitResult 
 #' @export
 CacheStorage.requestCachedResponse <- function(promise, cacheId, requestURL, awaitResult = TRUE) {
   method <- 'CacheStorage.requestCachedResponse'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -142,7 +142,7 @@ CacheStorage.requestCachedResponse <- function(promise, cacheId, requestURL, awa
 #' @export
 CacheStorage.requestEntries <- function(promise, cacheId, skipCount, pageSize, awaitResult = TRUE) {
   method <- 'CacheStorage.requestEntries'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

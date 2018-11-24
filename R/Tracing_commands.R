@@ -20,7 +20,7 @@ NULL
 #' @export
 Tracing.end <- function(promise, awaitResult = TRUE) {
   method <- 'Tracing.end'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Tracing.end <- function(promise, awaitResult = TRUE) {
 #' @export
 Tracing.getCategories <- function(promise, awaitResult = TRUE) {
   method <- 'Tracing.getCategories'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ Tracing.getCategories <- function(promise, awaitResult = TRUE) {
 #' @export
 Tracing.recordClockSyncMarker <- function(promise, syncId, awaitResult = TRUE) {
   method <- 'Tracing.recordClockSyncMarker'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -100,7 +100,7 @@ Tracing.recordClockSyncMarker <- function(promise, syncId, awaitResult = TRUE) {
 #' @export
 Tracing.requestMemoryDump <- function(promise, awaitResult = TRUE) {
   method <- 'Tracing.requestMemoryDump'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -139,7 +139,7 @@ Tracing.requestMemoryDump <- function(promise, awaitResult = TRUE) {
 #' @export
 Tracing.start <- function(promise, categories = NULL, options = NULL, bufferUsageReportingInterval = NULL, transferMode = NULL, streamCompression = NULL, traceConfig = NULL, awaitResult = TRUE) {
   method <- 'Tracing.start'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

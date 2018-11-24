@@ -20,7 +20,7 @@ NULL
 #' @export
 SystemInfo.getInfo <- function(promise, awaitResult = TRUE) {
   method <- 'SystemInfo.getInfo'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ SystemInfo.getInfo <- function(promise, awaitResult = TRUE) {
 #' @export
 SystemInfo.getProcessInfo <- function(promise, awaitResult = TRUE) {
   method <- 'SystemInfo.getProcessInfo'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

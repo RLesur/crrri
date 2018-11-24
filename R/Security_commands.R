@@ -20,7 +20,7 @@ NULL
 #' @export
 Security.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Security.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Security.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Security.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Security.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ Security.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Security.setIgnoreCertificateErrors <- function(promise, ignore, awaitResult = TRUE) {
   method <- 'Security.setIgnoreCertificateErrors'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

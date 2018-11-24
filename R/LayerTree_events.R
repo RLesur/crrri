@@ -31,7 +31,7 @@ NULL
 #' @export
 LayerTree.layerPainted <- function(promise, layerId = NULL, clip = NULL, .callback = NULL) {
   method <- 'LayerTree.layerPainted'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -66,7 +66,7 @@ LayerTree.layerPainted <- function(promise, layerId = NULL, clip = NULL, .callba
 #' @export
 LayerTree.layerTreeDidChange <- function(promise, layers = NULL, .callback = NULL) {
   method <- 'LayerTree.layerTreeDidChange'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

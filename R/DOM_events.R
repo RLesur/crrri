@@ -33,7 +33,7 @@ NULL
 #' @export
 DOM.attributeModified <- function(promise, nodeId = NULL, name = NULL, value = NULL, .callback = NULL) {
   method <- 'DOM.attributeModified'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -70,7 +70,7 @@ DOM.attributeModified <- function(promise, nodeId = NULL, name = NULL, value = N
 #' @export
 DOM.attributeRemoved <- function(promise, nodeId = NULL, name = NULL, .callback = NULL) {
   method <- 'DOM.attributeRemoved'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -107,7 +107,7 @@ DOM.attributeRemoved <- function(promise, nodeId = NULL, name = NULL, .callback 
 #' @export
 DOM.characterDataModified <- function(promise, nodeId = NULL, characterData = NULL, .callback = NULL) {
   method <- 'DOM.characterDataModified'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -144,7 +144,7 @@ DOM.characterDataModified <- function(promise, nodeId = NULL, characterData = NU
 #' @export
 DOM.childNodeCountUpdated <- function(promise, nodeId = NULL, childNodeCount = NULL, .callback = NULL) {
   method <- 'DOM.childNodeCountUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -183,7 +183,7 @@ DOM.childNodeCountUpdated <- function(promise, nodeId = NULL, childNodeCount = N
 #' @export
 DOM.childNodeInserted <- function(promise, parentNodeId = NULL, previousNodeId = NULL, node = NULL, .callback = NULL) {
   method <- 'DOM.childNodeInserted'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -220,7 +220,7 @@ DOM.childNodeInserted <- function(promise, parentNodeId = NULL, previousNodeId =
 #' @export
 DOM.childNodeRemoved <- function(promise, parentNodeId = NULL, nodeId = NULL, .callback = NULL) {
   method <- 'DOM.childNodeRemoved'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -257,7 +257,7 @@ DOM.childNodeRemoved <- function(promise, parentNodeId = NULL, nodeId = NULL, .c
 #' @export
 DOM.distributedNodesUpdated <- function(promise, insertionPointId = NULL, distributedNodes = NULL, .callback = NULL) {
   method <- 'DOM.distributedNodesUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -289,7 +289,7 @@ DOM.distributedNodesUpdated <- function(promise, insertionPointId = NULL, distri
 #' @export
 DOM.documentUpdated <- function(promise, .callback = NULL) {
   method <- 'DOM.documentUpdated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -324,7 +324,7 @@ DOM.documentUpdated <- function(promise, .callback = NULL) {
 #' @export
 DOM.inlineStyleInvalidated <- function(promise, nodeIds = NULL, .callback = NULL) {
   method <- 'DOM.inlineStyleInvalidated'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -361,7 +361,7 @@ DOM.inlineStyleInvalidated <- function(promise, nodeIds = NULL, .callback = NULL
 #' @export
 DOM.pseudoElementAdded <- function(promise, parentId = NULL, pseudoElement = NULL, .callback = NULL) {
   method <- 'DOM.pseudoElementAdded'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -398,7 +398,7 @@ DOM.pseudoElementAdded <- function(promise, parentId = NULL, pseudoElement = NUL
 #' @export
 DOM.pseudoElementRemoved <- function(promise, parentId = NULL, pseudoElementId = NULL, .callback = NULL) {
   method <- 'DOM.pseudoElementRemoved'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -436,7 +436,7 @@ DOM.pseudoElementRemoved <- function(promise, parentId = NULL, pseudoElementId =
 #' @export
 DOM.setChildNodes <- function(promise, parentId = NULL, nodes = NULL, .callback = NULL) {
   method <- 'DOM.setChildNodes'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -473,7 +473,7 @@ DOM.setChildNodes <- function(promise, parentId = NULL, nodes = NULL, .callback 
 #' @export
 DOM.shadowRootPopped <- function(promise, hostId = NULL, rootId = NULL, .callback = NULL) {
   method <- 'DOM.shadowRootPopped'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -510,7 +510,7 @@ DOM.shadowRootPopped <- function(promise, hostId = NULL, rootId = NULL, .callbac
 #' @export
 DOM.shadowRootPushed <- function(promise, hostId = NULL, root = NULL, .callback = NULL) {
   method <- 'DOM.shadowRootPushed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

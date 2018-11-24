@@ -30,7 +30,7 @@ NULL
 #' @export
 Emulation.virtualTimeAdvanced <- function(promise, virtualTimeElapsed = NULL, .callback = NULL) {
   method <- 'Emulation.virtualTimeAdvanced'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -62,7 +62,7 @@ Emulation.virtualTimeAdvanced <- function(promise, virtualTimeElapsed = NULL, .c
 #' @export
 Emulation.virtualTimeBudgetExpired <- function(promise, .callback = NULL) {
   method <- 'Emulation.virtualTimeBudgetExpired'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -98,7 +98,7 @@ Emulation.virtualTimeBudgetExpired <- function(promise, .callback = NULL) {
 #' @export
 Emulation.virtualTimePaused <- function(promise, virtualTimeElapsed = NULL, .callback = NULL) {
   method <- 'Emulation.virtualTimePaused'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

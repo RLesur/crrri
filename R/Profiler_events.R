@@ -35,7 +35,7 @@ NULL
 #' @export
 Profiler.consoleProfileFinished <- function(promise, id = NULL, location = NULL, profile = NULL, title = NULL, .callback = NULL) {
   method <- 'Profiler.consoleProfileFinished'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ Profiler.consoleProfileFinished <- function(promise, id = NULL, location = NULL,
 #' @export
 Profiler.consoleProfileStarted <- function(promise, id = NULL, location = NULL, title = NULL, .callback = NULL) {
   method <- 'Profiler.consoleProfileStarted'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

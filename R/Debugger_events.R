@@ -31,7 +31,7 @@ NULL
 #' @export
 Debugger.breakpointResolved <- function(promise, breakpointId = NULL, location = NULL, .callback = NULL) {
   method <- 'Debugger.breakpointResolved'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -79,7 +79,7 @@ Debugger.breakpointResolved <- function(promise, breakpointId = NULL, location =
 #' @export
 Debugger.paused <- function(promise, callFrames = NULL, reason = NULL, data = NULL, hitBreakpoints = NULL, asyncStackTrace = NULL, asyncStackTraceId = NULL, asyncCallStackTraceId = NULL, .callback = NULL) {
   method <- 'Debugger.paused'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -111,7 +111,7 @@ Debugger.paused <- function(promise, callFrames = NULL, reason = NULL, data = NU
 #' @export
 Debugger.resumed <- function(promise, .callback = NULL) {
   method <- 'Debugger.resumed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -172,7 +172,7 @@ Debugger.resumed <- function(promise, .callback = NULL) {
 #' @export
 Debugger.scriptFailedToParse <- function(promise, scriptId = NULL, url = NULL, startLine = NULL, startColumn = NULL, endLine = NULL, endColumn = NULL, executionContextId = NULL, hash = NULL, executionContextAuxData = NULL, sourceMapURL = NULL, hasSourceURL = NULL, isModule = NULL, length = NULL, stackTrace = NULL, .callback = NULL) {
   method <- 'Debugger.scriptFailedToParse'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -236,7 +236,7 @@ Debugger.scriptFailedToParse <- function(promise, scriptId = NULL, url = NULL, s
 #' @export
 Debugger.scriptParsed <- function(promise, scriptId = NULL, url = NULL, startLine = NULL, startColumn = NULL, endLine = NULL, endColumn = NULL, executionContextId = NULL, hash = NULL, executionContextAuxData = NULL, isLiveEdit = NULL, sourceMapURL = NULL, hasSourceURL = NULL, isModule = NULL, length = NULL, stackTrace = NULL, .callback = NULL) {
   method <- 'Debugger.scriptParsed'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

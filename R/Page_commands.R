@@ -25,7 +25,7 @@ NULL
 #' @export
 Page.addScriptToEvaluateOnNewDocument <- function(promise, source, worldName = NULL, awaitResult = TRUE) {
   method <- 'Page.addScriptToEvaluateOnNewDocument'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -51,7 +51,7 @@ Page.addScriptToEvaluateOnNewDocument <- function(promise, source, worldName = N
 #' @export
 Page.bringToFront <- function(promise, awaitResult = TRUE) {
   method <- 'Page.bringToFront'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -67,7 +67,7 @@ Page.bringToFront <- function(promise, awaitResult = TRUE) {
 #' @param format Optional. A character string. 
 #'        Image compression format (defaults to png). Accepted values: jpeg, png.
 #' @param quality Optional. An integer. 
-#'        Compression quality from range [0..100] (jpeg only). 
+#'        Compression quality from range `[0..100]` (jpeg only). 
 #' @param clip Optional. A Viewport. 
 #'        Capture the screenshot of a given region only. 
 #' @param fromSurface Experimental. Optional. A logical. 
@@ -85,7 +85,7 @@ Page.bringToFront <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.captureScreenshot <- function(promise, format = NULL, quality = NULL, clip = NULL, fromSurface = NULL, awaitResult = TRUE) {
   method <- 'Page.captureScreenshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -114,7 +114,7 @@ Page.captureScreenshot <- function(promise, format = NULL, quality = NULL, clip 
 #' @export
 Page.captureSnapshot <- function(promise, format = NULL, awaitResult = TRUE) {
   method <- 'Page.captureSnapshot'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -147,7 +147,7 @@ Page.captureSnapshot <- function(promise, format = NULL, awaitResult = TRUE) {
 #' @export
 Page.createIsolatedWorld <- function(promise, frameId, worldName = NULL, grantUniveralAccess = NULL, awaitResult = TRUE) {
   method <- 'Page.createIsolatedWorld'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -173,7 +173,7 @@ Page.createIsolatedWorld <- function(promise, frameId, worldName = NULL, grantUn
 #' @export
 Page.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Page.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -199,7 +199,7 @@ Page.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Page.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -225,7 +225,7 @@ Page.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.getAppManifest <- function(promise, awaitResult = TRUE) {
   method <- 'Page.getAppManifest'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -251,7 +251,7 @@ Page.getAppManifest <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.getFrameTree <- function(promise, awaitResult = TRUE) {
   method <- 'Page.getFrameTree'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -277,7 +277,7 @@ Page.getFrameTree <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.getLayoutMetrics <- function(promise, awaitResult = TRUE) {
   method <- 'Page.getLayoutMetrics'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -303,7 +303,7 @@ Page.getLayoutMetrics <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.getNavigationHistory <- function(promise, awaitResult = TRUE) {
   method <- 'Page.getNavigationHistory'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -333,7 +333,7 @@ Page.getNavigationHistory <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.getResourceContent <- function(promise, frameId, url, awaitResult = TRUE) {
   method <- 'Page.getResourceContent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -359,7 +359,7 @@ Page.getResourceContent <- function(promise, frameId, url, awaitResult = TRUE) {
 #' @export
 Page.getResourceTree <- function(promise, awaitResult = TRUE) {
   method <- 'Page.getResourceTree'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -390,7 +390,7 @@ Page.getResourceTree <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.handleJavaScriptDialog <- function(promise, accept, promptText = NULL, awaitResult = TRUE) {
   method <- 'Page.handleJavaScriptDialog'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -424,7 +424,7 @@ Page.handleJavaScriptDialog <- function(promise, accept, promptText = NULL, awai
 #' @export
 Page.navigate <- function(promise, url, referrer = NULL, transitionType = NULL, frameId = NULL, awaitResult = TRUE) {
   method <- 'Page.navigate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -452,7 +452,7 @@ Page.navigate <- function(promise, url, referrer = NULL, transitionType = NULL, 
 #' @export
 Page.navigateToHistoryEntry <- function(promise, entryId, awaitResult = TRUE) {
   method <- 'Page.navigateToHistoryEntry'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -519,7 +519,7 @@ Page.navigateToHistoryEntry <- function(promise, entryId, awaitResult = TRUE) {
 #' @export
 Page.printToPDF <- function(promise, landscape = NULL, displayHeaderFooter = NULL, printBackground = NULL, scale = NULL, paperWidth = NULL, paperHeight = NULL, marginTop = NULL, marginBottom = NULL, marginLeft = NULL, marginRight = NULL, pageRanges = NULL, ignoreInvalidPageRanges = NULL, headerTemplate = NULL, footerTemplate = NULL, preferCSSPageSize = NULL, awaitResult = TRUE) {
   method <- 'Page.printToPDF'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -550,7 +550,7 @@ Page.printToPDF <- function(promise, landscape = NULL, displayHeaderFooter = NUL
 #' @export
 Page.reload <- function(promise, ignoreCache = NULL, scriptToEvaluateOnLoad = NULL, awaitResult = TRUE) {
   method <- 'Page.reload'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -577,7 +577,7 @@ Page.reload <- function(promise, ignoreCache = NULL, scriptToEvaluateOnLoad = NU
 #' @export
 Page.removeScriptToEvaluateOnNewDocument <- function(promise, identifier, awaitResult = TRUE) {
   method <- 'Page.removeScriptToEvaluateOnNewDocument'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -603,7 +603,7 @@ Page.removeScriptToEvaluateOnNewDocument <- function(promise, identifier, awaitR
 #' @export
 Page.requestAppBanner <- function(promise, awaitResult = TRUE) {
   method <- 'Page.requestAppBanner'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -631,7 +631,7 @@ Page.requestAppBanner <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.screencastFrameAck <- function(promise, sessionId, awaitResult = TRUE) {
   method <- 'Page.screencastFrameAck'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -667,7 +667,7 @@ Page.screencastFrameAck <- function(promise, sessionId, awaitResult = TRUE) {
 #' @export
 Page.searchInResource <- function(promise, frameId, url, query, caseSensitive = NULL, isRegex = NULL, awaitResult = TRUE) {
   method <- 'Page.searchInResource'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -695,7 +695,7 @@ Page.searchInResource <- function(promise, frameId, url, query, caseSensitive = 
 #' @export
 Page.setAdBlockingEnabled <- function(promise, enabled, awaitResult = TRUE) {
   method <- 'Page.setAdBlockingEnabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -723,7 +723,7 @@ Page.setAdBlockingEnabled <- function(promise, enabled, awaitResult = TRUE) {
 #' @export
 Page.setBypassCSP <- function(promise, enabled, awaitResult = TRUE) {
   method <- 'Page.setBypassCSP'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -751,7 +751,7 @@ Page.setBypassCSP <- function(promise, enabled, awaitResult = TRUE) {
 #' @export
 Page.setFontFamilies <- function(promise, fontFamilies, awaitResult = TRUE) {
   method <- 'Page.setFontFamilies'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -779,7 +779,7 @@ Page.setFontFamilies <- function(promise, fontFamilies, awaitResult = TRUE) {
 #' @export
 Page.setFontSizes <- function(promise, fontSizes, awaitResult = TRUE) {
   method <- 'Page.setFontSizes'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -809,7 +809,7 @@ Page.setFontSizes <- function(promise, fontSizes, awaitResult = TRUE) {
 #' @export
 Page.setDocumentContent <- function(promise, frameId, html, awaitResult = TRUE) {
   method <- 'Page.setDocumentContent'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -840,7 +840,7 @@ Page.setDocumentContent <- function(promise, frameId, html, awaitResult = TRUE) 
 #' @export
 Page.setDownloadBehavior <- function(promise, behavior, downloadPath = NULL, awaitResult = TRUE) {
   method <- 'Page.setDownloadBehavior'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -868,7 +868,7 @@ Page.setDownloadBehavior <- function(promise, behavior, downloadPath = NULL, awa
 #' @export
 Page.setLifecycleEventsEnabled <- function(promise, enabled, awaitResult = TRUE) {
   method <- 'Page.setLifecycleEventsEnabled'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -884,7 +884,7 @@ Page.setLifecycleEventsEnabled <- function(promise, enabled, awaitResult = TRUE)
 #' @param format Optional. A character string. 
 #'        Image compression format. Accepted values: jpeg, png.
 #' @param quality Optional. An integer. 
-#'        Compression quality from range [0..100]. 
+#'        Compression quality from range `[0..100]`. 
 #' @param maxWidth Optional. An integer. 
 #'        Maximum screenshot width. 
 #' @param maxHeight Optional. An integer. 
@@ -904,7 +904,7 @@ Page.setLifecycleEventsEnabled <- function(promise, enabled, awaitResult = TRUE)
 #' @export
 Page.startScreencast <- function(promise, format = NULL, quality = NULL, maxWidth = NULL, maxHeight = NULL, everyNthFrame = NULL, awaitResult = TRUE) {
   method <- 'Page.startScreencast'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -930,7 +930,7 @@ Page.startScreencast <- function(promise, format = NULL, quality = NULL, maxWidt
 #' @export
 Page.stopLoading <- function(promise, awaitResult = TRUE) {
   method <- 'Page.stopLoading'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -956,7 +956,7 @@ Page.stopLoading <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.crash <- function(promise, awaitResult = TRUE) {
   method <- 'Page.crash'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -982,7 +982,7 @@ Page.crash <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.close <- function(promise, awaitResult = TRUE) {
   method <- 'Page.close'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1012,7 +1012,7 @@ Page.close <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.setWebLifecycleState <- function(promise, state, awaitResult = TRUE) {
   method <- 'Page.setWebLifecycleState'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1038,7 +1038,7 @@ Page.setWebLifecycleState <- function(promise, state, awaitResult = TRUE) {
 #' @export
 Page.stopScreencast <- function(promise, awaitResult = TRUE) {
   method <- 'Page.stopScreencast'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1065,7 +1065,7 @@ Page.stopScreencast <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.setProduceCompilationCache <- function(promise, enabled, awaitResult = TRUE) {
   method <- 'Page.setProduceCompilationCache'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1095,7 +1095,7 @@ Page.setProduceCompilationCache <- function(promise, enabled, awaitResult = TRUE
 #' @export
 Page.addCompilationCache <- function(promise, url, data, awaitResult = TRUE) {
   method <- 'Page.addCompilationCache'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1121,7 +1121,7 @@ Page.addCompilationCache <- function(promise, url, data, awaitResult = TRUE) {
 #' @export
 Page.clearCompilationCache <- function(promise, awaitResult = TRUE) {
   method <- 'Page.clearCompilationCache'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -1151,7 +1151,7 @@ Page.clearCompilationCache <- function(promise, awaitResult = TRUE) {
 #' @export
 Page.generateTestReport <- function(promise, message, group = NULL, awaitResult = TRUE) {
   method <- 'Page.generateTestReport'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL

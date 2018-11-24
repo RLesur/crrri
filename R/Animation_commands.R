@@ -20,7 +20,7 @@ NULL
 #' @export
 Animation.disable <- function(promise, awaitResult = TRUE) {
   method <- 'Animation.disable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -46,7 +46,7 @@ Animation.disable <- function(promise, awaitResult = TRUE) {
 #' @export
 Animation.enable <- function(promise, awaitResult = TRUE) {
   method <- 'Animation.enable'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -74,7 +74,7 @@ Animation.enable <- function(promise, awaitResult = TRUE) {
 #' @export
 Animation.getCurrentTime <- function(promise, id, awaitResult = TRUE) {
   method <- 'Animation.getCurrentTime'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -100,7 +100,7 @@ Animation.getCurrentTime <- function(promise, id, awaitResult = TRUE) {
 #' @export
 Animation.getPlaybackRate <- function(promise, awaitResult = TRUE) {
   method <- 'Animation.getPlaybackRate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -128,7 +128,7 @@ Animation.getPlaybackRate <- function(promise, awaitResult = TRUE) {
 #' @export
 Animation.releaseAnimations <- function(promise, animations, awaitResult = TRUE) {
   method <- 'Animation.releaseAnimations'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -156,7 +156,7 @@ Animation.releaseAnimations <- function(promise, animations, awaitResult = TRUE)
 #' @export
 Animation.resolveAnimation <- function(promise, animationId, awaitResult = TRUE) {
   method <- 'Animation.resolveAnimation'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -186,7 +186,7 @@ Animation.resolveAnimation <- function(promise, animationId, awaitResult = TRUE)
 #' @export
 Animation.seekAnimations <- function(promise, animations, currentTime, awaitResult = TRUE) {
   method <- 'Animation.seekAnimations'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -216,7 +216,7 @@ Animation.seekAnimations <- function(promise, animations, currentTime, awaitResu
 #' @export
 Animation.setPaused <- function(promise, animations, paused, awaitResult = TRUE) {
   method <- 'Animation.setPaused'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -244,7 +244,7 @@ Animation.setPaused <- function(promise, animations, paused, awaitResult = TRUE)
 #' @export
 Animation.setPlaybackRate <- function(promise, playbackRate, awaitResult = TRUE) {
   method <- 'Animation.setPlaybackRate'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
@@ -276,7 +276,7 @@ Animation.setPlaybackRate <- function(promise, playbackRate, awaitResult = TRUE)
 #' @export
 Animation.setTiming <- function(promise, animationId, duration, delay, awaitResult = TRUE) {
   method <- 'Animation.setTiming'
-  args <- head(rlang::fn_fmls_names(), -1)
+  args <- utils::head(rlang::fn_fmls_names(), -1)
   args <- args[!sapply(mget(args), is.null)]
   params <- mget(args)
   params <- if (length(params) > 1) params[2:length(params)] else NULL
