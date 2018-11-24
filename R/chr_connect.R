@@ -84,7 +84,7 @@ chr_connect <- function(
   }
 
   if (isTRUE(auto_connect) & !is.null(ws)) {
-    cat("Connecting R to Chrome...\n")
+    "!DEBUG Connecting R to Chrome..."
     ws$connect()
   }
 
@@ -133,8 +133,7 @@ chr_launch <- function(
     extra_args
   ))
 
-  cat("Trying to launch Chrome", if (headless) " in headless mode", "...\n", sep = "")
-
+  "!DEBUG Trying to launch Chrome `if (headless) 'in headless mode'` ..."
   chr_process <-
     tryCatch(processx::process$new(bin, chrome_args, echo_cmd = TRUE),
              error = function(e) NULL
@@ -145,12 +144,10 @@ chr_launch <- function(
                   function(process) chr_close(process, work_dir),
                   onexit = TRUE
     )
-    cat("Chrome succesfully launched", if (headless) " in headless mode", ".\n",
-        "It should be accessible at http://localhost:", debug_port, "\n",
-        sep = ""
-    )
+  "!DEBUG Chrome succesfully launched `if (headless) 'in headless mode'`."
+  "!DEBUG It should be accessible at http://localhost:`debug_port`"
   } else {
-    cat("Cannot launch Chrome. Please check your system configuration.\n")
+  "!DEBUG Cannot launch Chrome. Please check your system configuration."
   }
 
   chr_process # NULL if fails
@@ -226,26 +223,21 @@ is_chrome_reachable <- function(port, retry_delay = 0.2, max_attempts = 15L) {
   }
 
   succeeded <- FALSE
-  cat("Trying to find", url, "\n")
+  "!DEBUG Trying to find `url`"
   for (i in 1:max_attempts) {
-    cat(i, "...", sep = "")
+    "!DEBUG attempt `i`..."
     succeeded <- chrome_reached()
     if (isTRUE(succeeded)) break
     Sys.sleep(retry_delay)
   }
 
-  if (isTRUE(succeeded))
-    cat("", url, "found.\n")
-  else
-    cat("\n...cannot find", url, "\n")
-
+  "!DEBUG `if(succeeded) paste(url, 'found') else paste('...cannot find', url)`"
   succeeded
 }
 
 # Step 3: retrieve the websocket address ----------------------------------
 chr_get_ws_addr <- function(debug_port) {
-  cat("Retrieving Chrome websocket entrypoint at http://localhost:", debug_port, "/json ...\n", sep = "")
-
+  "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`debug_port`/json ..."
   open_debuggers <- tryCatch(
     jsonlite::read_json(sprintf("http://localhost:%s/json", debug_port), simplifyVector = TRUE),
     error = function(e) list()
@@ -253,46 +245,46 @@ chr_get_ws_addr <- function(debug_port) {
 
   address <- open_debuggers$webSocketDebuggerUrl[open_debuggers$type == "page"]
   if (is.null(address))
-    cat("...websocket entrypoint unavailable.\n")
+    "!DEBUG ...websocket entrypoint unavailable."
   else
-    cat("...found websocket entrypoint", address, "\n")
+    "!DEBUG ...found websocket entrypoint `address`"
 
   address # NULL when fails
 }
 
 # Step 4: configure the websocket connexion -------------------------------
 ws_configure <- function(ws_endpoint, chr_process, work_dir) {
-  cat("Configuring the websocket connexion...\n")
+  "!DEBUG Configuring the websocket connexion..."
   ws <- tryCatch(DevToolsConnexion$new(ws_endpoint, autoConnect = FALSE),
                  error = function(e) NULL)
 
   if(is.null(ws)) {
-    cat("...failed to configure the websocket connexion.\n")
+    "!DEBUG ...failed to configure the websocket connexion."
     return(NULL)
   }
 
   ws$onOpen(function(event) {
-    cat("...R succesfully connected to headless Chrome through DevTools Protocol.\n")
+    "!DEBUG ...R succesfully connected to headless Chrome through DevTools Protocol."
   })
 
   ws$onMessage(function(event) {
+    "!DEBUG Got message from Chrome: `event$data`"
     data <- jsonlite::fromJSON(event$data)
-    cat("Got message from Chrome:", event$data, "\n")
   })
 
   ws$onClose(function(event) {
-    cat("R disconnected from headless Chrome with code ", event$code,
-        " and reason ", event$reason, ".\n", sep = "")
+    "!DEBUG R disconnected from headless Chrome with code `event$code`"
+    "!DEBUG and reason `event$reason`."
     later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
   })
 
   ws$onError(function(event) {
-    cat("Client failed to connect: ", event$message, ".", "\n", sep = "")
+    "!DEBUG Client failed to connect: `event$message`."
     later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
   })
 
   reg.finalizer(ws, function(ws) {ws$close()})
-  cat("...websocket connexion configured.\n")
+  "!DEBUG ...websocket connexion configured."
   ws
 }
 
@@ -300,12 +292,13 @@ chr_close <- function(chr_process, work_dir) {
   killed <- !chr_process$is_alive()
 
   if (!killed) {
-    cat("Closing headless Chrome...\n")
+    "!DEBUG Closing headless Chrome..."
     chr_process$kill()
     if (chr_process$is_alive())
+      "!DEBUG Cannot close headless Chrome."
       stop("Cannot close headless Chrome.\n")
     else
-      cat("...headless Chrome closed.\n")
+      "!DEBUG ...headless Chrome closed."
   }
 
   cleaned <- later::later(~chr_clean_work_dir(work_dir), 0.2)
@@ -317,13 +310,14 @@ chr_clean_work_dir <- function(work_dir) {
   cleaned <- !dir.exists(work_dir)
 
   if (!cleaned) {
-    cat("Cleaning Chrome working directory...\n")
+    "!DEBUG Cleaning Chrome working directory..."
     result <- unlink(work_dir, recursive = TRUE, force = TRUE)
     cleaned <- result == 0
 
     if (cleaned)
-      cat("...Chrome working directory succesfully deleted.\n")
+      "!DEBUG ...Chrome working directory succesfully deleted."
     else
+      "!DEBUG ...cannot supress the Chrome working directory: `work_dir` \nPlease remove it manually."
       stop("...cannot supress the Chrome working directory: ", work_dir,
           "\nPlease remove it manually.\n",
           sep = ""
