@@ -183,6 +183,27 @@ dumpDOM(url = "http://www.ardata.fr/blog/")
 
 You can find many other examples in the [wiki](https://github.com/cyrus-and/chrome-remote-interface/wiki) of the `chrome-remote-interface` module.
 
+## Development
+
+### Logging Messages
+
+In `crrri`, there are two types of messages: 
+
+- Those sent during connexion/deconnexion (mainly for crrri debugging) 
+- Those tracking the exchanges between the R websocket client and the remote
+websocket server. These lasts are essential for R devs to develop higher levels
+packages, either during the development process and for debugging purposes.
+
+`crrri` uses [`debugme`](https://github.com/r-lib/debugme) for printing those
+messages. It is disable by default and you won't see any messages - as a user we
+think it is fine. However, if you are a developer, you would expect some
+information on what is going on.
+
+You need to add `"crrri"` to the `DEBUGME` environment variable before loading
+the package to activate the messaging feature. Currently in `crrri` there is
+only one level of message.Also, `debugme` is a Suggested dependency and you may
+need to install it manually if not already installed.
+
 ## Credits
 
 Miles McBain for `chradle`.

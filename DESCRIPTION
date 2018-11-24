@@ -26,12 +26,14 @@ Imports:
     stringi,
     utils,
     websocket
+Suggests: 
+    debugme
 Remotes:
     rstudio/websocket
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Collate: 
     'send.R'
     'Accessibility_commands.R'
@@ -106,3 +108,4 @@ Collate:
     'chr_connect.R'
     'utils-pipe.R'
     'wait.R'
+    'zzz.R'
