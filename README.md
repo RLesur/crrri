@@ -237,7 +237,9 @@ would expect some information on what is going on.
 
 You need to add `"crrri"` to the `DEBUGME` environment variable before
 loading the package to activate the messaging feature. Currently in
-`crrri` there is only one level of message.
+`crrri` there is only one level of message.Also, `debugme` is a
+Suggested dependency and you may need to install it manually if not
+already installed.
 
 ## Credits
 

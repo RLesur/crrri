@@ -294,11 +294,12 @@ chr_close <- function(chr_process, work_dir) {
   if (!killed) {
     "!DEBUG Closing headless Chrome..."
     chr_process$kill()
-    if (chr_process$is_alive())
+    if (chr_process$is_alive()) {
       "!DEBUG Cannot close headless Chrome."
       stop("Cannot close headless Chrome.\n")
-    else
+    } else {
       "!DEBUG ...headless Chrome closed."
+    }
   }
 
   cleaned <- later::later(~chr_clean_work_dir(work_dir), 0.2)

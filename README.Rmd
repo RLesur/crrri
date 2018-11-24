@@ -187,7 +187,6 @@ You can find many other examples in the [wiki](https://github.com/cyrus-and/chro
 
 ### Logging Messages
 
-
 In `crrri`, there are two types of messages: 
 
 - Those sent during connexion/deconnexion (mainly for crrri debugging) 
@@ -202,7 +201,8 @@ information on what is going on.
 
 You need to add `"crrri"` to the `DEBUGME` environment variable before loading
 the package to activate the messaging feature. Currently in `crrri` there is
-only one level of message. 
+only one level of message.Also, `debugme` is a Suggested dependency and you may
+need to install it manually if not already installed.
 
 ## Credits
 
