@@ -92,8 +92,9 @@ chr_connect <- function(
 }
 
 chr_new_data_dir <- function(length = 8, slug = "chrome-data-dir-") {
+  user_data_dir <- rappdirs::user_data_dir(appname = "r-crri")
   random_string <- paste(sample(letters, size = length, replace = TRUE), collapse = "")
-  paste0(slug, random_string)
+  normalizePath(file.path(user_data_dir, paste0(slug, random_string)), mustWork = FALSE)
 }
 
 #' Disconnect R from a Chrome instance and close it

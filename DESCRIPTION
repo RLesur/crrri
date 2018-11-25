@@ -25,7 +25,8 @@ Imports:
     R6,
     stringi,
     utils,
-    websocket
+    websocket,
+    rappdirs
 Suggests: 
     debugme
 Remotes:
