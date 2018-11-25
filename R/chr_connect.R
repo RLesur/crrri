@@ -316,14 +316,15 @@ chr_clean_work_dir <- function(work_dir) {
     result <- unlink(work_dir, recursive = TRUE, force = TRUE)
     cleaned <- result == 0
 
-    if (cleaned)
+    if (cleaned) {
       "!DEBUG ...Chrome working directory succesfully deleted."
-    else
+    } else {
       "!DEBUG ...cannot supress the Chrome working directory: `work_dir` \nPlease remove it manually."
       stop("...cannot supress the Chrome working directory: ", work_dir,
-          "\nPlease remove it manually.\n",
-          sep = ""
+           "\nPlease remove it manually.\n",
+           sep = ""
       )
+    }
   }
 
   invisible(cleaned)
