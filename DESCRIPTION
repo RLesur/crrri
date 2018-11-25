@@ -23,7 +23,6 @@ Imports:
     purrr,
     rlang,
     R6,
-    stringi,
     utils,
     websocket,
     rappdirs

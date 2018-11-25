@@ -178,8 +178,8 @@ chr_proxy_args <- function(proxy) {
 
 get_no_proxy_urls <- function() {
   env_var <- Sys.getenv(c("no_proxy", "NO_PROXY"))
-  urls <- do.call(c, stringi::stri_split_fixed(env_var, ";"))
-  urls <- c(default_no_proxy_urls(), urls)
+  urls <- do.call(c, strsplit(env_var, "[,;]"))
+  urls <- c(default_no_proxy_urls(), unname(urls))
   unique(urls)
 }
 
