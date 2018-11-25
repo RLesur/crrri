@@ -21,7 +21,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
           }
         )
         newCallback <- function(value) {
-          cat(sprintf("A response to the command #%i-%s was received.\n", id, method))
+          "!DEBUG A response to the command #`id`-`method` was received."
           private$response <- value$result
           return(callback(value))
         }
@@ -29,7 +29,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
       }
 
       super$send(msg)
-      cat(sprintf("Command #%i-%s sent.\n", id, method))
+      "!DEBUG Command #`id`-`method` sent."
       invisible(self)
     },
 
@@ -76,7 +76,7 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
 
         if (is.null(.id)) {
           private$response <- message$params
-          cat('Event"', method, '" received.\n')
+          '!DEBUG Event "`method`" received.'
         }
 
         if (isTRUE(once))
@@ -105,13 +105,13 @@ DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
         }
       })
 
-      if (is.null(.id))
-        cat('Now listening for the event "', method, '"',
-            if (!is.null(params)) paste0(" with parameters ",
-                                         paste(names(params), '="', params, '"', sep = '', collapse = ", ")),
-            ".\n", sep = ""
-        )
-
+      if (is.null(.id)) {
+        with_params <- ""
+        if (!is.null(params)) {
+          with_params <- sprintf(" with parameters %s = \"%s\"", names(params), params)
+        }
+        '!DEBUG Now listening for the event "`method`" `with_params`'
+      }
       if (isTRUE(once)) {
         return(invisible(self))
       } else {
