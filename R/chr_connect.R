@@ -92,7 +92,7 @@ chr_connect <- function(
 }
 
 chr_new_data_dir <- function(length = 8, slug = "chrome-data-dir-") {
-  user_data_dir <- rappdirs::user_data_dir(appname = "r-crri")
+  user_data_dir <- rappdirs::user_data_dir(appname = "r-crrri")
   random_string <- paste(sample(letters, size = length, replace = TRUE), collapse = "")
   normalizePath(file.path(user_data_dir, paste0(slug, random_string)), mustWork = FALSE)
 }
