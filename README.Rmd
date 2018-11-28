@@ -8,6 +8,7 @@ output: github_document
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  eval = FALSE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
@@ -36,7 +37,7 @@ You only need a recent version of Chromium or Chrome: a standalone version works
 
 You can install the development version of `crrri` from GitHub with:
 
-``` r
+```{r}
 remotes::install_github('rlesur/crrri')
 ```
 
@@ -46,7 +47,7 @@ remotes::install_github('rlesur/crrri')
 
 Assuming that you have configured the `HEADLESS_CHROME` environment (see before), here is an example that produces a PDF of the [R Project website](https://www.r-project.org/) (please, do not re-use this example in production because it is absolutely not reliable): 
 
-``` r
+```{r}
 library(promises)
 library(crrri)
 library(jsonlite)
@@ -69,7 +70,7 @@ All the functions of the `crrri` package (commands and event listeners) are buil
 
 For instance, you can write a `saveAsPDF` function with a timeout (the `crrri::timeout()` function returns a promise that is rejected after a delay) as follow:
 
-``` r
+```{r}
 saveUrlAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/"), delay = 30) {
   promise_race(
     timeout(delay),
@@ -86,7 +87,7 @@ saveUrlAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/
 
 Now, you can implement a dot argument (PDF will be generated sequentially because Chrome cannot create multiple PDF at the same time):
 
-``` r
+```{r}
 saveAsPDF <- function(...) {
   chrome <- chr_connect()
   purrr::reduce(list(...), saveUrlAsPDF, .init = chrome) %>%
@@ -98,7 +99,7 @@ saveAsPDF <- function(...) {
 
 You have created a `saveAsPDF(...)` function that can handle multiple URLs:
 
-``` r
+```{r}
 saveAsPDF(c(r_project = "https://www.r-project.org/"),
           c(rstudio = "https://rstudio.com/"),
           c(ropensci = "https://ropensci.org/")
@@ -111,7 +112,7 @@ With `crrri`, you should be able to transpose with minimal efforts some JS scrip
 
 For instance, take [this JS script](https://github.com/cyrus-and/chrome-remote-interface/wiki/Dump-HTML-after-page-load) that dumps the DOM:
 
-``` js
+```js
 const CDP = require('chrome-remote-interface');
 
 CDP(async(client) => {
@@ -139,7 +140,7 @@ CDP(async(client) => {
 
 Using `crrri`, you can write:
 
-``` r
+```{r}
 library(promises)
 library(crrri)
 
@@ -161,7 +162,7 @@ chrome %>%
 
 If you want to write a higher level function that dump the DOM, you can embed this script in a function. **Remind you to handle infinite pending promise** (with a timeout for instance) and rejected promises:
 
-``` r
+```{r}
 dumpDOM <- function(url, delay = 30) {
   chrome <- chr_connect()
   promise_race(
@@ -184,7 +185,7 @@ dumpDOM <- function(url, delay = 30) {
 
 Now, you can use it for dumping [David Gohel](https://github.com/davidgohel)'s [blog](http://www.ardata.fr/blog/):
 
-``` r
+```{r}
 dumpDOM(url = "http://www.ardata.fr/blog/")
 ```
 
