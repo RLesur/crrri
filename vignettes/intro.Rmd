@@ -17,4 +17,56 @@ knitr::opts_chunk$set(
 )
 ```
 
+This vignettes will show how to reproduce a blog post called [Google Puppeteer
+tutorial : 12 examples to play
+with](https://www.aymen-loukil.com/en/blog-en/google-puppeteer-tutorial-with-examples/)
+
+To work with crri, you need to load it. We also have set up beforehand `Sys.getenv("CHROME_BIN")` to a chrome binary on our system.
+
+```{r}
+library(crrri)
+```
+
+# 0. Take a screeshot
+
+From: https://jonathanmh.com/taking-full-page-screenshots-headless-chrome/
+
+
+```{r}
+library(promises)
+targetUrl <- "https://cran.rstudio.com"
+viewport <- c(1440, 900)
+screenshotDelay <- 2000 # ms
+
+chrome_con <- chr_connect()
+chrome_con %>%
+  # Enable Events on Domains
+  Page.enable() %>%
+  DOM.enable() %>%
+  Network.enable() %>%
+  Emulation.setDeviceMetricsOverride(
+    width = viewport[1],
+    height = viewport[2],
+    deviceScaleFactor = 0,
+    mobile = FALSE,
+    dontSetVisibleSize = FALSE
+  ) %>%
+  Page.navigate(targetUrl) %>%
+  Page.loadEventFired() %>%
+  # promise_race(
+  #   timeout(screenshotDelay),
+  #   . %>%
+  Page.captureScreenshot(format = "png", fromSurface = TRUE) %...T>% {
+    .$result$data %>% jsonlite::base64_dec() %>% writeBin("test.png")
+  } %>%
+  finally(~ chr_disconnect(chrome_con)) %...!% {
+    cat("Global error\n", .$message)
+  }
+```
+
+
+# 1.Visit a website :
+
+```{r}
+```
 
