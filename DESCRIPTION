@@ -27,7 +27,9 @@ Imports:
     websocket,
     rappdirs
 Suggests: 
-    debugme
+    debugme,
+    knitr,
+    rmarkdown
 Remotes:
     rstudio/websocket
 Encoding: UTF-8
@@ -109,3 +111,4 @@ Collate:
     'utils-pipe.R'
     'wait.R'
     'zzz.R'
+VignetteBuilder: knitr
