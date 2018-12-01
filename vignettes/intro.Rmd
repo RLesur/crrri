@@ -36,9 +36,10 @@ From: https://jonathanmh.com/taking-full-page-screenshots-headless-chrome/
 library(promises)
 targetUrl <- "https://cran.rstudio.com"
 viewport <- c(1440, 900)
-screenshotDelay <- 2000 # ms
+screenshotDelay <- 2 # seconds
 
 chrome_con <- chr_connect()
+
 chrome_con %>%
   # Enable Events on Domains
   Page.enable() %>%
@@ -51,17 +52,25 @@ chrome_con %>%
     mobile = FALSE,
     dontSetVisibleSize = FALSE
   ) %>%
+  # Go to url
   Page.navigate(targetUrl) %>%
   Page.loadEventFired() %>%
-  # promise_race(
-  #   timeout(screenshotDelay),
-  #   . %>%
-  Page.captureScreenshot(format = "png", fromSurface = TRUE) %...T>% {
+  # add a delay 
+  wait(delay = screenshotDelay) %>%
+  # Capture screenshot
+  Page.captureScreenshot(format = "png", fromSurface = TRUE) %...T>% 
+  {
     .$result$data %>% jsonlite::base64_dec() %>% writeBin("test.png")
   } %>%
+  # Close the chrome connextion
   finally(~ chr_disconnect(chrome_con)) %...!% {
     cat("Global error\n", .$message)
   }
+```
+
+```{r}
+magick::image_read("../test.png") %>%
+  magick::image_scale("400")
 ```
 
 
