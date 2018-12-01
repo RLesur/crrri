@@ -1,10 +1,10 @@
 ---
-title: " 12 examples to play with"
+title: "How crrri can be used"
 author: "C. Dervieux"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{12 examples to play with}
+  %\VignetteIndexEntry{How crrri can be used}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,23 +17,31 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignettes will show how to reproduce a blog post called [Google Puppeteer
-tutorial : 12 examples to play
-with](https://www.aymen-loukil.com/en/blog-en/google-puppeteer-tutorial-with-examples/)
+This vignette aims to show several examples of usage fro `crrri`
 
-To work with crri, you need to load it. We also have set up beforehand `Sys.getenv("CHROME_BIN")` to a chrome binary on our system.
+All the examples are inspired from example for _chrome remote interface_ or _puppeteer_ and show how to reproduce those using `crrri`
+
+# Setup
+
+To work with crrri, you need to load it. We also have set up beforehand `Sys.getenv("CHROME_BIN")` to a chrome binary on our system. If you don't, you'll need to provide the path to a chrome binary in `chr_connect`.
+
+We need to load `crrri` and also `promises` to have the tools to deals with
+_promises_ that `crrri` is based on.
 
 ```{r}
 library(crrri)
+library(promises)
 ```
 
-# 0. Take a screeshot
 
-From: https://jonathanmh.com/taking-full-page-screenshots-headless-chrome/
+# Example 1. Take a screenshot
+
+Inspired from this
+[post](https://jonathanmh.com/taking-full-page-screenshots-headless-chrome/) and
+use _chrome remote interface_
 
 
-```{r}
-library(promises)
+```{r chome-snapshot}
 targetUrl <- "https://cran.rstudio.com"
 viewport <- c(1440, 900)
 screenshotDelay <- 2 # seconds
@@ -60,7 +68,7 @@ chrome_con %>%
   # Capture screenshot
   Page.captureScreenshot(format = "png", fromSurface = TRUE) %...T>% 
   {
-    .$result$data %>% jsonlite::base64_dec() %>% writeBin("test.png")
+    .$result$data %>% jsonlite::base64_dec() %>% writeBin("example1-snapshot.png")
   } %>%
   # Close the chrome connextion
   finally(~ chr_disconnect(chrome_con)) %...!% {
@@ -68,14 +76,60 @@ chrome_con %>%
   }
 ```
 
-```{r}
-magick::image_read("../test.png") %>%
-  magick::image_scale("400")
+```{r, echo = FALSE}
+# execute manually to cache the result
+if (file.exists("../example1-snapshot.png")) {
+  file.copy("../example1-snapshot.png", ".", overwrite = TRUE)
+  unlink("../example1-snapshot.png")
+}
 ```
 
 
-# 1.Visit a website :
 
-```{r}
+The snapshot is written to disk and look like this:
+```{r, eval = TRUE, echo = FALSE}
+img <- magick::image_read("example1-snapshot.png")
+magick::image_scale(img, "400")
 ```
 
+
+# Example 2. dump HTML after page load :
+
+Inspired from this [JS script](https://github.com/cyrus-and/chrome-remote-interface/wiki/Dump-HTML-after-page-load) for _chrome remote interface_ wiki that dumps the DOM.
+
+```{r}
+chrome <- chr_connect()
+
+chrome %>%
+  Network.enable() %>%
+  Page.enable() %>%
+  Network.setCacheDisabled(cacheDisabled = TRUE) %>%
+  Page.navigate(url = "https://github.com", awaitResult = FALSE) %>% # because the following event listener does not use this result, it is safer to use awaitResult = FALSE
+  Page.loadEventFired() %>%
+  Runtime.evaluate(expression = 'document.documentElement.outerHTML') %...>% {
+   cat(.$result$result$value, "\n", file = "dumpDOM.html") 
+  } %>%
+  # Close the connexion when finish
+  finally(~ chr_disconnect(chrome)) %...!% {
+    cat(.$message)
+  }
+```
+
+```{r, echo = FALSE}
+# execute manually to cache the result
+if (file.exists("../dumpDOM.html")) {
+  file.copy("../dumpDOM.html", ".", overwrite = TRUE)
+  unlink("../dumpDOM.html")
+}
+```
+
+Here is the first 20 lines of what we get in `dumDOM.html`
+
+```{r, eval = TRUE, echo = FALSE, results='asis'}
+cat(paste0(
+  c("```html", readLines("dumpDOM.html", n = 20), "```"), 
+  collapse = "\n"
+))
+```
+
+This could be useful to parse html with `rvest` after a page is loaded. 
