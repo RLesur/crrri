@@ -91,8 +91,8 @@ EventEmitter <- R6::R6Class(
       new_callback <- function(...) {
         # unregister callback before calling
         remove_callback()
-        callback(...)
         self$emit("removeListener", eventName, callback)
+        callback(...)
       }
       remove_callback <- private$callbacks[[eventName]]$register(new_callback)
     },
