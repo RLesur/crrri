@@ -25,6 +25,15 @@
 #' # nothing happens as there is no more listener
 #' myEmitter$emit('uniqueevent')
 #' }
+#'
+#' # an error in one listener will throws an error in R
+#' myEmitter$on("eventwitherror", function(...) stop("An error in an event"))
+#' # throws an error
+#' myEmitter$emit("eventwitherror")
+#' # you can catch an error with a special "error" event that always
+#' # be emits when an error occured inside an eventEmitters
+#' myEmitter$on("error", function(e) cat("an error occured:\n", e, "\n"))
+#' myEmitter$emit("eventwitherror")
 NULL
 
 
