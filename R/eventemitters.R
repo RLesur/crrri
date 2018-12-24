@@ -34,6 +34,21 @@
 #' # be emits when an error occured inside an eventEmitters
 #' myEmitter$on("error", function(e) cat("an error occured:\n", e, "\n"))
 #' myEmitter$emit("eventwitherror")
+#'
+#' # As in node.js class, a newListener event is emitted before each new event registration.
+#' # newListener expect a function with eventName and callback argument
+#' myEmitter <- EventEmitter$new()
+#' # use once here to avoir infinite recursion#'
+#' myEmitter$once("newListener", function(eventName, callback) {
+#'    if(eventName == "event") {
+#'       myEmitter$on("event", function(...) cat("B"))
+#'    }
+#' })
+#' myEmitter$on("event", function(...) cat("A"))
+#' myEmitter$emit("event") # BA
+#' # newListener has been unregistered and is no more called
+#' myEmitter$on("event", function(...) cat("C"))
+#' myEmitter$emit("event") # BAC
 NULL
 
 
