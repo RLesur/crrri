@@ -143,8 +143,7 @@ Callbacks <- R6::R6Class(
       callbacks <- mget(keys, private$.callbacks)
 
       for (callback in callbacks) {
-        res <- callback(...)
-        cat(res)
+        callback(...)
       }
     },
     count = function() {
