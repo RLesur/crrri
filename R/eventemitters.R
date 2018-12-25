@@ -65,6 +65,7 @@ EventEmitter <- R6::R6Class(
       callbacks <- private$callbacks[[eventName]]
       "!DEBUG emit: number of callbacks : `length(callbacks)`"
       if (eventName == "error" && length(callbacks) == 0) {
+        # throw error if no event named 'error'
         stop(...)
       }
       if (length(callbacks) > 0) {
@@ -78,6 +79,7 @@ EventEmitter <- R6::R6Class(
     on = function(eventName, callback) {
       "!DEBUG on: register event `eventName`"
       callbacks <- private$callbacks[[eventName]]
+      # if no event eventName has been registered
       if (length(callbacks) == 0) {
         private$callbacks[[eventName]] <- Callbacks$new()
       }
@@ -111,7 +113,7 @@ EventEmitter <- R6::R6Class(
 )
 
 # from rstudio/websocket
-# https://github.com/rstudio/websocket/blame/master/R/websocket.R
+# https://github.com/rstudio/websocket/blob/master/R/websocket.R
 Callbacks <- R6::R6Class(
   "Callbacks",
   private = list(
@@ -140,8 +142,9 @@ Callbacks <- R6::R6Class(
     invoke = function(...) {
       # Ensure that calls are invoked in the order that they were registered
       keys <- as.character(sort(as.integer(ls(private$.callbacks)), decreasing = TRUE))
+      "!DEBUG invoke: keys = `keys`"
       callbacks <- mget(keys, private$.callbacks)
-
+      "!DEBUG invoke: callback = `length(callbacks)`"
       for (callback in callbacks) {
         callback(...)
       }
