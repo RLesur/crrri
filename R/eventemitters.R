@@ -61,7 +61,9 @@ EventEmitter <- R6::R6Class(
   ),
   public = list(
     emit = function(eventName, ...) {
+      "!DEBUG emit: emits event `eventName`"
       callbacks <- private$callbacks[[eventName]]
+      "!DEBUG emit: number of callbacks : `length(callbacks)`"
       if (eventName == "error" && length(callbacks) == 0) {
         stop(...)
       }
@@ -74,15 +76,18 @@ EventEmitter <- R6::R6Class(
       }
     },
     on = function(eventName, callback) {
+      "!DEBUG on: register event `eventName`"
       callbacks <- private$callbacks[[eventName]]
       if (length(callbacks) == 0) {
         private$callbacks[[eventName]] <- Callbacks$new()
       }
+      "!DEBUG on: emit newListener for event `eventName`"
       self$emit("newListener", eventName, callback)
       private$callbacks[[eventName]]$register(callback)
       invisible(self)
     },
     once = function(eventName, callback) {
+      "!DEBUG once: register event `eventName` for one emission only "
       callbacks <- private$callbacks[[eventName]]
       if (length(callbacks) == 0) {
         private$callbacks[[eventName]] <- Callbacks$new()
@@ -90,8 +95,11 @@ EventEmitter <- R6::R6Class(
       remove_callback <- NULL
       new_callback <- function(...) {
         # unregister callback before calling
+        "!DEBUG once: unregister callback for event `eventName`"
         remove_callback()
+        "!DEBUG once: emits removeListener for `eventName`"
         self$emit("removeListener", eventName, callback)
+        "!DEBUG once: call listener for event `eventName`"
         callback(...)
       }
       remove_callback <- private$callbacks[[eventName]]$register(new_callback)
