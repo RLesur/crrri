@@ -60,12 +60,12 @@ NULL
 EventEmitter <- R6::R6Class(
   "EventEmitter",
   private = list(
-    callbacks = list()
+    .callbacks = list()
   ),
   public = list(
     emit = function(eventName, ...) {
       "!DEBUG emit: emits event `eventName`"
-      callbacks <- private$callbacks[[eventName]]
+      callbacks <- private$.callbacks[[eventName]]
       "!DEBUG emit: number of callbacks : `length(callbacks)`"
       if (eventName == "error" && length(callbacks) == 0) {
         # throw error if no event named 'error'
@@ -81,21 +81,21 @@ EventEmitter <- R6::R6Class(
     },
     on = function(eventName, callback) {
       "!DEBUG on: register event `eventName`"
-      callbacks <- private$callbacks[[eventName]]
+      callbacks <- private$.callbacks[[eventName]]
       # if no event eventName has been registered
       if (length(callbacks) == 0) {
-        private$callbacks[[eventName]] <- Callbacks$new()
+        private$.callbacks[[eventName]] <- Callbacks$new()
       }
       "!DEBUG on: emit newListener for event `eventName`"
       self$emit("newListener", eventName, callback)
-      private$callbacks[[eventName]]$register(callback)
+      private$.callbacks[[eventName]]$register(callback)
       invisible(self)
     },
     once = function(eventName, callback) {
       "!DEBUG once: register event `eventName` for one emission only "
-      callbacks <- private$callbacks[[eventName]]
+      callbacks <- private$.callbacks[[eventName]]
       if (length(callbacks) == 0) {
-        private$callbacks[[eventName]] <- Callbacks$new()
+        private$.callbacks[[eventName]] <- Callbacks$new()
       }
       remove_callback <- NULL
       new_callback <- function(...) {
@@ -107,11 +107,11 @@ EventEmitter <- R6::R6Class(
         "!DEBUG once: call listener for event `eventName`"
         callback(...)
       }
-      remove_callback <- private$callbacks[[eventName]]$register(new_callback)
+      remove_callback <- private$.callbacks[[eventName]]$register(new_callback)
     },
     listenerCount = function(eventName) {
       stopifnot(!missing(eventName))
-      callbacks <- private$callbacks[[eventName]]
+      callbacks <- private$.callbacks[[eventName]]
       nb <- 0
       if (length(callbacks)) {
         nb <- callbacks$count()
