@@ -52,6 +52,9 @@
 #'
 #' # get the number of listeners for an event
 #' myEmitter$listenerCount('event')
+#'
+#' # get the event names which have been registered
+#' myEmitter$eventNames()
 NULL
 
 
@@ -120,6 +123,9 @@ EventEmitter <- R6::R6Class(
         nb <- callbacks$count()
       }
       nb
+    },
+    eventNames = function() {
+      names(private$.callbacks)
     }
   )
 )
