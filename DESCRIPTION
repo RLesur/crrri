@@ -37,6 +37,7 @@ RoxygenNote: 6.1.1
 Collate: 
     'DevToolsConnexion.R'
     'chr_connect.R'
+    'eventemitters.R'
     'send.R'
     'commands_Accessibility.R'
     'commands_Animation.R'

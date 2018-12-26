@@ -4,8 +4,7 @@
 #' See https://nodejs.org/api/events.html
 #'
 #' @name EventEmitter
-#' @example
-#' \dontrun{
+#' @examples
 #' myEmitter <- EventEmitter$new()
 #' myEmitter$on('event',
 #'     function() {
@@ -24,15 +23,16 @@
 #' myEmitter$emit('uniqueevent')
 #' # nothing happens as there is no more listener
 #' myEmitter$emit('uniqueevent')
-#' }
 #'
 #' # an error in one listener will throws an error in R
 #' myEmitter$on("eventwitherror", function(...) stop("An error in an event"))
 #' # throws an error
-#' myEmitter$emit("eventwitherror")
+#' \dontrun{
+#'   myEmitter$emit("eventwitherror")
+#' }
 #' # you can catch an error with a special "error" event that always
 #' # be emits when an error occured inside an eventEmitters
-#' myEmitter$on("error", function(e) cat("an error occured:\n", e, "\n"))
+#' myEmitter$on("error", function(e) cat(conditionMessage(e)))
 #' myEmitter$emit("eventwitherror")
 #'
 #' # As in node.js class, a newListener event is emitted before each new event registration.
@@ -76,7 +76,7 @@ EventEmitter <- R6::R6Class(
       }
       if (length(callbacks) > 0) {
         tryCatch(callbacks$invoke(...),
-          error = function(e) self$emit("error", e)
+                error = function(e) self$emit("error", e)
         )
         invisible(self)
       } else {
