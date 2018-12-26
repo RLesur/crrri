@@ -49,6 +49,9 @@
 #' # newListener has been unregistered and is no more called
 #' myEmitter$on("event", function(...) cat("C"))
 #' myEmitter$emit("event") # BAC
+#'
+#' # get the number of listeners for an event
+#' myEmitter$listenerCount('event')
 NULL
 
 
@@ -107,7 +110,13 @@ EventEmitter <- R6::R6Class(
       remove_callback <- private$callbacks[[eventName]]$register(new_callback)
     },
     listenerCount = function(eventName) {
-      length(private$callbacks[[eventName]])
+      stopifnot(!missing(eventName))
+      callbacks <- private$callbacks[[eventName]]
+      nb <- 0
+      if (length(callbacks)) {
+        nb <- callbacks$count()
+      }
+      nb
     }
   )
 )
