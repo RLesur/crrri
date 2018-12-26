@@ -91,6 +91,9 @@ EventEmitter <- R6::R6Class(
       private$.callbacks[[eventName]]$register(callback)
       invisible(self)
     },
+    addListener = function(eventName, callback) {
+      self$on(eventName, callback)
+    },
     once = function(eventName, callback) {
       "!DEBUG once: register event `eventName` for one emission only "
       callbacks <- private$.callbacks[[eventName]]
