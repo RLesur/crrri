@@ -78,8 +78,9 @@ EventEmitter <- R6::R6Class(
         tryCatch(callbacks$invoke(...),
           error = function(e) self$emit("error", e)
         )
+        invisible(self)
       } else {
-        invisible(NULL)
+        invisible(self)
       }
     },
     on = function(eventName, callback) {
@@ -114,6 +115,7 @@ EventEmitter <- R6::R6Class(
         callback(...)
       }
       remove_callback <- private$.callbacks[[eventName]]$register(new_callback)
+      invisible(self)
     },
     listenerCount = function(eventName) {
       stopifnot(!missing(eventName))
