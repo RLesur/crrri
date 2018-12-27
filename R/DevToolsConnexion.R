@@ -68,12 +68,12 @@ CDPSession <- R6::R6Class(
   private = list(
     .CDPSession_con = list(),
     .lastID = 0L,
-    .buildMessage = function(id, method, params) {
+    .buildMessage = function(id, method, params = NULL) {
       data <- list(id = id, method = method)
       if(!is.null(params))
         data <- c(data, list(params = params))
       jsonlite::toJSON(data, auto_unbox = TRUE)
-    },
+    }
   )
 )
 
