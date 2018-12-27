@@ -25,11 +25,11 @@ CDPSession <- R6::R6Class(
         }
         # if a reponse to a command, emit the callback corresponding to the id
         if (!is.null(id)) {
-          self$emit(id)
+          self$emit(as.character(id), data)
         }
         # if an event is fired, emit the corresponding listeners
         if (!is.null(method)) {
-          self$emit(method)
+          self$emit(method, data)
         }
       })
       ws$onClose(function(event) {
