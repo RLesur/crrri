@@ -46,13 +46,20 @@ CDPSession <- R6::R6Class(
       private$.CDPSession_con <- ws
     },
     sendCommand = function(method, params = NULL) {
-      id <- private$.getNewID()
-      msg <- private$.buildMessage(id, method, params)
+      # increment id
+      self$id <- 1
+      msg <- private$.buildMessage(self$id, method, params)
       private$.CDPSession_con$send(msg)
       "!DEBUG Command #`id`-`method` sent."
       invisible(self)
     }
   ),
+  active = list(
+    id <- function(value) {
+      if (missing(value)) return(private$.lastID)
+      private$.lastID <- private$.lastID + value
+    }
+  )
   private = list(
     .CDPSession_con = list(),
     .lastID = 0L,
@@ -62,10 +69,6 @@ CDPSession <- R6::R6Class(
         data <- c(data, list(params = params))
       jsonlite::toJSON(data, auto_unbox = TRUE)
     },
-    .getNewID = function() {
-      private$.lastID <-  private$.lastID + 1L
-      private$.lastID
-    }
   )
 )
 
