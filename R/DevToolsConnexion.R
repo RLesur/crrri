@@ -3,6 +3,76 @@
 #' @name DevToolsConnexion
 NULL
 
+CDPSession <- R6::R6Class(
+  "CDPSession",
+  inherit = EventEmitter,
+  public = list(
+    initialize = function(ws_url) {
+      "!DEBUG Configuring the websocket connexion..."
+      ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
+      ws$onOpen(function(event) {
+        "!DEBUG ...R succesfully connected to headless Chrome through DevTools Protocol."
+      })
+      ws$onMessage(function(event) {
+        "!DEBUG Got message from Chrome: `event$data`"
+        data <- jsonlite::fromJSON(event$data)
+        id <- data$id
+        method <- data$method
+        # if error, emit an error
+        if (!is.null(data$error)) {
+          "!DEBUG error: `event$data`"
+          self$emit('error', data$error)
+        }
+        # if a reponse to a command, emit the callback corresponding to the id
+        if (!is.null(id)) {
+          self$emit(id)
+        }
+        # if an event is fired, emit the corresponding listeners
+        if (!is.null(method)) {
+          self$emit(method)
+        }
+      })
+      ws$onClose(function(event) {
+        "!DEBUG R disconnected from headless Chrome with code `event$code`"
+        "!DEBUG and reason `event$reason`."
+        # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
+      })
+      ws$onError(function(event) {
+        "!DEBUG Client failed to connect: `event$message`."
+        # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
+      })
+      reg.finalizer(ws, function(ws) { ws$close() })
+      "!DEBUG ...websocket connexion configured."
+      private$.CDPSession_con <- ws
+    },
+    sendCommand = function(method, params = NULL) {
+      # increment id
+      self$id <- 1
+      msg <- private$.buildMessage(self$id, method, params)
+      private$.CDPSession_con$send(msg)
+      "!DEBUG Command #`id`-`method` sent."
+      invisible(self)
+    }
+  ),
+  active = list(
+    id <- function(value) {
+      if (missing(value)) return(private$.lastID)
+      private$.lastID <- private$.lastID + value
+    }
+  )
+  private = list(
+    .CDPSession_con = list(),
+    .lastID = 0L,
+    .buildMessage = function(id, method, params) {
+      data <- list(id = id, method = method)
+      if(!is.null(params))
+        data <- c(data, list(params = params))
+      jsonlite::toJSON(data, auto_unbox = TRUE)
+    },
+  )
+)
+
+
 #' @export
 DevToolsConnexion <- R6::R6Class("DevToolsConnexion",
   inherit = websocket::WebSocket,
