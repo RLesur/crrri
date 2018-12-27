@@ -50,16 +50,21 @@ CDPSession <- R6::R6Class(
       self$id <- 1
       msg <- private$.buildMessage(self$id, method, params)
       private$.CDPSession_con$send(msg)
-      "!DEBUG Command #`id`-`method` sent."
+      "!DEBUG Command #`self$id`-`method` sent."
       invisible(self)
     }
   ),
   active = list(
-    id <- function(value) {
+    id = function(value) {
       if (missing(value)) return(private$.lastID)
-      private$.lastID <- private$.lastID + value
+      if (is.null(value)) {
+        private$.lastID <- 1L
+      } else {
+        private$.lastID <- private$.lastID + value
+      }
+      private$.lastID
     }
-  )
+  ),
   private = list(
     .CDPSession_con = list(),
     .lastID = 0L,
