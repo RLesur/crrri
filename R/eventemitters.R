@@ -92,6 +92,7 @@ EventEmitter <- R6::R6Class(
       }
       "!DEBUG on: emit newListener for event `eventName`"
       self$emit("newListener", eventName, callback)
+      if (rlang::is_formula(callback)) callback <- rlang::as_function(callback)
       private$.callbacks[[eventName]]$register(callback)
       invisible(self)
     },
