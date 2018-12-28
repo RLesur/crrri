@@ -43,6 +43,7 @@ CDPSession <- R6::R6Class(
       })
       reg.finalizer(ws, function(ws) { ws$close() })
       "!DEBUG ...websocket connexion configured."
+      ws$connect()
       private$.CDPSession_con <- ws
     },
     sendCommand = function(method, params = NULL) {
