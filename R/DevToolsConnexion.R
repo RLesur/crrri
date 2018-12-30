@@ -26,7 +26,9 @@ CDPSession <- R6::R6Class(
         }
         # if a reponse to a command, emit the callback corresponding to the id
         if (!is.null(id)) {
-          self$emit(as.character(id), data)
+          method_sent <- private$.commandList[[self$id]]$method
+          private$.commandList[[self$id]] <- NULL
+          self$emit(method_sent, data)
         }
         # if an event is fired, emit the corresponding listeners
         if (!is.null(method)) {
@@ -53,6 +55,7 @@ CDPSession <- R6::R6Class(
       msg <- private$.buildMessage(self$id, method, params)
       private$.CDPSession_con$send(msg)
       "!DEBUG Command #`self$id`-`method` sent."
+      private$.commandList[[self$id]] <- list(method = method, params = params)
       invisible(self)
     }
   ),
@@ -75,7 +78,8 @@ CDPSession <- R6::R6Class(
       if(!is.null(params))
         data <- c(data, list(params = params))
       jsonlite::toJSON(data, auto_unbox = TRUE)
-    }
+    },
+    .commandList = list()
   )
 )
 
