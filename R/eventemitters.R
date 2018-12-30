@@ -76,7 +76,10 @@ EventEmitter <- R6::R6Class(
       }
       if (length(callbacks) > 0) {
         tryCatch(callbacks$invoke(...),
-                error = function(e) self$emit("error", e)
+                error = function(e) {
+                  "!DEBUG emit: error in event `eventName` emitted"
+                  self$emit("error", e)
+                }
         )
         invisible(self)
       } else {
@@ -100,6 +103,8 @@ EventEmitter <- R6::R6Class(
       self$on(eventName, callback)
     },
     once = function(eventName, callback) {
+      # support purrr style function
+      if (rlang::is_formula(callback)) callback <- rlang::as_function(callback)
       "!DEBUG once: register event `eventName` for one emission only "
       callbacks <- private$.callbacks[[eventName]]
       if (length(callbacks) == 0) {
