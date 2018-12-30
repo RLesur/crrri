@@ -1,8 +1,9 @@
 #' Create a websocket connexion using the Chrome DevTools Protocol
 #'
-#' @name DevToolsConnexion
+#' @name CDPSession
 NULL
 
+#' @export
 CDPSession <- R6::R6Class(
   "CDPSession",
   inherit = EventEmitter,
