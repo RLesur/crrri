@@ -60,6 +60,7 @@ CDPSession <- R6::R6Class(
     }
   ),
   active = list(
+    # Value assigned increment id
     id = function(value) {
       if (missing(value)) return(private$.lastID)
       if (is.null(value)) {
