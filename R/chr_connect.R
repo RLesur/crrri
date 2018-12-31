@@ -35,9 +35,9 @@ chr_connect <- function(
       fails <- TRUE
   }
 
-  # Step 3: retrieve the websocket address
+  # Step 3: retrieve the websocket browser address
   if (!isTRUE(fails)) {
-    ws_endpoint <- chr_get_ws_addr(debug_port)
+    ws_endpoint <- chr_get_ws_addr(debug_port, type = 'browser')
     if (is.null(ws_endpoint))
       fails <- TRUE
   }
@@ -237,14 +237,16 @@ is_chrome_reachable <- function(port, retry_delay = 0.2, max_attempts = 15L) {
 }
 
 # Step 3: retrieve the websocket address ----------------------------------
-chr_get_ws_addr <- function(debug_port) {
-  "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`debug_port`/json ..."
+chr_get_ws_addr <- function(debug_port, type = c('browser', 'page')) {
+  type <- rlang::arg_match(type)
+  url <- sprintf("http://localhost:%s/json%s", debug_port, ifelse(type == "browser", "/version", ""))
+  "!DEBUG Retrieving Chrome websocket entrypoint for type `type`..."
   open_debuggers <- tryCatch(
-    jsonlite::read_json(sprintf("http://localhost:%s/json", debug_port), simplifyVector = TRUE),
+    jsonlite::read_json(url, simplifyVector = TRUE),
     error = function(e) list()
   )
 
-  address <- open_debuggers$webSocketDebuggerUrl[open_debuggers$type == "page"]
+  address <- open_debuggers$webSocketDebuggerUrl[[1]]
   if (is.null(address))
     "!DEBUG ...websocket entrypoint unavailable."
   else
