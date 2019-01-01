@@ -10,7 +10,7 @@ page_session <- CDPSession$new(ws_endpoint)
 
 page_session$.__enclos_env__$private$.CDPSession_con$readyState()
 
-# listening event
+# piped workflow
 session <- list(CDPSession = page_session, method_to_send = NULL)
 session  %>%
   sendToSession('Page.enable', listener = 'Runtime.enable') %>%
@@ -22,7 +22,7 @@ session  %>%
                 callback = function(data) {
                   if (!isTRUE(data$result$result$value)) {
                     cat("Try to emit")
-                    CDPSession$emit('notpolyfill')}
+                    session$CDPSession$emit('notpolyfill')}
                 }) %>%
   sendToSession("Page.printToPDF", params = list(printBackground = TRUE, preferCSSPageSize = TRUE)) %>%
   listenTo("Runtime.bindingCalled") %>%
@@ -30,11 +30,12 @@ session  %>%
   sendToSession("writetopdf",
                 callback = function(data) writeBin(jsonlite::base64_dec(data$result$data), "test.pdf"))
 
+# will launch all the registered events in sequence
 session$CDPSession$sendCommand('Runtime.enable')
 
 
+# eventEmitter workflow
 page_session$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
-
 page_session$once("Runtime.enable",
                 ~ page_session$sendCommand('Page.enable'))
 page_session$once("Page.enable",
