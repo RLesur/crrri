@@ -12,14 +12,25 @@ page_session$.__enclos_env__$private$.CDPSession_con$readyState()
 
 # listening event
 session <- list(CDPSession = page_session, method_to_send = NULL)
-chrome %>%
+session  %>%
   sendToSession('Page.enable', listener = 'Runtime.enable') %>%
   sendToSession('Runtime.addBinding', params = list(name = "pagedownListener")) %>%
   sendToSession('Page.navigate', params = list(url = "file:///C:/Users/chris/Documents/test.nb.html")) %>%
   listenTo('Page.domContentEventFired') %>%
-  sendToSession('Runtime.evaluate', params = list(expression = "!!window.PagedPolyfill"))
+  sendToSession('Runtime.evaluate', params = list(expression = "!!window.PagedPolyfill")) %>%
+  sendToSession('notpolyfill',
+                callback = function(data) {
+                  if (!isTRUE(data$result$result$value)) {
+                    cat("Try to emit")
+                    CDPSession$emit('notpolyfill')}
+                }) %>%
+  sendToSession("Page.printToPDF", params = list(printBackground = TRUE, preferCSSPageSize = TRUE)) %>%
+  listenTo("Runtime.bindingCalled") %>%
+  sendToSession("Page.printToPDF", params = list(printBackground = TRUE, preferCSSPageSize = TRUE)) %>%
+  sendToSession("writetopdf",
+                callback = function(data) writeBin(jsonlite::base64_dec(data$result$data), "test.pdf"))
 
-
+session$CDPSession$sendCommand('Runtime.enable')
 
 
 page_session$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))

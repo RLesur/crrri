@@ -20,15 +20,18 @@ send <- function(promise, method, params = NULL, awaitResult = TRUE) {
   )
 }
 
-sendToSession <- function(session, method, callback = NULL, params = NULL, listener = NULL) {
+sendToSession <- function(session, method, params = NULL, callback = NULL, listener = NULL) {
   stopifnot(!missing(method))
   CDPSession <- session$CDPSession
   next_listener <- session$next_listener
   if (is.null(next_listener) && is.null(listener)) {
     stop("You must provide a listener at the beginning of the pipe")
   }
+  if (is.null(callback)) {
+    callback <- ~ CDPSession$sendCommand(method, params)
+  }
   if (is.null(listener)) listener <- next_listener
-  CDPSession$once(listener, ~ CDPSession$sendCommand(method, params))
+  CDPSession$once(listener, callback)
   invisible(list(CDPSession = CDPSession, next_listener = method))
 }
 
