@@ -95,7 +95,7 @@ EventEmitter <- R6::R6Class(
       }
       "!DEBUG on: emit newListener for event `eventName`"
       self$emit("newListener", eventName, callback)
-      if (rlang::is_formula(callback)) callback <- rlang::as_function(callback)
+      callback <- rlang::as_function(callback)
       private$.callbacks[[eventName]]$register(callback)
       invisible(self)
     },
@@ -104,7 +104,7 @@ EventEmitter <- R6::R6Class(
     },
     once = function(eventName, callback) {
       # support purrr style function
-      if (rlang::is_formula(callback)) callback <- rlang::as_function(callback)
+      callback <- rlang::as_function(callback)
       "!DEBUG once: register event `eventName` for one emission only "
       callbacks <- private$.callbacks[[eventName]]
       if (length(callbacks) == 0) {
