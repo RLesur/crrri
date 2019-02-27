@@ -3,6 +3,18 @@ send <- function(promise, method, params = NULL, awaitResult = TRUE) {
     promise,
     onFulfilled = function(value) {
       ws <- value$ws
+      params <- sapply(simplify = FALSE, USE.NAMES = TRUE,
+        params, function(x) {
+          if ("formula" %in% class(x)) {
+            f <- rlang::as_function(x)
+            rlang::fn_fmls(f) <- c(rlang::fn_fmls(f), list(.res = quote(..1)))
+            f(value$result)
+          }
+          else
+            x
+        }
+      )
+
       previous_result <- value$result
 
       if(isTRUE(awaitResult)) {
