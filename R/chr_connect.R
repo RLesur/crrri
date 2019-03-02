@@ -35,9 +35,9 @@ chr_connect <- function(
       fails <- TRUE
   }
 
-  # Step 3: retrieve the websocket browser address
+  # Step 3: retrieve the websocket address
   if (!isTRUE(fails)) {
-    ws_endpoint <- chr_get_ws_addr(debug_port, type = 'browser')
+    ws_endpoint <- chr_get_ws_addr(debug_port, type = 'page')
     if (is.null(ws_endpoint))
       fails <- TRUE
   }
