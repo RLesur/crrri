@@ -1,9 +1,12 @@
 # from Rlesur/crrri@feature/build-on-cdp-session
+# tested with 59747341
+
+
 devtools::load_all()
 
 # launch
 work_dir <- chr_new_data_dir()
-chrome <- chr_launch(work_dir = work_dir, headless = FALSE)
+chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
 
 # get ws endpoint
 ws_endpoint <- chr_get_ws_addr(debug_port = 9222, type = 'page')
@@ -13,8 +16,7 @@ page_session <- CDPSession$new(ws_endpoint)
 
 # just check if connexion ready - To wrap in a function
 repeat {
-  ready <- page_session$.__enclos_env__$private$.CDPSession_con$readyState()
-  if (ready == 1L) break
+  if (page_session$is_ready()) break
 }
 
 url <- "https://www.r-project.org/"
@@ -46,7 +48,7 @@ while(is.null(res)) {
 res
 
 # close everything
-page_session$.__enclos_env__$private$.CDPSession_con$close()
+page_session$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
 
@@ -66,8 +68,7 @@ page_session <- CDPSession$new(ws_endpoint)
 
 # just check if connexion ready - To wrap in a function
 repeat {
-  ready <- page_session$.__enclos_env__$private$.CDPSession_con$readyState()
-  if (ready == 1L) break
+  if (page_session$is_ready()) break
 }
 
 url <- "https://www.r-project.org/"
@@ -86,25 +87,11 @@ page_session$once("DOM.getOuterHTML", function(data) {res <<- data$result})
 # run the workflow
 page_session$emit("run")
 
-async_msg <- function(msg = NULL) {
-  promises::promise(function(resolve, reject) {
-    Sys.sleep(3)
-    resolve(msg)
-  })
-}
-
-await <- function(f, ...) {
-  promises::then(f(...), print)
-  while (!later::loop_empty()) later::run_now(later::next_op_secs())
-}
-
-await(async_msg, 'Grrr')
-
 while(is.null(res)) {
   later::run_now()
 }
 res
 
-page_session$.__enclos_env__$private$.CDPSession_con$close()
+page_session$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
