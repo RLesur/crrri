@@ -57,6 +57,23 @@ CDPSession <- R6::R6Class(
       "!DEBUG Command #`self$id`-`method` sent."
       private$.commandList[[self$id]] <- list(method = method, params = params)
       invisible(self)
+    },
+    close = function() {
+      if (self$is_closed()) {
+        message("CDP session already closed")
+      } else {
+        private$.CDPSession_con$close()
+      }
+      invisible(TRUE)
+    },
+    get_status = function(label = FALSE) {
+      private$.CDPSession_con$readyState()
+    },
+    is_ready = function() {
+      self$get_status() == 1L
+    },
+    is_closed = function() {
+      self$get_status() == 3L
     }
   ),
   active = list(
