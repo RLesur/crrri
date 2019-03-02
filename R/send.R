@@ -38,7 +38,10 @@ sendToSession <- function(session, method, params = NULL, callback = NULL, liste
 listenTo <- function(session, listener, callback = NULL, params = NULL) {
   CDPSession <- session$CDPSession
   event_name <- sprintf("%s_%i", listener, sample(1:99999,1))
-  CDPSession$once(listener, ~ CDPSession$emit(event_name, params))
+  if (is.null(callback)) {
+    callback <- ~ CDPSession$emit(event_name, params)
+  }
+  CDPSession$once(listener, callback)
   invisible(list(CDPSession = CDPSession, next_listener = event_name))
 }
 
