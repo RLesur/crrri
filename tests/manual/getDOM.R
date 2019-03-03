@@ -22,7 +22,7 @@ repeat {
 url <- "https://www.r-project.org/"
 
 # Object required for the piped workflow
-session <- list(CDPSession = page_session, method_to_send = NULL)
+session <- list(CDPSession = page_session)
 res <- NULL
 session %>%
   sendToSession("Page.enable", listener = 'run') %>%

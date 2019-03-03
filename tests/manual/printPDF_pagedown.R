@@ -8,12 +8,16 @@ ws_endpoint <- chr_get_ws_addr(debug_port = 9222, type = 'page')
 
 page_session <- CDPSession$new(ws_endpoint)
 
-page_session$.__enclos_env__$private$.CDPSession_con$readyState()
+repeat {
+  if (page_session$is_ready()) break
+}
 
 # piped workflow
-session <- list(CDPSession = page_session, method_to_send = NULL)
+session <- list(CDPSession = page_session)
+
 session  %>%
-  sendToSession('Page.enable', listener = 'Runtime.enable') %>%
+  sendToSession('Runtime.enable', listener = 'run') %>%
+  sendToSession('Page.enable') %>%
   sendToSession('Runtime.addBinding', params = list(name = "pagedownListener")) %>%
   sendToSession('Page.navigate', params = list(url = "file:///C:/Users/chris/Documents/test.nb.html")) %>%
   listenTo('Page.domContentEventFired') %>%
@@ -21,20 +25,41 @@ session  %>%
   sendToSession('notpolyfill',
                 callback = function(data) {
                   if (!isTRUE(data$result$result$value)) {
-                    cat("Try to emit")
+                    # Continue next pipe workflow only on condition
                     session$CDPSession$emit('notpolyfill')}
                 }) %>%
   sendToSession("Page.printToPDF", params = list(printBackground = TRUE, preferCSSPageSize = TRUE)) %>%
   listenTo("Runtime.bindingCalled") %>%
   sendToSession("Page.printToPDF", params = list(printBackground = TRUE, preferCSSPageSize = TRUE)) %>%
   sendToSession("writetopdf",
-                callback = function(data) writeBin(jsonlite::base64_dec(data$result$data), "test.pdf"))
+                callback = function(data) {
+                  cat("printing pdf...\n")
+                  writeBin(jsonlite::base64_dec(data$result$data), "test.pdf")
+                  cat("pdf printed.")
+                })
 
 # will launch all the registered events in sequence
-session$CDPSession$sendCommand('Runtime.enable')
+page_session$emit('run')
+
+page_session$close()
+if(chrome$is_alive()) chrome$kill()
+rm(list = ls())
 
 
-# eventEmitter workflow
+# eventEmitter workflow -------------
+work_dir <- chr_new_data_dir()
+
+chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
+
+ws_endpoint <- chr_get_ws_addr(debug_port = 9222, type = 'page')
+
+page_session <- CDPSession$new(ws_endpoint)
+
+repeat {
+  if (page_session$is_ready()) break
+}
+
+
 page_session$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
 page_session$once("Runtime.enable",
                 ~ page_session$sendCommand('Page.enable'))
@@ -62,10 +87,7 @@ page_session$once("Page.printToPDF",
 # will launch all the registered events in sequence
 page_session$sendCommand('Runtime.enable')
 
-
-
-
-page_session$.__enclos_env__$private$.CDPSession_con$close()
+page_session$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
 
