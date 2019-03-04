@@ -29,6 +29,7 @@ Imports:
 Suggests: 
     debugme,
     knitr,
+    magick,
     magrittr,
     rmarkdown
 Remotes:
