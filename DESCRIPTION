@@ -29,6 +29,7 @@ Imports:
 Suggests: 
     debugme,
     knitr,
+    magrittr,
     rmarkdown
 Remotes:
     rstudio/websocket

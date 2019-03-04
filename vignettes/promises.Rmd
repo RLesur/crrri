@@ -1,0 +1,121 @@
+---
+title: "Using the `promises` package in R Markdown"
+author: "Romain Lesur"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The [`promises` package](https://cran.r-project.org/package=promises) offers a great interface to deal with asynchronous tasks with R.  
+However, dealing with `promises` in R Markdown is challenging because the promises value is never printed.
+
+## Synchronous tasks in R Markdown
+
+First, we must recall that R executes commands synchronously in a single thread: a command is executed when previous ones are done.  
+R Markdown deals perfectly with synchronous tasks. Take a simple delayed message:
+
+```{r}
+library(magrittr)
+
+sync_fun <- function() {
+  value <- "Hello world!"
+  Sys.sleep(0.5)
+  return(value)
+}
+
+sync_fun() %>%
+  cat()
+```
+
+The `rmarkdown::render()` function waits that synchronous tasks are executed and use their results in the rendered document.
+
+## The problem of asynchronous tasks in R Markdown
+
+Take the asynchronous version of the previous example:
+
+```{r}
+library(promises)
+
+async_fun <- function(value = "Hello World!", delay = 0.5) {
+  promise(function(resolve, reject) {
+    later::later(~ resolve(value), delay)
+  })
+} 
+
+async_fun() %...>%
+  cat()
+```
+
+It you execute the previous chunk code in the R console, the `Hello World!` message will appear shortly.  
+The problem we face with R Markdown is that the `rmarkdown::render()` function does not wait for the promise resolution: there is no output in the rendered document.
+
+## Awaiting promises
+
+The initial state of a promise is _pending_. When the operation completes, the promise is _fulfilled_. When the operation fails, the promise is _rejected_.
+
+The problem we face is that when `rmarkdown::render()` executes, the promise may be pending:
+```{r}
+async_fun()
+```
+
+Thanks to the `later::run_now()` function, we can define an `await()` function:
+
+```{r}
+await <- function(promise) {
+  state <- new.env()
+  state$pending <- TRUE
+  
+  promise %>%
+    then(
+      onFulfilled = function(value) {
+        state$pending <- FALSE
+        state$fulfilled <- TRUE
+        state$value <- value
+      },
+      onRejected = function(error) {
+        state$pending <- FALSE
+        state$fulfilled <- FALSE
+        state$reason <- error
+      }
+    )
+  
+  while(state$pending) {
+    later::run_now(all = FALSE)
+  }
+  
+  if (state$fulfilled) {
+    return(state$value)
+  } else {
+    stop(state$reason)
+  }
+}
+```
+
+The `await()` function "turns" an asynchronous task in a synchronous one: the R session loops until the promise is resolved or rejected.  
+
+## Print the value of a promise
+
+The `knitr::knit_print()` function is a generic S3 method. So, we can define a `knit_print` method for promises:
+
+```{r}
+knit_print.promise <- function(x, ...) {
+  knitr::knit_print(await(x))
+}
+```
+
+Now, R Markdown will wait for promises to be resolved:
+
+```{r}
+async_fun()
+```
+
