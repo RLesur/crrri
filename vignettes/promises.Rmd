@@ -51,13 +51,15 @@ async_fun <- function(value = "Hello World!", delay = 0.5) {
     later::later(~ resolve(value), delay)
   })
 } 
+```
 
+```{r, eval=FALSE}
 async_fun() %...>%
   cat()
 ```
 
 It you execute the previous chunk code in the R console, the `Hello World!` message will appear shortly.  
-The problem we face with R Markdown is that the `rmarkdown::render()` function does not wait for the promise resolution: there is no output in the rendered document.
+The problem we face with R Markdown is that the `rmarkdown::render()` function does not permit the asynchronous task to be executed: there is no output in the rendered document.
 
 ## Awaiting promises
 

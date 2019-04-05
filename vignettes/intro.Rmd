@@ -12,18 +12,55 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  eval = FALSE,
+  eval = TRUE,
   comment = "#>"
 )
+
+Sys.unsetenv("DEBUGME")
 ```
 
-This vignette aims to show several examples of usage fro `crrri`
+```{r knit-print-promise, include=FALSE}
+await <- function(promise) {
+  state <- new.env()
+  state$pending <- TRUE
+  
+  promises::then(
+    promise,
+    onFulfilled = function(value) {
+      state$pending <- FALSE
+      state$fulfilled <- TRUE
+      state$value <- value
+    },
+    onRejected = function(error) {
+      state$pending <- FALSE
+      state$fulfilled <- FALSE
+      state$reason <- error
+    }
+  )
+  
+  while(state$pending) {
+    later::run_now()
+  }
+  
+  if (state$fulfilled) {
+    return(state$value)
+  } else {
+    stop(state$reason)
+  }
+}
 
-All the examples are inspired from example for _chrome remote interface_ or _puppeteer_ and show how to reproduce those using `crrri`
+knit_print.promise <- function(x, ...) {
+  knitr::knit_print(await(x))
+}
+```
+
+This vignette aims to show several examples of usage for `crrri`.
+
+All the examples are inspired from examples for the _chrome remote interface_ or _puppeteer_ libraries and show how to reproduce those using `crrri`.
 
 # Setup
 
-To work with crrri, you need to load it. We also have set up beforehand `Sys.getenv("CHROME_BIN")` to a chrome binary on our system. If you don't, you'll need to provide the path to a chrome binary in `chr_connect`.
+To work with `crrri`, you need to load it. We also have set up beforehand `Sys.getenv("CHROME_BIN")` to a chrome binary on our system. If you don't, you'll need to provide the path to a chrome binary in `chr_connect`.
 
 We need to load `crrri` and also `promises` to have the tools to deals with
 _promises_ that `crrri` is based on.
@@ -33,22 +70,22 @@ library(crrri)
 library(promises)
 ```
 
-
 # Example 1. Take a screenshot
 
 Inspired from this
 [post](https://jonathanmh.com/taking-full-page-screenshots-headless-chrome/) and
 use _chrome remote interface_
 
-
 ```{r chome-snapshot}
 targetUrl <- "https://cran.rstudio.com"
 viewport <- c(1440, 900)
 screenshotDelay <- 2 # seconds
+screenshot_file <- tempfile(fileext = ".png")
 
 chrome_con <- chr_connect()
 
-chrome_con %>%
+screenshot <-
+  chrome_con %>%
   # Enable Events on Domains
   Page.enable() %>%
   DOM.enable() %>%
@@ -66,68 +103,63 @@ chrome_con %>%
   # add a delay 
   wait(delay = screenshotDelay) %>%
   # Capture screenshot
-  Page.captureScreenshot(format = "png", fromSurface = TRUE) %...T>% 
+  Page.captureScreenshot(format = "png", fromSurface = TRUE) %...>% 
   {
-    .$result$data %>% jsonlite::base64_dec() %>% writeBin("example1-snapshot.png")
-  } %>%
-  # Close the chrome connextion
-  finally(~ chr_disconnect(chrome_con)) %...!% {
-    cat("Global error\n", .$message)
-  }
+    .$result$data %>% jsonlite::base64_dec() %>% writeBin(screenshot_file)
+  } #%>%
+  # Close the chrome connexion
+  #finally(~ chr_disconnect(chrome_con)) %...!% {
+  #  cat("Global error\n", .$message)
+  #}
 ```
 
-```{r, echo = FALSE}
-# execute manually to cache the result
-if (file.exists("../example1-snapshot.png")) {
-  file.copy("../example1-snapshot.png", ".", overwrite = TRUE)
-  unlink("../example1-snapshot.png")
-}
+```{r}
+# await screenshot
+await(screenshot)
+#await(chr_disconnect(chrome_con))
+# I think chr_disconnect has a bug
 ```
 
-
-
-The snapshot is written to disk and look like this:
-```{r, eval = TRUE, echo = FALSE}
-img <- magick::image_read("example1-snapshot.png")
+The snapshot is written to disk and looks like this:
+```{r}
+img <- magick::image_read(screenshot_file)
 magick::image_scale(img, "400")
 ```
 
-
-# Example 2. dump HTML after page load :
+# Example 2. Dump HTML after page loaded
 
 Inspired from this [JS script](https://github.com/cyrus-and/chrome-remote-interface/wiki/Dump-HTML-after-page-load) for _chrome remote interface_ wiki that dumps the DOM.
 
-```{r}
-chrome <- chr_connect()
+```{r, eval=TRUE}
+#chrome <- chr_connect()
+html_file <- tempfile(fileext = ".html")
 
-chrome %>%
+dump_dom <- 
+  chrome_con %>%
   Network.enable() %>%
   Page.enable() %>%
   Network.setCacheDisabled(cacheDisabled = TRUE) %>%
   Page.navigate(url = "https://github.com", awaitResult = FALSE) %>% # because the following event listener does not use this result, it is safer to use awaitResult = FALSE
   Page.loadEventFired() %>%
   Runtime.evaluate(expression = 'document.documentElement.outerHTML') %...>% {
-   cat(.$result$result$value, "\n", file = "dumpDOM.html") 
-  } %>%
+   writeLines(c(.$result$result$value, "\n"), con = html_file) 
+  } #%>%
   # Close the connexion when finish
-  finally(~ chr_disconnect(chrome)) %...!% {
-    cat(.$message)
-  }
+  #finally(~ chr_disconnect(chrome)) %...!% {
+   # cat(.$message)
+  #}
 ```
 
-```{r, echo = FALSE}
-# execute manually to cache the result
-if (file.exists("../dumpDOM.html")) {
-  file.copy("../dumpDOM.html", ".", overwrite = TRUE)
-  unlink("../dumpDOM.html")
-}
+```{r, eval=TRUE}
+await(dump_dom)
+await(chr_disconnect(chrome_con))
 ```
 
-Here is the first 20 lines of what we get in `dumDOM.html`
+Here is the first 20 lines of what we get in `html_file`:
 
-```{r, eval = TRUE, echo = FALSE, results='asis'}
+```{r, eval=TRUE,echo = FALSE, results='asis'}
 cat(paste0(
-  c("```html", readLines("dumpDOM.html", n = 20), "```"), 
+  c("```html", readLines(html_file, n = 20), "```"), 
   collapse = "\n"
 ))
 ```
