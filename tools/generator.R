@@ -94,7 +94,7 @@ generate_commands_source_code <- function(domain) {
     "# DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
     purrr::map_chr(commands, generate_command, domain_name = domain$domain)
   ), collapse = "\n\n")
-  cat(file_content, file = paste0("R/", domain$domain, "_commands.R"))
+  cat(file_content, file = paste0("R/commands_", domain$domain, ".R"))
 }
 
 purrr::walk(js_protocol$domains, generate_commands_source_code)
@@ -181,7 +181,7 @@ generate_events_source_code <- function(domain) {
     "# DO NOT EDIT BY HAND\n#' @include send.R\nNULL",
     purrr::map_chr(events, generate_event, domain_name = domain$domain)
   ), collapse = "\n\n")
-  cat(file_content, file = paste0("R/", domain$domain, "_events.R"))
+  cat(file_content, file = paste0("R/events_", domain$domain, ".R"))
 }
 
 purrr::walk(js_protocol$domains, generate_events_source_code)
