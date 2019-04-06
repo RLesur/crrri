@@ -31,6 +31,7 @@ Suggests:
     knitr,
     magick,
     magrittr,
+    pagedown,
     rmarkdown
 Remotes:
     rstudio/websocket
@@ -109,6 +110,7 @@ Collate:
     'Tethering_events.R'
     'Tracing_commands.R'
     'Tracing_events.R'
+    'await.R'
     'chr_connect.R'
     'utils-pipe.R'
     'wait.R'
