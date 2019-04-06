@@ -20,38 +20,43 @@ chr_connect <- function(
   headless = TRUE, auto_connect = TRUE, async = TRUE
 ) {
 
-  fails <- FALSE
+  failed <- FALSE
   work_dir <- chr_new_data_dir()
 
   # Step 1: launch Chrome
   chr_process <- chr_launch(bin, debug_port, extra_args, headless, work_dir)
-  if (is.null(chr_process))
-    fails <- TRUE
+  if (is.null(chr_process)) {
+    failed <- TRUE
+  }
 
   # Step 2: check that Chrome is reachable at http://localhost:debug_port
-  if (!isTRUE(fails)) {
+  if (!isTRUE(failed)) {
     chrome_reachable <- is_chrome_reachable(debug_port)
     if (!isTRUE(chrome_reachable))
-      fails <- TRUE
+      failed <- TRUE
   }
 
   # Step 3: retrieve the websocket address
-  if (!isTRUE(fails)) {
+  if (!isTRUE(failed)) {
     ws_endpoint <- chr_get_ws_addr(debug_port)
     if (is.null(ws_endpoint))
-      fails <- TRUE
+      failed <- TRUE
   }
 
   # Step 4: configure the websocket connexion
-  if (isTRUE(fails)) {
+  if (isTRUE(failed)) {
     ws <- NULL
   } else {
     ws <- ws_configure(ws_endpoint, chr_process, work_dir)
-    fails <- TRUE
   }
 
   if (is.null(ws) & !is.null(chr_process)) {
     chr_close(chr_process, work_dir)
+  }
+
+  if (!is.null(ws)) {
+    attr(ws, "chrome_process") <- chr_process
+    attr(ws, "chrome_data_dir") <- work_dir
   }
 
   # Step 5: build the result object and open the connexion if relevant
@@ -106,13 +111,19 @@ chr_new_data_dir <- function(length = 8, slug = "chrome-data-dir-") {
 #'
 chr_disconnect <- function(promise) {
   promises::then(promise, onFulfilled = function(value) {
+    chr_process <- attr(value$ws, "chrome_process")
+    work_dir <- attr(value$ws, "chrome_data_dir")
     value$ws$close()
+    while (value$ws$readyState() != 3L) {
+      later::run_now(0.1, all = FALSE)
+    }
+    chr_close(chr_process, work_dir)
   })
 }
 # Step 1: launch Chrome ---------------------------------------------------
 # This function launches a new Chrome processus
 # The user has to provide a working directory for Chrome: see the helper function chr_new_data_dir()
-# The command can silently fails: in this case, NULL is returned.
+# The command can silently fail: in this case, NULL is returned.
 chr_launch <- function(
   bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222, extra_args = NULL, headless = TRUE, work_dir
 ) {
@@ -276,12 +287,12 @@ ws_configure <- function(ws_endpoint, chr_process, work_dir) {
   ws$onClose(function(event) {
     "!DEBUG R disconnected from headless Chrome with code `event$code`"
     "!DEBUG and reason `event$reason`."
-    later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
+    chr_close(chr_process, work_dir)
   })
 
   ws$onError(function(event) {
     "!DEBUG Client failed to connect: `event$message`."
-    later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
+    chr_close(chr_process, work_dir)
   })
 
   reg.finalizer(ws, function(ws) {ws$close()}, onexit = TRUE)
@@ -303,7 +314,9 @@ chr_close <- function(chr_process, work_dir) {
     }
   }
 
-  cleaned <- later::later(~chr_clean_work_dir(work_dir), 0.2)
+  chr_process$wait()
+
+  cleaned <- chr_clean_work_dir(work_dir)
 
   invisible(killed & cleaned)
 }
