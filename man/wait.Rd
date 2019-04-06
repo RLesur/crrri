@@ -23,7 +23,7 @@ of the lhs: it can be used with \code{\%>\%} or \code{\%T>\%} with the same resu
 \examples{
 library(promises)
 
-pr <- promise(~resolve(runif(1)))
+pr <- promise_resolve(runif(1))
 
 pr \%>\%
   wait(2) \%>\%

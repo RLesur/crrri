@@ -1,7 +1,7 @@
 Package: crrri
 Type: Package
 Title: An interface with headless Chromium/Chrome
-Version: 0.0.6
+Version: 0.0.7
 Authors@R: c(
     person("Romain", "Lesur", role = c("aut", "cre"), email = "romain.lesur@gmail.com", comment = c(ORCID = "0000-0002-0721-5595")),
     person("Christophe", "Dervieux", role = c("aut", "cph")),
@@ -27,15 +27,22 @@ Imports:
     websocket,
     rappdirs
 Suggests: 
-    debugme
+    debugme,
+    knitr,
+    magick,
+    magrittr,
+    pagedown,
+    rmarkdown
 Remotes:
     rstudio/websocket
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr
 Collate: 
     'DevToolsConnexion.R'
+    'await.R'
     'chr_connect.R'
     'send.R'
     'commands_Accessibility.R'
