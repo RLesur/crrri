@@ -1,7 +1,7 @@
 #' R6 class to emit some event
 #'
 #' This is a general purpose class to build on. It is inspired by the node.js EventEmitter class.
-#' See \url{https://nodejs.org/api/events.html}.
+#' See <https://nodejs.org/api/events.html>.
 #'
 #' @name EventEmitter
 #' @examples
