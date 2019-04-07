@@ -1,59 +1,63 @@
 #' R6 class to emit some event
 #'
-#' This is a general purpose class to build on. It is inspired by node.js EventEmitter class.
-#' See \link{https://nodejs.org/api/events.html}.
+#' This is a general purpose class to build on. It is inspired by the node.js EventEmitter class.
+#' See \url{https://nodejs.org/api/events.html}.
 #'
 #' @name EventEmitter
 #' @examples
 #' myEmitter <- EventEmitter$new()
-#' myEmitter$on('event',
+#' myEmitter$on("event",
 #'     function() {
-#'         message("an event occured")
+#'         message("an event occured!")
 #'     }
 #' )
-#' myEmitter$emit('event')
-#' # Listener is still listening
-#' myEmitter$emit('event')
-#' myEmitter$once('uniqueevent',
+#' myEmitter$emit("event")
+#' # The listener is still called when "event" fires:
+#' myEmitter$emit("event")
+#' # A listener can be registered once:
+#' myEmitter$once("event",
 #'     function() {
-#'         message("an event occured - only once")
+#'         message("this listener is called only once")
 #'     }
 #' )
-#' # the listerner will be removed after first emission of the event
-#' myEmitter$emit('uniqueevent')
-#' # nothing happens as there is no more listener
-#' myEmitter$emit('uniqueevent')
+#' # This new listener will be removed when called.
+#' myEmitter$emit("event")
+#' # There is now only one listener:
+#' myEmitter$emit("event")
 #'
-#' # an error in one listener will throws an error in R
-#' myEmitter$on("eventwitherror", function(...) stop("An error in an event"))
-#' # throws an error
+#' # An error in a listener will throw an error in R.
+#' myEmitter$on("event", function(...) stop("An error in a listener"))
+#' # Throw an error:
 #' \dontrun{
-#'   myEmitter$emit("eventwitherror")
-#' }
-#' # you can catch an error with a special "error" event that always
-#' # be emits when an error occured inside an eventEmitters
-#' myEmitter$on("error", function(e) cat(conditionMessage(e)))
-#' myEmitter$emit("eventwitherror")
+#'   myEmitter$emit("event")}
 #'
-#' # As in node.js class, a newListener event is emitted before each new event registration.
-#' # newListener expect a function with eventName and callback argument
+#' # You can catch an error with a special "error" event that is
+#' # always emitted when an error occured in a listener:
+#' myEmitter$on("error", function(e) cat(conditionMessage(e)))
+#' myEmitter$emit("event")
+#'
+#' # As in the node.js class, a "newListener" event is emitted
+#' # before each new listener registration.
+#' # The "newListener" event passes two arguments to its listener(s):
+#' # `eventName` and `listener`.
 #' myEmitter <- EventEmitter$new()
-#' # use once here to avoir infinite recursion#'
-#' myEmitter$once("newListener", function(eventName, callback) {
+#' # Use once here to avoid infinite recursion:
+#' myEmitter$once("newListener", function(eventName, listener) {
 #'    if(eventName == "event") {
 #'       myEmitter$on("event", function(...) cat("B"))
 #'    }
 #' })
 #' myEmitter$on("event", function(...) cat("A"))
 #' myEmitter$emit("event") # BA
-#' # newListener has been unregistered and is no more called
+#' # The listener attached to the "newListener" event has been
+#' # unregistered and is no more called:
 #' myEmitter$on("event", function(...) cat("C"))
 #' myEmitter$emit("event") # BAC
 #'
-#' # get the number of listeners for an event
-#' myEmitter$listenerCount('event')
+#' # Get the number of listeners for an event:
+#' myEmitter$listenerCount("event")
 #'
-#' # get the event names which have been registered
+#' # Get the event names which have been registered:
 #' myEmitter$eventNames()
 NULL
 
@@ -67,11 +71,11 @@ EventEmitter <- R6::R6Class(
   ),
   public = list(
     emit = function(eventName, ...) {
-      "!DEBUG emit: emits event `eventName`"
+      "!DEBUG emit: event '`eventName`'"
       callbacks <- private$.callbacks[[eventName]]
-      "!DEBUG emit: number of callbacks : `length(callbacks)`"
+      "!DEBUG emit: number of listeners: `length(callbacks)`"
       if (eventName == "error" && length(callbacks) == 0) {
-        # throw error if no event named 'error'
+        # throw error if no listener registered for 'error' event
         stop(...)
       }
       if (length(callbacks) > 0) {
@@ -83,44 +87,44 @@ EventEmitter <- R6::R6Class(
         invisible(self)
       }
     },
-    on = function(eventName, callback) {
-      "!DEBUG on: register event `eventName`"
+    on = function(eventName, listener) {
+      "!DEBUG on: registering a listener on event '`eventName`'"
       callbacks <- private$.callbacks[[eventName]]
       # if no event eventName has been registered
       if (length(callbacks) == 0) {
         private$.callbacks[[eventName]] <- Callbacks$new()
       }
-      "!DEBUG on: emit newListener for event `eventName`"
-      self$emit("newListener", eventName, callback)
-      private$.callbacks[[eventName]]$register(callback)
+      "!DEBUG on: emit 'newListener' event on event '`eventName`'"
+      self$emit("newListener", eventName, listener)
+      private$.callbacks[[eventName]]$register(listener)
       invisible(self)
     },
-    addListener = function(eventName, callback) {
-      self$on(eventName, callback)
+    addListener = function(eventName, listener) {
+      self$on(eventName, listener)
     },
-    once = function(eventName, callback) {
-      "!DEBUG once: register event `eventName` for one emission only "
+    once = function(eventName, listener) {
+      "!DEBUG once: registering a listener on event '`eventName`' for once"
       callbacks <- private$.callbacks[[eventName]]
       if (length(callbacks) == 0) {
         private$.callbacks[[eventName]] <- Callbacks$new()
       }
-      remove_callback <- NULL
-      new_callback <- function(...) {
+      remove_listener <- NULL
+      new_listener <- function(...) {
         # unregister callback before calling
-        "!DEBUG once: unregister callback for event `eventName`"
-        remove_callback()
-        "!DEBUG once: emits removeListener for `eventName`"
-        self$emit("removeListener", eventName, callback)
-        "!DEBUG once: call listener for event `eventName`"
-        callback(...)
+        "!DEBUG once: removing listener for event '`eventName`'"
+        remove_listener()
+        "!DEBUG once: emit removeListener event for '`eventName`'"
+        self$emit("removeListener", eventName, listener)
+        "!DEBUG once: call listener for event '`eventName`'"
+        listener(...)
       }
-      remove_callback <- private$.callbacks[[eventName]]$register(new_callback)
+      remove_listener <- private$.callbacks[[eventName]]$register(new_listener)
       invisible(self)
     },
     listenerCount = function(eventName) {
       stopifnot(!missing(eventName))
       callbacks <- private$.callbacks[[eventName]]
-      nb <- 0
+      nb <- 0L
       if (length(callbacks)) {
         nb <- callbacks$count()
       }
