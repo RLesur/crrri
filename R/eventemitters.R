@@ -82,9 +82,9 @@ EventEmitter <- R6::R6Class(
         tryCatch(callbacks$invoke(...),
                 error = function(e) self$emit("error", e)
         )
-        invisible(self)
+        TRUE
       } else {
-        invisible(self)
+        FALSE
       }
     },
     on = function(eventName, listener) {
