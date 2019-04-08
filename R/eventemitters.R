@@ -67,36 +67,35 @@ NULL
 EventEmitter <- R6::R6Class(
   "EventEmitter",
   private = list(
-    .callbacks = list()
+    .queues = list()
   ),
   public = list(
     emit = function(eventName, ...) {
       "!DEBUG emit: event '`eventName`'"
-      callbacks <- private$.callbacks[[eventName]]
-      "!DEBUG emit: number of listeners: `length(callbacks)`"
-      if (eventName == "error" && length(callbacks) == 0) {
+      queue <- private$.queues[[eventName]]
+      queue_exists <- length(queue) > 0
+      if (eventName == "error" && self$listenerCount("error") == 0) {
         # throw error if no listener registered for 'error' event
         stop(...)
       }
-      if (length(callbacks) > 0) {
-        tryCatch(callbacks$invoke(...),
+      if (queue_exists) {
+        tryCatch(queue$invoke(...),
                 error = function(e) self$emit("error", e)
         )
-        invisible(self)
-      } else {
-        invisible(self)
       }
+      invisible(self)
     },
     on = function(eventName, listener) {
       "!DEBUG on: registering a listener on event '`eventName`'"
-      callbacks <- private$.callbacks[[eventName]]
+      queue <- private$.queues[[eventName]]
+      queue_exists <- length(queue) > 0
       # if no event eventName has been registered
-      if (length(callbacks) == 0) {
-        private$.callbacks[[eventName]] <- Callbacks$new()
+      if (!queue_exists) {
+        private$.queues[[eventName]] <- Callbacks$new()
       }
       "!DEBUG on: emit 'newListener' event on event '`eventName`'"
       self$emit("newListener", eventName, listener)
-      private$.callbacks[[eventName]]$register(listener)
+      private$.queues[[eventName]]$register(listener)
       invisible(self)
     },
     addListener = function(eventName, listener) {
@@ -104,12 +103,13 @@ EventEmitter <- R6::R6Class(
     },
     once = function(eventName, listener) {
       "!DEBUG once: registering a listener on event '`eventName`' for once"
-      callbacks <- private$.callbacks[[eventName]]
-      if (length(callbacks) == 0) {
-        private$.callbacks[[eventName]] <- Callbacks$new()
+      queue <- private$.queues[[eventName]]
+      queue_exists <- length(queue) > 0
+      if (!queue_exists) {
+        private$.queues[[eventName]] <- Callbacks$new()
       }
       remove_listener <- NULL
-      new_listener <- function(...) {
+      new_listener <- once_function(function(...) {
         # unregister callback before calling
         "!DEBUG once: removing listener for event '`eventName`'"
         remove_listener()
@@ -117,21 +117,45 @@ EventEmitter <- R6::R6Class(
         self$emit("removeListener", eventName, listener)
         "!DEBUG once: call listener for event '`eventName`'"
         listener(...)
-      }
-      remove_listener <- private$.callbacks[[eventName]]$register(new_listener)
+      })
+      attr(new_listener, "listener") <- listener
+      remove_listener <- private$.queues[[eventName]]$register(new_listener)
       invisible(self)
     },
     listenerCount = function(eventName) {
       stopifnot(!missing(eventName))
-      callbacks <- private$.callbacks[[eventName]]
-      nb <- 0L
-      if (length(callbacks)) {
-        nb <- callbacks$count()
+      queue <- private$.queues[[eventName]]
+      queue_exists <- length(queue) > 0
+      if (queue_exists) {
+        queue$count()
+      } else {
+        0L
       }
-      nb
     },
     eventNames = function() {
-      names(private$.callbacks)
+      # TODO remove .queues with length 0
+      names(private$.queues)
+    },
+    rawListeners = function(eventName) {
+      stopifnot(!missing(eventName))
+      queue <- private$.queues[[eventName]]
+      queue_exists <- length(queue) > 0
+      if (queue_exists) {
+        queue$get()
+      } else {
+        list()
+      }
+    },
+    listeners = function(eventName) {
+      stopifnot(!missing(eventName))
+      rawListeners <- self$rawListeners(eventName)
+      getListener <- function(rawListener) {
+        if(inherits(rawListener, "once_function")) {
+          return(attr(rawListener, "listener"))
+        }
+        rawListener
+      }
+      lapply(rawListeners, getListener)
     }
   )
 )
@@ -164,10 +188,7 @@ Callbacks <- R6::R6Class(
       })
     },
     invoke = function(...) {
-      # Ensure that calls are invoked in the order that they were registered
-      keys <- as.character(sort(as.integer(ls(private$.callbacks)), decreasing = TRUE))
-      "!DEBUG invoke: keys = `keys`"
-      callbacks <- mget(keys, private$.callbacks)
+      callbacks <- self$get()
       "!DEBUG invoke: callback = `length(callbacks)`"
       for (callback in callbacks) {
         callback(...)
@@ -175,6 +196,23 @@ Callbacks <- R6::R6Class(
     },
     count = function() {
       length(ls(private$.callbacks))
+    },
+    get = function() {
+      # Ensure that calls are invoked in the order that they were registered
+      keys <- as.character(sort(as.integer(ls(private$.callbacks)), decreasing = TRUE))
+      "!DEBUG get: keys = `keys`"
+      mget(keys, private$.callbacks)
     }
   )
 )
+
+once_function <- function(fun) {
+  done <- FALSE
+  res <- function(...) {
+    run <- !done
+    done <<- TRUE
+    if (run) fun(...)
+  }
+  class(res) <- c("once_function", "function")
+  return(res)
+}
