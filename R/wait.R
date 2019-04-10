@@ -14,7 +14,7 @@
 #' @examples
 #' library(promises)
 #'
-#' pr <- promise(~resolve(runif(1)))
+#' pr <- promise_resolve(runif(1))
 #'
 #' pr %>%
 #'   wait(2) %>%
