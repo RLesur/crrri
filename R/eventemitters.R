@@ -61,41 +61,47 @@
 #' myEmitter$eventNames()
 NULL
 
-
 #' @rdname EventEmitter
 #' @export
 EventEmitter <- R6::R6Class(
   "EventEmitter",
   private = list(
-    .queues = list()
+    .queues = list(),
+    .queue_exists = function(eventName) {
+      queue <- private$.queues[[eventName]]
+      length(queue) > 0
+    },
+    .has_listeners = function(eventName) {
+      self$listenerCount(eventName) > 0
+    },
+    .check_queue = function(eventName) {
+      if (!private$.queue_exists(eventName)) {
+        private$.queues[[eventName]] <- CallbacksQueue$new()
+      }
+    }
   ),
   public = list(
     emit = function(eventName, ...) {
       "!DEBUG emit: event '`eventName`'"
-      queue <- private$.queues[[eventName]]
-      queue_exists <- length(queue) > 0
-      if (eventName == "error" && self$listenerCount("error") == 0) {
-        # throw error if no listener registered for 'error' event
-        stop(...)
-      }
-      if (queue_exists) {
-        tryCatch(queue$invoke(...),
-                error = function(e) self$emit("error", e)
+      if (private$.has_listeners(eventName)) {
+        private$.queues[[eventName]]$invoke(
+          ...,
+          onError = function(e) self$emit("error", e)
         )
+      } else {
+        # throw error if no listener registered for 'error' event
+        if (eventName == "error") {
+          stop(...)
+        }
       }
       invisible(self)
     },
     on = function(eventName, listener) {
       "!DEBUG on: registering a listener on event '`eventName`'"
-      queue <- private$.queues[[eventName]]
-      queue_exists <- length(queue) > 0
-      # if no event eventName has been registered
-      if (!queue_exists) {
-        private$.queues[[eventName]] <- Callbacks$new()
-      }
+      private$.check_queue(eventName)
       "!DEBUG on: emit 'newListener' event on event '`eventName`'"
       self$emit("newListener", eventName, listener)
-      private$.queues[[eventName]]$register(listener)
+      private$.queues[[eventName]]$append(listener)
       invisible(self)
     },
     addListener = function(eventName, listener) {
@@ -103,11 +109,7 @@ EventEmitter <- R6::R6Class(
     },
     once = function(eventName, listener) {
       "!DEBUG once: registering a listener on event '`eventName`' for once"
-      queue <- private$.queues[[eventName]]
-      queue_exists <- length(queue) > 0
-      if (!queue_exists) {
-        private$.queues[[eventName]] <- Callbacks$new()
-      }
+      private$.check_queue(eventName)
       remove_listener <- NULL
       new_listener <- once_function(function(...) {
         # unregister callback before calling
@@ -119,28 +121,25 @@ EventEmitter <- R6::R6Class(
         listener(...)
       })
       attr(new_listener, "listener") <- listener
-      remove_listener <- private$.queues[[eventName]]$register(new_listener)
+      self$emit("newListener", eventName, listener)
+      remove_listener <- private$.queues[[eventName]]$append(new_listener)
       invisible(self)
     },
     listenerCount = function(eventName) {
       stopifnot(!missing(eventName))
-      queue <- private$.queues[[eventName]]
-      queue_exists <- length(queue) > 0
-      if (queue_exists) {
-        queue$count()
+      if (private$.queue_exists(eventName)) {
+        private$.queues[[eventName]]$count()
       } else {
         0L
       }
     },
     eventNames = function() {
-      # TODO remove .queues with length 0
-      names(private$.queues)
+      queues_names <- names(private$.queues)
+      Filter(private$.has_listeners, queues_names)
     },
     rawListeners = function(eventName) {
       stopifnot(!missing(eventName))
-      queue <- private$.queues[[eventName]]
-      queue_exists <- length(queue) > 0
-      if (queue_exists) {
+      if (private$.queue_exists(eventName)) {
         queue$get()
       } else {
         list()
@@ -160,48 +159,64 @@ EventEmitter <- R6::R6Class(
   )
 )
 
-# from rstudio/websocket
-# https://github.com/rstudio/websocket/blob/master/R/websocket.R
-Callbacks <- R6::R6Class(
-  "Callbacks",
+# CallbacksQueue ----------------------------------------------------------
+CallbacksQueue <- R6::R6Class(
+  "CallbacksQueue",
+  inherit = Queue,
+  public = list(
+    invoke = function(..., onError = stop) {
+      callbacks <- super$get()
+      for(callback in callbacks) {
+        tryCatch(callback(...), error = function(e) onError(e))
+      }
+    }
+  )
+)
+
+# Queue class -------------------------------------------------------------
+Queue <- R6::R6Class(
+  "Queue",
   private = list(
-    .nextId = integer(0),
-    .callbacks = "environment"
+    .queue = list(),
+    .wrap = function(element) {
+      wrapper <- new.env(parent = emptyenv(), size = 1L)
+      wrapper$element <- element
+      wrapper
+    },
+    .rm_wrapper = function(wrapper) {
+      element <- wrapper$element
+      queue <- private$.queue
+      # Since wrappers are environments, identical() will always send back at most one element.
+      # This is the main trick.
+      pos <- Position(function(x) identical(x, wrapper), queue)
+      queue[pos] <- NULL
+      private$.queue <- queue
+      element
+    }
   ),
   public = list(
-    initialize = function() {
-      # NOTE: we avoid using '.Machine$integer.max' directly
-      # as R 3.3.0's 'radixsort' could segfault when sorting
-      # an integer vector containing this value
-      private$.nextId <- as.integer(.Machine$integer.max - 1L)
-      private$.callbacks <- new.env(parent = emptyenv())
+    append = function(element) {
+      wrapper <- private$.wrap(element)
+      private$.queue <- c(private$.queue, list(wrapper))
+      function() {private$.rm_wrapper(wrapper)}
     },
-    register = function(callback) {
-      if (!is.function(callback)) {
-        stop("callback must be a function")
-      }
-      id <- as.character(private$.nextId)
-      private$.nextId <- private$.nextId - 1L
-      private$.callbacks[[id]] <- callback
-      return(function() {
-        rm(list = id, pos = private$.callbacks)
-      })
-    },
-    invoke = function(...) {
-      callbacks <- self$get()
-      "!DEBUG invoke: callback = `length(callbacks)`"
-      for (callback in callbacks) {
-        callback(...)
-      }
-    },
-    count = function() {
-      length(ls(private$.callbacks))
+    prepend = function(element) {
+      wrapper <- private$.wrap(element)
+      private$.queue <- c(list(wrapper), private$.queue)
+      function() {private$.rm_wrapper(wrapper)}
     },
     get = function() {
-      # Ensure that calls are invoked in the order that they were registered
-      keys <- as.character(sort(as.integer(ls(private$.callbacks)), decreasing = TRUE))
-      "!DEBUG get: keys = `keys`"
-      mget(keys, private$.callbacks)
+      lapply(private$.queue, function(w) get("element", pos = w))
+    },
+    remove_element = function(element, right = TRUE) {
+      queue <- private$.queue
+      pos <- Position(function(x) identical(x$element, element), queue, right = right)
+      queue[pos] <- NULL
+      private$.queue <- queue
+      element
+    },
+    count = function() {
+      length(private$.queue)
     }
   )
 )

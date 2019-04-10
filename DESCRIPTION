@@ -7,12 +7,11 @@ Authors@R: c(
     person("Christophe", "Dervieux", role = c("aut", "cph")),
     person("Miles", "McBain", role = "ctb", comment = "websocket connection functions"),
     person(family = "The Chromium authors", role = "ctb", comment = "DevTools Protocol documentation"),
-    person(family = "RStudio, Inc.", role = "ctb", comment = "Callbacks class in eventemitters.R"),
     person()
     )
 Maintainer: Romain Lesur <romain.lesur@gmail.com>
 Description: This is a native implementation of the Chrome DevTools Protocol.
-License: GPL (>=2)
+License: MIT + file LICENSE
 URL: https://github.com/RLesur/criii
 SystemRequirements: Chromium or Chrome
 Imports: 
