@@ -86,7 +86,7 @@ Collate:
     'commands_Testing.R'
     'commands_Tethering.R'
     'commands_Tracing.R'
-    'eventemitters.R'
+    'eventemitter.R'
     'events_Animation.R'
     'events_ApplicationCache.R'
     'events_CSS.R'
