@@ -41,6 +41,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Collate: 
+    'EventEmitter.R'
     'DevToolsConnexion.R'
     'await.R'
     'chr_connect.R'
@@ -86,7 +87,6 @@ Collate:
     'commands_Testing.R'
     'commands_Tethering.R'
     'commands_Tracing.R'
-    'eventemitters.R'
     'events_Animation.R'
     'events_ApplicationCache.R'
     'events_CSS.R'

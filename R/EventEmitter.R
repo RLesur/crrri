@@ -97,17 +97,18 @@ EventEmitter <- R6::R6Class(
       invisible(self)
     },
     on = function(eventName, listener) {
+      listener <- rlang::as_function(listener)
       "!DEBUG on: registering a listener on event '`eventName`'"
       private$.check_queue(eventName)
       "!DEBUG on: emit 'newListener' event on event '`eventName`'"
       self$emit("newListener", eventName, listener)
-      private$.queues[[eventName]]$append(listener)
-      invisible(self)
+      invisible(private$.queues[[eventName]]$append(listener))
     },
     addListener = function(eventName, listener) {
       self$on(eventName, listener)
     },
     once = function(eventName, listener) {
+      listener <- rlang::as_function(listener)
       "!DEBUG once: registering a listener on event '`eventName`' for once"
       private$.check_queue(eventName)
       remove_listener <- NULL
@@ -123,7 +124,7 @@ EventEmitter <- R6::R6Class(
       attr(new_listener, "listener") <- listener
       self$emit("newListener", eventName, listener)
       remove_listener <- private$.queues[[eventName]]$append(new_listener)
-      invisible(self)
+      invisible(remove_listener)
     },
     listenerCount = function(eventName) {
       stopifnot(!missing(eventName))
