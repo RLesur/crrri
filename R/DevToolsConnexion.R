@@ -45,6 +45,7 @@ CDPSession <- R6::R6Class(
       ws$onError(function(event) {
         "!DEBUG Client failed to connect: `event$message`."
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
+        self$emit("error", reason = event$message)
       })
       reg.finalizer(ws, function(ws) { ws$close() })
       "!DEBUG ...websocket connexion configured."
