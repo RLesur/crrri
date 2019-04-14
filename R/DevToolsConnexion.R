@@ -8,7 +8,7 @@ CDPSession <- R6::R6Class(
   "CDPSession",
   inherit = EventEmitter,
   public = list(
-    initialize = function(ws_url) {
+    initialize = function(ws_url, autoConnect = FALSE) {
       "!DEBUG Configuring the websocket connexion..."
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
       ws$onOpen(function(event) {
@@ -100,9 +100,14 @@ CDPSession <- R6::R6Class(
       })
       reg.finalizer(ws, function(ws) { ws$close() })
       "!DEBUG ...websocket connexion configured."
-      ws$connect()
       private$.CDPSession_con <- ws
+      if(isTRUE(autoConnect)) {
+        ws$connect()
+      }
     },
+    connect = function() {
+      private$.CDPSession_con$connect()
+    }
     sendCommand = function(method, params = NULL, onresponse = NULL, onerror = NULL, ...) {
       if(!is.null(onresponse)) {
         onresponse <- rlang::as_function(onresponse)
