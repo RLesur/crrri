@@ -45,17 +45,17 @@ CDPSession <- R6::R6Class(
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
         self$emit("error", event$message)
       })
-      self$on("ready", function() {
+      super$on("ready", function() {
         private$.ready <- TRUE
       })
-      self$on("command_will_be_sent", function(msg) {
+      super$on("command_will_be_sent", function(msg) {
         private$.ready <- FALSE
       })
-      self$once("connect", function(obj) {
+      super$once("connect", function(obj) {
         self$emit("ready")
       })
       # when the command event is emitted, send a command to Chrome
-      self$on("command", function(id = 1L, method, params = NULL, onresponse = NULL, onerror = NULL) {
+      super$on("command", function(id = 1L, method, params = NULL, onresponse = NULL, onerror = NULL) {
         if(missing(id)) {
           # increment id
           self$id <- 1L
@@ -67,7 +67,7 @@ CDPSession <- R6::R6Class(
         rm_onerror <- NULL
         if(!is.null(onresponse)) {
           onresponse <- rlang::as_function(onresponse)
-          rm_onresponse <- self$on("response", function(id, result) {
+          rm_onresponse <- super$on("response", function(id, result) {
             if(id == id_sent) {
               rm_onresponse()
               if(!is.null(rm_onerror)) rm_onerror()
@@ -77,7 +77,7 @@ CDPSession <- R6::R6Class(
         }
         if(!is.null(onerror)) {
           onerror <- rlang::as_function(onerror)
-          rm_onerror <- self$once("error", function(reason) {
+          rm_onerror <- super$once("error", function(reason) {
             if(!is.null(rm_onresponse)) rm_onresponse()
             rm_onerror()
             onerror(reason)
@@ -90,7 +90,7 @@ CDPSession <- R6::R6Class(
         invisible(self)
       })
       # when a response event is fired, emit an event corresponding to the sent command
-      self$on("response", function(id, result) {
+      super$on("response", function(id, result) {
         method_sent <- private$.commandList[[id]]$method
         private$.commandList[[id]] <- NULL
         self$emit(method_sent, result)
@@ -121,6 +121,14 @@ CDPSession <- R6::R6Class(
       } else {
         self$emit("command", id = id, method = method, params = params, onresponse = onresponse, onerror = onerror)
       }
+      invisible(self)
+    },
+    on = function(eventName, callback) {
+      super$on(eventName, callback)
+      invisible(self)
+    },
+    once = function(eventName, callback) {
+      super$once(eventName, callback)
       invisible(self)
     }
   ),
