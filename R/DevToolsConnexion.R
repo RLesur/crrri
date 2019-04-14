@@ -104,6 +104,12 @@ CDPSession <- R6::R6Class(
       private$.CDPSession_con <- ws
     },
     sendCommand = function(method, params = NULL, onresponse = NULL, onerror = NULL, ...) {
+      if(!is.null(onresponse)) {
+        onresponse <- rlang::as_function(onresponse)
+      }
+      if(!is.null(onerror)) {
+        onerror <- rlang::as_function(onerror)
+      }
       id <- list(...)$id
       if(is.null(id)) {
         self$emit("command", method = method, params = params, onresponse = onresponse, onerror = onerror)
