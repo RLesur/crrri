@@ -23,7 +23,7 @@ CDPSession <- R6::R6Class(
         # if error, emit an error
         if (!is.null(data$error)) {
           "!DEBUG error: `event$data`"
-          self$emit('error', data$error)
+          self$emit("error", paste0("Error: '", data$error$message, "'(code ", data$error$code, ")."))
         }
         # if a reponse to a command, emit a response event
         if (!is.null(id)) {
@@ -43,7 +43,7 @@ CDPSession <- R6::R6Class(
       ws$onError(function(event) {
         "!DEBUG Client failed to connect: `event$message`."
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
-        self$emit("error", reason = event$message)
+        self$emit("error", event$message)
       })
       # when a response event is fired, emit an event corresponding to the sent command
       self$on("response", function(id, result) {
