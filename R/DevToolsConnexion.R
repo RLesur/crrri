@@ -40,6 +40,7 @@ CDPSession <- R6::R6Class(
         "!DEBUG R disconnected from headless Chrome with code `event$code`"
         "!DEBUG and reason `event$reason`."
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
+        self$emit("disconnect")
       })
       ws$onError(function(event) {
         "!DEBUG Client failed to connect: `event$message`."
