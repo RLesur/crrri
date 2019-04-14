@@ -12,6 +12,7 @@ CDPSession <- R6::R6Class(
       "!DEBUG Configuring the websocket connexion..."
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
       ws$onOpen(function(event) {
+        self$emit("connect", self)
         "!DEBUG ...R succesfully connected to headless Chrome through DevTools Protocol."
       })
       ws$onMessage(function(event) {
