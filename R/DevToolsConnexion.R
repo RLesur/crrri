@@ -45,6 +45,41 @@ CDPSession <- R6::R6Class(
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
         self$emit("error", event$message)
       })
+      # when the command event is emitted, send a command to Chrome
+      self$on("command", function(id = 1L, method, params = NULL, onresponse = NULL, onerror = NULL) {
+        if(missing(id)) {
+          # increment id
+          self$id <- 1L
+          id <- self$id
+        }
+        msg <- private$.buildMessage(id = id, method = method, params = params)
+        id_sent <- id
+        rm_onresponse <- NULL
+        rm_onerror <- NULL
+        if(!is.null(onresponse)) {
+          onresponse <- rlang::as_function(onresponse)
+          rm_onresponse <- self$on("response", function(id, result) {
+            if(id == id_sent) {
+              rm_onresponse()
+              if(!is.null(rm_onerror)) rm_onerror()
+              onresponse(result)
+            }
+          })
+        }
+        if(!is.null(onerror)) {
+          onerror <- rlang::as_function(onerror)
+          rm_onerror <- self$once("error", function(reason) {
+            if(!is.null(rm_onresponse)) rm_onresponse()
+            rm_onerror()
+            onerror(reason)
+          })
+        }
+        self$emit("message_will_be_sent", msg)
+        private$.commandList[[id]] <- list(method = method, params = params)
+        private$.CDPSession_con$send(msg)
+        "!DEBUG Command #`id`-`method` sent."
+        invisible(self)
+      })
       # when a response event is fired, emit an event corresponding to the sent command
       self$on("response", function(id, result) {
         method_sent <- private$.commandList[[id]]$method
@@ -56,13 +91,13 @@ CDPSession <- R6::R6Class(
       ws$connect()
       private$.CDPSession_con <- ws
     },
-    sendCommand = function(method, params = NULL) {
-      # increment id
-      self$id <- 1
-      msg <- private$.buildMessage(self$id, method, params)
-      private$.CDPSession_con$send(msg)
-      "!DEBUG Command #`self$id`-`method` sent."
-      private$.commandList[[self$id]] <- list(method = method, params = params)
+    sendCommand = function(method, params = NULL, onresponse = NULL, onerror = NULL, ...) {
+      id <- list(...)$id
+      if(is.null(id)) {
+        self$emit("command", method = method, params = params, onresponse = onresponse, onerror = onerror)
+      } else {
+        self$emit("command", id = id, method = method, params = params, onresponse = onresponse, onerror = onerror)
+      }
       invisible(self)
     }
   ),
