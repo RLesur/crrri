@@ -107,7 +107,7 @@ CDPSession <- R6::R6Class(
     },
     connect = function() {
       private$.CDPSession_con$connect()
-    }
+    },
     sendCommand = function(method, params = NULL, onresponse = NULL, onerror = NULL, ...) {
       if(!is.null(onresponse)) {
         onresponse <- rlang::as_function(onresponse)
