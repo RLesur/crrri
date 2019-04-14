@@ -103,7 +103,6 @@ EventEmitter <- R6::R6Class(
       "!DEBUG on: emit 'newListener' event on event '`eventName`'"
       self$emit("newListener", eventName, listener)
       private$.queues[[eventName]]$append(listener)
-      invisible(self)
     },
     addListener = function(eventName, listener) {
       self$on(eventName, listener)
@@ -125,7 +124,7 @@ EventEmitter <- R6::R6Class(
       attr(new_listener, "listener") <- listener
       self$emit("newListener", eventName, listener)
       remove_listener <- private$.queues[[eventName]]$append(new_listener)
-      invisible(self)
+      remove_listener
     },
     listenerCount = function(eventName) {
       stopifnot(!missing(eventName))
