@@ -41,9 +41,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Collate: 
-    'DevToolsConnexion.R'
     'EventEmitter.R'
-    'WebSocketEE.R'
+    'DevToolsConnexion.R'
     'await.R'
     'chr_connect.R'
     'send.R'

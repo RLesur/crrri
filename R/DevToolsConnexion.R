@@ -1,3 +1,6 @@
+#' @include EventEmitter.R
+NULL
+
 #' Create a websocket connexion using the Chrome DevTools Protocol
 #'
 #' @name CDPSession
