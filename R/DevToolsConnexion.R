@@ -25,11 +25,9 @@ CDPSession <- R6::R6Class(
           "!DEBUG error: `event$data`"
           self$emit('error', data$error)
         }
-        # if a reponse to a command, emit the callback corresponding to the id
+        # if a reponse to a command, emit a response event
         if (!is.null(id)) {
-          method_sent <- private$.commandList[[self$id]]$method
-          private$.commandList[[self$id]] <- NULL
-          self$emit(method_sent, data)
+          self$emit("response", id = data$id, result = data$result)
         }
         # if an event is fired, emit the corresponding listeners
         if (!is.null(method)) {
@@ -46,6 +44,12 @@ CDPSession <- R6::R6Class(
         "!DEBUG Client failed to connect: `event$message`."
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
         self$emit("error", reason = event$message)
+      })
+      # when a response event is fired, emit an event corresponding to the sent command
+      self$on("response", function(id, result) {
+        method_sent <- private$.commandList[[id]]$method
+        private$.commandList[[id]] <- NULL
+        self$emit(method_sent, result)
       })
       reg.finalizer(ws, function(ws) { ws$close() })
       "!DEBUG ...websocket connexion configured."
