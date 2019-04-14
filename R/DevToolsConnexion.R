@@ -45,6 +45,15 @@ CDPSession <- R6::R6Class(
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
         self$emit("error", event$message)
       })
+      self$on("ready", function() {
+        private$.ready <- TRUE
+      })
+      self$on("command_will_be_sent", function(msg) {
+        private$.ready <- FALSE
+      })
+      self$once("connect", function(obj) {
+        self$emit("ready")
+      })
       # when the command event is emitted, send a command to Chrome
       self$on("command", function(id = 1L, method, params = NULL, onresponse = NULL, onerror = NULL) {
         if(missing(id)) {
@@ -74,7 +83,7 @@ CDPSession <- R6::R6Class(
             onerror(reason)
           })
         }
-        self$emit("message_will_be_sent", msg)
+        self$emit("command_will_be_sent", msg)
         private$.commandList[[id]] <- list(method = method, params = params)
         private$.CDPSession_con$send(msg)
         "!DEBUG Command #`id`-`method` sent."
@@ -85,6 +94,9 @@ CDPSession <- R6::R6Class(
         method_sent <- private$.commandList[[id]]$method
         private$.commandList[[id]] <- NULL
         self$emit(method_sent, result)
+        if(length(private$.commandList) == 0) {
+          self$emit("ready")
+        }
       })
       reg.finalizer(ws, function(ws) { ws$close() })
       "!DEBUG ...websocket connexion configured."
@@ -122,7 +134,8 @@ CDPSession <- R6::R6Class(
         data <- c(data, list(params = params))
       jsonlite::toJSON(data, auto_unbox = TRUE)
     },
-    .commandList = list()
+    .commandList = list(),
+    .ready = FALSE
   )
 )
 
