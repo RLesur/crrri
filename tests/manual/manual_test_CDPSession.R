@@ -8,6 +8,7 @@ ws_endpoint <- chr_get_ws_addr(debug_port = 9222)
 
 page_session <- CDPSession$new(ws_endpoint)
 
+# page_session is in pre-connecting test until connection is explicitely launch
 page_session$.__enclos_env__$private$.CDPSession_con$readyState()
 
 # listening event
@@ -49,9 +50,10 @@ page_session$
        function(result) writeBin(jsonlite::base64_dec(result$data), "test.pdf")
   )
 
-# connect
+# Lauching connection and starting the chain of event
 page_session$connect()
 
+# closing the session and chrome
 page_session$.__enclos_env__$private$.CDPSession_con$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
