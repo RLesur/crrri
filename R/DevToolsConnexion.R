@@ -58,7 +58,7 @@ CDPSession <- R6::R6Class(
         self$emit("ready")
       })
       # when the command event is emitted, send a command to Chrome
-      super$on("command", function(id = 1L, method, params = NULL, onresponse = NULL, onerror = NULL) {
+      super$on("command", function(id = 1L, method, params = NULL, onresponse, onerror = NULL) {
         if(missing(id)) {
           # increment id
           self$id <- 1L
@@ -66,36 +66,35 @@ CDPSession <- R6::R6Class(
         }
         msg <- private$.buildMessage(id = id, method = method, params = params)
         id_sent <- id
+
         rm_onresponse <- NULL
         rm_onerror <- NULL
-        if(!is.null(onresponse)) {
-          onresponse <- rlang::as_function(onresponse)
-          rm_onresponse <- super$on("response", function(id, result) {
-            if(id == id_sent) {
-              rm_onresponse()
-              if(!is.null(rm_onerror)) rm_onerror()
-              onresponse(result)
-            }
-          })
-        }
+        onresponse <- rlang::as_function(onresponse)
+        rm_onresponse <- super$on("response", function(id, result) {
+          if(id == id_sent) {
+            rm_onresponse()
+            if(!is.null(rm_onerror)) rm_onerror()
+            onresponse(result)
+          }
+        })
+
         if(!is.null(onerror)) {
           onerror <- rlang::as_function(onerror)
           rm_onerror <- super$once("error", function(reason) {
-            if(!is.null(rm_onresponse)) rm_onresponse()
+            rm_onresponse()
             rm_onerror()
             onerror(reason)
           })
         }
         self$emit("command_will_be_sent", msg)
-        private$.commandList[[id]] <- list(method = method, params = params)
+        private$.commandList[[as.character(id)]] <- list(method = method, params = params)
         private$.CDPSession_con$send(msg)
         "!DEBUG Command #`id`-`method` sent."
-        invisible(self)
       })
       # when a response event is fired, emit an event corresponding to the sent command
       super$on("response", function(id, result) {
-        method_sent <- private$.commandList[[id]]$method
-        private$.commandList[[id]] <- NULL
+        method_sent <- private$.commandList[[as.character(id)]]$method
+        private$.commandList[[as.character(id)]] <- NULL
         self$emit(method_sent, result)
         if(length(private$.commandList) == 0) {
           self$emit("ready")
@@ -112,7 +111,12 @@ CDPSession <- R6::R6Class(
       private$.CDPSession_con$connect()
     },
     sendCommand = function(method, params = NULL, onresponse = NULL, onerror = NULL, ...) {
-      if(!is.null(onresponse)) {
+      if(async <- is.null(onresponse)) {
+        pr <- promises::promise(function(resolve, reject) {
+          onresponse <<- resolve
+          onerror <<- reject
+        })
+      } else {
         onresponse <- rlang::as_function(onresponse)
       }
       if(!is.null(onerror)) {
@@ -124,13 +128,36 @@ CDPSession <- R6::R6Class(
       } else {
         self$emit("command", id = id, method = method, params = params, onresponse = onresponse, onerror = onerror)
       }
+      if(async) return(pr)
       invisible(self)
     },
-    on = function(eventName, callback) {
+    on = function(eventName, callback = NULL) {
+      if(is.null(callback)) {
+        return(self$once(eventName))
+      }
       super$on(eventName, callback)
       invisible(self)
     },
-    once = function(eventName, callback) {
+    once = function(eventName, callback = NULL) {
+      if(is.null(callback)) {
+        onerror <- NULL
+        rm_onerror <- NULL
+        rm_onsuccess <- NULL
+        pr <- promises::promise(function(resolve, reject) {
+          onerror <<- reject
+          callback <<- function(...) {
+            rm_onerror()
+            result <- list(...)
+            resolve(result)
+          }
+        })
+        rm_onsuccess <- super$once(eventName, callback)
+        rm_onerror <- super$once("error", function(reason) {
+          rm_onsuccess()
+          onerror(reason)
+        })
+        return(pr)
+      }
       super$once(eventName, callback)
       invisible(self)
     },
