@@ -87,14 +87,14 @@ CDPSession <- R6::R6Class(
           })
         }
         self$emit("command_will_be_sent", msg)
-        private$.commandList[[id]] <- list(method = method, params = params)
+        private$.commandList[[as.character(id)]] <- list(method = method, params = params)
         private$.CDPSession_con$send(msg)
         "!DEBUG Command #`id`-`method` sent."
       })
       # when a response event is fired, emit an event corresponding to the sent command
       super$on("response", function(id, result) {
-        method_sent <- private$.commandList[[id]]$method
-        private$.commandList[[id]] <- NULL
+        method_sent <- private$.commandList[[as.character(id)]]$method
+        private$.commandList[[as.character(id)]] <- NULL
         self$emit(method_sent, result)
         if(length(private$.commandList) == 0) {
           self$emit("ready")
