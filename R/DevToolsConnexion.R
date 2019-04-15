@@ -129,14 +129,14 @@ CDPSession <- R6::R6Class(
         self$emit("command", id = id, method = method, params = params, onresponse = onresponse, onerror = onerror)
       }
       if(async) return(pr)
-      self
+      invisible(self)
     },
     on = function(eventName, callback = NULL) {
       if(is.null(callback)) {
         return(self$once(eventName))
       }
       super$on(eventName, callback)
-      self
+      invisible(self)
     },
     once = function(eventName, callback = NULL) {
       if(is.null(callback)) {
@@ -159,7 +159,13 @@ CDPSession <- R6::R6Class(
         return(pr)
       }
       super$once(eventName, callback)
-      self
+      invisible(self)
+    },
+    readyState = function() {
+      private$.CDPSession_con$readyState()
+    },
+    close = function() {
+      private$.CDPSession_con$close()
     }
   ),
   active = list(
