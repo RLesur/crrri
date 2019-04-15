@@ -9,7 +9,7 @@ ws_endpoint <- chr_get_ws_addr(debug_port = 9222)
 page_session <- CDPSession$new(ws_endpoint)
 
 # page_session is in pre-connecting test until connection is explicitely launch
-page_session$.__enclos_env__$private$.CDPSession_con$readyState()
+page_session$readyState()
 
 # listening event
 page_session$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
@@ -54,7 +54,7 @@ page_session$
 page_session$connect()
 
 # closing the session and chrome
-page_session$.__enclos_env__$private$.CDPSession_con$close()
+page_session$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
 gc()

@@ -133,6 +133,12 @@ CDPSession <- R6::R6Class(
     once = function(eventName, callback) {
       super$once(eventName, callback)
       invisible(self)
+    },
+    readyState = function() {
+      private$.CDPSession_con$readyState()
+    },
+    close = function() {
+      private$.CDPSession_con$close()
     }
   ),
   active = list(
