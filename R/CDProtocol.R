@@ -16,29 +16,22 @@ CDProtocol <- R6::R6Class(
       get(domain, private$.protocol$domains)$description
     },
     list_commands = function(domain) {
-      private$.build_list(
-        domain,
-        ls(get(domain, private$.protocol$domains)$commands)
-      )
+      private$.list_objects(domain, "commands")
     },
     list_events = function(domain) {
-      private$.build_list(
-        domain,
-        ls(get(domain, private$.protocol$domains)$events)
-      )
+      private$.list_objects(domain, "events")
     },
     list_types = function(domain) {
-      private$.build_list(
-        domain,
-        ls(get(domain, private$.protocol$domains)$types)
-      )
+      private$.list_objects(domain, "types")
     },
     domains = NULL
   ),
   private = list(
     .protocol = "environment",
-    .build_list = function(domain, obj_names) {
-      if(is.null(obj_names)) return(list())
+    .list_objects = function(domain, cl) {
+      specs <- get(domain, private$.protocol$domains)[[cl]]
+      if(is.null(specs)) return(list())
+      obj_names <- ls(specs)
       l <- as.list(paste(domain, obj_names, sep = "."))
       names(l) <- obj_names
       l
