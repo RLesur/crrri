@@ -5,6 +5,7 @@ NULL
 CDP <- function(ws_url, autoConnect = FALSE, url = "http://127.0.0.1:9222", local = TRUE) {
   protocol <- CDProtocol$new(url = url, local = local)
   CDPSession <- CDPSessionGenerator()
+  lapply(protocol$domains, function(domain) CDPSession$set("public", domain, NULL))
   client <- CDPSession$new(ws_url = ws_url, protocol = protocol, autoConnect = autoConnect)
   return(client)
 }
