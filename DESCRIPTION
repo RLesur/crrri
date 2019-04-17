@@ -42,6 +42,7 @@ RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Collate: 
     'EventEmitter.R'
+    'CDP.R'
     'DevToolsConnexion.R'
     'await.R'
     'chr_connect.R'

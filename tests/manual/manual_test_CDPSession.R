@@ -6,8 +6,8 @@ chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
 
 ws_endpoint <- chr_get_ws_addr(debug_port = 9222)
 
-page_session <- CDPSession$new(ws_endpoint)
-
+# page_session <- CDPSession$new(ws_endpoint)
+page_session <- CDP(ws_endpoint)
 # page_session is in pre-connecting test until connection is explicitely launch
 page_session$readyState()
 
