@@ -29,5 +29,3 @@ DomainGenerator <- function(){R6::R6Class(
  )
 )}
 
-test <- domain(list(send = function(command, params, onresponse) cat(paste(command, params, onresponse, "\n"))), list(a = "aa"))
-
