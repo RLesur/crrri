@@ -1,10 +1,11 @@
 #' @include EventEmitter.R
+#' @include CDProtocol.R
 NULL
 
-CDP <- function(ws_url, autoConnect = FALSE) {
-  #con <- CDPConnexion$new(ws_url = ws_url, autoConnect = autoConnect)
+CDP <- function(ws_url, autoConnect = FALSE, url = "http://127.0.0.1:9222", local = TRUE) {
+  protocol <- CDProtocol$new(url = url, local = local)
   CDPSession <- CDPSessionGenerator()
-  client <- CDPSession$new(ws_url, autoConnect)
+  client <- CDPSession$new(ws_url = ws_url, protocol = protocol, autoConnect = autoConnect)
   return(client)
 }
 
@@ -12,8 +13,9 @@ CDPSessionGenerator <- function() {R6::R6Class(
   "CDPSession",
   inherit = EventEmitter,
   public = list(
-    initialize = function(ws_url, autoConnect = FALSE) {
+    initialize = function(ws_url, protocol, autoConnect = FALSE) {
       "!DEBUG Configuring the websocket connexion..."
+      private$.protocol <- protocol
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
       ws$onOpen(function(event) {
         self$emit("connect", self)
@@ -191,7 +193,8 @@ CDPSessionGenerator <- function() {R6::R6Class(
       jsonlite::toJSON(data, auto_unbox = TRUE)
     },
     .commandList = list(),
-    .ready = FALSE
+    .ready = FALSE,
+    .protocol = NULL
   )
 )}
 
