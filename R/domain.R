@@ -12,11 +12,12 @@ domain <- function(client, domain_name) {
 }
 
 DomainGenerator <- function(){R6::R6Class(
- public = list(
-   initialize = function(client, domain) {
-     self$.__client__ <- client
-   },
-   .__client__ = NULL
- )
+  "Domain",
+  public = list(
+    initialize = function(client, domain) {
+      self$.__client__ <- client
+    },
+    .__client__ = NULL
+  )
 )}
 
