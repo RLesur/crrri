@@ -42,6 +42,7 @@ RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Collate: 
     'CDProtocol.R'
+    'domain.R'
     'EventEmitter.R'
     'CDP.R'
     'DevToolsConnexion.R'
@@ -89,7 +90,6 @@ Collate:
     'commands_Testing.R'
     'commands_Tethering.R'
     'commands_Tracing.R'
-    'domain.R'
     'events_Animation.R'
     'events_ApplicationCache.R'
     'events_CSS.R'

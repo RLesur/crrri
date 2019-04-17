@@ -1,31 +1,22 @@
-domain <- function(client, obj = list()) {
-  stopifnot(
-    length(names(obj)) == length(obj),
-    is.character(unlist(obj))
-  )
+domain <- function(client, domain_name) {
+  protocol <- client$.__protocol__
+  methods_names <- names(c(
+    protocol$list_commands(domain_name),
+    protocol$list_events(domain_name),
+    protocol$list_types(domain_name)
+  ))
 
   Domain <- DomainGenerator()
-
-  obj_names <- names(obj)
-
-  set_active <- function(obj_name, command) {
-    fun <- eval(parse(text = paste0('function(params = NULL, callback = NULL) {private$.client$send("', command, '", params = params, onresponse = callback)}')))
-
-    Domain$set("public", obj_name, fun)
-  }
-
-  mapply(set_active, obj_name = obj_names, command = obj)
+  lapply(methods_names, function(name) Domain$set("public", name, NULL))
   return(Domain$new(client))
 }
 
 DomainGenerator <- function(){R6::R6Class(
  public = list(
-   initialize = function(client = NULL) {
-     private$.client <- client
-   }
- ),
- private = list(
-   .client = NULL
+   initialize = function(client, domain) {
+     self$.__client__ <- client
+   },
+   .__client__ = NULL
  )
 )}
 

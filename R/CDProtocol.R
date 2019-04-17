@@ -38,6 +38,7 @@ CDProtocol <- R6::R6Class(
   private = list(
     .protocol = "environment",
     .build_list = function(domain, obj_names) {
+      if(is.null(obj_names)) return(list())
       l <- as.list(paste(domain, obj_names, sep = "."))
       names(l) <- obj_names
       l

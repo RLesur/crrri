@@ -1,4 +1,5 @@
 #' @include EventEmitter.R
+#' @include domain.R
 #' @include CDProtocol.R
 NULL
 
@@ -16,7 +17,9 @@ CDPSessionGenerator <- function() {R6::R6Class(
   public = list(
     initialize = function(ws_url, protocol, autoConnect = FALSE) {
       "!DEBUG Configuring the websocket connexion..."
-      private$.protocol <- protocol
+      self$.__protocol__ <- protocol
+      lapply(protocol$domains, function(name) self[[name]] <- domain(self, name))
+      self$.__protocol__ <- protocol
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
       ws$onOpen(function(event) {
         self$emit("connect", self)
@@ -170,7 +173,8 @@ CDPSessionGenerator <- function() {R6::R6Class(
     },
     close = function() {
       private$.CDPSession_con$close()
-    }
+    },
+    .__protocol__ = NULL
   ),
   active = list(
     # Value assigned increment id
@@ -194,8 +198,7 @@ CDPSessionGenerator <- function() {R6::R6Class(
       jsonlite::toJSON(data, auto_unbox = TRUE)
     },
     .commandList = list(),
-    .ready = FALSE,
-    .protocol = NULL
+    .ready = FALSE
   )
 )}
 
