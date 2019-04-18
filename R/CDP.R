@@ -1,25 +1,42 @@
 #' @include EventEmitter.R
 #' @include domain.R
 #' @include CDProtocol.R
+#' @include utils.R
 NULL
 
-CDP <- function(ws_url, autoConnect = FALSE, url = "http://127.0.0.1:9222", local = TRUE) {
+CDP <- function(host = "localhost", port = 9222, secure = FALSE, ws_url = NULL, autoConnect = FALSE, local = FALSE) {
+  url <- build_url(host, port, secure)
   protocol <- CDProtocol$new(url = url, local = local)
-  CDPSession <- CDPSessionGenerator()
+  if(is.null(ws_url)) {
+    ws_url <- chr_get_ws_addr(port = port)
+  }
+  CDPSession <- R6::R6Class(
+    "CDPSession",
+    inherit = CDPConnexion,
+    public = list(
+      initialize = function(ws_url, protocol, autoConnect) {
+        super$initialize(ws_url = ws_url, autoConnect = FALSE)
+        self$.__protocol__ <- protocol
+        lapply(protocol$domains, function(name) self[[name]] <- domain(self, name))
+        self$.__protocol__ <- protocol
+        if(isTRUE(autoConnect)) {
+          self$connect()
+        }
+      },
+      .__protocol__ = NULL
+    )
+  )
   lapply(protocol$domains, function(domain) CDPSession$set("public", domain, NULL))
   client <- CDPSession$new(ws_url = ws_url, protocol = protocol, autoConnect = autoConnect)
   return(client)
 }
 
-CDPSessionGenerator <- function() {R6::R6Class(
-  "CDPSession",
+CDPConnexion <- R6::R6Class(
+  "CDPConnexion",
   inherit = EventEmitter,
   public = list(
-    initialize = function(ws_url, protocol, autoConnect = FALSE) {
+    initialize = function(ws_url, autoConnect = FALSE) {
       "!DEBUG Configuring the websocket connexion..."
-      self$.__protocol__ <- protocol
-      lapply(protocol$domains, function(name) self[[name]] <- domain(self, name))
-      self$.__protocol__ <- protocol
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
       ws$onOpen(function(event) {
         self$emit("connect", self)
@@ -173,8 +190,7 @@ CDPSessionGenerator <- function() {R6::R6Class(
     },
     close = function() {
       private$.CDPSession_con$close()
-    },
-    .__protocol__ = NULL
+    }
   ),
   active = list(
     # Value assigned increment id
@@ -200,6 +216,6 @@ CDPSessionGenerator <- function() {R6::R6Class(
     .commandList = list(),
     .ready = FALSE
   )
-)}
+)
 
 

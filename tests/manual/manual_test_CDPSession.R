@@ -4,10 +4,10 @@ work_dir <- chr_new_data_dir()
 
 chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
 
-ws_endpoint <- chr_get_ws_addr(debug_port = 9222)
+#ws_endpoint <- chr_get_ws_addr(port = 9222)
 
 # page_session <- CDPSession$new(ws_endpoint)
-page_session <- CDP(ws_endpoint)
+page_session <- CDP()
 # page_session is in pre-connecting test until connection is explicitely launch
 page_session$readyState()
 
@@ -197,6 +197,57 @@ if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
 gc()
 
+# New API with promises --------------------------------------
+devtools::load_all()
+
+work_dir <- chr_new_data_dir()
+chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
+
+client <- CDP()
+
+# page_session is in pre-connecting test until connection is explicitely launch
+client$readyState()
+
+Runtime <- client$Runtime
+Page <- client$Page
+
+# listening event
+Runtime$executionContextCreated(function(...) cat("First command passed!"))
+
+print_pdf <- function() {
+  Page$printToPDF(
+    list(printBackground = TRUE, preferCSSPageSize = TRUE),
+    function(result) writeBin(jsonlite::base64_dec(result$data), "test.pdf")
+  )
+}
+
+client$once("connect") %...>% {
+  Runtime$enable()
+} %...>% {
+  Page$enable()
+} %...>% {
+  Runtime$addBinding(list(name = "pagedownListener"))
+} %...>% {
+  Page$navigate(list(url = "https://pagedown.rbind.io"))
+} %...>% {
+  Runtime$evaluate(list(expression = "!!window.PagedPolyfill"))
+} %...>% (
+  function(result) if (!isTRUE(result$result$value)) print_pdf()
+)
+
+Runtime$bindingCalled() %...>% {
+  print_pdf()
+}
+
+
+# Lauching connection and starting the chain of event
+client$connect()
+
+# closing the session and chrome
+client$close()
+if(chrome$is_alive()) chrome$kill()
+rm(list = ls())
+gc()
 
 
 

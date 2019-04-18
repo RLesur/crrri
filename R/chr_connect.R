@@ -1,4 +1,5 @@
 #' @include DevToolsConnexion.R
+#' @include utils.R
 NULL
 
 #' Connect R to a new Chrome instance
@@ -38,7 +39,7 @@ chr_connect <- function(
 
   # Step 3: retrieve the websocket address
   if (!isTRUE(failed)) {
-    ws_endpoint <- chr_get_ws_addr(debug_port)
+    ws_endpoint <- chr_get_ws_addr(port = debug_port)
     if (is.null(ws_endpoint))
       failed <- TRUE
   }
@@ -248,10 +249,11 @@ is_chrome_reachable <- function(port, retry_delay = 0.2, max_attempts = 15L) {
 }
 
 # Step 3: retrieve the websocket address ----------------------------------
-chr_get_ws_addr <- function(debug_port) {
-  "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`debug_port`/json ..."
+chr_get_ws_addr <- function(host = "localhost", port = 9222, secure = FALSE) {
+  url <- build_url(host, port, secure)
+  "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`port`/json ..."
   open_debuggers <- tryCatch(
-    jsonlite::read_json(sprintf("http://localhost:%s/json", debug_port), simplifyVector = TRUE),
+    jsonlite::read_json(paste0(url, "/json"), simplifyVector = TRUE),
     error = function(e) list()
   )
 

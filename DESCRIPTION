@@ -41,6 +41,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Collate: 
+    'utils.R'
     'CDProtocol.R'
     'domain.R'
     'EventEmitter.R'
