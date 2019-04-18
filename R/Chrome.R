@@ -7,11 +7,12 @@ Chrome <- R6::R6Class(
   "Chrome",
   public = list(
     initialize = function(
-      bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222,
+      bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222, local = FALSE,
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
       private$.bin <- bin
       private$.port <- debug_port
+      private$.local_protocol <- local
       work_dir <- chr_new_data_dir()
       chr_process <- chr_launch(bin, debug_port, extra_args, headless, work_dir)
       private$.work_dir <- work_dir
@@ -29,9 +30,16 @@ Chrome <- R6::R6Class(
       private$.host <- host
     },
     connect = function() {
-      client <- CDP(host = private$.host, port = private$.port, autoConnect = TRUE)
+      client <- CDP(host = private$.host,
+                    port = private$.port,
+                    autoConnect = TRUE,
+                    local = private$.local_protocol
+      )
       private$.clients <- c(private$.clients, list(client))
       client
+    },
+    listConnections = function() {
+      private$.clients
     },
     close = function() {
       private$finalize()
@@ -46,6 +54,7 @@ Chrome <- R6::R6Class(
     .port = NULL,
     .work_dir = NULL,
     .process = NULL,
+    .local_protocol = FALSE,
     .clients = list(),
     finalize = function() {
       lapply(private$.clients, function(client) client$disconnect())
