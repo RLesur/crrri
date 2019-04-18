@@ -1,4 +1,3 @@
-#' @include DevToolsConnexion.R
 #' @include utils.R
 NULL
 
