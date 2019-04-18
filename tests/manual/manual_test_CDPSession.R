@@ -1,12 +1,6 @@
 devtools::load_all()
 
-work_dir <- chr_new_data_dir()
-
-chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
-
-#ws_endpoint <- chr_get_ws_addr(port = 9222)
-
-# client <- CDPSession$new(ws_endpoint)
+chrome <- Chrome$new()
 client <- CDP()
 # client is in pre-connecting test until connection is explicitely launch
 client$readyState()
@@ -53,9 +47,9 @@ client$
 # Lauching connection and starting the chain of event
 client$connect()
 
-# closing the session and chrome
-client$close()
-if(chrome$is_alive()) chrome$kill()
+# disconnect the client and close chrome
+client$disconnect()
+if(chrome$is_alive) chrome$close()
 rm(list = ls())
 gc()
 
