@@ -29,6 +29,11 @@ CDP <- function(host = "localhost", port = 9222, secure = FALSE, ws_url = NULL, 
   )
   lapply(protocol$domains, function(domain) CDPSession$set("public", domain, NULL))
   client <- CDPSession$new(ws_url = ws_url, protocol = protocol, autoConnect = autoConnect)
+  if(isTRUE(autoConnect)) {
+    while(client$readyState() == 0L) {
+      later::run_now()
+    }
+  }
   return(client)
 }
 
@@ -190,6 +195,9 @@ CDPConnexion <- R6::R6Class(
     },
     disconnect = function() {
       private$.CDPSession_con$close()
+      while(self$readyState() < 3L) {
+        later::run_now()
+      }
     }
   ),
   active = list(
@@ -216,7 +224,7 @@ CDPConnexion <- R6::R6Class(
     .commandList = list(),
     .ready = FALSE,
     finalize = function() {
-      private$.CDPSession_con$close()
+      self$disconnect()
     }
   )
 )

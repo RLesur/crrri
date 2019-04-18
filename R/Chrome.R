@@ -48,7 +48,7 @@ Chrome <- R6::R6Class(
     .process = NULL,
     .clients = list(),
     finalize = function() {
-      #lapply(private$.clients, function(client) client$disconnect())
+      lapply(private$.clients, function(client) client$disconnect())
       killed <- !private$.process$is_alive()
       if (!killed) {
         "!DEBUG Closing headless Chrome..."
