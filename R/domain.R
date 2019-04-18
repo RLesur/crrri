@@ -18,9 +18,10 @@ domain <- function(client, domain_name) {
         types <- protocol$list_types(domain)
         mapply(
           function(name, method) {
-            self[[name]] <- function(params = NULL, callback = NULL) {
+            fun <- function(params = NULL, callback = NULL) {
               self$.__client__$send(method, params = params, onresponse = callback)
             }
+            self[[name]] <- fun
           },
           name = names(commands),
           method = commands
