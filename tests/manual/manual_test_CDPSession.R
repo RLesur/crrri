@@ -6,42 +6,42 @@ chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
 
 #ws_endpoint <- chr_get_ws_addr(port = 9222)
 
-# page_session <- CDPSession$new(ws_endpoint)
-page_session <- CDP()
-# page_session is in pre-connecting test until connection is explicitely launch
-page_session$readyState()
+# client <- CDPSession$new(ws_endpoint)
+client <- CDP()
+# client is in pre-connecting test until connection is explicitely launch
+client$readyState()
 
 # listening event
-page_session$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
+client$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
 
-page_session$
-  once("connect", ~ page_session$sendCommand('Runtime.enable'))$
-  once("Runtime.enable", ~ page_session$sendCommand('Page.enable'))$
+client$
+  once("connect", ~ client$send('Runtime.enable'))$
+  once("Runtime.enable", ~ client$send('Page.enable'))$
   once("Page.enable",
-       ~ page_session$sendCommand('Runtime.addBinding',
+       ~ client$send('Runtime.addBinding',
                                   params = list(name = "pagedownListener")
        )
   )$
   once("Runtime.addBinding",
-       ~ page_session$sendCommand('Page.navigate',
+       ~ client$send('Page.navigate',
                                   params = list(url = "https://pagedown.rbind.io")
        )
   )$
   once('Page.domContentEventFired',
-       ~ page_session$sendCommand('Runtime.evaluate',
+       ~ client$send('Runtime.evaluate',
                                   params = list(expression = "!!window.PagedPolyfill")
        )
   )$
   once("Runtime.evaluate",
        function(result) if (!isTRUE(result$result$value)) {
-         page_session$sendCommand(
+         client$send(
            "Page.printToPDF",
           params = list(printBackground = TRUE, preferCSSPageSize = TRUE)
          )
        }
   )$
   once('Runtime.bindingCalled',
-       ~ page_session$sendCommand(
+       ~ client$send(
          "Page.printToPDF",
          params = list(printBackground = TRUE, preferCSSPageSize = TRUE)
        )
@@ -51,10 +51,10 @@ page_session$
   )
 
 # Lauching connection and starting the chain of event
-page_session$connect()
+client$connect()
 
 # closing the session and chrome
-page_session$close()
+client$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
 gc()
@@ -67,65 +67,65 @@ work_dir <- chr_new_data_dir()
 
 chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
 
-ws_endpoint <- chr_get_ws_addr(debug_port = 9222)
+ws_endpoint <- chr_get_ws_addr(port = 9222)
 
-page_session <- CDPSession$new(ws_endpoint)
+client <- CDPSession$new(ws_endpoint)
 
-# page_session is in pre-connecting test until connection is explicitely launch
-page_session$readyState()
+# client is in pre-connecting test until connection is explicitely launch
+client$readyState()
 
 # listening event
-page_session$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
+client$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
 
-connected = page_session$once("connect")
+connected = client$once("connect")
 
 connected %...>% {
-  page_session$sendCommand('Runtime.enable')
+  client$send('Runtime.enable')
 }
 
-page_session$once("Runtime.enable") %...>% {page_session$sendCommand('Page.enable')}
+client$once("Runtime.enable") %...>% {client$send('Page.enable')}
 
-page_session$once("Page.enable") %...>% {
-  page_session$sendCommand(
+client$once("Page.enable") %...>% {
+  client$send(
     'Runtime.addBinding',
     params = list(name = "pagedownListener")
   )
 }
-page_session$once("Runtime.addBinding") %...>% {
-  page_session$sendCommand(
+client$once("Runtime.addBinding") %...>% {
+  client$send(
     'Page.navigate',
     params = list(url = "https://pagedown.rbind.io")
   )
 }
-page_session$once('Page.domContentEventFired') %...>% {
-  page_session$sendCommand(
+client$once('Page.domContentEventFired') %...>% {
+  client$send(
     'Runtime.evaluate',
     params = list(expression = "!!window.PagedPolyfill")
   )
 }
-page_session$once("Runtime.evaluate",
+client$once("Runtime.evaluate",
        function(result) if (!isTRUE(result$result$value)) {
-         page_session$sendCommand(
+         client$send(
            "Page.printToPDF",
            params = list(printBackground = TRUE, preferCSSPageSize = TRUE)
          )
        }
   )
-page_session$once('Runtime.bindingCalled') %...>% {
-  page_session$sendCommand(
+client$once('Runtime.bindingCalled') %...>% {
+  client$send(
     "Page.printToPDF",
     params = list(printBackground = TRUE, preferCSSPageSize = TRUE)
   )
 }
-page_session$once("Page.printToPDF",
+client$once("Page.printToPDF",
        function(result) writeBin(jsonlite::base64_dec(result$data), "test.pdf")
 )
 
 # Lauching connection and starting the chain of event
-page_session$connect()
+client$connect()
 
 # closing the session and chrome
-page_session$close()
+client$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
 gc()
@@ -138,61 +138,61 @@ work_dir <- chr_new_data_dir()
 
 chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
 
-ws_endpoint <- chr_get_ws_addr(debug_port = 9222)
+ws_endpoint <- chr_get_ws_addr(port = 9222)
 
-page_session <- CDPSession$new(ws_endpoint)
+client <- CDPSession$new(ws_endpoint)
 
-# page_session is in pre-connecting test until connection is explicitely launch
-page_session$readyState()
+# client is in pre-connecting test until connection is explicitely launch
+client$readyState()
 
 # listening event
-page_session$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
+client$once("Runtime.executionContextCreated", function(...) cat("First command passed!"))
 
-page_session$once("connect") %...>% {
-  page_session$sendCommand('Runtime.enable')
+client$once("connect") %...>% {
+  client$send('Runtime.enable')
 } %...>% {
-  page_session$sendCommand('Page.enable')
+  client$send('Page.enable')
 } %...>% {
-  page_session$sendCommand(
+  client$send(
     'Runtime.addBinding',
     params = list(name = "pagedownListener")
   )
 } %...>% {
-  page_session$sendCommand(
+  client$send(
     'Page.navigate',
     params = list(url = "https://pagedown.rbind.io")
   )
 } %...>% {
-  page_session$sendCommand(
+  client$send(
     'Runtime.evaluate',
     params = list(expression = "!!window.PagedPolyfill")
   )
 } %...>% (
   function(result) if (!isTRUE(result$result$value)) {
-    page_session$sendCommand(
+    client$send(
       "Page.printToPDF",
       params = list(printBackground = TRUE, preferCSSPageSize = TRUE)
     )
   }
 )
 
-page_session$once('Runtime.bindingCalled') %...>% {
-  page_session$sendCommand(
+client$once('Runtime.bindingCalled') %...>% {
+  client$send(
     "Page.printToPDF",
     params = list(printBackground = TRUE, preferCSSPageSize = TRUE)
   )
 }
 
-page_session$once("Page.printToPDF") %...>% (
+client$once("Page.printToPDF") %...>% (
   function(result) writeBin(jsonlite::base64_dec(result$data), "test.pdf")
 )
 
 
 # Lauching connection and starting the chain of event
-page_session$connect()
+client$connect()
 
 # closing the session and chrome
-page_session$close()
+client$close()
 if(chrome$is_alive()) chrome$kill()
 rm(list = ls())
 gc()
@@ -205,7 +205,7 @@ chrome <- chr_launch(work_dir = work_dir, headless = TRUE)
 
 client <- CDP()
 
-# page_session is in pre-connecting test until connection is explicitely launch
+# client is in pre-connecting test until connection is explicitely launch
 client$readyState()
 
 Runtime <- client$Runtime
