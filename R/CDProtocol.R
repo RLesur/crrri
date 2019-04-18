@@ -18,6 +18,27 @@ CDProtocol <- R6::R6Class(
     list_commands = function(domain) {
       private$.list_objects(domain, "commands")
     },
+    get_formals = function(domain, command) {
+      params_env <- private$.protocol$domains[[domain]]$commands[[command]]$parameters
+      if(is.null(params_env)) {
+        params_names <- character(0)
+      } else {
+        params_names <- ls(params_env)
+      }
+      params_optional <- sapply(params_names, function(name) isTRUE(params_env[[name]]$optional))
+      if(length(params_optional) > 0) {
+        params_optional <- sort(params_optional) # get the required params first
+      }
+      params_optional <- c(params_optional, callback = TRUE)
+      # build the pairlist string:
+      text <- paste0(
+        "alist(",
+        paste(names(params_optional), ifelse(params_optional, "NULL", ""), sep = " = ", collapse = ", "),
+        ")"
+      )
+      # return the pairlist:
+      eval(parse(text = text))
+    },
     list_events = function(domain) {
       private$.list_objects(domain, "events")
     },

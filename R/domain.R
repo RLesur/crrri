@@ -18,9 +18,20 @@ domain <- function(client, domain_name) {
         types <- protocol$list_types(domain)
         mapply(
           function(name, method) {
-            fun <- function(params = NULL, callback = NULL) {
+            fun <- function() {
+              args <- utils::head(rlang::fn_fmls_names(), -1) # remove the callback argument
+              params <- mget(args) # retrieve values
+              # check for missing argument
+              # when an argument is missing, its mode is name
+              is_missing <- sapply(params, function(x) mode(x) == "name")
+              if(any(is_missing)) {
+                stop('argument "', names(is_missing[is_missing])[1], '" is missing, with no default value', call. = FALSE)
+              }
+              # remove argument with NULL
+              params <- params[!sapply(params, is.null)]
               self$.__client__$send(method, params = params, onresponse = callback)
             }
+            formals(fun) <- protocol$get_formals(domain, name)
             self[[name]] <- fun
           },
           name = names(commands),
