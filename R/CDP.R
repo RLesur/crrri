@@ -4,6 +4,7 @@
 #' @include utils.R
 NULL
 
+#' @export
 CDP <- function(host = "localhost", port = 9222, secure = FALSE, ws_url = NULL, autoConnect = FALSE, local = FALSE) {
   url <- build_url(host, port, secure)
   protocol <- CDProtocol$new(url = url, local = local)
@@ -124,7 +125,6 @@ CDPConnexion <- R6::R6Class(
           self$emit("ready")
         }
       })
-      reg.finalizer(ws, function(ws) { ws$close() })
       "!DEBUG ...websocket connexion configured."
       private$.CDPSession_con <- ws
       if(isTRUE(autoConnect)) {
@@ -188,7 +188,7 @@ CDPConnexion <- R6::R6Class(
     readyState = function() {
       private$.CDPSession_con$readyState()
     },
-    close = function() {
+    disconnect = function() {
       private$.CDPSession_con$close()
     }
   ),
@@ -214,8 +214,27 @@ CDPConnexion <- R6::R6Class(
       jsonlite::toJSON(data, auto_unbox = TRUE)
     },
     .commandList = list(),
-    .ready = FALSE
+    .ready = FALSE,
+    finalize = function() {
+      private$.CDPSession_con$close()
+    }
   )
 )
 
+chr_get_ws_addr <- function(host = "localhost", port = 9222, secure = FALSE) {
+  url <- build_url(host, port, secure)
+  "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`port`/json ..."
+  open_debuggers <- tryCatch(
+    jsonlite::read_json(paste0(url, "/json"), simplifyVector = TRUE),
+    error = function(e) list()
+  )
+
+  address <- open_debuggers$webSocketDebuggerUrl[open_debuggers$type == "page"]
+  if (is.null(address))
+    "!DEBUG ...websocket entrypoint unavailable."
+  else
+    "!DEBUG ...found websocket entrypoint `address`"
+
+  address # NULL when fails
+}
 
