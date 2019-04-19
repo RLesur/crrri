@@ -5,7 +5,7 @@
 NULL
 
 #' @export
-CDP <- function(
+CDPSession <- function(
   host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,
   autoConnect = FALSE, local = FALSE
 ) {

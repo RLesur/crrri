@@ -45,7 +45,7 @@ Collate:
     'CDProtocol.R'
     'domain.R'
     'EventEmitter.R'
-    'CDP.R'
+    'CDPSession.R'
     'CDPRemote.R'
     'Chrome.R'
     'await.R'

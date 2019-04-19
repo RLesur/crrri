@@ -1,5 +1,5 @@
 #' @include utils.R
-#' @include CDP.R
+#' @include CDPSession.R
 NULL
 
 #' @export
@@ -26,11 +26,12 @@ CDPRemote <- R6::R6Class(
     },
     connect = function() {
       if(!private$.reachable) stop("Cannot access to remote host.")
-      client <- CDP(host = private$.host,
-                    port = private$.port,
-                    secure = private$.secure,
-                    autoConnect = TRUE,
-                    local = private$.local_protocol
+      client <- CDPSession(
+        host = private$.host,
+        port = private$.port,
+        secure = private$.secure,
+        autoConnect = TRUE,
+        local = private$.local_protocol
       )
       private$.clients <- c(private$.clients, list(client))
       client
