@@ -5,7 +5,10 @@
 NULL
 
 #' @export
-CDP <- function(host = "localhost", port = 9222, secure = FALSE, ws_url = NULL, autoConnect = FALSE, local = FALSE) {
+CDP <- function(
+  host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,
+  autoConnect = FALSE, local = FALSE
+) {
   url <- build_url(host, port, secure)
   protocol <- CDProtocol$new(url = url, local = local)
   if(is.null(ws_url)) {

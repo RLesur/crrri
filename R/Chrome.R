@@ -1,63 +1,43 @@
-#' @include utils.R
-#' @include CDP.R
+#' @include CDPRemote.R
 NULL
 
 #' @export
 Chrome <- R6::R6Class(
   "Chrome",
+  inherit = CDPRemote,
   public = list(
     initialize = function(
       bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222, local = FALSE,
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
       private$.bin <- bin
-      private$.port <- debug_port
-      private$.local_protocol <- local
       work_dir <- chr_new_data_dir()
       chr_process <- chr_launch(bin, debug_port, extra_args, headless, work_dir)
       private$.work_dir <- work_dir
       private$.process <- chr_process
-      host <- "localhost"
-      chrome_reachable <- is_chrome_reachable(host, debug_port, retry_delay, max_attempts)
-      if(!chrome_reachable) {
-        host <- "127.0.0.1"
-        chrome_reachable <- is_chrome_reachable(host, debug_port, retry_delay, max_attempts)
-      }
-      if(!chrome_reachable && isTRUE(headless)) {
-        warning("Cannot access to Chrome. Closing Chrome...")
+      super$initialize(host = "localhost",
+                       debug_port = debug_port,
+                       secure = FALSE,
+                       local = local,
+                       retry_delay = retry_delay,
+                       max_attempts = max_attempts
+      )
+      if(!private$.reachable) {
+        warning("...closing Chrome.")
         private$finalize()
       }
-      private$.host <- host
-    },
-    connect = function() {
-      client <- CDP(host = private$.host,
-                    port = private$.port,
-                    autoConnect = TRUE,
-                    local = private$.local_protocol
-      )
-      private$.clients <- c(private$.clients, list(client))
-      client
-    },
-    listConnections = function() {
-      private$.clients
     },
     close = function() {
       private$finalize()
-    }
-  ),
-  active = list(
+    },
     is_alive = function() private$.process$is_alive()
   ),
   private = list(
     .bin = NULL,
-    .host = NULL,
-    .port = NULL,
     .work_dir = NULL,
     .process = NULL,
-    .local_protocol = FALSE,
-    .clients = list(),
     finalize = function() {
-      lapply(private$.clients, function(client) client$disconnect())
+      self$closeConnections()
       killed <- !private$.process$is_alive()
       if (!killed) {
         "!DEBUG Closing headless Chrome..."
@@ -70,7 +50,7 @@ Chrome <- R6::R6Class(
         }
       }
       private$.process$wait()
-      cleaned <- chr_clean_work_dir(private$.work_dir)
+      chr_clean_work_dir(private$.work_dir)
     }
   )
 )
@@ -81,7 +61,7 @@ chr_new_data_dir <- function(length = 8, slug = "chrome-data-dir-") {
   normalizePath(file.path(user_data_dir, paste0(slug, random_string)), mustWork = FALSE)
 }
 
-# Step 1: launch Chrome ---------------------------------------------------
+# Launch Chrome ---------------------------------------------------
 # This function launches a new Chrome processus
 # The user has to provide a working directory for Chrome: see the helper function chr_new_data_dir()
 # The command can silently fail: in this case, NULL is returned.
@@ -182,30 +162,7 @@ chr_debugging_port_args <- function(debug_port) {
   paste("--remote-debugging-port", debug_port, sep = "=")
 }
 
-# helper to test chrome connexion -----------------------------------------
-is_chrome_reachable <- function(host, port, retry_delay = 0.2, max_attempts = 15L) {
-  url <- build_url(host, port)
-  chrome_reached <- function() {
-    check_url <- purrr::safely(httr::GET, otherwise = list())
-    response <- check_url(url, httr::use_proxy(""))
-    isTRUE(response$result$status_code == 200)
-  }
-
-  succeeded <- FALSE
-  "!DEBUG Trying to find `url`"
-  for (i in 1:max_attempts) {
-    "!DEBUG attempt `i`..."
-    succeeded <- chrome_reached()
-    if (isTRUE(succeeded)) break
-    Sys.sleep(retry_delay)
-  }
-
-  "!DEBUG `if(succeeded) paste(url, 'found') else paste('...cannot find', url)`"
-  succeeded
-}
-
-
-# close and clean functions -----------------------------------------------
+# cleaner helpers -----------------------------------------------
 chr_clean_work_dir <- function(work_dir) {
   cleaned <- !dir.exists(work_dir)
 
@@ -226,5 +183,3 @@ chr_clean_work_dir <- function(work_dir) {
 
   invisible(cleaned)
 }
-
-

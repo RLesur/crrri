@@ -46,6 +46,7 @@ Collate:
     'domain.R'
     'EventEmitter.R'
     'CDP.R'
+    'CDPRemote.R'
     'Chrome.R'
     'await.R'
     'utils-pipe.R'

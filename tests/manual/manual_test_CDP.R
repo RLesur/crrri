@@ -49,7 +49,7 @@ client$connect()
 
 # disconnect the client and close chrome
 client$disconnect()
-if(remote$is_alive) remote$close()
+if(remote$is_alive()) remote$close()
 rm(list = ls())
 gc()
 
@@ -97,6 +97,6 @@ Runtime$enable() %...>% {
 
 
 # closing the session and chrome
-if(remote$is_alive) remote$close()
+if(remote$is_alive()) remote$close()
 rm(list = ls())
 gc()
