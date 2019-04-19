@@ -72,8 +72,6 @@ Extract the domains you need^[a domain is a set of **commands** (sent to Chrome)
 
 ```{r extract-domains}
 Page <- client$Page
-DOM <- client$DOM
-Network <- client$Network
 Emulation <- client$Emulation
 ```
 
@@ -82,9 +80,7 @@ Chain the different steps:
 ```{r chrome-screenshot}
 # enable events for the Page, DOM and Network domains 
 screenshot <-
-  Page$enable() %...>% 
-  { DOM$enable() } %...>% 
-  { Network$enable() } %...>% {
+  Page$enable() %...>% {
     # modify the viewport settings
     Emulation$setDeviceMetricsOverride(
       width = viewport[1],
@@ -96,7 +92,6 @@ screenshot <-
   } %...>% {
     # go to url
     Page$navigate(targetUrl)
-  } %...>% {
     # wait the page is loaded
     Page$loadEventFired()
   } %>% 
@@ -145,10 +140,14 @@ Runtime <- client$Runtime
 dump_dom <- 
   Network$enable() %...>%
   { Page$enable() } %...>%
-  { Network$setCacheDisabled(cacheDisabled = TRUE) } %...>%
-  { Page$navigate(url = "https://github.com") } %...>%
-  { Page$loadEventFired() } %...>%
-  { Runtime$evaluate(expression = 'document.documentElement.outerHTML') } %...>% {
+  { Network$setCacheDisabled(cacheDisabled = TRUE) } %...>% { 
+    Page$navigate(url = "https://github.com")
+    Page$loadEventFired()
+  } %...>% { 
+    Runtime$evaluate(
+      expression = 'document.documentElement.outerHTML'
+    ) 
+  } %...>% {
    writeLines(c(.$result$value, "\n"), con = html_file) 
   } %>%
   finally(
