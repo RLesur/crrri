@@ -27,7 +27,7 @@ All the examples come from the [`chrome-remote-interface`](https://www.npmjs.com
 
 # Setup
 
-You have to set up beforehand the `HEADLESS_CHROME` environment variable to a Chromium/Chrome binary on our system. If you do not, you will need to provide the path to a Chromium/Chrome binary in `chr_connect`.  
+You have to set up beforehand the `HEADLESS_CHROME` environment variable to a Chromium/Chrome binary on our system. If you do not, you will need to provide the path to a Chromium/Chrome binary in `Chrome$new()`.  
 The [`pagedown`](https://cran.r-project.org/package=pagedown) package provides a helper function to retrieve the Chromium/Chrome path on your system: `pagedown::find_chrome()`. So, you can first execute:
 
 ```{r, eval=FALSE}
@@ -47,40 +47,73 @@ library(promises)
 This first example is inspired from this
 [post](https://jonathanmh.com/taking-full-page-screenshots-headless-chrome/) that uses the `chrome-remote-interface` node.js package.
 
-```{r chrome-screenshot, results='hide'}
+Define some variables to be reused later:
+
+```{r vars-def}
 targetUrl <- "https://cran.rstudio.com"
 viewport <- c(1440, 900)
 screenshotDelay <- 2 # seconds
 screenshot_file <- tempfile(fileext = ".png")
+```
 
-chrome_con <- chr_connect()
+The first step is to launch Chromium/Chrome in headless mode:
 
-screenshot <- 
-  chrome_con %>%
-  # enable events for the Page, Dom and Network domains 
-  Page.enable() %>%
-  DOM.enable() %>%
-  Network.enable() %>%
-  Emulation.setDeviceMetricsOverride(
-    width = viewport[1],
-    height = viewport[2],
-    deviceScaleFactor = 0,
-    mobile = FALSE,
-    dontSetVisibleSize = FALSE
-  ) %>%
-  # go to url
-  Page.navigate(targetUrl) %>%
-  Page.loadEventFired() %>%
-  # add a delay 
-  wait(delay = screenshotDelay) %>%
-  # capture screenshot
-  Page.captureScreenshot(format = "png", fromSurface = TRUE) %...>% 
-  {
-    .$result$data %>% jsonlite::base64_dec() %>% writeBin(screenshot_file)
+```{r launch-chrome, results='hide'}
+remote <- Chrome$new()
+```
+
+Then, you can connect R to headless Chromium/Chrome:
+
+```{r connect}
+client <- remote$connect()
+```
+
+Extract the domains you need^[a domain is a set of **commands** (sent to Chrome), **events** (received from Chrome) and (data) **types**.]:
+
+```{r extract-domains}
+Page <- client$Page
+DOM <- client$DOM
+Network <- client$Network
+Emulation <- client$Emulation
+```
+
+Chain the different steps:
+
+```{r chrome-screenshot}
+# enable events for the Page, DOM and Network domains 
+screenshot <-
+  Page$enable() %...>% 
+  { DOM$enable() } %...>% 
+  { Network$enable() } %...>% {
+    # modify the viewport settings
+    Emulation$setDeviceMetricsOverride(
+      width = viewport[1],
+      height = viewport[2],
+      deviceScaleFactor = 0,
+      mobile = FALSE,
+      dontSetVisibleSize = FALSE
+    )
+  } %...>% {
+    # go to url
+    Page$navigate(targetUrl)
+  } %...>% {
+    # wait the page is loaded
+    Page$loadEventFired()
+  } %>% 
+    # add a delay 
+    wait(delay = screenshotDelay) %...>% {
+    # capture screenshot
+    Page$captureScreenshot(format = "png", fromSurface = TRUE)
+  } %...>% {
+    .$data %>% 
+      jsonlite::base64_dec() %>% 
+      writeBin(screenshot_file)
   } %>%
-  # close the chrome connexion
-  finally(~ chr_disconnect(chrome_con)) %...!% {
-    cat("Global error\n", .$message)
+  # close headless chrome (client connections are safely closed)
+  finally(
+    ~ remote$close()
+  ) %...!% {
+    cat("Error:", .$message, "\n")
   }
 ```
 
@@ -100,22 +133,28 @@ magick::image_scale(img, "400")
 This example is inspired from this [JS script](https://github.com/cyrus-and/chrome-remote-interface/wiki/Dump-HTML-after-page-load) from the `chrome-remote-interface` wiki that dump the DOM.
 
 ```{r dump-dom, results='hide'}
-chrome_con <- chr_connect()
 html_file <- tempfile(fileext = ".html")
 
+remote <- Chrome$new()
+client <- remote$connect()
+
+Network <- client$Network
+Page <- client$Page
+Runtime <- client$Runtime
+
 dump_dom <- 
-  chrome_con %>%
-  Network.enable() %>%
-  Page.enable() %>%
-  Network.setCacheDisabled(cacheDisabled = TRUE) %>%
-  Page.navigate(url = "https://github.com", awaitResult = FALSE) %>% # because the following event listener does not use this result, it is safer to use awaitResult = FALSE
-  Page.loadEventFired() %>%
-  Runtime.evaluate(expression = 'document.documentElement.outerHTML') %...>% {
-   writeLines(c(.$result$result$value, "\n"), con = html_file) 
+  Network$enable() %...>%
+  { Page$enable() } %...>%
+  { Network$setCacheDisabled(cacheDisabled = TRUE) } %...>%
+  { Page$navigate(url = "https://github.com") } %...>%
+  { Page$loadEventFired() } %...>%
+  { Runtime$evaluate(expression = 'document.documentElement.outerHTML') } %...>% {
+   writeLines(c(.$result$value, "\n"), con = html_file) 
   } %>%
-  # Close the connexion when finish
-  finally(~ chr_disconnect(chrome_con)) %...!% {
-    cat(.$message)
+  finally(
+    ~ remote$close()
+  ) %...!% {
+    cat("Error:", .$message, "\n")
   }
 ```
 
