@@ -48,8 +48,8 @@ Chrome <- R6::R6Class(
         } else {
           "!DEBUG ...headless Chrome closed."
         }
+        private$.process$wait()
       }
-      private$.process$wait()
       chr_clean_work_dir(private$.work_dir)
     }
   )

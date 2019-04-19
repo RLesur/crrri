@@ -41,6 +41,7 @@ CDPRemote <- R6::R6Class(
     },
     closeConnections = function() {
       lapply(private$.clients, function(client) client$disconnect())
+      private$.clients <- list()
     }
   ),
   private = list(

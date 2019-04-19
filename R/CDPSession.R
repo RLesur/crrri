@@ -197,7 +197,7 @@ CDPConnexion <- R6::R6Class(
       private$.CDPSession_con$readyState()
     },
     disconnect = function() {
-      private$.CDPSession_con$close()
+      if(self$readyState() < 2L) private$.CDPSession_con$close()
       while(self$readyState() < 3L) {
         later::run_now()
       }
