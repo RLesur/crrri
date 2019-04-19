@@ -22,11 +22,11 @@ to errors: you will be close to the metal and have full power (be
 cautious\!). It is highly recommended to know how the DevTools Protocol
 works.
 
-This package is built on top of the packages
+This package is built on top of the
 [`websocket`](https://github.com/rstudio/websocket) and
-[`promises`](https://cran.r-project.org/package=promises). The default
-design of the `crrri` functions is to use promises. However, you can
-also use `crrri` with callbacks if you prefer.
+[`promises`](https://cran.r-project.org/package=promises) packages. The
+default design of the `crrri` functions is to use promises. However, you
+can also use `crrri` with events/callbacks if you prefer.
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain)
 for his seminal work on
@@ -67,69 +67,54 @@ library(promises)
 library(crrri)
 library(jsonlite)
 
-chrome <- chr_connect() 
+remote <- Chrome$new() 
+client <- remote$connect()
+Page <- client$Page
 
-chrome %>% # await R connexion to headless Chrome
-  Page.enable() %>% # await enablement of the Page domain
-  Page.navigate(url = "https://www.r-project.org/") %>% # await navigation starts
-  Page.frameStoppedLoading(frameId = ~ .res$frameId) %>% # await the event "Page.frameStoppedLoading" 
-  Page.printToPDF() %...T>% { # await PDF reception
-    .$result$data %>% base64_dec() %>% writeBin("r_project.pdf") 
+Page$enable() %...>% { # await enablement of the Page domain
+  Page$navigate(url = "https://www.r-project.org/") 
+  Page$loadEventFired() # await the load event
+  } %...>% {
+  Page$printToPDF() 
+  } %...>% { # await PDF reception
+    .$data %>% base64_dec() %>% writeBin("r_project.pdf") 
+  } %...!% {
+    # handle errors
+    cat(c("An error has occured:\n", .$message, "\n")) 
   } %>%
-  finally(~ chr_disconnect(chrome)) %...!% { # disconnect and close Chrome
-    cat(c("An error has occured:\n", .$message, "\n")) # handle errors
-  }
+  finally(~ remote$close())  # disconnect and close Chrome
 ```
 
 All the functions of the `crrri` package (commands and event listeners)
-are built on top of the `promises::then()` function. So, you can pass
-arguments to these functions and use the `%>%` `magrittr`’s pipe.
-However, when building higher level functions, don’t forget that you
-have to deal with promises (those will prevent you to fall into the
-Callback Hell).
+return promises (as defined in the **promises** package) by default.
+When building higher level functions, do not forget that you have to
+deal with promises (those will prevent you to fall into the *Callback
+Hell*).
 
 For instance, you can write a `saveAsPDF` function with a timeout (the
 `crrri::timeout()` function returns a promise that is rejected after a
-delay) as
-follow:
+delay) as follow:
 
 ``` r
-saveUrlAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/"), delay = 30) {
+saveUrlAsPDF <- function(url, file, delay = 30) {
+  remote <- Chrome$new()
+  client <- remote$connect()
+  Page <- client$Page  
   promise_race(
     timeout(delay),
-    chrome %>% 
-      Page.enable() %>%
-      Page.navigate(url = url) %>% 
-      Page.frameStoppedLoading(frameId = ~ .res$frameId) %>%  
-      Page.printToPDF() %...T>% { 
-        .$result$data %>% base64_dec() %>% writeBin(paste0(names(url), ".pdf")) 
-      }
+    Page$enable() %...>% {
+      Page$navigate(url = url)
+      Page$loadEventFired()
+    } %...>% { 
+      Page$printToPDF() 
+    } %...>% { 
+      .$data %>% base64_dec() %>% writeBin(file) 
+    } %...!% {
+      cat(c("An error has occured:\n", .$message, "\n")) 
+    } %>%
+    finally(~ remote$close())
   )
 }
-```
-
-Now, you can implement a dot argument (PDF will be generated
-sequentially because Chrome cannot create multiple PDF at the same
-time):
-
-``` r
-saveAsPDF <- function(...) {
-  chrome <- chr_connect()
-  purrr::reduce(list(...), saveUrlAsPDF, .init = chrome) %>%
-    finally(~ chr_disconnect(chrome)) %...!% {
-      cat(.$message)
-    }
-}
-```
-
-You have created a `saveAsPDF(...)` function that can handle multiple
-URLs:
-
-``` r
-saveAsPDF(c(r_project = "https://www.r-project.org/"),
-          c(rstudio = "https://rstudio.com/"),
-          c(ropensci = "https://ropensci.org/")
-)
 ```
 
 ### Transpose `chrome-remote-interface` JS scripts: dump the DOM
@@ -175,20 +160,24 @@ Using `crrri`, you can write:
 library(promises)
 library(crrri)
 
-chrome <- chr_connect()
+remote <- Chrome$new()
+client <- remote$connect()
 
-chrome %>%
-  Network.enable() %>%
-  Page.enable() %>%
-  Network.setCacheDisabled(cacheDisabled = TRUE) %>%
-  Page.navigate(url = "https://github.com", awaitResult = FALSE) %>% # because the following event listener does not use this result, it is safer to use awaitResult = FALSE
-  Page.loadEventFired() %>%
-  Runtime.evaluate(expression = 'document.documentElement.outerHTML') %...>% {
-   cat(.$result$result$value, "\n") 
+Network <- client$Network
+Page <- client$Page
+Runtime <- client$Runtime
+
+Network$enable() %...>% 
+  { Page$enable() } %...>%
+  { Network$setCacheDisabled(cacheDisabled = TRUE) } %...>%
+  { Page$navigate(url = "https://github.com") } %...>% 
+  { Page$loadEventFired() } %...>%
+  { Runtime$evaluate(expression = 'document.documentElement.outerHTML') } %...>% {
+    cat(.$result$value, "\n") 
+  } %...!% {
+    cat(.$message, "\n") 
   } %>%
-  finally(~ chr_disconnect(chrome)) %...!% {
-    cat(.$message)
-  }
+  finally(~ remote$close())
 ```
 
 If you want to write a higher level function that dump the DOM, you can
@@ -197,22 +186,27 @@ promise** (with a timeout for instance) and rejected promises:
 
 ``` r
 dumpDOM <- function(url, delay = 30) {
-  chrome <- chr_connect()
+  remote <- Chrome$new()
+  client <- remote$connect()
+  
+  Network <- client$Network
+  Page <- client$Page
+  Runtime <- client$Runtime
+  
   promise_race(
     timeout(delay),
-    chrome %>%
-      Network.enable() %>%
-      Page.enable() %>%
-      Network.setCacheDisabled(cacheDisabled = TRUE) %>%
-      Page.navigate(url, awaitResult = FALSE) %>%
-      Page.loadEventFired() %>%
-      Runtime.evaluate(expression = "document.documentElement.outerHTML") %...T>% {
-        cat(.$result$result$value, "\n") 
+    Network$enable() %...>% 
+      { Page$enable() } %...>%
+      { Network$setCacheDisabled(cacheDisabled = TRUE) } %...>%
+      { Page$navigate(url = url) } %...>% 
+      { Page$loadEventFired() } %...>%
+      { Runtime$evaluate(expression = 'document.documentElement.outerHTML') } %...>% {
+        cat(.$result$value, "\n") 
       }
-  ) %>%
-  finally(~ chr_disconnect(chrome)) %...!% {
-    cat(.$message)
-  }
+  ) %...!% {
+    cat(.$message, "\n") 
+  } %>%
+  finally(~ remote$close())
 }
 ```
 
