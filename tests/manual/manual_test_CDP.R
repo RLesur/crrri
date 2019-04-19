@@ -1,7 +1,7 @@
 devtools::load_all()
 
 remote <- Chrome$new()
-client <- CDP()
+client <- CDPSession()
 # client is in pre-connecting test until connection is explicitely launch
 client$readyState()
 
@@ -65,34 +65,51 @@ client$readyState()
 Runtime <- client$Runtime
 Page <- client$Page
 
-# listening event
-Runtime$executionContextCreated(function(...) cat("First command passed!"))
-
-print_pdf <- function() {
+print_pdf <- function(file = "test.pdf") {
   Page$printToPDF(
     printBackground = TRUE,
-    preferCSSPageSize = TRUE,
-    callback = function(result) {
-      writeBin(jsonlite::base64_dec(result$data), "test.pdf")
-      remote$close()
+    preferCSSPageSize = TRUE
+  ) %...>% (
+    function(result) {
+      writeBin(jsonlite::base64_dec(result$data), file)
+      file
     }
   )
 }
 
-Runtime$bindingCalled() %...>% {
-  print_pdf()
+page_loaded <- Page$loadEventFired()
+
+print_standard_document <- function() {
+  page_loaded %...>% {
+    print_pdf()
+  }
 }
 
-Runtime$enable() %...>% {
-  Page$enable()
-} %...>% {
-  Runtime$addBinding(name = "pagedownListener")
-} %...>% {
+ready_to_navigate <-
+  Runtime$enable() %...>% {
+    Page$enable()
+  } %...>% {
+    Runtime$addBinding(name = "pagedownListener")
+  }
+
+pagedjs_documents_printed <-
+  Runtime$bindingCalled() %...>% {
+    print_pdf()
+  }
+
+printed <-
+  ready_to_navigate %...>% {
   Page$navigate(url = "https://pagedown.rbind.io")
+} %...>% {
+  Page$domContentEventFired()
 } %...>% {
   Runtime$evaluate(expression = "!!window.PagedPolyfill")
 } %...>% (
-  function(result) if(!isTRUE(result$result$value)) print_pdf()
+  function(result) if(isTRUE(result$result$value)) {
+    pagedjs_documents_printed
+  } else {
+    print_standard_document()
+  }
 )
 
 
