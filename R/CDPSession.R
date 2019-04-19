@@ -79,6 +79,7 @@ CDPConnexion <- R6::R6Class(
       ws$onError(function(event) {
         "!DEBUG Client failed to connect: `event$message`."
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
+        # TODO use simpleError(event$message)
         self$emit("error", event$message)
       })
       super$on("ready", function() {
