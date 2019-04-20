@@ -17,7 +17,7 @@ domain <- function(client, domain_name) {
         events <- protocol$list_events(domain)
         types <- protocol$list_types(domain)
         mapply(
-          function(name, method) {
+          function(name, method_to_be_sent) {
             fun <- function() {
               args <- utils::head(rlang::fn_fmls_names(), -1) # remove the callback argument
               params <- mget(args) # retrieve values
@@ -29,13 +29,20 @@ domain <- function(client, domain_name) {
               }
               # remove argument with NULL
               params <- params[!sapply(params, is.null)]
-              self$.__client__$send(method, params = params, onresponse = callback)
+              self$.__client__$send(
+                # since the function parameters are not controlled,
+                # there might be some conflicts between CDP parameters and `method_to_be_sent`
+                # Therefore, use get() to retrieve the `method_to_be_sent`
+                get("method_to_be_sent", envir = parent.env(environment())),
+                params = params,
+                onresponse = callback
+              )
             }
             formals(fun) <- protocol$get_formals(domain, name)
             self[[name]] <- fun
           },
           name = names(commands),
-          method = commands
+          method_to_be_sent = commands
         )
         mapply(
           function(name, event) {
