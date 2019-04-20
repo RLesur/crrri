@@ -13,6 +13,8 @@ CDPRemote <- R6::R6Class(
       private$.port <- debug_port
       private$.secure <- secure
       private$.local_protocol <- local
+      private$.retry_delay <- retry_delay
+      private$.max_attempts <- max_attempts
       remote_reachable <- is_remote_reachable(host, debug_port, retry_delay, max_attempts)
       if(!remote_reachable && host == "localhost") {
         host <- "127.0.0.1"
@@ -23,8 +25,10 @@ CDPRemote <- R6::R6Class(
         private$.reachable <- FALSE
       }
       private$.host <- host
+      self$version() # run once to store version
     },
     connect = function() {
+      private$.check_remote()
       if(!private$.reachable) stop("Cannot access to remote host.")
       client <- CDPSession(
         host = private$.host,
@@ -42,6 +46,28 @@ CDPRemote <- R6::R6Class(
     closeConnections = function() {
       lapply(private$.clients, function(client) client$disconnect())
       private$.clients <- list()
+    },
+    version = function() {
+      private$.check_remote()
+      if(private$.reachable) {
+        # if remote is opened, update the private field .version
+        url <- paste0(build_url(private$.host, private$.port, private$.secure), "/json/version")
+        private$.version <- jsonlite::read_json(url)
+      }
+      private$.version
+    },
+    print = function() {
+      version <- self$version()
+      cat(sep = "",
+          "<", version$Browser, ">\n",
+          '  User Agent:\n',
+          '    "', version$`User-Agent`, '"\n'
+      )
+    }
+  ),
+  active = list(
+    user_agent = function() {
+      self$version()$`User-Agent`
     }
   ),
   private = list(
@@ -49,8 +75,21 @@ CDPRemote <- R6::R6Class(
     .port = NULL,
     .secure = FALSE,
     .local_protocol = FALSE,
+    .retry_delay = 0.2,
+    .max_attempts = 15L,
     .reachable = TRUE,
+    .version = list(),
     .clients = list(),
+    .check_remote = function() {
+      if(private$.reachable) {
+        private$.reachable <- is_remote_reachable(
+          private$.host,
+          private$.port,
+          private$.retry_delay,
+          private$.max_attempts
+        )
+      }
+    },
     finalize = function() {
       self$closeConnections()
     }

@@ -44,7 +44,11 @@ Chrome <- R6::R6Class(
         work_dir = NULL
       )
     },
-    is_alive = function() private$.process$is_alive()
+    is_alive = function() private$.process$is_alive(),
+    print = function() {
+      super$print()
+      cat('  Running:', self$is_alive())
+    }
   ),
   private = list(
     .bin = NULL,
