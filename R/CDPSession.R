@@ -67,7 +67,7 @@ CDPConnexion <- R6::R6Class(
         }
         # if an event is fired, emit the corresponding listeners
         if (!is.null(method)) {
-          self$emit(method, params = data$params)
+          self$emit(method, data$params)
         }
       })
       ws$onClose(function(event) {
