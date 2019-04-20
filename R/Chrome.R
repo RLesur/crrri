@@ -30,6 +30,20 @@ Chrome <- R6::R6Class(
     close = function() {
       private$finalize()
     },
+    view = function() {
+      chr_launch(
+        private$.bin,
+        debug_port = NULL,
+        extra_args = c(
+          build_url(private$.host, private$.port, private$.secure),
+          '--new-window',
+          '--no-default-browser-check',
+          '-incognito'
+        ),
+        headless = FALSE,
+        work_dir = NULL
+      )
+    },
     is_alive = function() private$.process$is_alive()
   ),
   private = list(
@@ -140,7 +154,7 @@ is_os_type <- function(os) {
 }
 
 chr_windows_args <- function(headless) {
-  c("--disable-gpu", if (headless) "--no-sandbox")
+  if (headless) c("--disable-gpu", "--no-sandbox")
 }
 
 chr_headless_args <- function(headless) {
@@ -155,11 +169,15 @@ chr_default_args <- function() {
 }
 
 chr_work_dir_args <- function(work_dir) {
-  paste("--user-data-dir", work_dir, sep = "=")
+  if(!is.null(work_dir)) {
+    paste("--user-data-dir", work_dir, sep = "=")
+  }
 }
 
 chr_debugging_port_args <- function(debug_port) {
-  paste("--remote-debugging-port", debug_port, sep = "=")
+  if(!is.null(debug_port)) {
+    paste("--remote-debugging-port", debug_port, sep = "=")
+  }
 }
 
 # cleaner helpers -----------------------------------------------
