@@ -25,6 +25,8 @@ CDProtocol <- R6::R6Class(
       } else {
         params_names <- ls(params_env)
       }
+      # since we will add a callback argument, check that callback is not already used:
+      stopifnot(!("callback" %in% params_names))
       params_optional <- sapply(params_names, function(name) isTRUE(params_env[[name]]$optional))
       if(length(params_optional) > 0) {
         params_optional <- sort(params_optional) # get the required params first
