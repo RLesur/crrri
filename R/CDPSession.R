@@ -114,10 +114,10 @@ CDPConnexion <- R6::R6Class(
 
         if(!is.null(onerror)) {
           onerror <- rlang::as_function(onerror)
-          rm_onerror <- super$once("error", function(reason) {
+          rm_onerror <- super$once("error", function(err) {
             rm_onresponse()
             rm_onerror()
-            onerror(reason)
+            onerror(err)
           })
         }
         self$emit("command_will_be_sent", msg)
@@ -185,9 +185,9 @@ CDPConnexion <- R6::R6Class(
           }
         })
         rm_onsuccess <- super$once(eventName, callback)
-        rm_onerror <- super$once("error", function(reason) {
+        rm_onerror <- super$once("error", function(err) {
           rm_onsuccess()
-          onerror(reason)
+          onerror(err)
         })
         return(pr)
       }
