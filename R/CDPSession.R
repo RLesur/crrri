@@ -7,7 +7,7 @@ NULL
 #' @export
 CDPSession <- function(
   host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,
-  autoConnect = FALSE, local = FALSE
+  local = FALSE, callback = NULL
 ) {
   url <- build_url(host, port, secure)
   protocol <- CDProtocol$new(url = url, local = local)
@@ -18,8 +18,13 @@ CDPSession <- function(
     "CDPSession",
     inherit = CDPConnexion,
     public = list(
-      initialize = function(ws_url, protocol, autoConnect) {
-        super$initialize(ws_url = ws_url, autoConnect = FALSE)
+      initialize = function(ws_url, protocol, autoConnect, onconnect, onerror) {
+        super$initialize(
+          ws_url = ws_url,
+          autoConnect = FALSE,
+          onconnect = onconnect,
+          onerror = onerror
+        )
         self$.__protocol__ <- protocol
         lapply(protocol$domains, function(name) self[[name]] <- domain(self, name))
         self$.__protocol__ <- protocol
@@ -31,20 +36,34 @@ CDPSession <- function(
     )
   )
   lapply(protocol$domains, function(domain) CDPSession$set("public", domain, NULL))
-  client <- CDPSession$new(ws_url = ws_url, protocol = protocol, autoConnect = autoConnect)
-  if(isTRUE(autoConnect)) {
-    while(client$readyState() == 0L) {
-      later::run_now()
-    }
+
+  if(!is.null(callback)) {
+    onconnect <- callback
+    onerror <- stop
+  } else {
+    onconnect <- NULL
+    onerror <- NULL
+    pr <- promises::promise(function(resolve, reject) {
+      onconnect <<- resolve
+      onerror <<- reject
+    })
   }
-  return(client)
+  client <- CDPSession$new(
+    ws_url = ws_url,
+    protocol = protocol,
+    autoConnect = TRUE,
+    onconnect = onconnect,
+    onerror = onerror
+  )
+  if(is.null(callback)) return(pr)
+  client
 }
 
 CDPConnexion <- R6::R6Class(
   "CDPConnexion",
   inherit = EventEmitter,
   public = list(
-    initialize = function(ws_url, autoConnect = FALSE) {
+    initialize = function(ws_url, autoConnect = FALSE, onconnect = NULL, onerror = NULL) {
       "!DEBUG Configuring the websocket connexion..."
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
       ws$onOpen(function(event) {
@@ -88,9 +107,23 @@ CDPConnexion <- R6::R6Class(
       super$on("command_will_be_sent", function(msg) {
         private$.ready <- FALSE
       })
-      super$once("connect", function(obj) {
+      super$once("connect", function(client) {
         self$emit("ready")
       })
+      rm_onerror <- NULL
+      rm_onconnect <- NULL
+      if(!is.null(onconnect)) {
+        rm_onconnect <- super$once("connect", function(client) {
+          if(!is.null(rm_onerror)) rm_onerror()
+          onconnect(client)
+        })
+      }
+      if(!is.null(onerror)) {
+        rm_onerror <- super$once("error", function(err) {
+          if(!is.null(rm_onconnect)) rm_onconnect()
+          onerror(err)
+        })
+      }
       # when the command event is emitted, send a command to Chrome
       super$on("command", function(id = 1L, method, params = NULL, onresponse, onerror = NULL) {
         if(missing(id)) {
@@ -249,4 +282,3 @@ chr_get_ws_addr <- function(host = "localhost", port = 9222, secure = FALSE) {
 
   address # NULL when fails
 }
-
