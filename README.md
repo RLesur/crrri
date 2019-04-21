@@ -59,30 +59,31 @@ remotes::install_github('rlesur/crrri')
 
 Assuming that you have configured the `HEADLESS_CHROME` environment (see
 before), here is an example that produces a PDF of the [R Project
-website](https://www.r-project.org/) (please, do not re-use this example
-in production because it is absolutely not reliable):
+website](https://www.r-project.org/):
 
 ``` r
 library(promises)
 library(crrri)
 library(jsonlite)
 
-remote <- Chrome$new() 
-client <- remote$connect()
-Page <- client$Page
-
-Page$enable() %...>% { # await enablement of the Page domain
-  Page$navigate(url = "https://www.r-project.org/") 
-  Page$loadEventFired() # await the load event
-  } %...>% {
-  Page$printToPDF() 
-  } %...>% { # await PDF reception
-    .$data %>% base64_dec() %>% writeBin("r_project.pdf") 
-  } %...!% {
+chrome <- Chrome$new() 
+chrome$connect() %...>% 
+  (function(client) {
+    Page <- client$Page
+  
+    Page$enable() %...>% { # await enablement of the Page domain
+      Page$navigate(url = "https://www.r-project.org/") 
+      Page$loadEventFired() # await the load event
+    } %...>% {
+      Page$printToPDF() 
+    } %...>% { # await PDF reception
+      .$data %>% base64_dec() %>% writeBin("r_project.pdf") 
+    }
+  }) %...!% {
     # handle errors
     cat(c("An error has occured:\n", .$message, "\n")) 
   } %>%
-  finally(~ remote$close())  # disconnect and close Chrome
+  finally(~ chrome$close())  # disconnect and close Chrome
 ```
 
 All the functions of the `crrri` package (commands and event listeners)
@@ -91,30 +92,50 @@ When building higher level functions, do not forget that you have to
 deal with promises (those will prevent you to fall into the *Callback
 Hell*).
 
-For instance, you can write a `saveAsPDF` function with a timeout (the
+For instance, you can write a `save_as_pdf` function with a timeout (the
 `crrri::timeout()` function returns a promise that is rejected after a
 delay) as follow:
 
 ``` r
-saveUrlAsPDF <- function(url, file, delay = 30) {
-  remote <- Chrome$new()
-  client <- remote$connect()
-  Page <- client$Page  
+save_url_as_pdf <- function(client, url, delay = 30) {
+  Page <- client$Page
   promise_race(
     timeout(delay),
-    Page$enable() %...>% {
-      Page$navigate(url = url)
-      Page$loadEventFired()
-    } %...>% { 
+    Page$enable() %...>% { # await enablement of the Page domain
+      Page$navigate(url = url) 
+      Page$loadEventFired() # await the load event
+    } %...>% {
       Page$printToPDF() 
-    } %...>% { 
-      .$data %>% base64_dec() %>% writeBin(file) 
-    } %...!% {
-      cat(c("An error has occured:\n", .$message, "\n")) 
-    } %>%
-    finally(~ remote$close())
+    } %...>% { # await PDF reception
+      .$data %>% 
+        base64_dec() %>% 
+        writeBin(paste0(httr::parse_url(url)$hostname, ".pdf")) 
+    } %...>% {
+      client
+    }
   )
 }
+```
+
+Now, you can implement a dot argument (PDF will be generated
+sequentially):
+
+``` r
+save_as_pdf <- function(...) {
+  chrome <- Chrome$new()
+  client <- chrome$connect()
+  promise_reduce(list(...), save_url_as_pdf, .init = client) %...!% {
+    cat(c("An error has occured:\n", .$message, "\n")) 
+  } %>%
+    finally(~ chrome$close())
+}
+```
+
+You have created a `save_as_pdf()` function that can handle multiple
+URLs:
+
+``` r
+save_as_pdf("http://r-project.org", "https://ropensci.org/", "https://rstudio.com")
 ```
 
 ### Transpose `chrome-remote-interface` JS scripts: dump the DOM
