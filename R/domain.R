@@ -64,7 +64,15 @@ Domain <- R6::R6Class(
     },
     .build_event_listener = function(event) {
       fun <- function(callback = NULL) {
-        self$.__client__$on(event, callback = callback)
+        res <- self$.__client__$on(event, callback = callback)
+        # if callback is NULL, a promise is returned
+        # for events listeners, the value of the resolved promise is always a list of length 1
+        # in order to facilitate the use of events listeners, we remove this level
+        if(promises::is.promise(res)) {
+          return(promises::then(res, ~ .x[[1]]))
+        } else {
+          res
+        }
       }
       fun
     }
