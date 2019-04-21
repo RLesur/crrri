@@ -3,7 +3,7 @@ NULL
 
 domain <- function(client, domain_name) {
   protocol <- client$.__protocol__
-  methods_names <- names(c(
+  members_names <- names(c(
     protocol$list_commands(domain_name),
     protocol$list_events(domain_name),
     protocol$list_types(domain_name)
@@ -19,28 +19,18 @@ domain <- function(client, domain_name) {
         commands <- protocol$list_commands(domain)
         events <- protocol$list_events(domain)
         types <- protocol$list_types(domain)
-        mapply(
-          function(name, method_to_be_sent) {
-            self[[name]] <- private$.build_command(name, method_to_be_sent)
-          },
-          name = names(commands),
-          method_to_be_sent = commands
-        )
-        mapply(
-          function(name, event) {
-            self[[name]] <- function(callback = NULL) {
-              self$.__client__$on(event, callback = callback)
-            }
-          },
-          name = names(events),
-          event = events
-        )
+        purrr::iwalk(commands, function(command, name) {
+          self[[name]] <- private$.build_command(command, name)
+        })
+        purrr::iwalk(events, function(event, name) {
+          self[[name]] <- private$.build_event_listener(event)
+        })
       }
     )
   )
 
-  lapply(methods_names, function(name) CustomDomain$set("public", name, NULL))
-  return(CustomDomain$new(client, domain_name))
+  purrr::walk(members_names, ~ CustomDomain$set("public", .x, NULL))
+  CustomDomain$new(client, domain_name)
 }
 
 Domain <- R6::R6Class(
@@ -54,7 +44,7 @@ Domain <- R6::R6Class(
   ),
   private = list(
     .domain_name = NULL,
-    .build_command = function(name, method_to_be_sent) {
+    .build_command = function(method_to_be_sent, name) {
       fun <- function() {
         rlang::fn_fmls_names() %>% # pick the fun arguments
           utils::head(-1) %>% # remove the callback argument
@@ -70,6 +60,12 @@ Domain <- R6::R6Class(
           )
       }
       formals(fun) <- self$.__client__$.__protocol__$get_formals(private$.domain_name, name)
+      fun
+    },
+    .build_event_listener = function(event) {
+      fun <- function(callback = NULL) {
+        self$.__client__$on(event, callback = callback)
+      }
       fun
     }
   )
