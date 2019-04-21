@@ -1,3 +1,6 @@
+#' @include utils-pipe.R
+NULL
+
 domain <- function(client, domain_name) {
   protocol <- client$.__protocol__
   methods_names <- names(c(
@@ -19,24 +22,18 @@ domain <- function(client, domain_name) {
         mapply(
           function(name, method_to_be_sent) {
             fun <- function() {
-              args <- utils::head(rlang::fn_fmls_names(), -1) # remove the callback argument
-              params <- mget(args) # retrieve values
-              # check for missing argument
-              # when an argument is missing, its mode is name
-              is_missing <- sapply(params, function(x) mode(x) == "name")
-              if(any(is_missing)) {
-                stop('argument "', names(is_missing[is_missing])[1], '" is missing, with no default value', call. = FALSE)
-              }
-              # remove argument with NULL
-              params <- params[!sapply(params, is.null)]
-              self$.__client__$send(
-                # since the function parameters are not controlled,
-                # there might be some conflicts between CDP parameters and `method_to_be_sent`
-                # Therefore, use get() to retrieve the `method_to_be_sent`
-                get("method_to_be_sent", envir = parent.env(environment())),
-                params = params,
-                onresponse = callback
-              )
+              rlang::fn_fmls_names() %>% # pick the fun arguments
+                utils::head(-1) %>% # remove the callback argument
+                rlang::env_get_list(nms = ., inherit = TRUE) %>% # retrieve values
+                purrr::discard(~ purrr::is_null(.x)) %>% # remove arguments identical to NULL
+                self$.__client__$send(
+                  # since the function parameters are not controlled,
+                  # there might be some conflicts between CDP parameters and `method_to_be_sent`
+                  # Therefore, use get() to retrieve the `method_to_be_sent`
+                  get("method_to_be_sent", envir = parent.env(environment())),
+                  params = .,
+                  onresponse = callback
+                )
             }
             formals(fun) <- protocol$get_formals(domain, name)
             self[[name]] <- fun
