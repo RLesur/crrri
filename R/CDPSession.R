@@ -59,7 +59,7 @@ CDPConnexion <- R6::R6Class(
         # if error, emit an error
         if (!is.null(data$error)) {
           "!DEBUG error: `event$data`"
-          self$emit("error", paste0(data$error$message, ". code: ", data$error$code))
+          self$emit("error", simpleError(paste0(data$error$message, ". code: ", data$error$code)))
         }
         # if a reponse to a command, emit a response event
         if (!is.null(id)) {
@@ -80,7 +80,7 @@ CDPConnexion <- R6::R6Class(
         "!DEBUG Client failed to connect: `event$message`."
         # later::later(~ chr_close(chr_process, work_dir), delay = 0.2)
         # TODO use simpleError(event$message)
-        self$emit("error", event$message)
+        self$emit("error", simpleError(event$message))
       })
       super$on("ready", function() {
         private$.ready <- TRUE
