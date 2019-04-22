@@ -27,7 +27,10 @@ CDPRemote <- R6::R6Class(
       private$.host <- host
       self$version() # run once to store version
     },
-    connect = function() {
+    connect = function(callback = NULL) {
+      if(!is.null(callback)) {
+        callback <- rlang::as_function(callback)
+      }
       private$.check_remote()
       if(!private$.reachable) stop("Cannot access to remote host.")
       con <- CDPSession(
@@ -35,17 +38,21 @@ CDPRemote <- R6::R6Class(
         port = private$.port,
         secure = private$.secure,
         local = private$.local_protocol,
-        callback = NULL
+        callback = callback
       )
-      promises::then(
-        con,
-        onFulfilled = function(value) {
-          private$.clients <- c(private$.clients, list(value))
-        },
-        onRejected = function(err) {
-          warning(err$message, call. = FALSE, immediate. = TRUE)
-        }
-      )
+      if(promises::is.promise(con)) {
+        promises::then(
+          con,
+          onFulfilled = function(value) {
+            private$.clients <- c(private$.clients, list(value))
+          },
+          onRejected = function(err) {
+            warning(err$message, call. = FALSE, immediate. = TRUE)
+          }
+        )
+      } else {
+        private$.clients <- c(private$.clients, list(con))
+      }
       con
     },
     listConnections = function() {

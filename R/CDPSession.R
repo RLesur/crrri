@@ -38,7 +38,7 @@ CDPSession <- function(
   lapply(protocol$domains, function(domain) CDPSession$set("public", domain, NULL))
 
   if(!is.null(callback)) {
-    onconnect <- callback
+    onconnect <- rlang::as_function(callback)
     onerror <- stop
   } else {
     onconnect <- NULL
