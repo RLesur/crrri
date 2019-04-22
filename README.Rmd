@@ -68,7 +68,7 @@ chrome$connect() %...>%
     }
   }) %...!% {
     # handle errors
-    cat(c("An error has occured:\n", .$message, "\n")) 
+    cat("An error has occured:", .$message, "\n")
   } %>%
   finally(~ chrome$close())  # disconnect and close Chrome
 ```
@@ -98,14 +98,14 @@ save_url_as_pdf <- function(client, url, delay = 30) {
 }
 ```
 
-Now, you can implement a dot argument (PDF will be generated sequentially):
+Since the above `save_url_as_pdf()` returns the `client` object, we can chain it and implement a dot argument (PDF will be generated sequentially):
 
 ```{r}
 save_as_pdf <- function(...) {
   chrome <- Chrome$new()
   client <- chrome$connect()
   promise_reduce(list(...), save_url_as_pdf, .init = client) %...!% {
-    cat(c("An error has occured:\n", .$message, "\n")) 
+    cat("An error has occured:", .$message, "\n") 
   } %>%
     finally(~ chrome$close())
 }
@@ -155,51 +155,73 @@ Using `crrri`, you can write:
 library(promises)
 library(crrri)
 
-remote <- Chrome$new()
-client <- remote$connect()
+chrome <- Chrome$new()
 
-Network <- client$Network
-Page <- client$Page
-Runtime <- client$Runtime
-
-Network$enable() %...>% 
-  { Page$enable() } %...>%
-  { Network$setCacheDisabled(cacheDisabled = TRUE) } %...>%
-  { Page$navigate(url = "https://github.com") } %...>% 
-  { Page$loadEventFired() } %...>%
-  { Runtime$evaluate(expression = 'document.documentElement.outerHTML') } %...>% {
-    cat(.$result$value, "\n") 
-  } %...!% {
-    cat(.$message, "\n") 
-  } %>%
-  finally(~ remote$close())
-```
-
-If you want to write a higher level function that dump the DOM, you can embed this script in a function. **Remind you to handle infinite pending promise** (with a timeout for instance) and rejected promises:
-
-```{r}
-dumpDOM <- function(url, delay = 30) {
-  remote <- Chrome$new()
-  client <- remote$connect()
-  
+CDPSession(callback = function(client) {
   Network <- client$Network
   Page <- client$Page
   Runtime <- client$Runtime
-  
-  promise_race(
-    timeout(delay),
-    Network$enable() %...>% 
-      { Page$enable() } %...>%
-      { Network$setCacheDisabled(cacheDisabled = TRUE) } %...>%
-      { Page$navigate(url = url) } %...>% 
-      { Page$loadEventFired() } %...>%
-      { Runtime$evaluate(expression = 'document.documentElement.outerHTML') } %...>% {
-        cat(.$result$value, "\n") 
-      }
-  ) %...!% {
-    cat(.$message, "\n") 
+  Network$enable() %...>% { 
+    Page$enable()
+  } %...>% {
+    Network$setCacheDisabled(cacheDisabled = TRUE)
+  } %...>% {
+    Page$navigate(url = 'https://github.com')
+  } %...>% {
+    Page$loadEventFired()
+  } %...>% {
+    Runtime$evaluate(
+      expression = 'document.documentElement.outerHTML'
+    )
+  } %...>% (function(result) {
+    html <- result$result$value
+    cat(html, "\n")
+  }) %...!% {
+    cat("Error:", .$message, "\n") 
   } %>%
-  finally(~ remote$close())
+    finally(~ client$disconnect())
+})$on("error", function(err) {
+  cat(err$message)
+})$on("disconnect", function() {
+  chrome$close()
+})
+```
+
+If you want to write a higher level function that dump the DOM, you can embed the main part of this script in a function. Remind you to handle infinite pending promise (with a timeout for instance) and rejected promises:
+
+```{r}
+dump_DOM <- function(url, delay = 30) {
+  chrome <- Chrome$new() 
+  chrome$connect() %...>% (
+    function(client) {
+      Network <- client$Network
+      Page <- client$Page
+      Runtime <- client$Runtime
+      
+      promise_race(
+        timeout(delay),
+        Network$enable() %...>% {
+          Page$enable()
+        } %...>% {
+          Network$setCacheDisabled(cacheDisabled = TRUE)
+        } %...>% {
+          Page$navigate(url = url)
+        } %...>% {
+          Page$loadEventFired()
+        } %...>% {
+          Runtime$evaluate(
+            expression = 'document.documentElement.outerHTML'
+          )
+        } %...>% (function(result) {
+          html <- result$result$value
+          cat(html, "\n")
+        })
+      ) %...!% {
+        cat("Error:", .$message, "\n") 
+      } %>%
+        finally(~ chrome$close())
+    }
+  )
 }
 ```
 
@@ -217,7 +239,7 @@ You can find many other examples in the [wiki](https://github.com/cyrus-and/chro
 
 In `crrri`, there are two types of messages: 
 
-- Those sent during connexion/deconnexion (mainly for crrri debugging) 
+- Those sent during connection/disconnection (mainly for crrri debugging) 
 - Those tracking the exchanges between the R websocket client and the remote
 websocket server. These lasts are essential for R devs to develop higher levels
 packages, either during the development process and for debugging purposes.
