@@ -12,7 +12,7 @@ CDPRemote <- R6::R6Class(
     ) {
       private$.port <- debug_port
       private$.secure <- secure
-      private$.local_protocol <- local
+      private$.local_protocol <- isTRUE(local)
       private$.retry_delay <- retry_delay
       private$.max_attempts <- max_attempts
       remote_reachable <- is_remote_reachable(host, debug_port, retry_delay, max_attempts)
@@ -30,6 +30,10 @@ CDPRemote <- R6::R6Class(
     connect = function(callback = NULL) {
       if(!is.null(callback)) {
         callback <- rlang::as_function(callback)
+        assertthat::assert_that(
+          length(rlang::fn_fmls(callback)) > 0,
+          msg = "The callback function must have one argument."
+        )
       }
       private$.check_remote()
       if(!private$.reachable) stop("Cannot access to remote host.")

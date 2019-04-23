@@ -1,4 +1,111 @@
-#' @include CDPRemote.R
+#' @include CDPRemote.R utils.R
+#' @importFrom assertthat assert_that is.scalar is.number
+NULL
+
+#' Launch Chromium or Chrome
+#'
+#' This class aims to launch Chromium or Chrome in headless mode. It possesses
+#' methods to manage connections to headless Chromium/Chrome using the
+#' Chrome Devtools Protocol.
+#'
+#' @section Usage:
+#' ```
+#' remote <- Chrome$new(bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222,
+#'                      local = FALSE, extra_args = NULL, headless = TRUE,
+#'                      retry_delay = 0.2, max_attempts = 15L)
+#'
+#' remote$connect(callback = NULL)
+#' remote$listConnections()
+#' remote$closeConnections()
+#' remote$version()
+#' remote$user_agent
+#'
+#' remote$close()
+#' remote$view()
+#' remote$is_alive()
+#' ```
+#'
+#' @section Arguments:
+#' * `remote`: `Chrome` object representing a remote instance of headless
+#'     Chromium/Chrome.
+#' * `bin`: Character scalar, the path to Chromium or Chrome executable.
+#' * `debug_port`: Integer scalar, the Chromium/Chrome remote debugging port.
+#'     Note that headless Chromium/Chrome will be available at
+#'     `http://localhost:<debug_port>`.
+#' * `local`: Logical scalar, indicating whether the local version of the
+#'     protocol (embedded in `crrri`) must be used or the protocol must be
+#'     fetched _remotely_.
+#' * `extra_args`: Character vector, extra command line arguments passed to
+#'     Chromium/Chrome.
+#' * `headless`: Logical scalar, indicating whether Chromium/Chrome is launched
+#'     in headless mode.
+#' * `retry_delay`: Number, delay in seconds between two successive tries to
+#'     connect to headless Chromium/Chrome.
+#' * `max_attempts`: Logical scalar, number of tries to connect to headless
+#'     Chromium/Chrome.
+#' * `callback`: Function with one argument, executed when the R session is
+#'     connected to Chrome. The connection object is passed to this function.
+#'
+#' @section Details:
+#' `$new()` opens a new headless Chromium/Chrome.
+#'
+#' `$connect(callback = NULL)` connects the R session to the remote instance of
+#' headless Chromium/Chrome. The returned value depends on the value of the
+#' `callback` argument. When `callback` is a function, the returned value is a
+#' connection object. When `callback` is `NULL` the returned value is a promise
+#' which becomes fulfilled once R is connected to the remote instance of
+#' Chromium/Chrome. Once fulfilled, the value of this promise is the connection
+#' object.
+#'
+#' `$listConnections()` returns a list of the connection objects succesfully
+#' created using the `$connect()` method.
+#'
+#' `$closeConnections()` closes all the connections created using the
+#' `$connect()` method.
+#'
+#' `$version()` executes the DevTools `Version` method. It returns a list of
+#' informations available at `http://localhost:<debug_port>/json/version`.
+#'
+#' `$user_agent` returns a character scalar with the User Agent of the
+#' headless Chromium/Chrome.
+#'
+#' `$close()` closes the remote instance of headless Chromium/Chrome.
+#'
+#' `$view()` opens a visible Chromium/Chrome browser at
+#' `http://localhost:<debug_port>`. This is useful to 'see' the headless
+#' Chromium/Chrome instance. Returns the process of the visible browser.
+#'
+#' `$is_alive()` checks if the remote instance is alive. Returns a logical
+#' scalar.
+#'
+#' @name Chrome
+#' @examples
+#' \dontrun{
+#'
+#' remote <- Chrome$new()
+#'
+#' remote$connect() %...>% (function(client) {
+#'   Page <- client$Page
+#'   Runtime <- client$Runtime
+#'
+#'   Page$enable() %...>% {
+#'     Page$navigate(url = 'http://r-project.org')
+#'   } %...>% {
+#'     Page$loadEventFired()
+#'   } %...>% {
+#'     Runtime$evaluate(
+#'       expression = 'document.documentElement.outerHTML'
+#'     )
+#'   } %...>% (function(result) {
+#'     cat(result$result$value, "\n")
+#'   })
+#' }) %...!% {
+#'   cat("Error:", .$message, "\n")
+#' } %>%
+#'   promises::finally(~ remote$close())
+#' }
+#'
+#'
 NULL
 
 #' @export
@@ -7,9 +114,18 @@ Chrome <- R6::R6Class(
   inherit = CDPRemote,
   public = list(
     initialize = function(
-      bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222, local = FALSE,
+      bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
+      assert_that(
+        is_integer(debug_port),
+        is_user_port(debug_port),
+        is_available_port(debug_port)
+      )
+      assert_that(is.scalar(local), is.logical(local))
+      assert_that(is.scalar(headless), is.logical(scalar))
+      assert_that(is.number(retry_delay))
+
       private$.bin <- bin
       work_dir <- chr_new_data_dir()
       chr_process <- chr_launch(bin, debug_port, extra_args, headless, work_dir)

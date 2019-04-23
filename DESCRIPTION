@@ -14,7 +14,9 @@ Description: This is a native implementation of the Chrome DevTools Protocol.
 License: MIT + file LICENSE
 URL: https://github.com/RLesur/criii
 SystemRequirements: Chromium or Chrome
-Imports: 
+Imports:
+    assertthat,
+    httpuv,
     httr,
     jsonlite,
     later,
