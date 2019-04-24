@@ -33,7 +33,8 @@ Suggests:
     knitr,
     pagedown,
     rmarkdown,
-    testthat
+    testthat,
+    covr
 Remotes:
     rstudio/websocket
 Encoding: UTF-8

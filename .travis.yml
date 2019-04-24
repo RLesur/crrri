@@ -5,3 +5,5 @@ sudo: false
 cache: packages
 addons:
   chrome: stable
+after_success:
+  - Rscript -e 'covr::codecov()'
