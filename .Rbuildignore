@@ -7,3 +7,4 @@
 ^tools$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.Renviron$
