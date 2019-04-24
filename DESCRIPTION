@@ -32,7 +32,8 @@ Suggests:
     debugme,
     knitr,
     pagedown,
-    rmarkdown
+    rmarkdown,
+    testthat
 Remotes:
     rstudio/websocket
 Encoding: UTF-8

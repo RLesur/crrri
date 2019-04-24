@@ -206,9 +206,13 @@ chr_launch <- function(
 
   proxy <- get_proxy()
   behind_proxy <- nzchar(proxy)
+  travis <- nzchar(Sys.getenv("TRAVIS"))
 
   if (behind_proxy)
     extra_args <- c(chr_proxy_args(proxy), extra_args)
+
+  if (travis)
+    extra_args <- c(chr_travis_args(), extra_args)
 
   if (is_os_type("windows"))
     extra_args <- c(chr_windows_args(headless), extra_args)
@@ -287,6 +291,10 @@ chr_headless_args <- function(headless) {
 
 chr_default_args <- function() {
   c("--no-first-run")
+}
+
+chr_travis_args <- function() {
+  c("--disable-gpu", "--no-sandbox")
 }
 
 chr_work_dir_args <- function(work_dir) {
