@@ -4,6 +4,29 @@
 #' @include utils.R
 NULL
 
+# Workaround an R CMD check false positive
+# See https://github.com/STAT545-UBC/Discussion/issues/451#issuecomment-264598618
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super"))
+
+#' Connect to a remote instance implementing the Chrome Debugging Protocol
+#'
+#' This function creates a websocket connection to a remote instance using
+#' the Chrome Debugging Protocol.
+#'
+#' @param host Character scalar, the host name of the application.
+#' @param port Numeric scalar, the remote debugging port.
+#' @param secure Logical scalar, indicating whether the https/wss protocols
+#'     shall be used for connecting to the remote application.
+#' @param ws_url Character scalar, the websocket URL. If provided, `host` and
+#'     `port` and `secure` arguments are ignored.
+#' @param local Logical scalar, indicating whether the local version of the
+#'     protocol (embedded in `crrri`) must be used or the protocol must be
+#'     fetched _remotely_.
+#' @param callback Function with one argument, executed when the R session is
+#'     connected to Chrome. The connection object is passed to this function.
+#'
+#' @return A connection object of class `CDPSession`.
+#'
 #' @export
 CDPSession <- function(
   host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,

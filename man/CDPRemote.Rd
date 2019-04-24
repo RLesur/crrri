@@ -25,7 +25,7 @@ remote$user_agent
 \item \code{remote}: an object representing a remote application implementing the
 Chrome Debugging Protocol.
 \item \code{host}: Character scalar, the host name of the application.
-\item \code{debug_port}: Numeric scalar, the  remote debugging port.
+\item \code{debug_port}: Numeric scalar, the remote debugging port.
 \item \code{secure}: Logical scalar, indicating whether the https/wss protocols
 shall be used for connecting to the remote application.
 \item \code{local}: Logical scalar, indicating whether the local version of the

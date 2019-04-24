@@ -24,7 +24,7 @@ NULL
 #' * `remote`: an object representing a remote application implementing the
 #'     Chrome Debugging Protocol.
 #' * `host`: Character scalar, the host name of the application.
-#' * `debug_port`: Numeric scalar, the  remote debugging port.
+#' * `debug_port`: Numeric scalar, the remote debugging port.
 #' * `secure`: Logical scalar, indicating whether the https/wss protocols
 #'     shall be used for connecting to the remote application.
 #' * `local`: Logical scalar, indicating whether the local version of the
