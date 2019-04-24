@@ -123,7 +123,7 @@ Chrome <- R6::R6Class(
         is_available_port(debug_port)
       )
       assert_that(is.scalar(local), is.logical(local))
-      assert_that(is.scalar(headless), is.logical(scalar))
+      assert_that(is.scalar(headless), is.logical(headless))
       assert_that(is.number(retry_delay))
 
       private$.bin <- bin
