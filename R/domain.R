@@ -46,16 +46,18 @@ Domain <- R6::R6Class(
     .domain_name = NULL,
     .build_command = function(method_to_be_sent, name) {
       fun <- function() {
-        rlang::fn_fmls_names() %>% # pick the fun arguments
+        params_to_be_sent <-
+          rlang::fn_fmls_names() %>% # pick the fun arguments
           utils::head(-1) %>% # remove the callback argument
           rlang::env_get_list(nms = ., inherit = TRUE) %>% # retrieve values
-          purrr::discard(~ purrr::is_null(.x)) %>% # remove arguments identical to NULL
-          self$.__client__$send(
+          purrr::discard(~ purrr::is_null(.x)) # remove arguments identical to NULL
+
+        self$.__client__$send(
             # since the function parameters are not controlled,
             # there might be some conflicts between CDP parameters and `method_to_be_sent`
             # Therefore, use get() to retrieve the `method_to_be_sent`
             get("method_to_be_sent", envir = parent.env(environment())),
-            params = .,
+            params = params_to_be_sent,
             onresponse = callback
           )
       }
