@@ -28,11 +28,9 @@ Imports:
     utils,
     websocket,
     rappdirs
-Suggests: 
+Suggests:
     debugme,
     knitr,
-    magick,
-    magrittr,
     pagedown,
     rmarkdown
 Remotes:

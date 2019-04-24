@@ -13,7 +13,7 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  eval = TRUE,
+  eval = FALSE,
   comment = "#>"
 )
 Sys.unsetenv("DEBUGME")
@@ -119,9 +119,8 @@ await(client %...>% screenshot())
 ```
 
 The screenshot is written to disk and looks like this:
-```{r, echo=FALSE}
-img <- magick::image_read(screenshot_file)
-magick::image_scale(img, "400")
+```{r, eval=TRUE, echo=FALSE, results='asis', out.width=400}
+knitr::include_graphics("example1-screenshot.png")
 ```
 
 # Example 2: Dump HTML after page loaded
@@ -170,9 +169,9 @@ chrome$close()
 
 Here is the first 20 lines of what we get in `html_file`:
 
-```{r, echo = FALSE, results='asis'}
+```{r, eval=TRUE, echo=FALSE, results='asis'}
 cat(paste0(
-  c("```html", readLines(html_file, n = 20), "```"), 
+  c("```html", readLines("dumpDOM.html", n = 20), "```"), 
   collapse = "\n"
 ))
 ```
