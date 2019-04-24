@@ -22,11 +22,11 @@ to errors: you will be close to the metal and have full power (be
 cautious\!). It is highly recommended to know how the DevTools Protocol
 works.
 
-This package is built on top of the packages
+This package is built on top of the
 [`websocket`](https://github.com/rstudio/websocket) and
-[`promises`](https://cran.r-project.org/package=promises). The default
-design of the `crrri` functions is to use promises. However, you can
-also use `crrri` with callbacks if you prefer.
+[`promises`](https://cran.r-project.org/package=promises) packages. The
+default design of the `crrri` functions is to use promises. However, you
+can also use `crrri` with events/callbacks if you prefer.
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain)
 for his seminal work on
@@ -59,77 +59,84 @@ remotes::install_github('rlesur/crrri')
 
 Assuming that you have configured the `HEADLESS_CHROME` environment (see
 before), here is an example that produces a PDF of the [R Project
-website](https://www.r-project.org/) (please, do not re-use this example
-in production because it is absolutely not reliable):
+website](https://www.r-project.org/):
 
 ``` r
 library(promises)
 library(crrri)
 library(jsonlite)
 
-chrome <- chr_connect() 
-
-chrome %>% # await R connexion to headless Chrome
-  Page.enable() %>% # await enablement of the Page domain
-  Page.navigate(url = "https://www.r-project.org/") %>% # await navigation starts
-  Page.frameStoppedLoading(frameId = ~ .res$frameId) %>% # await the event "Page.frameStoppedLoading" 
-  Page.printToPDF() %...T>% { # await PDF reception
-    .$result$data %>% base64_dec() %>% writeBin("r_project.pdf") 
+chrome <- Chrome$new() 
+chrome$connect() %...>% 
+  (function(client) {
+    Page <- client$Page
+  
+    Page$enable() %...>% { # await enablement of the Page domain
+      Page$navigate(url = "https://www.r-project.org/") 
+      Page$loadEventFired() # await the load event
+    } %...>% {
+      Page$printToPDF() 
+    } %...>% { # await PDF reception
+      .$data %>% base64_dec() %>% writeBin("r_project.pdf") 
+    }
+  }) %...!% {
+    # handle errors
+    cat("An error has occured:", .$message, "\n")
   } %>%
-  finally(~ chr_disconnect(chrome)) %...!% { # disconnect and close Chrome
-    cat(c("An error has occured:\n", .$message, "\n")) # handle errors
-  }
+  finally(~ chrome$close())  # disconnect and close Chrome
 ```
 
 All the functions of the `crrri` package (commands and event listeners)
-are built on top of the `promises::then()` function. So, you can pass
-arguments to these functions and use the `%>%` `magrittr`’s pipe.
-However, when building higher level functions, don’t forget that you
-have to deal with promises (those will prevent you to fall into the
-Callback Hell).
+return promises (as defined in the **promises** package) by default.
+When building higher level functions, do not forget that you have to
+deal with promises (those will prevent you to fall into the *Callback
+Hell*).
 
-For instance, you can write a `saveAsPDF` function with a timeout (the
+For instance, you can write a `save_as_pdf` function with a timeout (the
 `crrri::timeout()` function returns a promise that is rejected after a
-delay) as
-follow:
+delay) as follow:
 
 ``` r
-saveUrlAsPDF <- function(chrome, url = c(r_project = "https://www.r-project.org/"), delay = 30) {
+save_url_as_pdf <- function(client, url, delay = 30) {
+  Page <- client$Page
   promise_race(
     timeout(delay),
-    chrome %>% 
-      Page.enable() %>%
-      Page.navigate(url = url) %>% 
-      Page.frameStoppedLoading(frameId = ~ .res$frameId) %>%  
-      Page.printToPDF() %...T>% { 
-        .$result$data %>% base64_dec() %>% writeBin(paste0(names(url), ".pdf")) 
-      }
+    Page$enable() %...>% { # await enablement of the Page domain
+      Page$navigate(url = url) 
+      Page$loadEventFired() # await the load event
+    } %...>% {
+      Page$printToPDF() 
+    } %...>% { # await PDF reception
+      .$data %>% 
+        base64_dec() %>% 
+        writeBin(paste0(httr::parse_url(url)$hostname, ".pdf")) 
+    } %...>% {
+      client
+    }
   )
 }
 ```
 
-Now, you can implement a dot argument (PDF will be generated
-sequentially because Chrome cannot create multiple PDF at the same
-time):
+Since the above `save_url_as_pdf()` returns the `client` object, we can
+chain it and implement a dot argument (PDF will be generated
+sequentially):
 
 ``` r
-saveAsPDF <- function(...) {
-  chrome <- chr_connect()
-  purrr::reduce(list(...), saveUrlAsPDF, .init = chrome) %>%
-    finally(~ chr_disconnect(chrome)) %...!% {
-      cat(.$message)
-    }
+save_as_pdf <- function(...) {
+  chrome <- Chrome$new()
+  client <- chrome$connect()
+  promise_reduce(list(...), save_url_as_pdf, .init = client) %...!% {
+    cat("An error has occured:", .$message, "\n") 
+  } %>%
+    finally(~ chrome$close())
 }
 ```
 
-You have created a `saveAsPDF(...)` function that can handle multiple
+You have created a `save_as_pdf()` function that can handle multiple
 URLs:
 
 ``` r
-saveAsPDF(c(r_project = "https://www.r-project.org/"),
-          c(rstudio = "https://rstudio.com/"),
-          c(ropensci = "https://ropensci.org/")
-)
+save_as_pdf("http://r-project.org", "https://ropensci.org/", "https://rstudio.com")
 ```
 
 ### Transpose `chrome-remote-interface` JS scripts: dump the DOM
@@ -175,44 +182,76 @@ Using `crrri`, you can write:
 library(promises)
 library(crrri)
 
-chrome <- chr_connect()
+chrome <- Chrome$new()
 
-chrome %>%
-  Network.enable() %>%
-  Page.enable() %>%
-  Network.setCacheDisabled(cacheDisabled = TRUE) %>%
-  Page.navigate(url = "https://github.com", awaitResult = FALSE) %>% # because the following event listener does not use this result, it is safer to use awaitResult = FALSE
-  Page.loadEventFired() %>%
-  Runtime.evaluate(expression = 'document.documentElement.outerHTML') %...>% {
-   cat(.$result$result$value, "\n") 
+CDPSession(callback = function(client) {
+  Network <- client$Network
+  Page <- client$Page
+  Runtime <- client$Runtime
+  Network$enable() %...>% { 
+    Page$enable()
+  } %...>% {
+    Network$setCacheDisabled(cacheDisabled = TRUE)
+  } %...>% {
+    Page$navigate(url = 'https://github.com')
+  } %...>% {
+    Page$loadEventFired()
+  } %...>% {
+    Runtime$evaluate(
+      expression = 'document.documentElement.outerHTML'
+    )
+  } %...>% (function(result) {
+    html <- result$result$value
+    cat(html, "\n")
+  }) %...!% {
+    cat("Error:", .$message, "\n") 
   } %>%
-  finally(~ chr_disconnect(chrome)) %...!% {
-    cat(.$message)
-  }
+    finally(~ client$disconnect())
+})$on("error", function(err) {
+  cat(err$message)
+})$on("disconnect", function() {
+  chrome$close()
+})
 ```
 
 If you want to write a higher level function that dump the DOM, you can
-embed this script in a function. **Remind you to handle infinite pending
-promise** (with a timeout for instance) and rejected promises:
+embed the main part of this script in a function. Remind you to handle
+infinite pending promise (with a timeout for instance) and rejected
+promises:
 
 ``` r
-dumpDOM <- function(url, delay = 30) {
-  chrome <- chr_connect()
-  promise_race(
-    timeout(delay),
-    chrome %>%
-      Network.enable() %>%
-      Page.enable() %>%
-      Network.setCacheDisabled(cacheDisabled = TRUE) %>%
-      Page.navigate(url, awaitResult = FALSE) %>%
-      Page.loadEventFired() %>%
-      Runtime.evaluate(expression = "document.documentElement.outerHTML") %...T>% {
-        cat(.$result$result$value, "\n") 
-      }
-  ) %>%
-  finally(~ chr_disconnect(chrome)) %...!% {
-    cat(.$message)
-  }
+dump_DOM <- function(url, delay = 30) {
+  chrome <- Chrome$new() 
+  chrome$connect() %...>% (
+    function(client) {
+      Network <- client$Network
+      Page <- client$Page
+      Runtime <- client$Runtime
+      
+      promise_race(
+        timeout(delay),
+        Network$enable() %...>% {
+          Page$enable()
+        } %...>% {
+          Network$setCacheDisabled(cacheDisabled = TRUE)
+        } %...>% {
+          Page$navigate(url = url)
+        } %...>% {
+          Page$loadEventFired()
+        } %...>% {
+          Runtime$evaluate(
+            expression = 'document.documentElement.outerHTML'
+          )
+        } %...>% (function(result) {
+          html <- result$result$value
+          cat(html, "\n")
+        })
+      ) %...!% {
+        cat("Error:", .$message, "\n") 
+      } %>%
+        finally(~ chrome$close())
+    }
+  )
 }
 ```
 
@@ -234,7 +273,8 @@ You can find many other examples in the
 
 In `crrri`, there are two types of messages:
 
-  - Those sent during connexion/deconnexion (mainly for crrri debugging)
+  - Those sent during connection/disconnection (mainly for crrri
+    debugging)
   - Those tracking the exchanges between the R websocket client and the
     remote websocket server. These lasts are essential for R devs to
     develop higher levels packages, either during the development
