@@ -6,11 +6,11 @@ NULL
 #'
 #' This class aims to launch Chromium or Chrome in headless mode. It possesses
 #' methods to manage connections to headless Chromium/Chrome using the
-#' Chrome Devtools Protocol.
+#' Chrome Debugging Protocol.
 #'
 #' @section Usage:
 #' ```
-#' remote <- Chrome$new(bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222,
+#' remote <- Chrome$new(bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L,
 #'                      local = FALSE, extra_args = NULL, headless = TRUE,
 #'                      retry_delay = 0.2, max_attempts = 15L)
 #'
@@ -105,7 +105,6 @@ NULL
 #'   promises::finally(~ remote$close())
 #' }
 #'
-#'
 NULL
 
 #' @export
@@ -117,15 +116,16 @@ Chrome <- R6::R6Class(
       bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
+      assert_that(is_scalar_character(bin))
       assert_that(
-        is_integer_scalar(debug_port),
+        is_scalar_integer(debug_port),
         is_user_port(debug_port),
         is_available_port(debug_port)
       )
       assert_that(is.scalar(local), is.logical(local))
       assert_that(is.scalar(headless), is.logical(headless))
       assert_that(is.number(retry_delay))
-      assert_that(is_integer_scalar(max_attempts))
+      assert_that(is_scalar_integer(max_attempts))
 
       private$.bin <- bin
       work_dir <- chr_new_data_dir()

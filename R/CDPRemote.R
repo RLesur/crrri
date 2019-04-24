@@ -1,5 +1,97 @@
 #' @include utils.R
 #' @include CDPSession.R
+#' @importFrom assertthat assert_that is.scalar is.number
+NULL
+
+#' Declare a remote application implementing the Chrome Debugging Protocol
+#'
+#' This class aims to declare an application implementing the Chrome Debugging
+#' Protocol. It possesses methods to manage connections.
+#'
+#' @section Usage:
+#' ```
+#' remote <- CDPRemote$new(host = "localhost", debug_port = 9222, secure = FALSE,
+#'                         local = FALSE, retry_delay = 0.2, max_attempts = 15L)
+#'
+#' remote$connect(callback = NULL)
+#' remote$listConnections()
+#' remote$closeConnections()
+#' remote$version()
+#' remote$user_agent
+#' ```
+#'
+#' @section Arguments:
+#' * `remote`: an object representing a remote application implementing the
+#'     Chrome Debugging Protocol.
+#' * `host`: Character scalar, the host name of the application.
+#' * `debug_port`: Numeric scalar, the  remote debugging port.
+#' * `secure`: Logical scalar, indicating whether the https/wss protocols
+#'     shall be used for connecting to the remote application.
+#' * `local`: Logical scalar, indicating whether the local version of the
+#'     protocol (embedded in `crrri`) must be used or the protocol must be
+#'     fetched _remotely_.
+#' * `retry_delay`: Number, delay in seconds between two successive tries to
+#'     connect to the remote application.
+#' * `max_attempts`: Logical scalar, number of tries to connect to headless
+#'     Chromium/Chrome.
+#' * `callback`: Function with one argument, executed when the R session is
+#'     connected to the remote application. The connection object is passed
+#'     to this function.
+#'
+#' @section Details:
+#' `$new()` declares a new remote application.
+#'
+#' `$connect(callback = NULL)` connects the R session to the remote application.
+#' The returned value depends on the value of the `callback` argument. When
+#' `callback` is a function, the returned value is a connection object. When
+#' `callback` is `NULL` the returned value is a promise which becomes fulfilled
+#' once R is connected to the remote application. Once fulfilled, the value of
+#' this promise is the connection object.
+#'
+#' `$listConnections()` returns a list of the connection objects succesfully
+#' created using the `$connect()` method.
+#'
+#' `$closeConnections()` closes all the connections created using the
+#' `$connect()` method.
+#'
+#' `$version()` executes the DevTools `Version` method. It returns a list of
+#' informations available at `http://<host>:<debug_port>/json/version`.
+#'
+#' `$user_agent` returns a character scalar with the User Agent of the
+#' remote application.
+#'
+#' @name CDPRemote
+#' @examples
+#' \dontrun{
+#' # Assuming that an application is already running at http://localhost:9222
+#' # For instance, you can execute:
+#' # chrome <- Chrome$new()
+#'
+#' remote <- CDPRemote$new()
+#'
+#' remote$connect() %...>% (function(client) {
+#'   Page <- client$Page
+#'   Runtime <- client$Runtime
+#'
+#'   Page$enable() %...>% {
+#'     Page$navigate(url = 'http://r-project.org')
+#'   } %...>% {
+#'     Page$loadEventFired()
+#'   } %...>% {
+#'     Runtime$evaluate(
+#'       expression = 'document.documentElement.outerHTML'
+#'     )
+#'   } %...>% (function(result) {
+#'     cat(result$result$value, "\n")
+#'   }) %...!% {
+#'     cat("Error:", .$message, "\n")
+#'   } %>%
+#'   promises::finally(~ client$disconnect())
+#' }) %...!% {
+#'   cat("Error:", .$message, "\n")
+#' }
+#' }
+#'
 NULL
 
 #' @export
@@ -10,6 +102,13 @@ CDPRemote <- R6::R6Class(
       host = "localhost", debug_port = 9222, secure = FALSE, local = FALSE,
       retry_delay = 0.2, max_attempts = 15L
     ) {
+      assert_that(is_scalar_character(host))
+      assert_that(is.number(debug_port))
+      assert_that(is.scalar(secure), is.logical(secure))
+      assert_that(is.scalar(local), is.logical(local))
+      assert_that(is.number(retry_delay))
+      assert_that(is_scalar_integer(max_attempts))
+
       private$.port <- debug_port
       private$.secure <- secure
       private$.local_protocol <- isTRUE(local)

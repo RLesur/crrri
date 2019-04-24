@@ -1,8 +1,16 @@
-is_integer_scalar <- function(x) {
-  rlang::is_integer(x, n = 1L)
+is_scalar_character <- function(x) {
+  rlang::is_scalar_character(x)
 }
 
-assertthat::on_failure(is_integer_scalar) <- function(call, env) {
+assertthat::on_failure(is_scalar_character) <- function(call, env) {
+  paste0(deparse(call$x), " is not an character scalar (a length one character vector).")
+}
+
+is_scalar_integer <- function(x) {
+  rlang::is_scalar_integer(x)
+}
+
+assertthat::on_failure(is_scalar_integer) <- function(call, env) {
   paste0(deparse(call$x), " is not an integer scalar (a length one integer vector).")
 }
 
