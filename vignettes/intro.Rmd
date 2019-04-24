@@ -114,8 +114,8 @@ client %...>% screenshot()
 ```
 
 ```{r, include=FALSE}
-# since screenshot returns an invisible promise, we have to force await 
-await(client %...>% screenshot())
+# since screenshot returns an invisible promise, we have to force R to hold 
+hold(client %...>% screenshot())
 ```
 
 The screenshot is written to disk and looks like this:
@@ -162,8 +162,8 @@ client %...>% dump_DOM()
 ```
 
 ```{r, include=FALSE}
-# since dump_dom is an invisible promise, we have to force await 
-await(client %...>% dump_DOM())
+# since dump_dom is an invisible promise, we have to force R to hold 
+hold(client %...>% dump_DOM())
 chrome$close()
 ```
 
