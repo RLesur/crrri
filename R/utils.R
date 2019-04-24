@@ -3,7 +3,7 @@ is_scalar_character <- function(x) {
 }
 
 assertthat::on_failure(is_scalar_character) <- function(call, env) {
-  paste0(deparse(call$x), " is not an character scalar (a length one character vector).")
+  paste0(deparse(call$x), " is not a character scalar (a length one character vector).")
 }
 
 is_scalar_integer <- function(x) {
