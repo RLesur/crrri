@@ -1,9 +1,9 @@
-is_integer <- function(x) {
-  is.integer(x) && assertthat::is.scalar(x)
+is_integer_scalar <- function(x) {
+  rlang::is_integer(x, n = 1L)
 }
 
-assertthat::on_failure(is_integer) <- function(call, env) {
-  paste0(deparse(call$x), " is not an integer (a length one integer vector).")
+assertthat::on_failure(is_integer_scalar) <- function(call, env) {
+  paste0(deparse(call$x), " is not an integer scalar (a length one integer vector).")
 }
 
 is_user_port <- function(x) {

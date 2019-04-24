@@ -118,13 +118,14 @@ Chrome <- R6::R6Class(
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
       assert_that(
-        is_integer(debug_port),
+        is_integer_scalar(debug_port),
         is_user_port(debug_port),
         is_available_port(debug_port)
       )
       assert_that(is.scalar(local), is.logical(local))
       assert_that(is.scalar(headless), is.logical(headless))
       assert_that(is.number(retry_delay))
+      assert_that(is_integer_scalar(max_attempts))
 
       private$.bin <- bin
       work_dir <- chr_new_data_dir()
