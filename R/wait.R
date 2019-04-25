@@ -33,11 +33,12 @@ wait <- function(promise, delay = 0) {promises::then(
 #' Set a timeout
 #'
 #' @param delay Number of seconds before rejecting the promise.
+#' @param msg Message if the timeout expires.
 #'
 #' @return A promise that if rejected after a delay of `delay` seconds.
 #' @export
-timeout <- function(delay = 0) {
+timeout <- function(delay = 0, msg = paste("The delay of", delay, "seconds expired.\n")) {
   promises::promise(function(resolve, reject) {
-    later::later(~ reject(paste("The delay of", delay, "seconds expired.\n")), delay)
+    later::later(~ reject(simpleError(msg)), delay)
   })
 }
