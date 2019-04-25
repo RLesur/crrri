@@ -65,8 +65,9 @@ object.
 \code{$listConnections()} returns a list of the connection objects succesfully
 created using the \code{$connect()} method.
 
-\code{$closeConnections()} closes all the connections created using the
-\code{$connect()} method.
+\code{$closeConnections(callback = NULL)} closes all the connections created using the
+\code{$connect()} method. Returns a promise which is resolved when all connections
+are closed.
 
 \code{$version()} executes the DevTools \code{Version} method. It returns a list of
 informations available at \code{http://localhost:<debug_port>/json/version}.

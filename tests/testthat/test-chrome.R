@@ -2,6 +2,14 @@ context("test-chrome")
 
 chrome <- Chrome$new()
 
+test_that("is_alive() returns a logical", {
+  expect_is(chrome$is_alive(), "logical")
+})
+
+test_that("Chrome cannot be launched if the port is already used", {
+  expect_error(Chrome$new())
+})
+
 test_that("Chrome$new() returns a Chrome class object", {
   expect_is(chrome, "Chrome")
   expect_is(chrome, "CDPRemote")
@@ -20,4 +28,13 @@ test_that("connect() returns a CDPSession object that is closed with closeConnec
   expect_equivalent(client$readyState(), 3L)
 })
 
-chrome$close()
+test_that("close() returns the Chrome object", {
+  closed <- chrome$close()
+  expect_reference(closed, chrome)
+})
+
+test_that("once closed, is_alive() return FALSE", {
+  expect_identical(chrome$is_alive(), FALSE)
+})
+
+

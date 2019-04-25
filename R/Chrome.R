@@ -60,8 +60,9 @@ NULL
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
 #'
-#' `$closeConnections()` closes all the connections created using the
-#' `$connect()` method.
+#' `$closeConnections(callback = NULL)` closes all the connections created using the
+#' `$connect()` method. Returns a promise which is resolved when all connections
+#' are closed.
 #'
 #' `$version()` executes the DevTools `Version` method. It returns a list of
 #' informations available at `http://localhost:<debug_port>/json/version`.
@@ -145,7 +146,7 @@ Chrome <- R6::R6Class(
       }
     },
     close = function() {
-      private$finalize()
+      invisible(private$finalize())
     },
     view = function() {
       chr_launch(
@@ -172,20 +173,46 @@ Chrome <- R6::R6Class(
     .work_dir = NULL,
     .process = NULL,
     finalize = function() {
-      self$closeConnections()
-      killed <- !private$.process$is_alive()
-      if (!killed) {
-        "!DEBUG Closing headless Chrome..."
-        private$.process$kill()
-        if (private$.process$is_alive()) {
-          "!DEBUG Cannot close headless Chrome."
-          stop("Cannot close headless Chrome.\n")
-        } else {
-          "!DEBUG ...headless Chrome closed."
+      clients_disconnected <- promises::promise_race(
+        self$closeConnections(),
+        timeout(
+          10,
+          msg = "The WebSocket connections have not been properly closed."
+        )
+      )
+      # if the delay expires, this is not really a problem:
+      # they will be closed when we will kill chrome
+      caught <- promises::catch(
+        clients_disconnected,
+        function(err) {
+          warning(err$message, call. = FALSE, immediate. = TRUE)
         }
-        private$.process$wait()
-      }
-      chr_clean_work_dir(private$.work_dir)
+      )
+      # now, kill chrome and clean the working directory
+      killed_and_cleaned <- promises::finally(
+        caught,
+        onFinally = function() {
+          killed <- !private$.process$is_alive()
+          if (!killed) {
+            "!DEBUG Closing headless Chrome..."
+            private$.process$kill()
+            if (private$.process$is_alive()) {
+              "!DEBUG Cannot close headless Chrome."
+              stop("Cannot close headless Chrome.\n")
+            } else {
+              "!DEBUG ...headless Chrome closed."
+            }
+            private$.process$wait()
+          }
+          chr_clean_work_dir(private$.work_dir)
+        }
+      )
+      # since we are in finalize(), we can use hold() safely:
+      hold(
+        killed_and_cleaned,
+        timeout = 30,
+        msg = "Did not succeed to close Chrome properly."
+      )
     }
   )
 )
@@ -315,6 +342,7 @@ chr_clean_work_dir <- function(work_dir) {
 
   if (!cleaned) {
     "!DEBUG Cleaning Chrome working directory..."
+    Sys.sleep(0.5)
     result <- unlink(work_dir, recursive = TRUE, force = TRUE)
     cleaned <- result == 0
 
@@ -323,7 +351,7 @@ chr_clean_work_dir <- function(work_dir) {
     } else {
       "!DEBUG ...cannot supress the Chrome working directory: `work_dir` \nPlease remove it manually."
       warning("...cannot supress the Chrome working directory: ", work_dir,
-           "\nPlease remove it manually.\n", call. = FALSE
+           "\nPlease remove it manually.\n", call. = FALSE, immediate. = TRUE
       )
     }
   }
