@@ -22,6 +22,6 @@ lhs \%...!\% rhs
 lhs \%...T!\% rhs
 }
 \description{
-See \code{promises::\link[promises]{pipes}} for details.
+See \link[promises:pipes]{promises::pipes} for details.
 }
 \keyword{internal}

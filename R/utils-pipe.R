@@ -1,6 +1,6 @@
 #' Pipe operators
 #'
-#' See \code{promises::\link[promises]{pipes}} for details.
+#' See [promises::pipes] for details.
 #'
 #' @name %>%
 #' @rdname pipe
