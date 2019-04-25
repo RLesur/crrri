@@ -115,7 +115,7 @@ CDPConnexion <- R6::R6Class(
       ws$onClose(function(event) {
         "!DEBUG R disconnected from headless Chrome with code `event$code`"
         "!DEBUG and reason `event$reason`."
-        self$emit("disconnect")
+        self$emit("disconnect", NULL)
       })
       ws$onError(function(event) {
         "!DEBUG Client failed to connect: `event$message`."
@@ -129,7 +129,7 @@ CDPConnexion <- R6::R6Class(
         private$.ready <- FALSE
       })
       super$once("connect", function(client) {
-        self$emit("ready")
+        self$emit("ready", NULL)
       })
       rm_onerror <- NULL
       rm_onconnect <- NULL
