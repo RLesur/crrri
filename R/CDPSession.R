@@ -134,7 +134,7 @@ CDPConnexion <- R6::R6Class(
         private$.ready <- FALSE
       })
       super$once("connect", function(client) {
-        self$emit("ready", NULL)
+        self$emit("ready")
       })
       rm_onerror <- NULL
       rm_onconnect <- NULL
