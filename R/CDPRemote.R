@@ -1,5 +1,6 @@
 #' @include utils.R
 #' @include CDPSession.R
+#' @include hold.R
 #' @importFrom assertthat assert_that is.scalar is.number
 NULL
 
@@ -15,7 +16,7 @@ NULL
 #'
 #' remote$connect(callback = NULL)
 #' remote$listConnections()
-#' remote$closeConnections()
+#' remote$closeConnections(callback = NULL)
 #' remote$version()
 #' remote$user_agent
 #' ```
@@ -52,7 +53,8 @@ NULL
 #' created using the `$connect()` method.
 #'
 #' `$closeConnections()` closes all the connections created using the
-#' `$connect()` method.
+#' `$connect()` method. Returns a promise which is resolved when all connections
+#' are closed.
 #'
 #' `$version()` executes the DevTools `Version` method. It returns a list of
 #' informations available at `http://<host>:<debug_port>/json/version`.
@@ -161,9 +163,36 @@ CDPRemote <- R6::R6Class(
     listConnections = function() {
       private$.clients
     },
-    closeConnections = function() {
-      lapply(private$.clients, function(client) client$disconnect())
-      private$.clients <- list()
+    closeConnections = function(callback = NULL) {
+      if(!is.null(callback)) {
+        callback <- rlang::as_function(callback)
+      }
+      # CDPSession disconnect() method returns a promise
+      disconnected <- promises::promise_map(private$.clients, function(client) {
+        client$disconnect()
+      })
+      # when connections are closed, remove them from the list of clients
+      closed <- promises::then(
+        disconnected,
+        onFulfilled = function(value) {
+          private$.clients <- list()
+          if(!is.null(callback)) {
+            callback(invisible(self))
+          }
+          invisible(self)
+        },
+        onRejected = function(err) {
+          warning(err, call. = FALSE, immediate. = TRUE)
+        }
+      )
+
+      # when a callback is used, return self
+      if(!is.null(callback)) {
+        return(invisible(self))
+      }
+
+      # no callback, return a promise
+      closed
     },
     version = function() {
       private$.check_remote()
@@ -209,7 +238,12 @@ CDPRemote <- R6::R6Class(
       }
     },
     finalize = function() {
-      self$closeConnections()
+      # since we are in finalize, we can use hold() safely
+      hold(
+        self$closeConnections(),
+        timeout = 10,
+        msg = "The WebSocket connections have not been properly closed."
+      )
     }
   )
 )

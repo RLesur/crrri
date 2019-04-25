@@ -13,7 +13,7 @@ Protocol. It possesses methods to manage connections.
 
 remote$connect(callback = NULL)
 remote$listConnections()
-remote$closeConnections()
+remote$closeConnections(callback = NULL)
 remote$version()
 remote$user_agent
 }
@@ -56,7 +56,8 @@ this promise is the connection object.
 created using the \code{$connect()} method.
 
 \code{$closeConnections()} closes all the connections created using the
-\code{$connect()} method.
+\code{$connect()} method. Returns a promise which is resolved when all connections
+are closed.
 
 \code{$version()} executes the DevTools \code{Version} method. It returns a list of
 informations available at \code{http://<host>:<debug_port>/json/version}.
