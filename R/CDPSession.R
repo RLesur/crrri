@@ -265,7 +265,7 @@ CDPConnexion <- R6::R6Class(
       if(self$readyState() == 3L) {
         if(!is.null(callback)) {
           on.exit(do.call(callback, list(self)), add = TRUE)
-          return(self)
+          return(invisible(self))
         } else {
           return(promises::promise_resolve(self))
         }
