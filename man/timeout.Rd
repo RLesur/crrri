@@ -4,10 +4,13 @@
 \alias{timeout}
 \title{Set a timeout}
 \usage{
-timeout(delay = 0)
+timeout(delay = 0, msg = paste("The delay of", delay,
+  "seconds expired.\\n"))
 }
 \arguments{
 \item{delay}{Number of seconds before rejecting the promise.}
+
+\item{msg}{Message if the timeout expires.}
 }
 \value{
 A promise that if rejected after a delay of \code{delay} seconds.

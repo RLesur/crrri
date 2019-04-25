@@ -15,7 +15,8 @@ NULL
 #'
 #' @param x A [promises::promise()] object.
 #' @param timeout Number scalar, timeout in seconds. An error is thrown if the
-#'   promise is still pending when the timeout expires.
+#'   promise is still pending when the delay expires.
+#' @param msg Error message when the timeout expires.
 #'
 #' @return The value of the promise once resolved.
 #' @export
@@ -30,12 +31,12 @@ NULL
 #' value <- hold(pr)
 #' cat(value, "\n")
 #' }
-hold <- function(x, timeout = 30) {
+hold <- function(x, timeout = 30, msg = paste("The asynchronous job has not finished in the delay of", timeout, "seconds.")) {
   x <- promises::as.promise(x)
   assert_that(is.number(timeout))
   promise <- promises::promise_race(
     x,
-    timeout(delay = timeout)
+    timeout(delay = timeout, msg = msg)
   )
 
   state <- new.env()
