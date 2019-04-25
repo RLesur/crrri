@@ -1,4 +1,7 @@
 library(testthat)
 library(crrri)
 
-test_check("crrri")
+not_chrome <- !nzchar(Sys.getenv("HEADLESS_CHROME"))
+filter <- if(not_chrome) "^((?!needs-chrome).)*$"
+
+test_check("crrri", filter = filter, perl = TRUE)
