@@ -34,10 +34,8 @@ NULL
 hold <- function(x, timeout = 30, msg = paste("The asynchronous job has not finished in the delay of", timeout, "seconds.")) {
   x <- promises::as.promise(x)
   assert_that(is.number(timeout))
-  promise <- promises::promise_race(
-    x,
-    timeout(delay = timeout, msg = msg)
-  )
+
+  promise <- timeout(x, delay = timeout, msg = msg)
 
   state <- new.env()
   state$pending <- TRUE

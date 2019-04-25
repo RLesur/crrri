@@ -17,7 +17,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(promises)
 #'
 #' value <- runif(1)
@@ -57,13 +57,38 @@ wait <- function(x, delay = 0) {
 
 #' Set a timeout
 #'
+#' This is a helper function to set a timeout on a promise. It is designed to
+#' be used with the `magrittr` pipe `%>%`.
+#'
+#' @param x An object.
 #' @param delay Number of seconds before rejecting the promise.
 #' @param msg Message if the timeout expires.
 #'
-#' @return A promise that if rejected after a delay of `delay` seconds.
+#' @return A promise which fulfills when `x` fulfills before the delay expires:
+#'   in this case, the value of the returned promise is the value of `x`. If
+#'   `x` is not a fulfilled promise when the delay expires, the returned promise
+#'   is rejected.
 #' @export
-timeout <- function(delay = 0, msg = paste("The delay of", delay, "seconds expired.\n")) {
-  promises::promise(function(resolve, reject) {
+#' @examples
+#' \donttest{
+#' library(promises)
+#'
+#' value <- runif(1)
+#' pr <- promise(function(resolve, reject) ~ later::later(~ resolve(value), 0.1))
+#'
+#' pr %>%
+#'   timeout(10) %...>%
+#' { cat("value: ", ., "\n") } %...!%
+#' { cat("error:", .$message, "\n") }
+#' }
+timeout <- function(x = NULL, delay = 0, msg = paste("The delay of", delay, "seconds expired.\n")) {
+  reject_after_delay <- promises::promise(function(resolve, reject) {
     later::later(~ reject(simpleError(msg)), delay)
   })
+
+  if(!promises::is.promising(x)) {
+    x <- reject_after_delay
+  }
+
+  promises::promise_race(x, reject_after_delay)
 }

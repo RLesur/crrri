@@ -1,4 +1,4 @@
-#' @include CDPRemote.R utils.R
+#' @include CDPRemote.R utils.R wait.R
 #' @importFrom assertthat assert_that is.scalar is.number
 NULL
 
@@ -173,12 +173,10 @@ Chrome <- R6::R6Class(
     .work_dir = NULL,
     .process = NULL,
     finalize = function() {
-      clients_disconnected <- promises::promise_race(
+      clients_disconnected <- timeout(
         self$closeConnections(),
-        timeout(
-          10,
-          msg = "The WebSocket connections have not been properly closed."
-        )
+        delay = 10,
+        msg = "The WebSocket connections have not been properly closed."
       )
       # if the delay expires, this is not really a problem:
       # they will be closed when we will kill chrome

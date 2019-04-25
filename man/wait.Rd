@@ -27,7 +27,7 @@ the value of the returned promise is identical to the value of
 returned promise is \code{x} after the delay.
 }
 \examples{
-\dontrun{
+\donttest{
 library(promises)
 
 value <- runif(1)

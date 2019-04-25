@@ -4,17 +4,36 @@
 \alias{timeout}
 \title{Set a timeout}
 \usage{
-timeout(delay = 0, msg = paste("The delay of", delay,
+timeout(x = NULL, delay = 0, msg = paste("The delay of", delay,
   "seconds expired.\\n"))
 }
 \arguments{
+\item{x}{An object.}
+
 \item{delay}{Number of seconds before rejecting the promise.}
 
 \item{msg}{Message if the timeout expires.}
 }
 \value{
-A promise that if rejected after a delay of \code{delay} seconds.
+A promise which fulfills when \code{x} fulfills before the delay expires:
+in this case, the value of the returned promise is the value of \code{x}. If
+\code{x} is not a fulfilled promise when the delay expires, the returned promise
+is rejected.
 }
 \description{
-Set a timeout
+This is a helper function to set a timeout on a promise. It is designed to
+be used with the \code{magrittr} pipe \code{\%>\%}.
+}
+\examples{
+\donttest{
+library(promises)
+
+value <- runif(1)
+pr <- promise(function(resolve, reject) ~ later::later(~ resolve(value), 0.1))
+
+pr \%>\%
+  timeout(10) \%...>\%
+{ cat("value: ", ., "\\n") } \%...!\%
+{ cat("error:", .$message, "\\n") }
+}
 }
