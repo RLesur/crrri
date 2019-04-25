@@ -4,13 +4,17 @@
 \alias{hold}
 \title{Hold while an asynchronous task runs}
 \usage{
-hold(x, timeout = 30)
+hold(x, timeout = 30,
+  msg = paste("The asynchronous job has not finished in the delay of",
+  timeout, "seconds."))
 }
 \arguments{
 \item{x}{A \code{\link[promises:promise]{promises::promise()}} object.}
 
 \item{timeout}{Number scalar, timeout in seconds. An error is thrown if the
-promise is still pending when the timeout expires.}
+promise is still pending when the delay expires.}
+
+\item{msg}{Error message when the timeout expires.}
 }
 \value{
 The value of the promise once resolved.
