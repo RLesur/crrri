@@ -2,30 +2,50 @@
 % Please edit documentation in R/wait.R
 \name{wait}
 \alias{wait}
-\title{Wait to resolve a promise}
+\title{Return a promise after a delay}
 \usage{
-wait(promise, delay = 0)
+wait(x, delay = 0)
 }
 \arguments{
-\item{promise}{A promise.}
+\item{x}{An object.}
 
 \item{delay}{Number of seconds before resolving the promise.}
 }
 \value{
-A promise. The value of the promise is the same of the lhs promise.
+A \link[promises:promise]{promise}. See details for the value of the
+fulfilled promise.
 }
 \description{
-This is a helper function to add a waiting time after a promise resolution.
-It is built on top of the \code{promises::then()} function. So, it can be used with
-the \code{magrittr} pipe operators. The value of the resolved promise is the value
-of the lhs: it can be used with \code{\%>\%} or \code{\%T>\%} with the same result.
+This is a helper function that returns a \link[promises:promise]{promise} after
+a delay. It can be used with any pipe and any object (see examples).
+}
+\details{
+The value of the returned promise depends on the class of \code{x}. If \code{x} can
+be coerced to a \link[promises:promise]{promise} (using \code{\link[promises:as.promise]{promises::as.promise()}}),
+the value of the returned promise is identical to the value of
+\code{promises::as.promise(x)} once fulfilled; otherwise the value of the
+returned promise is \code{x} after the delay.
 }
 \examples{
+\dontrun{
 library(promises)
 
-pr <- promise_resolve(runif(1))
+value <- runif(1)
+pr <- promise_resolve(value)
 
+# works with `magrittr` pipe
 pr \%>\%
-  wait(2) \%>\%
+  wait(1) \%>\%
+  then(~ cat(., "\\n"))
+
+# works with `promises` pipe
+pr \%...>\%
+  wait(1) \%...>\%
+{ cat(., "\\n") }
+
+# also works with any object
+value \%>\%
+  wait(1) \%>\%
   then(~cat(., "\\n"))
+}
 }

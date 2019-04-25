@@ -1,26 +1,52 @@
-#' Wait to resolve a promise
+#' Return a promise after a delay
 #'
-#' This is a helper function to add a waiting time after a promise resolution.
-#' It is built on top of the `promises::then()` function. So, it can be used with
-#' the `magrittr` pipe operators. The value of the resolved promise is the value
-#' of the lhs: it can be used with `%>%` or `%T>%` with the same result.
+#' This is a helper function that returns a [promise][promises::promise] after
+#' a delay. It can be used with any pipe and any object (see examples).
 #'
-#' @param promise A promise.
+#' The value of the returned promise depends on the class of `x`. If `x` can
+#' be coerced to a [promise][promises::promise] (using [promises::as.promise()]),
+#' the value of the returned promise is identical to the value of
+#' `promises::as.promise(x)` once fulfilled; otherwise the value of the
+#' returned promise is `x` after the delay.
+#'
+#' @param x An object.
 #' @param delay Number of seconds before resolving the promise.
 #'
-#' @return A promise. The value of the promise is the same of the lhs promise.
+#' @return A [promise][promises::promise]. See details for the value of the
+#'   fulfilled promise.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(promises)
 #'
-#' pr <- promise_resolve(runif(1))
+#' value <- runif(1)
+#' pr <- promise_resolve(value)
 #'
+#' # works with `magrittr` pipe
 #' pr %>%
-#'   wait(2) %>%
+#'   wait(1) %>%
+#'   then(~ cat(., "\n"))
+#'
+#' # works with `promises` pipe
+#' pr %...>%
+#'   wait(1) %...>%
+#' { cat(., "\n") }
+#'
+#' # also works with any object
+#' value %>%
+#'   wait(1) %>%
 #'   then(~cat(., "\n"))
-wait <- function(promise, delay = 0) {promises::then(
-    promise,
+#' }
+wait <- function(x, delay = 0) {
+  # if x is not a promise or cannot be coerced to a promise,
+  # consider that it is the value of a resolved promise:
+  if(!promises::is.promising(x)) {
+    x <- promises::promise_resolve(x)
+  }
+
+  promises::then(
+    x,
     onFulfilled = function(value) {
       promises::promise(function(resolve, reject) {
         later::later(~ resolve(value), delay)
@@ -28,7 +54,6 @@ wait <- function(promise, delay = 0) {promises::then(
     }
   )
 }
-
 
 #' Set a timeout
 #'
