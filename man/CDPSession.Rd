@@ -26,7 +26,12 @@ fetched \emph{remotely}.}
 connected to Chrome. The connection object is passed to this function.}
 }
 \value{
-A connection object of class \code{CDPSession}.
+The returned value depends on the value of the \code{callback} argument.
+When \code{callback} is a function, the returned value is a connection object
+of class \code{CDPSession}. When \code{callback} is \code{NULL} the returned value is
+a promise which becomes fulfilled once R is connected to the remote
+instance. Once fulfilled, the value of this promise is the connection
+object of class \code{CDPSession}.
 }
 \description{
 This function creates a websocket connection to a remote instance using

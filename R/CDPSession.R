@@ -25,7 +25,12 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super"))
 #' @param callback Function with one argument, executed when the R session is
 #'     connected to Chrome. The connection object is passed to this function.
 #'
-#' @return A connection object of class `CDPSession`.
+#' @return The returned value depends on the value of the `callback` argument.
+#'     When `callback` is a function, the returned value is a connection object
+#'     of class `CDPSession`. When `callback` is `NULL` the returned value is
+#'     a promise which becomes fulfilled once R is connected to the remote
+#'     instance. Once fulfilled, the value of this promise is the connection
+#'     object of class `CDPSession`.
 #'
 #' @export
 CDPSession <- function(
