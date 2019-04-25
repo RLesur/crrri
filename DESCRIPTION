@@ -43,6 +43,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Collate: 
+    'wait.R'
+    'hold.R'
     'utils.R'
     'CDProtocol.R'
     'utils-pipe.R'
@@ -51,6 +53,4 @@ Collate:
     'CDPSession.R'
     'CDPRemote.R'
     'Chrome.R'
-    'wait.R'
-    'hold.R'
     'zzz.R'

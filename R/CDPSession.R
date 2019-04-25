@@ -2,6 +2,7 @@
 #' @include domain.R
 #' @include CDProtocol.R
 #' @include utils.R
+#' @include hold.R
 NULL
 
 # Workaround an R CMD check false positive
@@ -120,7 +121,7 @@ CDPConnexion <- R6::R6Class(
       ws$onClose(function(event) {
         "!DEBUG R disconnected from headless Chrome with code `event$code`"
         "!DEBUG and reason `event$reason`."
-        self$emit("disconnect", NULL)
+        self$emit("disconnect", self)
       })
       ws$onError(function(event) {
         "!DEBUG Client failed to connect: `event$message`."
@@ -256,11 +257,26 @@ CDPConnexion <- R6::R6Class(
     readyState = function() {
       private$.CDPSession_con$readyState()
     },
-    disconnect = function() {
-      if(self$readyState() < 2L) private$.CDPSession_con$close()
-      while(self$readyState() < 3L) {
-        later::run_now()
+    disconnect = function(callback = NULL) {
+      if(!is.null(callback)) {
+        callback <- rlang::as_function(callback)
       }
+      # if the connection is already closed, return early
+      if(self$readyState() == 3L) {
+        if(!is.null(callback)) {
+          on.exit(do.call(callback, list(self)), add = TRUE)
+          return(self)
+        } else {
+          return(promises::promise_resolve(self))
+        }
+      }
+      # here, we know that the connection is not closed
+      # the `disconnect` event will fire.
+      # If the connection is not closing, send the close command:
+      if(self$readyState() < 2L) {
+        on.exit(private$.CDPSession_con$close(), add = TRUE)
+      }
+      self$once("disconnect", callback = callback)
     }
   ),
   active = list(
@@ -287,7 +303,10 @@ CDPConnexion <- R6::R6Class(
     .commandList = list(),
     .ready = FALSE,
     finalize = function() {
-      self$disconnect()
+      if (self$readyState() < 2L) {
+        hold(self$disconnect())
+        message("WebSocket connection closed.")
+      }
     }
   )
 )
