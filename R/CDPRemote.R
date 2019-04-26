@@ -207,7 +207,8 @@ CDPRemote <- R6::R6Class(
       version <- self$version()
       cat(sep = "",
           "<", version$Browser, ">\n",
-          '  User Agent:\n',
+          '  url: ', build_http_url(private$.host, private$.port, private$.secure), "\n",
+          '  user-agent:\n',
           '    "', version$`User-Agent`, '"\n'
       )
     }

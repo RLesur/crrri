@@ -18,6 +18,10 @@ test_that("Chrome$new() returns a Chrome class object", {
   expect_is(chrome, "R6")
 })
 
+test_that("Chrome object can be safely printed", {
+  expect_output(print(chrome))
+})
+
 test_that("connect() returns a CDPSession object that is closed with closeConnections()", {
   client_pr <- chrome$connect()
   expect_is(client_pr, "promise")
