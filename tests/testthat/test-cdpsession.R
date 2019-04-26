@@ -9,22 +9,11 @@ test_that("ws_url must be a character scalar", {
   expect_error(CDPSession(ws_url = 1, callback = void_cb), regexp = "scalar")
 })
 
-test_that("a wrong scheme in ws_url throws an error or rejects the promise", {
+test_that("a malformed ws_url throws an error or rejects the promise", {
   client <- CDPSession(ws_url = "localhost")
   expect_is(client, "promise")
   expect_error(hold(client))
   expect_error(CDPSession(ws_url = "localhost", callback = void_cb))
-})
-
-test_that("ws_url overrides host and port", {
-  expect_error(
-    CDPSession(
-      host = "google.com",
-      ws_url = "ws://localhost:1234",
-      callback = void_cb
-    ),
-    regexp = "localhost:1234"
-  )
 })
 
 test_that("host must be a character scalar", {

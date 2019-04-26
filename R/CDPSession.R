@@ -39,7 +39,6 @@ CDPSession <- function(
   host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,
   local = FALSE, callback = NULL
 ) {
-
   async <- is.null(callback)
 
   if(!is.null(ws_url)) {
@@ -52,12 +51,12 @@ CDPSession <- function(
         )
       )
     }
-    # check the websocket address if provided
-    ws_url <- httr::parse_url(ws_url) # warning: ws_url is now a list of class `url` (see httr)
-    if(is.null(ws_url$scheme) || !(ws_url$scheme %in% c("ws", "wss"))) {
+    # check the websocket address
+    ws_url <- parse_ws_url(ws_url) # warning: ws_url is now a list of class `cdp_ws_url` or NULL
+    if(is.null(ws_url)) {
       return(
         stop_or_reject(
-          "the `ws_url` argument of CDPSession() must begin with `ws://` or `wss://`.",
+          "the `ws_url` argument of CDPSession() is not a valid Chrome Degugging Protocol websocket address.",
           async = async
         )
       )
@@ -67,9 +66,9 @@ CDPSession <- function(
       ws_url$scheme <- "wss"
     }
     # override host and port
-    host <- ws_url$hostname
+    host <- ws_url$host
     port <- ws_url$port
-    ws_url <- httr::build_url(ws_url) # warning: ws_url is now a character string
+    ws_url <- build_ws_url(ws_url) # warning: ws_url is now a character string
   }
 
   # check arguments
@@ -161,6 +160,13 @@ CDPConnexion <- R6::R6Class(
     initialize = function(ws_url, autoConnect = FALSE, onconnect = NULL, onerror = NULL) {
       "!DEBUG Configuring the websocket connexion..."
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
+      ws_url <- parse_ws_url(ws_url)
+      private$.host <- ws_url$host
+      private$.port <- ws_url$port
+      private$.secure <- ws_url$secure
+      private$.target_type <- ws_url$type
+      private$.target_id <- ws_url$id
+
       ws$onOpen(function(event) {
         self$emit("connect", self)
         "!DEBUG ...R succesfully connected to headless Chrome through DevTools Protocol."
@@ -358,6 +364,11 @@ CDPConnexion <- R6::R6Class(
     }
   ),
   private = list(
+    .host = NULL,
+    .port = NULL,
+    .secure = NULL,
+    .target_type = NULL,
+    .target_id = NULL,
     .CDPSession_con = list(),
     .lastID = 0L,
     .buildMessage = function(id, method, params = NULL) {

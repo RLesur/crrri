@@ -40,11 +40,6 @@ assertthat::on_failure(is_available_port) <- function(call, env) {
 
 # http helpers ------------------------------------------------------------
 
-build_http_url <- function(host = NULL, port = NULL, secure, path = NULL) {
-  scheme <- if(isTRUE(secure)) "https" else "http"
-  httr::modify_url("", scheme = scheme, hostname = host, port = port, path = path)
-}
-
 is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attempts = 15L) {
   url <- build_http_url(host = host, port = port, secure = secure)
   remote_reached <- function(url) {
@@ -64,6 +59,67 @@ is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attem
 
   "!DEBUG `if(succeeded) paste(url, 'found') else paste('...cannot find', url)`"
   succeeded
+}
+
+build_http_url <- function(host = NULL, port = NULL, secure, path = NULL) {
+  scheme <- if(isTRUE(secure)) "https" else "http"
+  httr::modify_url("", scheme = scheme, hostname = host, port = port, path = path)
+}
+
+get_version <- function(host = NULL, port = NULL, secure) {
+  url <- build_http_url(host, port, secure, path = "/json/version")
+  jsonlite::read_json(url)
+}
+
+parse_ws_url <- function(ws_url) {
+  # NOTE: ws_url must be a character scalar
+  ws_url <- httr::parse_url(ws_url)
+  # ws_url scheme must be ws or wss:
+  if(!identical(ws_url$scheme, "ws") && !identical(ws_url, "wss")) {
+    return(NULL)
+  }
+  # ws_url must contain a hostname:
+  if(is.null(ws_url$hostname)) {
+    return(NULL)
+  }
+  # ws_url must contain a port:
+  if(is.null(ws_url$port)) {
+    return(NULL)
+  }
+  # ws_url path must be of the form devtools/page/xxxx or devtools/browser/xxx-yyy
+  path <- strsplit(ws_url$path, "/")[[1]]
+  if(length(path) != 3L) {
+    return(NULL)
+  }
+  if(!identical(path[1:2], c("devtools", "page")) &&
+     !identical(path[1:2], c("devtools", "browser"))
+  ) {
+    return(NULL)
+  }
+
+  structure(
+    list(
+      host = ws_url$hostname,
+      port = ws_url$port,
+      secure = identical(ws_url$scheme, "wss"),
+      type = path[2],
+      id = path[3]
+    ),
+    class = "cdp_ws_url"
+  )
+}
+
+build_ws_url <- function(ws_url) {
+  stopifnot(inherits(ws_url, "cdp_ws_url"))
+  scheme <- if(ws_url$secure) "wss" else "ws"
+  path <- paste("devtools", ws_url$type, ws_url$id, sep = "/")
+  httr::modify_url(
+    "",
+    scheme = scheme,
+    hostname = ws_url$host,
+    port = ws_url$port,
+    path = path
+  )
 }
 
 # miscellaneous -----------------------------------------------------------
