@@ -3,6 +3,7 @@
 #' @include CDProtocol.R
 #' @include utils.R
 #' @include hold.R
+#' @importFrom assertthat is.number
 NULL
 
 # Workaround an R CMD check false positive
@@ -15,9 +16,9 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super"))
 #' the Chrome Debugging Protocol.
 #'
 #' @param host Character scalar, the host name of the application.
-#' @param port Numeric scalar, the remote debugging port.
-#' @param secure Logical scalar, indicating whether the https/wss protocols
-#'     shall be used for connecting to the remote application.
+#' @param port The remote debugging port (a numeric or a character scalar).
+#' @param secure A logical indicating whether the https/wss protocols shall be
+#'     used for connecting to the remote application.
 #' @param ws_url Character scalar, the websocket URL. If provided, `host` and
 #'     `port` arguments are ignored.
 #' @param local Logical scalar, indicating whether the local version of the
@@ -45,7 +46,10 @@ CDPSession <- function(
     # check the format of ws_url
     if(!is_scalar_character(ws_url)) {
       return(
-        stop_or_reject("`ws_url` must be a character scalar.", async = async)
+        stop_or_reject(
+          "CDPSession() `ws_url` argument must be a character scalar.",
+          async = async
+        )
       )
     }
     # check the websocket address if provided
@@ -68,6 +72,23 @@ CDPSession <- function(
     ws_url <- httr::build_url(ws_url) # warning: ws_url is now a character string
   }
 
+  # check arguments
+  if(!is_scalar_character(host)) {
+    return(
+      stop_or_reject(
+        "CDPSession() `host` argument must be a character scalar.",
+        async = async
+      )
+    )
+  }
+  if(!is.number(port) && !is_scalar_character(port)) {
+    return(
+      stop_or_reject(
+        "CDPSession() `port` argument must be a numeric or a character scalar.",
+        async = async
+      )
+    )
+  }
   # build the http url
   http_url <- build_http_url(host, port, secure)
 

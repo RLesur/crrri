@@ -10,10 +10,10 @@ CDPSession(host = "localhost", port = 9222, secure = FALSE,
 \arguments{
 \item{host}{Character scalar, the host name of the application.}
 
-\item{port}{Numeric scalar, the remote debugging port.}
+\item{port}{The remote debugging port (a numeric or a character scalar).}
 
-\item{secure}{Logical scalar, indicating whether the https/wss protocols
-shall be used for connecting to the remote application.}
+\item{secure}{A logical indicating whether the https/wss protocols shall be
+used for connecting to the remote application.}
 
 \item{ws_url}{Character scalar, the websocket URL. If provided, \code{host} and
 \code{port} arguments are ignored.}
