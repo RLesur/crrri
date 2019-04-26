@@ -38,10 +38,40 @@ assertthat::on_failure(is_available_port) <- function(call, env) {
   paste0("Port ", deparse(call$x), " already in use. Maybe is headless Chrome already running?")
 }
 
-
 # http helpers ------------------------------------------------------------
 
 build_http_url <- function(host = NULL, port = NULL, secure, path = NULL) {
   scheme <- if(isTRUE(secure)) "https" else "http"
-  httr::modify_url("http://localhost:9222", scheme = scheme, hostname = host, port = port, path = path)
+  httr::modify_url("", scheme = scheme, hostname = host, port = port, path = path)
+}
+
+is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attempts = 15L) {
+  url <- build_http_url(host = host, port = port, secure = secure)
+  remote_reached <- function(url) {
+    check_url <- purrr::safely(httr::GET, otherwise = list())
+    response <- check_url(url, httr::use_proxy(""))
+    isTRUE(response$result$status_code == 200)
+  }
+
+  succeeded <- FALSE
+  "!DEBUG Trying to find `url`"
+  for (i in 1:max_attempts) {
+    "!DEBUG attempt `i`..."
+    succeeded <- remote_reached(url)
+    if (isTRUE(succeeded)) break
+    Sys.sleep(retry_delay)
+  }
+
+  "!DEBUG `if(succeeded) paste(url, 'found') else paste('...cannot find', url)`"
+  succeeded
+}
+
+# miscellaneous -----------------------------------------------------------
+
+stop_or_reject <- function(message, async = FALSE) {
+  err <- simpleError(message)
+  if(isTRUE(async)) {
+    return(promises::promise_reject(err))
+  }
+  stop(err)
 }

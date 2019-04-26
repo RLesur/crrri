@@ -19,7 +19,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super"))
 #' @param secure Logical scalar, indicating whether the https/wss protocols
 #'     shall be used for connecting to the remote application.
 #' @param ws_url Character scalar, the websocket URL. If provided, `host` and
-#'     `port` and `secure` arguments are ignored.
+#'     `port` arguments are ignored.
 #' @param local Logical scalar, indicating whether the local version of the
 #'     protocol (embedded in `crrri`) must be used or the protocol must be
 #'     fetched _remotely_.
@@ -38,11 +38,56 @@ CDPSession <- function(
   host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,
   local = FALSE, callback = NULL
 ) {
-  url <- build_http_url(host, port, secure)
-  protocol <- CDProtocol$new(url = url, local = local)
-  if(is.null(ws_url)) {
-    ws_url <- chr_get_ws_addr(port = port)
+
+  async <- is.null(callback)
+
+  if(!is.null(ws_url)) {
+    # check the format of ws_url
+    if(!is_scalar_character(ws_url)) {
+      return(
+        stop_or_reject("`ws_url` must be a character scalar.", async = async)
+      )
+    }
+    # check the websocket address if provided
+    ws_url <- httr::parse_url(ws_url) # warning: ws_url is now a list of class `url` (see httr)
+    if(is.null(ws_url$scheme) || !(ws_url$scheme %in% c("ws", "wss"))) {
+      return(
+        stop_or_reject(
+          "the `ws_url` argument of CDPSession() must begin with `ws://` or `wss://`.",
+          async = async
+        )
+      )
+    }
+    # change the protocol if required
+    if(isTRUE(secure)) {
+      ws_url$scheme <- "wss"
+    }
+    # override host and port
+    host <- ws_url$hostname
+    port <- ws_url$port
+    ws_url <- httr::build_url(ws_url) # warning: ws_url is now a character string
   }
+
+  # build the http url
+  http_url <- build_http_url(host, port, secure)
+
+  # check the http url
+  if(!is_remote_reachable(host, port, secure, max_attempts = 3L)) {
+    return(
+      stop_or_reject(
+        paste0("Failed to connect to ", http_url, "."),
+        async = async
+      )
+    )
+  }
+
+  # retrieve the websocket address if not provided
+  if(is.null(ws_url)) {
+    ws_url <- chr_get_ws_addr(host = host, port = port, secure = secure)
+  }
+  # get the protocol
+  protocol <- CDProtocol$new(url = http_url, local = local)
+
   CDPSession <- R6::R6Class(
     "CDPSession",
     inherit = CDPConnexion,
@@ -66,16 +111,16 @@ CDPSession <- function(
   )
   lapply(protocol$domains, function(domain) CDPSession$set("public", domain, NULL))
 
-  if(!is.null(callback)) {
-    onconnect <- rlang::as_function(callback)
-    onerror <- stop
-  } else {
+  if(async) {
     onconnect <- NULL
     onerror <- NULL
     pr <- promises::promise(function(resolve, reject) {
       onconnect <<- resolve
       onerror <<- reject
     })
+  } else {
+    onconnect <- rlang::as_function(callback)
+    onerror <- stop
   }
   client <- CDPSession$new(
     ws_url = ws_url,
@@ -84,7 +129,7 @@ CDPSession <- function(
     onconnect = onconnect,
     onerror = onerror
   )
-  if(is.null(callback)) return(pr)
+  if(async) return(pr)
   client
 }
 
@@ -325,5 +370,8 @@ chr_get_ws_addr <- function(host = "localhost", port = 9222, secure = FALSE) {
   else
     "!DEBUG ...found websocket entrypoint `address`"
 
+  if(isTRUE(secure)) {
+    address <- httr::modify_url(address, scheme = "wss")
+  }
   address # NULL when fails
 }

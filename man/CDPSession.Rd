@@ -16,7 +16,7 @@ CDPSession(host = "localhost", port = 9222, secure = FALSE,
 shall be used for connecting to the remote application.}
 
 \item{ws_url}{Character scalar, the websocket URL. If provided, \code{host} and
-\code{port} and \code{secure} arguments are ignored.}
+\code{port} arguments are ignored.}
 
 \item{local}{Logical scalar, indicating whether the local version of the
 protocol (embedded in \code{crrri}) must be used or the protocol must be

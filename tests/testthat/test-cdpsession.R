@@ -1,5 +1,32 @@
 context("test-cdpsession")
 
+void_cb <- function(client){}
+
+test_that("ws_url must be a character scalar", {
+  client <- CDPSession(ws_url = 1)
+  expect_is(client, "promise")
+  expect_error(hold(client), regexp = "scalar")
+  expect_error(CDPSession(ws_url = 1, callback = void_cb), regexp = "scalar")
+})
+
+test_that("a wrong scheme in ws_url stops", {
+  client <- CDPSession(ws_url = "localhost")
+  expect_is(client, "promise")
+  expect_error(hold(client))
+  expect_error(CDPSession(ws_url = "localhost", callback = void_cb))
+})
+
+test_that("ws_url overrides host and port", {
+  expect_error(
+    CDPSession(
+      host = "google.com",
+      ws_url = "ws://localhost:1234",
+      callback = void_cb
+    ),
+    regexp = "localhost:1234"
+  )
+})
+
 skip_if_not_chrome()
 
 chrome <- Chrome$new()

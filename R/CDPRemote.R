@@ -249,26 +249,3 @@ CDPRemote <- R6::R6Class(
     }
   )
 )
-
-# helper to test chrome connexion -----------------------------------------
-is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attempts = 15L) {
-  url <- build_http_url(host = host, port = port, secure = secure)
-  remote_reached <- function(url) {
-    check_url <- purrr::safely(httr::GET, otherwise = list())
-    response <- check_url(url, httr::use_proxy(""))
-    isTRUE(response$result$status_code == 200)
-  }
-
-  succeeded <- FALSE
-  "!DEBUG Trying to find `url`"
-  for (i in 1:max_attempts) {
-    "!DEBUG attempt `i`..."
-    succeeded <- remote_reached(url)
-    if (isTRUE(succeeded)) break
-    Sys.sleep(retry_delay)
-  }
-
-  "!DEBUG `if(succeeded) paste(url, 'found') else paste('...cannot find', url)`"
-  succeeded
-}
-
