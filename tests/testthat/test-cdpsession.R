@@ -1,5 +1,7 @@
 context("test-cdpsession")
 
+skip_if_not_chrome()
+
 chrome <- Chrome$new()
 
 test_that("connect and disconnect methods return promises", {

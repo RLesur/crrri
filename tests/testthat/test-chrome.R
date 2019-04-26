@@ -1,5 +1,7 @@
 context("test-chrome")
 
+skip_if_not_chrome()
+
 chrome <- Chrome$new()
 
 test_that("is_alive() returns a logical", {
