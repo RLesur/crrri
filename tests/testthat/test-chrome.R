@@ -2,7 +2,13 @@ context("test-chrome")
 
 skip_if_not_chrome()
 
-chrome <- Chrome$new()
+setup(chrome <<- Chrome$new())
+teardown({
+  if (chrome$is_alive()) {
+    message("closing chrome")
+    chrome$close()
+  }
+})
 
 test_that("is_alive() returns a logical", {
   expect_is(chrome$is_alive(), "logical")
