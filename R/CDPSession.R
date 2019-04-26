@@ -38,7 +38,7 @@ CDPSession <- function(
   host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,
   local = FALSE, callback = NULL
 ) {
-  url <- build_url(host, port, secure)
+  url <- build_http_url(host, port, secure)
   protocol <- CDProtocol$new(url = url, local = local)
   if(is.null(ws_url)) {
     ws_url <- chr_get_ws_addr(port = port)
@@ -312,10 +312,10 @@ CDPConnexion <- R6::R6Class(
 )
 
 chr_get_ws_addr <- function(host = "localhost", port = 9222, secure = FALSE) {
-  url <- build_url(host, port, secure)
+  url <- build_http_url(host, port, secure)
   "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`port`/json ..."
   open_debuggers <- tryCatch(
-    jsonlite::read_json(paste0(url, "/json"), simplifyVector = TRUE),
+    jsonlite::read_json(build_http_url(host, port, secure, "json"), simplifyVector = TRUE),
     error = function(e) list()
   )
 

@@ -1,11 +1,11 @@
 CDProtocol <- R6::R6Class(
   "CDProtocol",
   public = list(
-    initialize = function(url = "http://localhost:9222", local = TRUE) {
+    initialize = function(url = "http://localhost:9222/", local = TRUE) {
       if(isTRUE(local)) {
         protocol <- read_local_protocol()
       } else {
-        protocol <- from_json(paste0(url, "/json/protocol"))
+        protocol <- from_json(httr::modify_url(url, path = "json/protocol"))
       }
       protocol <- add_names_to_protocol(protocol)
       protocol <- rlist2env(protocol)

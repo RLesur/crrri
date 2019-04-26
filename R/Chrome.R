@@ -153,7 +153,7 @@ Chrome <- R6::R6Class(
         private$.bin,
         debug_port = NULL,
         extra_args = c(
-          build_url(private$.host, private$.port, private$.secure),
+          build_http_url(private$.host, private$.port, private$.secure),
           '--new-window',
           '--no-default-browser-check',
           '-incognito'

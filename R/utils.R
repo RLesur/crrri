@@ -1,3 +1,5 @@
+# assertthat helpers ------------------------------------------------------
+
 is_scalar_character <- function(x) {
   rlang::is_scalar_character(x)
 }
@@ -36,6 +38,10 @@ assertthat::on_failure(is_available_port) <- function(call, env) {
   paste0("Port ", deparse(call$x), " already in use. Maybe is headless Chrome already running?")
 }
 
-build_url <- function(host = "localhost", port = 9222, secure = FALSE) {
-  paste0("http", if(isTRUE(secure)) "s", "://", host, ":", port)
+
+# http helpers ------------------------------------------------------------
+
+build_http_url <- function(host = NULL, port = NULL, secure, path = NULL) {
+  scheme <- if(isTRUE(secure)) "https" else "http"
+  httr::modify_url("http://localhost:9222", scheme = scheme, hostname = host, port = port, path = path)
 }

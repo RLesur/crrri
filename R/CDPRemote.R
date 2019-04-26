@@ -116,10 +116,10 @@ CDPRemote <- R6::R6Class(
       private$.local_protocol <- isTRUE(local)
       private$.retry_delay <- retry_delay
       private$.max_attempts <- max_attempts
-      remote_reachable <- is_remote_reachable(host, debug_port, retry_delay, max_attempts)
+      remote_reachable <- is_remote_reachable(host, debug_port, secure, retry_delay, max_attempts)
       if(!remote_reachable && host == "localhost") {
         host <- "127.0.0.1"
-        remote_reachable <- is_remote_reachable(host, debug_port, retry_delay, max_attempts)
+        remote_reachable <- is_remote_reachable(host, debug_port, secure, retry_delay, max_attempts)
       }
       if(!remote_reachable) {
         warning("Cannot access to remote host...")
@@ -198,7 +198,7 @@ CDPRemote <- R6::R6Class(
       private$.check_remote()
       if(private$.reachable) {
         # if remote is opened, update the private field .version
-        url <- paste0(build_url(private$.host, private$.port, private$.secure), "/json/version")
+        url <- build_http_url(private$.host, private$.port, private$.secure, path = "/json/version")
         private$.version <- jsonlite::read_json(url)
       }
       private$.version
@@ -232,6 +232,7 @@ CDPRemote <- R6::R6Class(
         private$.reachable <- is_remote_reachable(
           private$.host,
           private$.port,
+          private$.secure,
           private$.retry_delay,
           private$.max_attempts
         )
@@ -249,8 +250,8 @@ CDPRemote <- R6::R6Class(
 )
 
 # helper to test chrome connexion -----------------------------------------
-is_remote_reachable <- function(host, port, retry_delay = 0.2, max_attempts = 15L) {
-  url <- build_url(host, port)
+is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attempts = 15L) {
+  url <- build_http_url(host = host, port = port, secure = secure)
   remote_reached <- function(url) {
     check_url <- purrr::safely(httr::GET, otherwise = list())
     response <- check_url(url, httr::use_proxy(""))
