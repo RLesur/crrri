@@ -260,7 +260,10 @@ chr_launch <- function(
     "!DEBUG Chrome succesfully launched `if (headless) 'in headless mode'`."
     "!DEBUG It should be accessible at http://localhost:`debug_port`"
   } else {
-    stop("Cannot launch Chrome. Please check your system configuration.", call. = FALSE)
+    stop("Cannot launch Chrome. ",
+         "Please add the path to your Chrome bin.",
+         call. = FALSE
+    )
   }
 
   chr_process
