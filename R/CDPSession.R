@@ -15,15 +15,9 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super"))
 #' This function creates a websocket connection to a remote instance using
 #' the Chrome Debugging Protocol.
 #'
-#' @param host Character scalar, the host name of the application.
-#' @param port The remote debugging port (a numeric or a character scalar).
-#' @param secure A logical indicating whether the https/wss protocols shall be
-#'     used for connecting to the remote application.
+#' @inheritParams fetch_protocol
 #' @param ws_url Character scalar, the websocket URL. If provided, `host` and
 #'     `port` arguments are ignored.
-#' @param local Logical scalar, indicating whether the local version of the
-#'     protocol (embedded in `crrri`) must be used or the protocol must be
-#'     fetched _remotely_.
 #' @param callback Function with one argument, executed when the R session is
 #'     connected to Chrome. The connection object is passed to this function.
 #'
@@ -88,14 +82,12 @@ CDPSession <- function(
       )
     )
   }
-  # build the http url
-  http_url <- build_http_url(host, port, secure)
 
-  # check the http url
+  # check the remote application
   if(!is_remote_reachable(host, port, secure, max_attempts = 3L)) {
     return(
       stop_or_reject(
-        paste0("Failed to connect to ", http_url, "."),
+        paste0("Failed to connect to ", build_http_url(host, port, secure), "."),
         async = async
       )
     )
@@ -106,7 +98,7 @@ CDPSession <- function(
     ws_url <- chr_get_ws_addr(host = host, port = port, secure = secure)
   }
   # get the protocol
-  protocol <- CDProtocol$new(url = http_url, local = local)
+  protocol <- CDProtocol$new(host = host, port = port, secure = secure, local = local)
 
   CDPSession <- R6::R6Class(
     "CDPSession",

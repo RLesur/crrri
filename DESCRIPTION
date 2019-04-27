@@ -46,6 +46,7 @@ Collate:
     'wait.R'
     'hold.R'
     'utils.R'
+    'http_methods.R'
     'CDProtocol.R'
     'utils-pipe.R'
     'domain.R'
