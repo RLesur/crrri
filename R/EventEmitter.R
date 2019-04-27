@@ -141,7 +141,7 @@ EventEmitter <- R6::R6Class(
     rawListeners = function(eventName) {
       stopifnot(!missing(eventName))
       if (private$.queue_exists(eventName)) {
-        queue$get()
+        private$.queues[[eventName]]$get()
       } else {
         list()
       }
