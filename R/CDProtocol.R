@@ -23,11 +23,11 @@ CDProtocol <- R6::R6Class(
       if(is.null(params_env)) {
         params_names <- character(0)
       } else {
-        params_names <- ls(params_env)
+        params_names <- purrr::set_names(ls(params_env))
       }
       # since we will add a callback argument, check that callback is not already used:
       stopifnot(!("callback" %in% params_names))
-      params_optional <- sapply(params_names, function(name) isTRUE(params_env[[name]]$optional))
+      params_optional <- purrr::map_lgl(params_names,  ~ isTRUE(params_env[[.x]]$optional))
       if(length(params_optional) > 0) {
         params_optional <- sort(params_optional) # get the required params first
       }
@@ -85,12 +85,12 @@ local_protocol_file <- function(file = c("js", "browser")) {
 
 rlist2env <- function(.l) {
   if (!is.list(.l)) return(.l)
-  list2env(lapply(.l, rlist2env), parent = emptyenv())
+  list2env(purrr::map(.l, rlist2env), parent = emptyenv())
 }
 
 add_names_to_protocol <- function(protocol) {
-  protocol$domains <- lapply(protocol$domains, add_names_to_domain)
-  names(protocol$domains) <- sapply(protocol$domains, function(x) x$domain)
+  protocol$domains <- purrr::map(protocol$domains, add_names_to_domain)
+  names(protocol$domains) <- purrr::map_chr(protocol$domains, "domain")
   protocol
 }
 
@@ -99,37 +99,33 @@ add_names_to_domain <- function(domain) {
     domain$dependencies <- unlist(domain$dependencies)
   }
   if(!is.null(domain$types)) {
-    domain$types <- lapply(domain$types, add_names_to_type)
-    names(domain$types) <- sapply(domain$types, function(x) x$id)
+    domain$types <- purrr::map(domain$types, add_names_to_type)
+    names(domain$types) <- purrr::map_chr(domain$types, "id")
   }
   if(!is.null(domain$commands)) {
-    domain$commands <- lapply(domain$commands, add_names_to_method)
-    names(domain$commands) <- get_names(domain$commands)
+    domain$commands <- purrr::map(domain$commands, add_names_to_method)
+    names(domain$commands) <- purrr::map_chr(domain$commands, "name")
   }
   if(!is.null(domain$events)) {
-    domain$events <- lapply(domain$events, add_names_to_method)
-    names(domain$events) <- get_names(domain$events)
+    domain$events <- purrr::map(domain$events, add_names_to_method)
+    names(domain$events) <- purrr::map_chr(domain$events, "name")
   }
   domain
 }
 
 add_names_to_type <- function(type) {
   if(!is.null(type$properties)) {
-    names(type$properties) <- get_names(type$properties)
+    names(type$properties) <- purrr::map_chr(type$properties, "name")
   }
   type
 }
 
 add_names_to_method <- function(method) {
   if(!is.null(method$parameters)) {
-    names(method$parameters) <- get_names(method$parameters)
+    names(method$parameters) <- purrr::map_chr(method$parameters, "name")
   }
   if(!is.null(method$returns)) {
-    names(method$returns) <- get_names(method$returns)
+    names(method$returns) <- purrr::map_chr(method$returns, "name")
   }
   method
-}
-
-get_names <- function(l) {
-  sapply(l, function(x) x$name)
 }
