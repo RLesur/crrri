@@ -111,10 +111,10 @@ CDPSession <- function(
           onconnect = onconnect,
           onerror = onerror
         )
+        self$.__protocol__ <- protocol
         for (name in protocol$domains) {
             self[[name]] <- domain(self, name)
         }
-        self$.__protocol__ <- protocol
         if(isTRUE(autoConnect)) {
           self$connect()
         }
