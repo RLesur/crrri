@@ -113,7 +113,6 @@ CDPSession <- function(
         )
         self$.__protocol__ <- protocol
         lapply(protocol$domains, function(name) self[[name]] <- domain(self, name))
-        self$.__protocol__ <- protocol
         if(isTRUE(autoConnect)) {
           self$connect()
         }

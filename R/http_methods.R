@@ -29,7 +29,15 @@ NULL
 fetch_version <- function(host = "localhost", port = 9222, secure = FALSE) {
   check_host_port_args(host, port)
   url <- build_http_url(host = host, port = port, secure = secure, path = c("json", "version"))
-  jsonlite::read_json(url)
+  from_json(url)
+}
+
+#' @rdname http-methods
+#' @export
+list_targets <- function(host = "localhost", port = 9222, secure = FALSE) {
+  check_host_port_args(host, port)
+  url <- build_http_url(host = host, port = port, secure = secure, path = c("json", "list"))
+  from_json(url)
 }
 
 #' @rdname http-methods

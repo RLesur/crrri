@@ -3,10 +3,13 @@
 \name{http-methods}
 \alias{http-methods}
 \alias{fetch_version}
+\alias{list_targets}
 \alias{fetch_protocol}
 \title{Chrome Debugging Protocol HTTP methods}
 \usage{
 fetch_version(host = "localhost", port = 9222, secure = FALSE)
+
+list_targets(host = "localhost", port = 9222, secure = FALSE)
 
 fetch_protocol(host = "localhost", port = 9222, secure = FALSE,
   local = FALSE)
