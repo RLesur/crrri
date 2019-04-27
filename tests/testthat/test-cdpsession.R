@@ -2,12 +2,15 @@ context("test-cdpsession")
 
 skip_if_not_chrome()
 
-setup(chrome <<- Chrome$new())
+setup({
+  rlang::env_bind(rlang::global_env(), chrome = Chrome$new())
+})
 teardown({
   if (chrome$is_alive()) {
     message("closing chrome")
     chrome$close()
   }
+  rlang::env_unbind(rlang::global_env(), nms = "chrome")
 })
 
 test_that("connect and disconnect methods return promises", {
