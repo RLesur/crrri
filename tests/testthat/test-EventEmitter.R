@@ -92,6 +92,20 @@ test_that("listeners returns registered listener", {
   expect_identical(myEmitter$listeners("event")[[1]], function(...) cat("A"))
 })
 
+test_that("rawListeners returns once registered listener with a special attribute when", {
+  myEmitter <- EventEmitter$new()
+  myEmitter$once("event", function(...) cat("A"))
+  expect_identical(class(myEmitter$rawListeners("event")[[1]]), c("once_function", "function"))
+  expect_true("listener" %in% names(attributes(myEmitter$rawListeners("event")[[1]])))
+  expect_identical(attr(myEmitter$rawListeners("event")[[1]], "listener"), function(...) cat("A"))
+})
+
+test_that("rawListeners returns register listeners", {
+  myEmitter <- EventEmitter$new()
+  myEmitter$on("event", function(...) cat("A"))
+  expect_identical(myEmitter$rawListeners("event")[[1]], function(...) cat("A"))
+})
+
 
 
 
