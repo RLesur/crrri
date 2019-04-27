@@ -2,7 +2,16 @@ context("test-cdpsession")
 
 skip_if_not_chrome()
 
-chrome <- Chrome$new()
+setup({
+  rlang::env_bind(rlang::global_env(), chrome = Chrome$new())
+})
+teardown({
+  if (chrome$is_alive()) {
+    message("closing chrome")
+    chrome$close()
+  }
+  rlang::env_unbind(rlang::global_env(), nms = "chrome")
+})
 
 test_that("connect and disconnect methods return promises", {
   client_pr <- CDPSession()
@@ -18,5 +27,3 @@ test_that("CDPSession is disconnected when removed", {
   client <- hold(CDPSession())
   expect_message(client$.__enclos_env__$private$finalize())
 })
-
-chrome$close()
