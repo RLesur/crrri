@@ -86,6 +86,11 @@ test_that("countListner get the number of listener", {
   expect_identical(myEmitter$eventNames(), c("event", "anotherevent"))
 })
 
+test_that("listeners returns registered listener", {
+  myEmitter <- EventEmitter$new()
+  myEmitter$on("event", function(...) cat("A"))
+  expect_identical(myEmitter$listeners("event")[[1]], function(...) cat("A"))
+})
 
 
 
