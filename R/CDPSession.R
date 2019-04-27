@@ -55,7 +55,9 @@ CDPSession <- function(
           onerror = onerror
         )
         self$.__protocol__ <- protocol
-        lapply(protocol$domains, function(name) self[[name]] <- domain(self, name))
+        for (name in protocol$domains) {
+            self[[name]] <- domain(self, name)
+        }
         self$.__protocol__ <- protocol
         if(isTRUE(autoConnect)) {
           self$connect()
@@ -64,7 +66,10 @@ CDPSession <- function(
       .__protocol__ = NULL
     )
   )
-  lapply(protocol$domains, function(domain) CDPSession$set("public", domain, NULL))
+  # add domain method into the R6 object
+  for (domain in protocol$domains) {
+    CDPSession$set("public", domain, NULL)
+  }
 
   if(!is.null(callback)) {
     onconnect <- rlang::as_function(callback)
