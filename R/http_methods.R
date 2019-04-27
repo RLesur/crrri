@@ -11,6 +11,7 @@ NULL
 #'     protocol (embedded in `crrri`) must be used or the protocol must be
 #'     fetched _remotely_.
 #' @name http-methods
+#' @keywords internal
 #' @examples
 #' \donttest{
 #' # fetch the local protocol
@@ -23,9 +24,15 @@ NULL
 #' }
 NULL
 
-#' @keywords internal
 #' @rdname http-methods
-#' @return A list.
+#' @export
+fetch_version <- function(host = "localhost", port = 9222, secure = FALSE) {
+  check_host_port_args(host, port)
+  url <- build_http_url(host = host, port = port, secure = secure, path = c("json", "version"))
+  jsonlite::read_json(url)
+}
+
+#' @rdname http-methods
 #' @export
 fetch_protocol <- function(host = "localhost", port = 9222, secure = FALSE, local = FALSE) {
   # if the local protocol is fetched, return early
@@ -33,18 +40,17 @@ fetch_protocol <- function(host = "localhost", port = 9222, secure = FALSE, loca
     return(read_local_protocol())
   }
 
-  # check arguments
+  check_host_port_args(host, port)
+  url <- build_http_url(host = host, port = port, secure = secure, path = c("json", "protocol"))
+  from_json(url)
+}
+
+check_host_port_args <- function(host, port) {
   assert_that(is_scalar_character(host))
   assert_that(is.scalar(port))
   if(!is.number(port) && !is_scalar_character(port)) {
     stop("port must be a character or a numeric scalar.")
   }
-
-  # build url
-  url <- build_http_url(host = host, port = port, secure = secure, path = c("json", "protocol"))
-
-  # fetch the protocol
-  from_json(url)
 }
 
 from_json <- function(path) {

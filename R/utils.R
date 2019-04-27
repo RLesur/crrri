@@ -61,14 +61,14 @@ is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attem
   succeeded
 }
 
-build_http_url <- function(host = NULL, port = NULL, secure, path = NULL) {
+build_http_url <- function(host, port, secure, path = NULL, query = NULL) {
   scheme <- if(isTRUE(secure)) "https" else "http"
-  httr::modify_url("", scheme = scheme, hostname = host, port = port, path = path)
+  httr::modify_url("", scheme = scheme, hostname = host, port = port, path = path, query = query)
 }
 
-get_version <- function(host = NULL, port = NULL, secure) {
-  url <- build_http_url(host, port, secure, path = "/json/version")
-  jsonlite::read_json(url)
+new_target <- function(host = NULL, port = NULL, secure, url = NULL) {
+  req <- build_http_url(host, port, secure, path = "/json/new", query = url)
+  jsonlite::read_json(req)
 }
 
 parse_ws_url <- function(ws_url) {
@@ -112,7 +112,7 @@ parse_ws_url <- function(ws_url) {
 build_ws_url <- function(ws_url) {
   stopifnot(inherits(ws_url, "cdp_ws_url"))
   scheme <- if(ws_url$secure) "wss" else "ws"
-  path <- paste("devtools", ws_url$type, ws_url$id, sep = "/")
+  path <- c("devtools", ws_url$type, ws_url$id)
   httr::modify_url(
     "",
     scheme = scheme,

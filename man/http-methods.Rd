@@ -2,9 +2,12 @@
 % Please edit documentation in R/http_methods.R
 \name{http-methods}
 \alias{http-methods}
+\alias{fetch_version}
 \alias{fetch_protocol}
 \title{Chrome Debugging Protocol HTTP methods}
 \usage{
+fetch_version(host = "localhost", port = 9222, secure = FALSE)
+
 fetch_protocol(host = "localhost", port = 9222, secure = FALSE,
   local = FALSE)
 }
@@ -18,9 +21,6 @@ fetch_protocol(host = "localhost", port = 9222, secure = FALSE,
 \item{local}{Logical scalar, indicating whether the local version of the
 protocol (embedded in \code{crrri}) must be used or the protocol must be
 fetched \emph{remotely}.}
-}
-\value{
-A list.
 }
 \description{
 Chrome Debugging Protocol HTTP methods

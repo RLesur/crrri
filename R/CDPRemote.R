@@ -1,4 +1,5 @@
 #' @include utils.R
+#' @include http_methods.R
 #' @include CDPSession.R
 #' @include hold.R
 #' @importFrom assertthat assert_that is.scalar is.number
@@ -198,7 +199,7 @@ CDPRemote <- R6::R6Class(
       private$.check_remote()
       if(private$.reachable) {
         # if remote is opened, update the private field .version
-        private$.version <- get_version(private$.host, private$.port, private$.secure)
+        private$.version <- fetch_version(private$.host, private$.port, private$.secure)
       }
       private$.version
     },
