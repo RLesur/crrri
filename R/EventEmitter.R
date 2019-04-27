@@ -155,7 +155,7 @@ EventEmitter <- R6::R6Class(
         }
         rawListener
       }
-      lapply(rawListeners, getListener)
+      purrr::map(rawListeners, getListener)
     }
   )
 )
@@ -207,7 +207,7 @@ Queue <- R6::R6Class(
       function() {private$.rm_wrapper(wrapper)}
     },
     get = function() {
-      lapply(private$.queue, function(w) get("element", pos = w))
+      purrr::map(private$.queue, ~ get("element", pos = .x))
     },
     remove_element = function(element, right = TRUE) {
       queue <- private$.queue
