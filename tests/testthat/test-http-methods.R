@@ -45,7 +45,7 @@ test_that("activate_target() returns TRUE if the target exists, FALSE otherwise"
 
 test_that("close_target() returns TRUE if the target exists and reduce the length of list_targets(), FALSE otherwise.", {
   expect_identical(close_target(target_id = new_target$id), TRUE)
-  expect_identical(close_target(target_id = new_target$id), FALSE)
+  expect_identical(close_target(target_id = "1234"), FALSE)
   expect_identical(length(list_targets), 1L)
 })
 
