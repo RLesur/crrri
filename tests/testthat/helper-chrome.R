@@ -9,7 +9,9 @@ setup_chrome_test <- function(env = rlang::caller_env()) {
   skip_if_not_chrome()
   # create chrome object in the test environment
   setup({
-    rlang::env_bind(.env = env, chrome = Chrome$new())
+    capture.output(
+      rlang::env_bind(.env = env, chrome = Chrome$new())
+    )
   },
   # we need this because these function are normally called in the test file directly
   env = env)
