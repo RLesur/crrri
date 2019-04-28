@@ -12,23 +12,25 @@ status](https://codecov.io/gh/RLesur/crrri/branch/master/graph/badge.svg)](https
 **Work in progress**
 
 The goal of `crrri` is to provide a native Chrome Remote Interface in R
-using the [Chrome DevTools
+using the [Chrome Debugging
 Protocol](https://chromedevtools.github.io/devtools-protocol/). This is
 a low-level implementation of the protocol.
 
 This package is intended to R packages developers who need to
-orchestrate Chrome: **with `crrri`, you can easily interact with
-(headless) Chrome using R**. We worked a lot to provide the most simple
-API. However, you will have the bulk of the work and learn how the
-DevTools Protocol works. Interacting with Chrome using the DevTools
-Protocol is a highly technical task and prone to errors: you will be
-close to the metal and have full power (be cautious\!).
+orchestrate Chromium/Chrome: **with `crrri`, you can easily interact
+with (headless) Chromium/Chrome using R**. We worked a lot to provide
+the most simple API. However, you will have the bulk of the work and
+learn how the Chrome DevTools Protocol works. Interacting with
+Chromium/Chrome using the DevTools Protocol is a highly technical task
+and prone to errors: you will be close to the metal and have full power
+(be cautious\!).
 
 This package is built on top of the
 [`websocket`](https://github.com/rstudio/websocket) and
 [`promises`](https://cran.r-project.org/package=promises) packages. The
-default design of the `crrri` functions is to use promises. However, you
-can also use `crrri` with callbacks if you prefer.
+default design of the `crrri` functions is asynchronous: they return
+promises. However, you can also use `crrri` with callbacks if you
+prefer.
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain)
 for his seminal work on
@@ -40,11 +42,11 @@ Many thanks\!
 First of all, you **do not need a `node.js` configuration** because
 **`crrri` is fully written in R**.
 
-You only need a recent version of Chromium or Chrome: a standalone
+You only need a recent version of Chromium or Chrome. A standalone
 version works perfectly well on Windows. It is recommended to set the
 value of the `HEADLESS_CHROME` environment variable to the path of
-Chromium or Chrome (this is the same variable that is used in
-[`decapitated`](https://github.com/hrbrmstr/decapitated)). Otherwise,
+Chromium or Chrome (this is the same environment variable that is used
+in [`decapitated`](https://github.com/hrbrmstr/decapitated)). Otherwise,
 you can use the `bin` argument of the `Chrome` class `connect()` method.
 
 ## Installation
@@ -66,9 +68,11 @@ your R session using `crrri`**. This will help you to learn the [Chrome
 DevTools Protocol](https://chromedevtools.github.io/devtools-protocol),
 the `crrri` design and develop higher level functions.
 
-First, start headless Chrome:
+Assuming that you have configured the `HEADLESS_CHROME` environment
+variable (see before), you can start headless Chrome:
 
 ``` r
+library(crrri)
 chrome <- Chrome$new()
 ```
 
@@ -93,7 +97,12 @@ client <- chrome$connect(callback = function(client) {
 
 The `$inspect()` method of the connection object opens the Chrome
 DevTools Inspector in RStudio or in your default web browser (you can
-have some trouble if the inspector is not opened in Chromium/Chrome).
+have some trouble if the inspector is not opened in Chromium/Chrome). It
+is convenient if you need to inspect the content of a web page because
+all that you need is in RStudio.
+
+![DevTools Inspector in RStudio
+viewer](https://user-images.githubusercontent.com/19177171/56867255-861c3900-69e3-11e9-88cd-2ef29075070f.png)
 
 In order to discover the [Chrome DevTools
 Protocol](https://chromedevtools.github.io/devtools-protocol) commands
@@ -116,6 +125,11 @@ command as follows:
 Page$navigate(url = "http://r-project.org")
 ```
 
+Once the page is loaded by headless Chrome, RStudio looks like this:
+
+![R Project website in headless
+Chrome](https://user-images.githubusercontent.com/19177171/56867262-8f0d0a80-69e3-11e9-828f-4dddb0bcd492.png)
+
 You will see in the R console:
 
     <Promise [pending]>
@@ -135,6 +149,12 @@ Page$navigate(url = "https://ropensci.org/", callback = function(result) {
   print(result)
 })
 ```
+
+Once the page is loaded, you will see both the web page and the result
+object object in RStudio:
+
+![rOpenSci website in headless
+Chrome](https://user-images.githubusercontent.com/19177171/56867269-9cc29000-69e3-11e9-8fa4-ca238d3b3566.png)
 
 `crrri` supports the `rlang`’s lambda functions. So, you can write a
 more compact form:
@@ -172,6 +192,18 @@ these two forms are equivalent.
 **However, if you want to use `crrri` to develop higher level functions,
 the most reliable way is to use promises.**
 
+Do not forget to close headless Chrome with:
+
+``` r
+chrome$close()
+```
+
+Since the RStudio viewer has lost the connection, you will see this
+screen in RStudio:
+
+![headless Chrome
+closed](https://user-images.githubusercontent.com/19177171/56867276-a4823480-69e3-11e9-8530-831ac4dd144e.png)
+
 Now, you can take some time to discover all the commands and events of
 the [Chrome DevTools
 Protocol](https://chromedevtools.github.io/devtools-protocol/). The
@@ -181,8 +213,7 @@ following examples will introduce you some of them.
 
 ### Generate a PDF
 
-Assuming that you have configured the `HEADLESS_CHROME` environment (see
-before), here is an example that produces a PDF of the [R Project
+Here is an example that produces a PDF of the [R Project
 website](https://www.r-project.org/):
 
 ``` r
