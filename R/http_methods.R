@@ -158,7 +158,7 @@ browse_url <- function(url) {
   localhost <- is_localhost(url)
   viewer <- getOption("viewer")
   if (!is.null(viewer) && localhost){
-    viewer(url)
+    viewer(url, height = "maximize")
   }
   else {
     utils::browseURL(url)
