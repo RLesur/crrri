@@ -130,7 +130,8 @@ CDPSession <- function(
   for (domain in protocol$domains) {
     CDPSession$set("public", domain, NULL)
   }
-  # if the target is a page, add an inspect method (because we can't inspect the browser target)
+  # if the target is a page, add methods inspect(), activateTab() and closeTab()
+  # these methods are added dynamically because they are irrelevant for the "browser" websocket endpoint
   if(identical(target_type, "page")) {
     CDPSession$set("public", "inspect", function() {
       if(self$readyState() == 1L) {
@@ -141,6 +142,24 @@ CDPSession <- function(
           call. = FALSE, immediate. = TRUE
         )
       }
+    })
+
+    CDPSession$set("public", "activateTab", function() {
+      if(self$readyState() == 1L) {
+        return(promises::promise_resolve(
+          activate_target(private$.host, private$.port, private$.secure, private$.target_id)
+        ))
+      }
+      promises::promise_reject(
+        "Invalid connection state. Cannot open target in a web browser."
+      )
+    })
+
+    CDPSession$set("public", "closeTab", function() {
+      promises::then(
+        self$disconnect(),
+        onFulfilled = ~ close_target(target_id = private$.target_id)
+      )
     })
   }
 
