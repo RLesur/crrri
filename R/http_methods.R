@@ -27,6 +27,7 @@ NULL
 #' \donttest{
 #' chrome <- Chrome$new()
 #'
+#' # fetch information about headless Chrome
 #' fetch_version()
 #' # fetch the Chromium/Chrome protocol
 #' protocol <- fetch_protocol()
