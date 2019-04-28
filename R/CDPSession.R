@@ -385,14 +385,10 @@ CDPConnexion <- R6::R6Class(
 )
 
 chr_get_ws_addr <- function(host = "localhost", port = 9222, secure = FALSE) {
-  url <- build_http_url(host, port, secure)
   "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`port`/json ..."
-  open_debuggers <- tryCatch(
-    jsonlite::read_json(build_http_url(host, port, secure, "json"), simplifyVector = TRUE),
-    error = function(e) list()
-  )
-
-  address <- open_debuggers$webSocketDebuggerUrl[open_debuggers$type == "page"]
+  targets <- list_targets(host, port, secure)
+  active_target <- purrr::detect(targets, ~ identical(.x$type, "page"))
+  address <- active_target$webSocketDebuggerUrl
   if (is.null(address))
     "!DEBUG ...websocket entrypoint unavailable."
   else

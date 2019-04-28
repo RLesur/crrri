@@ -5,6 +5,10 @@
 \alias{fetch_version}
 \alias{list_targets}
 \alias{fetch_protocol}
+\alias{new_tab}
+\alias{activate_target}
+\alias{close_target}
+\alias{inspect_target}
 \title{Chrome Debugging Protocol HTTP methods}
 \usage{
 fetch_version(host = "localhost", port = 9222, secure = FALSE)
@@ -13,6 +17,18 @@ list_targets(host = "localhost", port = 9222, secure = FALSE)
 
 fetch_protocol(host = "localhost", port = 9222, secure = FALSE,
   local = FALSE)
+
+new_tab(host = "localhost", port = 9222, secure = FALSE,
+  url = NULL)
+
+activate_target(host = "localhost", port = 9222, secure = FALSE,
+  target_id)
+
+close_target(host = "localhost", port = 9222, secure = FALSE,
+  target_id)
+
+inspect_target(host = "localhost", port = 9222, secure = FALSE,
+  target_id)
 }
 \arguments{
 \item{host}{Character scalar, the host name of the application.}
@@ -24,19 +40,41 @@ fetch_protocol(host = "localhost", port = 9222, secure = FALSE,
 \item{local}{Logical scalar, indicating whether the local version of the
 protocol (embedded in \code{crrri}) must be used or the protocol must be
 fetched \emph{remotely}.}
+
+\item{url}{URL to open in a new tab.}
+
+\item{target_id}{Target (or tab) identifier.}
+}
+\value{
+\code{fetch_version()}, \code{list_targets()}, \code{fetch_protocols()} and
+\code{new_tab()} return a list. \code{activate_target()} and \code{close_target()} returns
+a logical: \code{TRUE} is returned when the command succeeds, \code{FALSE} is
+returned if a wrong \code{target_id} is provided.
 }
 \description{
-Chrome Debugging Protocol HTTP methods
+When Chromium/Chrome is started in debugging mode, several HTTP endpoints
+are available. Using these endpoint, one can retrieve information from
+Chromium/Chrome or send commands, see
+\url{https://chromedevtools.github.io/devtools-protocol/#endpoints}.
 }
 \examples{
 \donttest{
-# fetch the local protocol
-protocol <- fetch_protocol(local = TRUE)
+chrome <- Chrome$new()
 
-# fetch the protocol of a remote application
-remote <- Chrome$new()
+fetch_version()
+# fetch the Chromium/Chrome protocol
 protocol <- fetch_protocol()
-remote$close()
+
+# get the list of opened tabs
+list_targets()
+# open an url in a new tab
+new_target <- new_tab(url = "http://r-project.org")
+# the new tab is referenced in the list of opened tabs
+list_targets()
+# inspect a target in a web browser
+inspect_target(target_id = new_target$id)
+
+chrome$close()
 }
 }
 \keyword{internal}

@@ -66,11 +66,6 @@ build_http_url <- function(host, port, secure, path = NULL, query = NULL) {
   httr::modify_url("", scheme = scheme, hostname = host, port = port, path = path, query = query)
 }
 
-new_target <- function(host = NULL, port = NULL, secure, url = NULL) {
-  req <- build_http_url(host, port, secure, path = "/json/new", query = url)
-  jsonlite::read_json(req)
-}
-
 parse_ws_url <- function(ws_url) {
   # NOTE: ws_url must be a character scalar
   ws_url <- httr::parse_url(ws_url)
