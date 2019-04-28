@@ -133,12 +133,14 @@ CDPSession <- function(
   # if the target is a page, add an inspect method (because we can't inspect the browser target)
   if(identical(target_type, "page")) {
     CDPSession$set("public", "inspect", function() {
-      if(!interactive()) {
-        warning("The inspect method can only be used in an interactive session.")
-        return(NULL)
+      if(self$readyState() == 1L) {
+        inspect_target(private$.host, private$.port, private$.secure, private$.target_id)
+      } else {
+        warning(
+          "Invalid connection state. Cannot open target in a web browser.",
+          call. = FALSE, immediate. = TRUE
+        )
       }
-      if(self$readyState() == 1L)
-      inspect_target(private$.host, private$.port, private$.secure, private$.target_id)
     })
   }
 

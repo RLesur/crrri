@@ -106,6 +106,10 @@ inspect_target <- function(
   if(index == 0) {
     stop("Wrong target_id.")
   }
+  if(!interactive()) {
+    warning("The inspect method can only be used in an interactive session.")
+    return(NULL)
+  }
   path <- purrr::pluck(targets, index, "devtoolsFrontendUrl")
   url <- build_http_url(host, port, secure, path)
   browse_url(url)
