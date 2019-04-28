@@ -138,7 +138,12 @@ CDPRemote <- R6::R6Class(
         )
       }
       private$.check_remote()
-      if(!private$.reachable) stop("Cannot access to remote host.")
+      if(!private$.reachable) {
+        return(stop_or_reject(
+          "Cannot access to remote host.",
+          async = is.null(callback)
+        ))
+      }
       con <- CDPSession(
         host = private$.host,
         port = private$.port,
