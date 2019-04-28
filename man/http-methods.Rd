@@ -61,6 +61,7 @@ Chromium/Chrome or send commands, see
 \donttest{
 chrome <- Chrome$new()
 
+# fetch information about headless Chrome
 fetch_version()
 # fetch the Chromium/Chrome protocol
 protocol <- fetch_protocol()
@@ -72,7 +73,9 @@ new_target <- new_tab(url = "http://r-project.org")
 # the new tab is referenced in the list of opened tabs
 list_targets()
 # inspect a target in a web browser
-inspect_target(target_id = new_target$id)
+if(interactive()) inspect_target(target_id = new_target$id)
+# close the previous created tab
+close_target(target_id = new_target$id)
 
 chrome$close()
 }

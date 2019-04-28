@@ -3,6 +3,7 @@
 #' @include CDProtocol.R
 #' @include utils.R
 #' @include hold.R
+#' @include http_methods.R
 #' @importFrom assertthat is.number
 NULL
 
@@ -97,6 +98,9 @@ CDPSession <- function(
   if(is.null(ws_url)) {
     ws_url <- chr_get_ws_addr(host = host, port = port, secure = secure)
   }
+  # store the target type
+  target_type <- parse_ws_url(ws_url)$type
+
   # get the protocol
   protocol <- CDProtocol$new(host = host, port = port, secure = secure, local = local)
 
@@ -125,6 +129,17 @@ CDPSession <- function(
   # add domain method into the R6 object
   for (domain in protocol$domains) {
     CDPSession$set("public", domain, NULL)
+  }
+  # if the target is a page, add an inspect method (because we can't inspect the browser target)
+  if(identical(target_type, "page")) {
+    CDPSession$set("public", "inspect", function() {
+      if(!interactive()) {
+        warning("The inspect method can only be used in an interactive session.")
+        return(NULL)
+      }
+      if(self$readyState() == 1L)
+      inspect_target(private$.host, private$.port, private$.secure, private$.target_id)
+    })
   }
 
   if(async) {
