@@ -30,18 +30,7 @@ test_that("port must be a numeric or a character scalar", {
   expect_error(CDPSession(port = list(1, 2), callback = void_cb))
 })
 
-skip_if_not_chrome()
-
-setup({
-  rlang::env_bind(rlang::global_env(), chrome = Chrome$new())
-})
-teardown({
-  if (chrome$is_alive()) {
-    message("closing chrome")
-    chrome$close()
-  }
-  rlang::env_unbind(rlang::global_env(), nms = "chrome")
-})
+setup_chrome_test()
 
 test_that("connect and disconnect methods return promises", {
   client_pr <- CDPSession()

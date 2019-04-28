@@ -14,18 +14,7 @@ test_that("fetch_protocol() port argument must be a numeric or character scalar"
   expect_error(fetch_protocol(port = c(9222, 9223)))
 })
 
-skip_if_not_chrome()
-
-setup({
-  rlang::env_bind(rlang::global_env(), chrome = Chrome$new())
-})
-teardown({
-  if (chrome$is_alive()) {
-    message("closing chrome")
-    chrome$close()
-  }
-  rlang::env_unbind(rlang::global_env(), nms = "chrome")
-})
+setup_chrome_test()
 
 test_that("fetch remote protocol works and returns a list", {
   expect_is(fetch_protocol(), "list")
