@@ -12,6 +12,24 @@ test_that("connect and disconnect methods return promises", {
   hold(closed_pr)
 })
 
+test_that("Event listener-When a callback is used, the returned function dismisses the listener", {
+  client <- hold(chrome$connect())
+  hold(client$Page$enable())
+  witness <- client$Page$loadEventFired()
+  callback <- function(...) stop("this error should never fires")
+  rm_callback <- client$Page$loadEventFired(callback = callback)
+  expect_is(rm_callback, "function")
+  # now remove the second listener
+  returned_callback <- rm_callback()
+  expect_identical(callback, returned_callback)
+  # now navigate to a page
+  f <- function() {
+    client$Page$navigate(url = "http://httpbin.org/status/200")
+    hold(witness)
+  }
+  expect_silent(f())
+})
+
 test_that("CDPSession is disconnected when removed", {
   client <- hold(CDPSession())
   expect_message(client$.__enclos_env__$private$finalize())

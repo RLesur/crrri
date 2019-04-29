@@ -234,7 +234,6 @@ CDPConnexion <- R6::R6Class(
         return(self$once(eventName))
       }
       super$on(eventName, callback)
-      invisible(self)
     },
     once = function(eventName, callback = NULL) {
       if(is.null(callback)) {
@@ -257,7 +256,6 @@ CDPConnexion <- R6::R6Class(
         return(pr)
       }
       super$once(eventName, callback)
-      invisible(self)
     },
     readyState = function() {
       private$.CDPSession_con$readyState()
