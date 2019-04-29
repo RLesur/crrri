@@ -96,10 +96,10 @@ client <- chrome$connect(callback = function(client) {
 ```
 
 The `$inspect()` method of the connection object opens the Chrome
-DevTools Inspector in RStudio or in your default web browser (you can
-have some trouble if the inspector is not opened in Chromium/Chrome). It
-is convenient if you need to inspect the content of a web page because
-all that you need is in RStudio.
+DevTools Inspector in RStudio (≥ 1.2.1335) or in your default web
+browser (you can have some trouble if the inspector is not opened in
+Chromium/Chrome). It is convenient if you need to inspect the content of
+a web page because all that you need is in RStudio.
 
 ![DevTools Inspector in RStudio
 viewer](https://user-images.githubusercontent.com/19177171/56867255-861c3900-69e3-11e9-88cd-2ef29075070f.png)
@@ -140,8 +140,7 @@ the fact that the `Page$navigate()` function is also asynchronous. All
 the asynchronous methods possess a `callback` argument. When the R
 session receives the result of the command from Chrome, R executes this
 callback function passing the result object to this function. For
-instance, you can
-execute:
+instance, you can execute:
 
 ``` r
 Page$navigate(url = "https://ropensci.org/", callback = function(result) {

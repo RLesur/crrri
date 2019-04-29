@@ -34,7 +34,8 @@ Suggests:
     pagedown,
     rmarkdown,
     testthat,
-    covr
+    covr,
+    rstudioapi
 Remotes:
     rstudio/websocket
 Encoding: UTF-8

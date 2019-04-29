@@ -161,11 +161,18 @@ local_protocol_file <- function(file = c("js", "browser")) {
 browse_url <- function(url) {
   localhost <- is_localhost(url)
   viewer <- getOption("viewer")
-  if (!is.null(viewer) && localhost){
-    viewer(url, height = "maximize")
+  if (is.null(viewer) || !localhost){
+    utils::browseURL(url)
   }
   else {
-    utils::browseURL(url)
+    # we know here that we are in rstudio
+    rs_version <- as.character(rstudioapi::getVersion())
+    # we need RStudio > 1.2.1335 to inspect properly headless Chrome
+    if(utils::compareVersion(rs_version, "1.2.1335") >= 0 ) {
+      viewer(url, height = "maximize")
+    } else {
+      utils::browseURL(url)
+    }
   }
 }
 
