@@ -43,19 +43,21 @@ NULL
 #'     connect to headless Chromium/Chrome.
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
+#' * `target_id`: A character scalar, identifier of the tab. For advanced use
+#'     only.
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to Chrome. The connection object is passed to this function.
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome.
 #'
-#' `$connect(callback = NULL)` connects the R session to the remote instance of
-#' headless Chromium/Chrome. The returned value depends on the value of the
-#' `callback` argument. When `callback` is a function, the returned value is a
-#' connection object. When `callback` is `NULL` the returned value is a promise
-#' which becomes fulfilled once R is connected to the remote instance of
-#' Chromium/Chrome. Once fulfilled, the value of this promise is the connection
-#' object.
+#' `$connect(target_id = "default", callback = NULL)` connects the R session to
+#' the remote instance of headless Chromium/Chrome. The returned value depends
+#' on the value of the `callback` argument. When `callback` is a function, the
+#' returned value is a connection object. When `callback` is `NULL` the returned
+#' value is a promise which becomes fulfilled once R is connected to the remote
+#' instance of Chromium/Chrome. Once fulfilled, the value of this promise is the
+#' connection object.
 #'
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
@@ -79,6 +81,7 @@ NULL
 #' `$is_alive()` checks if the remote instance is alive. Returns a logical
 #' scalar.
 #'
+#' `$listTargets()` returns a list with information about tabs.
 #' @name Chrome
 #' @examples
 #' \dontrun{

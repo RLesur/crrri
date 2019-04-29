@@ -35,6 +35,8 @@ fetched \emph{remotely}.
 connect to the remote application.
 \item \code{max_attempts}: Logical scalar, number of tries to connect to headless
 Chromium/Chrome.
+\item \code{target_id}: A character scalar, identifier of the target. For advanced
+use only.
 \item \code{callback}: Function with one argument, executed when the R session is
 connected to the remote application. The connection object is passed
 to this function.
@@ -45,12 +47,12 @@ to this function.
 
 \code{$new()} declares a new remote application.
 
-\code{$connect(callback = NULL)} connects the R session to the remote application.
-The returned value depends on the value of the \code{callback} argument. When
-\code{callback} is a function, the returned value is a connection object. When
-\code{callback} is \code{NULL} the returned value is a promise which becomes fulfilled
-once R is connected to the remote application. Once fulfilled, the value of
-this promise is the connection object.
+\code{$connect(target_id = "default", callback = NULL)} connects the R session to
+the remote application. The returned value depends on the value of the
+\code{callback} argument. When \code{callback} is a function, the returned value is a
+connection object. When \code{callback} is \code{NULL} the returned value is a promise
+which becomes fulfilled once R is connected to the remote application. Once
+fulfilled, the value of this promise is the connection object.
 
 \code{$listConnections()} returns a list of the connection objects succesfully
 created using the \code{$connect()} method.
@@ -64,6 +66,8 @@ informations available at \code{http://<host>:<debug_port>/json/version}.
 
 \code{$user_agent} returns a character scalar with the User Agent of the
 remote application.
+
+\code{$listTargets()} returns a list with information about targets (or tabs).
 }
 
 \examples{

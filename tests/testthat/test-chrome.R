@@ -32,6 +32,23 @@ test_that("connect() returns a CDPSession object that is closed with closeConnec
   expect_equivalent(client$readyState(), 3L)
 })
 
+test_that("connect() can take a target_id as argument", {
+  target_id <- list_targets()[[1]]$id
+  client_pr <- chrome$connect(target_id = target_id)
+  expect_is(client_pr, "promise")
+  client <- hold(client_pr)
+  expect_is(client, "CDPSession")
+  client$disconnect()
+})
+
+test_that("connect() throws an error or returns a rejected promise if target_id is wrong", {
+  target_id <- "1234"
+  client_pr <- chrome$connect(target_id = target_id)
+  expect_is(client_pr, "promise")
+  expect_error(hold(client_pr))
+  expect_error(chrome$connect(target_id = target_id, callback = function(client){}))
+})
+
 test_that("close() returns the Chrome object", {
   closed <- chrome$close()
   expect_reference(closed, chrome)

@@ -36,6 +36,8 @@ NULL
 #'     connect to the remote application.
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
+#' * `target_id`: A character scalar, identifier of the target. For advanced
+#'     use only.
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to the remote application. The connection object is passed
 #'     to this function.
@@ -43,12 +45,12 @@ NULL
 #' @section Details:
 #' `$new()` declares a new remote application.
 #'
-#' `$connect(callback = NULL)` connects the R session to the remote application.
-#' The returned value depends on the value of the `callback` argument. When
-#' `callback` is a function, the returned value is a connection object. When
-#' `callback` is `NULL` the returned value is a promise which becomes fulfilled
-#' once R is connected to the remote application. Once fulfilled, the value of
-#' this promise is the connection object.
+#' `$connect(target_id = "default", callback = NULL)` connects the R session to
+#' the remote application. The returned value depends on the value of the
+#' `callback` argument. When `callback` is a function, the returned value is a
+#' connection object. When `callback` is `NULL` the returned value is a promise
+#' which becomes fulfilled once R is connected to the remote application. Once
+#' fulfilled, the value of this promise is the connection object.
 #'
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
@@ -62,6 +64,8 @@ NULL
 #'
 #' `$user_agent` returns a character scalar with the User Agent of the
 #' remote application.
+#'
+#' `$listTargets()` returns a list with information about targets (or tabs).
 #'
 #' @name CDPRemote
 #' @examples
@@ -129,7 +133,9 @@ CDPRemote <- R6::R6Class(
       private$.host <- host
       self$version() # run once to store version
     },
-    connect = function(callback = NULL) {
+    connect = function(target_id = "default", callback = NULL) {
+      async <- is.null(callback)
+
       if(!is.null(callback)) {
         callback <- rlang::as_function(callback)
         assertthat::assert_that(
@@ -141,13 +147,34 @@ CDPRemote <- R6::R6Class(
       if(!private$.reachable) {
         return(stop_or_reject(
           "Cannot access to remote host.",
-          async = is.null(callback)
+          async = async
         ))
       }
+
+      if(identical(target_id, "default")) {
+        ws_url <- chr_get_ws_addr(private$.host, private$.port, private$.secure)
+      } else {
+        targets <- self$listTargets()
+        # extracts targets identifiers:
+        ids <- purrr::map_chr(self$listTargets(), "id")
+        # find the position of target_id in this character vector
+        pos <- purrr::detect_index(ids, ~ identical(.x, target_id))
+        # if target_id is not in the list, its position is 0
+        if(pos == 0) {
+          return(stop_or_reject(
+            "unable to connect: wrong target ID.",
+            async = async
+          ))
+        }
+        # retrieve the websocket address associated with target_id:
+        ws_url <- purrr::pluck(targets, pos, "webSocketDebuggerUrl")
+      }
+
       con <- CDPSession(
         host = private$.host,
         port = private$.port,
         secure = private$.secure,
+        ws_url = ws_url,
         local = private$.local_protocol,
         callback = callback
       )
@@ -207,6 +234,14 @@ CDPRemote <- R6::R6Class(
         private$.version <- fetch_version(private$.host, private$.port, private$.secure)
       }
       private$.version
+    },
+    listTargets = function() {
+      private$.check_remote()
+      if(private$.reachable) {
+        list_targets(private$.host, private$.port, private$.secure)
+      } else {
+        warning("cannot access to remote host.")
+      }
     },
     print = function() {
       version <- self$version()

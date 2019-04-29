@@ -45,6 +45,8 @@ in headless mode.
 connect to headless Chromium/Chrome.
 \item \code{max_attempts}: Logical scalar, number of tries to connect to headless
 Chromium/Chrome.
+\item \code{target_id}: A character scalar, identifier of the tab. For advanced use
+only.
 \item \code{callback}: Function with one argument, executed when the R session is
 connected to Chrome. The connection object is passed to this function.
 }
@@ -54,13 +56,13 @@ connected to Chrome. The connection object is passed to this function.
 
 \code{$new()} opens a new headless Chromium/Chrome.
 
-\code{$connect(callback = NULL)} connects the R session to the remote instance of
-headless Chromium/Chrome. The returned value depends on the value of the
-\code{callback} argument. When \code{callback} is a function, the returned value is a
-connection object. When \code{callback} is \code{NULL} the returned value is a promise
-which becomes fulfilled once R is connected to the remote instance of
-Chromium/Chrome. Once fulfilled, the value of this promise is the connection
-object.
+\code{$connect(target_id = "default", callback = NULL)} connects the R session to
+the remote instance of headless Chromium/Chrome. The returned value depends
+on the value of the \code{callback} argument. When \code{callback} is a function, the
+returned value is a connection object. When \code{callback} is \code{NULL} the returned
+value is a promise which becomes fulfilled once R is connected to the remote
+instance of Chromium/Chrome. Once fulfilled, the value of this promise is the
+connection object.
 
 \code{$listConnections()} returns a list of the connection objects succesfully
 created using the \code{$connect()} method.
@@ -83,6 +85,8 @@ Chromium/Chrome instance. Returns the process of the visible browser.
 
 \code{$is_alive()} checks if the remote instance is alive. Returns a logical
 scalar.
+
+\code{$listTargets()} returns a list with information about tabs.
 }
 
 \examples{
