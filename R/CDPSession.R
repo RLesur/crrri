@@ -9,7 +9,7 @@ NULL
 
 # Workaround an R CMD check false positive
 # See https://github.com/STAT545-UBC/Discussion/issues/451#issuecomment-264598618
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super"))
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super", "self"))
 
 #' Connect to a remote instance implementing the Chrome Debugging Protocol
 #'
