@@ -23,7 +23,7 @@ domain <- function(client, domain_name) {
           self[[name]] <- private$.build_command(command, name)
         })
         purrr::iwalk(events, function(event, name) {
-          self[[name]] <- private$.build_event_listener(event)
+          self[[name]] <- private$.build_event_listener(event, name)
         })
       }
     )
@@ -64,9 +64,9 @@ Domain <- R6::R6Class(
       formals(fun) <- self$.__client__$.__protocol__$get_formals_for_command(private$.domain_name, name)
       fun
     },
-    .build_event_listener = function(event) {
-      fun <- function(callback = NULL) {
-        res <- self$.__client__$on(event, callback = callback)
+    .build_event_listener = function(event_to_listen, name) {
+      fun <- function() {
+        res <- self$.__client__$on(event_to_listen, callback = callback)
         # if callback is NULL, a promise is returned
         # for events listeners, the value of the resolved promise is always a list of length 1
         # in order to facilitate the use of events listeners, we remove this level
@@ -76,6 +76,7 @@ Domain <- R6::R6Class(
           res
         }
       }
+      formals(fun) <- self$.__client__$.__protocol__$get_formals_for_event(private$.domain_name, name)
       fun
     }
   )
