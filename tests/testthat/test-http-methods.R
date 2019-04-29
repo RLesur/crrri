@@ -57,14 +57,13 @@ test_that("inspect_target() throws an error for a wrong target_id", {
   expect_error(inspect_target(target_id = new_target$id))
 })
 
-if(interactive()) {
-  test_that("inspect_target() returns NULL for a correct target_id", {
-    expect_identical(inspect_target(target_id = initial_target$id), NULL)
-  })
-} else {
-  test_that("inspect_target() returns NULL with a warning() in a non interactive session", {
-    expect_identical(inspect_target(target_id = initial_target$id), NULL)
-    expect_warning(inspect_target(target_id = initial_target$id))
-  })
-}
+test_that("inspect_target() returns NULL for a correct target_id", {
+  skip_if_not(interactive())
+  expect_identical(inspect_target(target_id = initial_target$id), NULL)
+})
+test_that("inspect_target() returns NULL with a warning() in a non interactive session", {
+  skip_if(interactive())
+  expect_warning(res <- inspect_target(target_id = initial_target$id))
+  expect_identical(res, NULL)
+})
 

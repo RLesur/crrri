@@ -42,13 +42,13 @@ test_that("connect and disconnect methods return promises", {
   hold(closed_pr)
 })
 
-if(interactive()) {
-  test_that("inspect method returns NULL", {
-    client <- hold(CDPSession())
-    expect_identical(client$inspect(), NULL)
-    client$disconnect()
-  })
-}
+
+test_that("inspect method returns NULL", {
+  skip_if_not(interactive())
+  client <- hold(CDPSession())
+  expect_identical(client$inspect(), NULL)
+  client$disconnect()
+})
 
 test_that("CDPSession is disconnected when removed", {
   client <- hold(CDPSession())
