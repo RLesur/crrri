@@ -111,6 +111,13 @@ Once the page is loaded, you will see both the web page and the result object ob
 Page$navigate(url = "https://ropensci.org/", callback = ~ print(.x))
 ```
 
+```
+#> $frameId
+#> [1] "3BB38B10082F28A946332100964486EC"
+#> 
+#> $loaderId
+#> [1] "9DCF07625678433563CB03FFF1E8A6AB"
+```
 The result object sent back from Chrome is also the value of the promises once fulfilled. Recall that if you do not use a callback function, you get a promise:
 
 ```{r}
@@ -123,9 +130,17 @@ You can print the value of this promise once fulfilled with:
 async_result %...>% print()
 ```
 
+```
+#> $frameId
+#> [1] "3BB38B10082F28A946332100964486EC"
+#> 
+#> $loaderId
+#> [1] "7B2383E8F2F39273E18E4D918F1852A0"
+```
+
 As you can see, this leads to the same result as with a callback function.
 
-To sum up these two forms perform the same actions:
+To sum up, these two forms perform the same actions:
 
 ```{r}
 Page$navigate(url = "http://r-project.org", callback = ~ print(.x))

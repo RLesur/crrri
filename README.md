@@ -140,7 +140,8 @@ the fact that the `Page$navigate()` function is also asynchronous. All
 the asynchronous methods possess a `callback` argument. When the R
 session receives the result of the command from Chrome, R executes this
 callback function passing the result object to this function. For
-instance, you can execute:
+instance, you can
+execute:
 
 ``` r
 Page$navigate(url = "https://ropensci.org/", callback = function(result) {
@@ -162,6 +163,12 @@ more compact form:
 Page$navigate(url = "https://ropensci.org/", callback = ~ print(.x))
 ```
 
+    #> $frameId
+    #> [1] "3BB38B10082F28A946332100964486EC"
+    #> 
+    #> $loaderId
+    #> [1] "9DCF07625678433563CB03FFF1E8A6AB"
+
 The result object sent back from Chrome is also the value of the
 promises once fulfilled. Recall that if you do not use a callback
 function, you get a promise:
@@ -176,10 +183,16 @@ You can print the value of this promise once fulfilled with:
 async_result %...>% print()
 ```
 
+    #> $frameId
+    #> [1] "3BB38B10082F28A946332100964486EC"
+    #> 
+    #> $loaderId
+    #> [1] "7B2383E8F2F39273E18E4D918F1852A0"
+
 As you can see, this leads to the same result as with a callback
 function.
 
-To sum up these two forms perform the same actions:
+To sum up, these two forms perform the same actions:
 
 ``` r
 Page$navigate(url = "http://r-project.org", callback = ~ print(.x))
