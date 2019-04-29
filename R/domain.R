@@ -61,7 +61,7 @@ Domain <- R6::R6Class(
             onresponse = callback
           )
       }
-      formals(fun) <- self$.__client__$.__protocol__$get_formals(private$.domain_name, name)
+      formals(fun) <- self$.__client__$.__protocol__$get_formals_for_command(private$.domain_name, name)
       fun
     },
     .build_event_listener = function(event) {

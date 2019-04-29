@@ -18,7 +18,7 @@ CDProtocol <- R6::R6Class(
     list_commands = function(domain) {
       private$.list_objects(domain, "commands")
     },
-    get_formals = function(domain, command) {
+    get_formals_for_command = function(domain, command) {
       params_env <- private$.protocol$domains[[domain]]$commands[[command]]$parameters
       if(is.null(params_env)) {
         params_names <- character(0)
