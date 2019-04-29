@@ -56,10 +56,10 @@ CDPSession <- function(
         )
       )
     }
+
     # change the protocol if required
-    if(isTRUE(secure)) {
-      ws_url$scheme <- "wss"
-    }
+    ws_url$secure <- secure
+
     # override host and port
     host <- ws_url$host
     port <- ws_url$port
