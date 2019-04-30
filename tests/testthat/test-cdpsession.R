@@ -31,7 +31,7 @@ test_that("Command-The object passed to the callback function is identical to th
   client <- hold(chrome$connect())
   res_callback <- NULL
   client$Page$getFrameTree(callback = function(res) {res_callback <<- res})
-  later::run_now()
+  later::run_now(0.1)
   res_pr <- hold(client$Page$getFrameTree())
   expect_identical(res_callback, res_pr)
   hold(client$disconnect())
@@ -42,9 +42,9 @@ test_that("Command-rlang lambda functions can be used in callbacks", {
   res_native_fun <- NULL
   res_rlang_fun <- NULL
   client$Browser$getVersion(callback = function(res) {res_native_fun <<- res})
-  later::run_now()
+  later::run_now(0.1)
   client$Browser$getVersion(callback = ~ {res_rlang_fun <<- .x})
-  later::run_now()
+  later::run_now(0.1)
   expect_identical(res_native_fun, res_rlang_fun)
   hold(client$disconnect())
 })
@@ -102,7 +102,7 @@ test_that("Event listener-With a predicate and a callback, the return object is 
   expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
   expect_identical(returned_callback, callback)
   hold(client$Page$navigate(url = "http://httpbin.org/status/200"))
-  later::run_now()
+  later::run_now(0.2)
   expect_identical(witness$frameId, frame_id)
   hold(client$disconnect())
 })
