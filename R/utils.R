@@ -86,8 +86,8 @@ dewrap.crrri_callback_wrapper <- function(x, ...) {
 }
 
 format.crrri_callback_wrapper <- function(x, ...) {
-  format_wrapper <- NextMethod(x)
-  format_object <- format(dewrap(x))
+  format_wrapper <- paste(collapse = "\n", NextMethod(x))
+  format_object <- paste(collapse = "\n", format(dewrap(x)))
   paste(format_wrapper, "=== wraps callback function ===", format_object, sep = "\n")
 }
 
