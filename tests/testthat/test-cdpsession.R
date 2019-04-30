@@ -42,9 +42,8 @@ test_that("Command-rlang lambda functions can be used in callbacks", {
   res_native_fun <- NULL
   res_rlang_fun <- NULL
   client$Browser$getVersion(callback = function(res) {res_native_fun <<- res})
-  later::run_now(0.1)
   client$Browser$getVersion(callback = ~ {res_rlang_fun <<- .x})
-  later::run_now(0.1)
+  hold(client$Browser$getVersion())
   expect_identical(res_native_fun, res_rlang_fun)
   hold(client$disconnect())
 })
@@ -92,8 +91,10 @@ test_that("Event listener-With a predicate and a callback, the return object is 
   client <- hold(chrome$connect())
   hold(client$Page$enable())
   frame_id <- hold(client$Page$getFrameTree())$frameTree$frame$id
-  witness <- NULL
-  client$Page$frameStoppedLoading(frameId = ~ .x == frame_id, callback = ~ {witness <<- .x})
+  result <- NULL
+  witness <- client$Page$frameStoppedLoading(frameId = ~ .x == frame_id) %...>% {
+    result <<- .
+  }
   expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
   callback <- function(...) stop("this error should never fires")
   rm_callback <- client$Page$frameStoppedLoading(frameId = ~ .x == frame_id, callback = callback)
@@ -101,8 +102,8 @@ test_that("Event listener-With a predicate and a callback, the return object is 
   returned_callback <- rm_callback()
   expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
   expect_identical(returned_callback, callback)
-  hold(client$Page$navigate(url = "http://httpbin.org/status/200"))
-  later::run_now(0.2)
-  expect_identical(witness$frameId, frame_id)
+  client$Page$navigate(url = "http://httpbin.org/status/200")
+  hold(witness)
+  expect_identical(result$frameId, frame_id)
   hold(client$disconnect())
 })
