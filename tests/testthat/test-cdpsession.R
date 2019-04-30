@@ -85,8 +85,6 @@ test_that("Event listener-With a predicate, without callback, a promise is retur
   hold(client$disconnect())
 })
 
-# The following test fails: it seems that we have a bug
-
 test_that("Event listener-With a predicate and a callback, the return object is a function that is used to remove the callback and returns the original callback function", {
   client <- hold(chrome$connect())
   hold(client$Page$enable())
