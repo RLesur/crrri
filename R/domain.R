@@ -1,4 +1,4 @@
-#' @include utils-pipe.R utils.R
+#' @include utils-pipe.R utils.R EventEmitter.R
 NULL
 
 domain <- function(client, domain_name) {
@@ -110,6 +110,7 @@ Domain <- R6::R6Class(
           }
           rm_listener()
         }
+        callback_wrapper <- callback_wrapper %wraps% callback
         rm_listener <- self$.__client__$on(event_to_listen, callback = callback_wrapper)
 
         # Now, return the function that removes the listener and returns the original callback

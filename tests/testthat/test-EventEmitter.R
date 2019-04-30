@@ -92,12 +92,14 @@ test_that("listeners returns registered listener", {
   expect_identical(myEmitter$listeners("event")[[1]], function(...) cat("A"))
 })
 
-test_that("rawListeners returns once registered listener with a special attribute when", {
+test_that("rawListeners returns once registered listener with a special attribute", {
   myEmitter <- EventEmitter$new()
   myEmitter$once("event", function(...) cat("A"))
-  expect_identical(class(myEmitter$rawListeners("event")[[1]]), c("once_function", "function"))
-  expect_true("listener" %in% names(attributes(myEmitter$rawListeners("event")[[1]])))
-  expect_identical(attr(myEmitter$rawListeners("event")[[1]], "listener"), function(...) cat("A"))
+  expect_identical(class(myEmitter$rawListeners("event")[[1]]), c("wrapper", "once_function", "function"))
+  #expect_true("listener" %in% names(attributes(myEmitter$rawListeners("event")[[1]])))
+  expect_s3_class(myEmitter$rawListeners("event")[[1]], "wrapper")
+  #expect_identical(attr(myEmitter$rawListeners("event")[[1]], "listener"), function(...) cat("A"))
+  expect_identical(dewrap(myEmitter$rawListeners("event")[[1]]), function(...) cat("A"))
 })
 
 test_that("rawListeners returns register listeners", {

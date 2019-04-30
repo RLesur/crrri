@@ -121,7 +121,8 @@ EventEmitter <- R6::R6Class(
         "!DEBUG once: call listener for event '`eventName`'"
         listener(...)
       })
-      attr(new_listener, "listener") <- listener
+      # attr(new_listener, "listener") <- listener
+      new_listener <- new_listener %wraps% listener
       self$emit("newListener", eventName, listener)
       remove_listener <- private$.queues[[eventName]]$append(new_listener)
       invisible(remove_listener)
@@ -149,13 +150,13 @@ EventEmitter <- R6::R6Class(
     listeners = function(eventName) {
       stopifnot(!missing(eventName))
       rawListeners <- self$rawListeners(eventName)
-      getListener <- function(rawListener) {
-        if(inherits(rawListener, "once_function")) {
-          return(attr(rawListener, "listener"))
-        }
-        rawListener
-      }
-      purrr::map(rawListeners, getListener)
+      # getListener <- function(rawListener) {
+      #   if(inherits(rawListener, "once_function")) {
+      #     return(attr(rawListener, "listener"))
+      #   }
+      #   rawListener
+      # }
+      purrr::map(rawListeners, dewrap)
     }
   )
 )
@@ -230,5 +231,35 @@ once_function <- function(fun) {
     if (run) fun(...)
   }
   class(res) <- c("once_function", "function")
-  return(res)
+  return(res %wraps% fun)
+}
+
+dewrap <- function(x, ...) {
+  UseMethod("dewrap", x)
+}
+
+dewrap.default <- function(x, ...) {
+  x
+}
+
+dewrap.wrapper <- function(x, ...) {
+  attr(x, "wraps", exact = TRUE)
+}
+
+format.wrapper <- function(x, ...) {
+  format_wrapper <- NextMethod(x)
+  format_object <- format(dewrap(x))
+  paste(format_wrapper, "<WRAPS>", format_object, sep = "\n")
+}
+
+print.wrapper <- function(x, ...) {
+  cat(format(x), "\n")
+}
+
+`%wraps%` <- function(a, b) {
+  attr(a, "wraps") <- dewrap(b)
+  if(!inherits(a, "wrapper")) {
+    class(a) <- c("wrapper", class(a))
+  }
+  a
 }
