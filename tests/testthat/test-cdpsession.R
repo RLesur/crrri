@@ -103,7 +103,7 @@ test_that("Event listener-With a predicate and a callback, the return object is 
   expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
   expect_identical(returned_callback, callback)
   client$Page$navigate(url = "http://httpbin.org/status/200")
-  hold(witness)
+  expect_silent(hold(witness))
   expect_identical(result$frameId, frame_id)
   hold(client$disconnect())
 })
