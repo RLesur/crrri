@@ -73,8 +73,6 @@ combine_predicates <- function(list_of_predicates) {
 
 
 # callbacks wrappers ------------------------------------------------------
-
-
 dewrap <- function(x, ...) {
   UseMethod("dewrap", x)
 }

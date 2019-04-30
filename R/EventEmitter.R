@@ -124,7 +124,6 @@ EventEmitter <- R6::R6Class(
         "!DEBUG once: call listener for event '`eventName`'"
         listener(...)
       })
-      # attr(new_listener, "listener") <- listener
       new_listener <- new_callback_wrapper(new_listener, listener)
       self$emit("newListener", eventName, listener)
       remove_listener <- private$.queues[[eventName]]$append(new_listener)
@@ -153,13 +152,10 @@ EventEmitter <- R6::R6Class(
     listeners = function(eventName) {
       stopifnot(!missing(eventName))
       rawListeners <- self$rawListeners(eventName)
-      # getListener <- function(rawListener) {
-      #   if(inherits(rawListener, "once_function")) {
-      #     return(attr(rawListener, "listener"))
-      #   }
-      #   rawListener
-      # }
-      purrr::map(rawListeners, dewrap)
+      # workaround an error in R CMD check
+      # embed the S3 generic in another function:
+      get_listener <- function(x) dewrap(x)
+      purrr::map(rawListeners, get_listener)
     }
   )
 )
