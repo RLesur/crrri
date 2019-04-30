@@ -98,18 +98,22 @@ Domain <- R6::R6Class(
         # Now, we know that we have to use a listener and return the function
         # that removes this listener. We also have to ensure that this function
         # sends back the original callback function
+        callback <- rlang::as_function(callback)
         rm_listener <- NULL
-        rm_listener <- self$.__client__$on(event_to_listen, callback = function(result) {
+        out <- function() {
+          rm_listener()
+          invisible(callback)
+        }
+        callback_wrapper <- function(result) {
           if(predicate_fun(result)) {
             callback(result)
           }
-        })
+          rm_listener()
+        }
+        rm_listener <- self$.__client__$on(event_to_listen, callback = callback_wrapper)
 
         # Now, return the function that removes the listener and returns the original callback
-        invisible(function() {
-          rm_listener()
-          invisible(callback)
-        })
+        invisible(out)
       }
       formals(fun) <- self$.__client__$.__protocol__$get_formals_for_event(private$.domain_name, name)
       fun

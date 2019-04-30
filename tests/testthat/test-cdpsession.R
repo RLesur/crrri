@@ -88,21 +88,21 @@ test_that("Event listener-With a predicate, without callback, a promise is retur
 
 # The following test fails: it seems that we have a bug
 
-# test_that("Event listener-With a predicate and a callback, the return object is a function that is used to remove the callback and returns the original callback function", {
-#   client <- hold(chrome$connect())
-#   hold(client$Page$enable())
-#   frame_id <- hold(client$Page$getFrameTree())$frameTree$frame$id
-#   witness <- NULL
-#   client$Page$frameStoppedLoading(frameId = ~ .x == frame_id, callback = ~ {witness <<- .x})
-#   expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
-#   callback <- function(...) stop("this error should never fires")
-#   rm_callback <- client$Page$frameStoppedLoading(frameId = ~ .x == frame_id, callback = callback)
-#   expect_identical(client$listenerCount("Page.frameStoppedLoading"), 2L)
-#   returned_callback <- rm_callback()
-#   expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
-#   expect_identical(returned_callback, callback)
-#   hold(client$Page$navigate(url = "http://httpbin.org/status/200"))
-#   later::run_now()
-#   expect_identical(witness$frameId, frame_id)
-#   hold(client$disconnect())
-# })
+test_that("Event listener-With a predicate and a callback, the return object is a function that is used to remove the callback and returns the original callback function", {
+  client <- hold(chrome$connect())
+  hold(client$Page$enable())
+  frame_id <- hold(client$Page$getFrameTree())$frameTree$frame$id
+  witness <- NULL
+  client$Page$frameStoppedLoading(frameId = ~ .x == frame_id, callback = ~ {witness <<- .x})
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
+  callback <- function(...) stop("this error should never fires")
+  rm_callback <- client$Page$frameStoppedLoading(frameId = ~ .x == frame_id, callback = callback)
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 2L)
+  returned_callback <- rm_callback()
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
+  expect_identical(returned_callback, callback)
+  hold(client$Page$navigate(url = "http://httpbin.org/status/200"))
+  later::run_now()
+  expect_identical(witness$frameId, frame_id)
+  hold(client$disconnect())
+})
