@@ -70,3 +70,40 @@ combine_predicates <- function(list_of_predicates) {
     all(bool)
   }
 }
+
+
+# callbacks wrappers ------------------------------------------------------
+
+
+dewrap <- function(x, ...) {
+  UseMethod("dewrap", x)
+}
+
+dewrap.default <- function(x, ...) {
+  x
+}
+
+dewrap.crrri_callback_wrapper <- function(x, ...) {
+  attr(x, "callback", exact = TRUE)
+}
+
+format.crrri_callback_wrapper <- function(x, ...) {
+  format_wrapper <- NextMethod(x)
+  format_object <- format(dewrap(x))
+  paste(format_wrapper, "=== wraps callback function ===", format_object, sep = "\n")
+}
+
+print.crrri_callback_wrapper <- function(x, ...) {
+  cat(format(x), "\n")
+}
+
+new_callback_wrapper <- function(wrapper_fn, callback) {
+  check_class <- function(x) inherits(x, c("function", "rlang_lambda_function"))
+  stopifnot(check_class(wrapper_fn), check_class(callback))
+  attr(wrapper_fn, "callback") <- dewrap(callback)
+  if(!inherits(wrapper_fn, "crrri_callback_wrapper")) {
+    class(wrapper_fn) <- c("crrri_callback_wrapper", class(wrapper_fn))
+  }
+  wrapper_fn
+}
+
