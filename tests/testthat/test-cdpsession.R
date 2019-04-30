@@ -24,7 +24,7 @@ test_that("Command-A command without a callback returns a promise whose value is
   res <- hold(pr)
   expect_is(res, "list")
   expect_true(rlang::is_named(res))
-  client$disconnect()
+  hold(client$disconnect())
 })
 
 test_that("Command-The object passed to the callback function is identical to the value of the fulfilled promise", {
@@ -34,7 +34,7 @@ test_that("Command-The object passed to the callback function is identical to th
   later::run_now()
   res_pr <- hold(client$Page$getFrameTree())
   expect_identical(res_callback, res_pr)
-  client$disconnect()
+  hold(client$disconnect())
 })
 
 test_that("Command-rlang lambda functions can be used in callbacks", {
@@ -46,7 +46,7 @@ test_that("Command-rlang lambda functions can be used in callbacks", {
   client$Browser$getVersion(callback = ~ {res_rlang_fun <<- .x})
   later::run_now()
   expect_identical(res_native_fun, res_rlang_fun)
-  client$disconnect()
+  hold(client$disconnect())
 })
 
 test_that("Event listener-When a callback is used, the returned function dismisses the listener", {
