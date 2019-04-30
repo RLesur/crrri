@@ -1,4 +1,4 @@
-#' @include utils-pipe.R
+#' @include utils-pipe.R utils.R
 NULL
 
 domain <- function(client, domain_name) {
@@ -66,15 +66,50 @@ Domain <- R6::R6Class(
     },
     .build_event_listener = function(event_to_listen, name) {
       fun <- function() {
-        res <- self$.__client__$on(event_to_listen, callback = callback)
-        # if callback is NULL, a promise is returned
-        # for events listeners, the value of the resolved promise is always a list of length 1
-        # in order to facilitate the use of events listeners, we remove this level
-        if(promises::is.promise(res)) {
-          return(promises::then(res, ~ .x[[1]]))
-        } else {
-          res
+        predicates_list <-
+          rlang::fn_fmls_names() %>% # pick the fun arguments
+          utils::head(-1) %>% # remove the callback argument
+          rlang::env_get_list(nms = ., inherit = TRUE) %>% # retrieve arguments values
+          purrr::discard(~ purrr::is_null(.x))
+
+        # if there is no predicate function in the list, return early
+        if(length(predicates_list) == 0L) {
+          return(self$.__client__$on(event_to_listen, callback = callback))
         }
+
+        predicate_fun <-
+          predicates_list %>% # remove arguments identical to NULL
+          purrr::map(as_predicate) %>% # transform the arguments to predicate
+          combine_predicates()
+
+        # if callback is NULL, we must return a promise
+        if(is.null(callback)) {
+          return(promises::promise(function(resolve, reject) {
+            rm_listener <- NULL
+            rm_listener <- self$.__client__$on(event_to_listen, callback = function(result) {
+              if(predicate_fun(result)) {
+                rm_listener()
+                resolve(result)
+              }
+            })
+          }))
+        }
+
+        # Now, we know that we have to use a listener and return the function
+        # that removes this listener. We also have to ensure that this function
+        # sends back the original callback function
+        rm_listener <- NULL
+        rm_listener <- self$.__client__$on(event_to_listen, callback = function(result) {
+          if(predicate_fun(result)) {
+            callback(result)
+          }
+        })
+
+        # Now, return the function that removes the listener and returns the original callback
+        invisible(function() {
+          rm_listener()
+          invisible(callback)
+        })
       }
       formals(fun) <- self$.__client__$.__protocol__$get_formals_for_event(private$.domain_name, name)
       fun

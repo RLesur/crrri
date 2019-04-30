@@ -39,3 +39,34 @@ assertthat::on_failure(is_available_port) <- function(call, env) {
 build_url <- function(host = "localhost", port = 9222, secure = FALSE) {
   paste0("http", if(isTRUE(secure)) "s", "://", host, ":", port)
 }
+
+as_predicate <- function(fun) {
+  fun <- rlang::as_function(fun)
+  function(...) {
+    res <- fun(...)
+    if(!rlang::is_true(res) && !rlang::is_false(res)) {
+      stop("Predicate functions must return a single `TRUE` or `FALSE`.")
+    }
+    res
+  }
+}
+
+#' Combine predicates
+#'
+#' @param list_of_predicates A named list of predicates.
+#'
+#' @return A function that take a single parameter. The argument of the
+#'     returned function is expected to be a named list. The predicates
+#'     function are applied to the objects of the result
+#' @noRd
+combine_predicates <- function(list_of_predicates) {
+  if(length(list_of_predicates) == 0) return(function(...) TRUE)
+  function(result) {
+    # if a name of a predicate is missing in the result object, return FALSE early
+    if(length(setdiff(names(list_of_predicates), names(result))) > 0) {
+      return(FALSE)
+    }
+    bool <- purrr::imap_lgl(list_of_predicates, ~ .x(result[[.y]]))
+    all(bool)
+  }
+}
