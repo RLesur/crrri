@@ -70,7 +70,7 @@ Domain <- R6::R6Class(
           rlang::fn_fmls_names() %>% # pick the fun arguments
           utils::head(-1) %>% # remove the callback argument
           rlang::env_get_list(nms = ., inherit = TRUE) %>% # retrieve arguments values
-          purrr::discard(~ purrr::is_null(.x))
+          purrr::discard(~ purrr::is_null(.x)) # remove arguments identical to NULL
 
         # if there is no predicate function in the list, return early
         if(length(predicates_list) == 0L) {
@@ -78,7 +78,7 @@ Domain <- R6::R6Class(
         }
 
         predicate_fun <-
-          predicates_list %>% # remove arguments identical to NULL
+          predicates_list %>%
           purrr::map(as_predicate) %>% # transform the arguments to predicate
           combine_predicates()
 
