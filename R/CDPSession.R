@@ -120,7 +120,7 @@ CDPSession <- function(
             self[[name]] <- domain(self, name)
         }
         if(isTRUE(autoConnect)) {
-          self$connect()
+          private$.connect()
         }
       },
       .__protocol__ = NULL
@@ -304,9 +304,6 @@ CDPConnexion <- R6::R6Class(
         ws$connect()
       }
     },
-    connect = function() {
-      private$.CDPSession_con$connect()
-    },
     send = function(method, params = NULL, onresponse = NULL, onerror = NULL, ...) {
       if(async <- is.null(onresponse)) {
         pr <- promises::promise(function(resolve, reject) {
@@ -411,6 +408,9 @@ CDPConnexion <- R6::R6Class(
     },
     .commandList = list(),
     .ready = FALSE,
+    .connect = function() {
+      private$.CDPSession_con$connect()
+    },
     finalize = function() {
       if (self$readyState() < 2L) {
         hold(self$disconnect())
