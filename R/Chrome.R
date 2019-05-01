@@ -43,15 +43,15 @@ NULL
 #'     connect to headless Chromium/Chrome.
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
-#' * `target_id`: A character scalar, identifier of the tab. For advanced use
-#'     only.
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to Chrome. The connection object is passed to this function.
+#' * `.target_id`: A character scalar, identifier of the tab. For advanced use
+#'     only.
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome.
 #'
-#' `$connect(target_id = "default", callback = NULL)` connects the R session to
+#' `$connect(callback = NULL, .target_id = "default")` connects the R session to
 #' the remote instance of headless Chromium/Chrome. The returned value depends
 #' on the value of the `callback` argument. When `callback` is a function, the
 #' returned value is a connection object. When `callback` is `NULL` the returned

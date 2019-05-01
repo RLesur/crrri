@@ -15,7 +15,7 @@ NULL
 #' remote <- CDPRemote$new(host = "localhost", debug_port = 9222, secure = FALSE,
 #'                         local = FALSE, retry_delay = 0.2, max_attempts = 15L)
 #'
-#' remote$connect(callback = NULL)
+#' remote$connect(callback = NULL,)
 #' remote$listConnections()
 #' remote$closeConnections(callback = NULL)
 #' remote$version()
@@ -36,16 +36,16 @@ NULL
 #'     connect to the remote application.
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
-#' * `target_id`: A character scalar, identifier of the target. For advanced
-#'     use only.
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to the remote application. The connection object is passed
 #'     to this function.
+#' * `.target_id`: A character scalar, identifier of the target. For advanced
+#'     use only.
 #'
 #' @section Details:
 #' `$new()` declares a new remote application.
 #'
-#' `$connect(target_id = "default", callback = NULL)` connects the R session to
+#' `$connect(callback = NULL, .target_id = "default")` connects the R session to
 #' the remote application. The returned value depends on the value of the
 #' `callback` argument. When `callback` is a function, the returned value is a
 #' connection object. When `callback` is `NULL` the returned value is a promise
@@ -133,7 +133,7 @@ CDPRemote <- R6::R6Class(
       private$.host <- host
       self$version() # run once to store version
     },
-    connect = function(target_id = "default", callback = NULL) {
+    connect = function(callback = NULL, .target_id = "default") {
       async <- is.null(callback)
 
       if(!is.null(callback)) {
@@ -151,15 +151,15 @@ CDPRemote <- R6::R6Class(
         ))
       }
 
-      if(identical(target_id, "default")) {
+      if(identical(.target_id, "default")) {
         ws_url <- chr_get_ws_addr(private$.host, private$.port, private$.secure)
       } else {
         targets <- self$listTargets()
         # extracts targets identifiers:
         ids <- purrr::map_chr(self$listTargets(), "id")
-        # find the position of target_id in this character vector
-        pos <- purrr::detect_index(ids, ~ identical(.x, target_id))
-        # if target_id is not in the list, its position is 0
+        # find the position of .target_id in this character vector
+        pos <- purrr::detect_index(ids, ~ identical(.x, .target_id))
+        # if .target_id is not in the list, its position is 0
         if(pos == 0) {
           return(stop_or_reject(
             "unable to connect: wrong target ID.",

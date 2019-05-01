@@ -11,7 +11,7 @@ Protocol. It possesses methods to manage connections.
 \preformatted{remote <- CDPRemote$new(host = "localhost", debug_port = 9222, secure = FALSE,
                         local = FALSE, retry_delay = 0.2, max_attempts = 15L)
 
-remote$connect(callback = NULL)
+remote$connect(callback = NULL,)
 remote$listConnections()
 remote$closeConnections(callback = NULL)
 remote$version()
@@ -35,11 +35,11 @@ fetched \emph{remotely}.
 connect to the remote application.
 \item \code{max_attempts}: Logical scalar, number of tries to connect to headless
 Chromium/Chrome.
-\item \code{target_id}: A character scalar, identifier of the target. For advanced
-use only.
 \item \code{callback}: Function with one argument, executed when the R session is
 connected to the remote application. The connection object is passed
 to this function.
+\item \code{.target_id}: A character scalar, identifier of the target. For advanced
+use only.
 }
 }
 
@@ -47,7 +47,7 @@ to this function.
 
 \code{$new()} declares a new remote application.
 
-\code{$connect(target_id = "default", callback = NULL)} connects the R session to
+\code{$connect(callback = NULL, .target_id = "default")} connects the R session to
 the remote application. The returned value depends on the value of the
 \code{callback} argument. When \code{callback} is a function, the returned value is a
 connection object. When \code{callback} is \code{NULL} the returned value is a promise
