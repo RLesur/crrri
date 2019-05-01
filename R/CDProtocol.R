@@ -129,3 +129,10 @@ add_names_to_method <- function(method) {
   }
   method
 }
+
+renv2list <- function(e, discard = NULL) {
+  if(!rlang::is_environment(e)) return(e)
+  names <- purrr::discard(ls(e), ~ .x %in% discard)
+  names <- rlang::set_names(names)
+  purrr::map(names, ~ renv2list(e[[.x]], discard))
+}
