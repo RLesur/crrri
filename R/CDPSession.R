@@ -98,6 +98,15 @@ CDPSession <- function(
   if(is.null(ws_url)) {
     ws_url <- chr_get_ws_addr(host = host, port = port, secure = secure)
   }
+  # If there is no available target, ws_url is NULL, throw an error
+  if(is.null(ws_url)) {
+    return(
+      stop_or_reject(
+        paste0("No target available at ", build_http_url(host, port, secure), "."),
+        async = async
+      )
+    )
+  }
   # store the target type
   target_type <- parse_ws_url(ws_url)$type
 

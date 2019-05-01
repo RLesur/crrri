@@ -38,7 +38,7 @@ test_that("connect() can take a target_id as argument", {
   expect_is(client_pr, "promise")
   client <- hold(client_pr)
   expect_is(client, "CDPSession")
-  client$disconnect()
+  hold(client$disconnect())
 })
 
 test_that("connect() throws an error or returns a rejected promise if target_id is wrong", {
@@ -47,6 +47,16 @@ test_that("connect() throws an error or returns a rejected promise if target_id 
   expect_is(client_pr, "promise")
   expect_error(hold(client_pr))
   expect_error(chrome$connect(.target_id = target_id, callback = function(client){}))
+})
+
+test_that("connect() creates a new tab if there is no tab", {
+  client <- hold(chrome$connect())
+  hold(client$closeTab())
+  expect_length(list_targets(), 0L)
+  client <- chrome$connect()
+  expect_is(client, "promise")
+  expect_silent(hold(client))
+  hold(chrome$closeConnections())
 })
 
 test_that("close() returns the Chrome object", {

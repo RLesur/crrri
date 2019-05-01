@@ -152,6 +152,10 @@ CDPRemote <- R6::R6Class(
       }
 
       if(identical(.target_id, "default")) {
+        # test if there is an available target
+        if(length(self$listTargets()) == 0L) {
+          return(self$connectToNewTab(callback = callback))
+        }
         ws_url <- chr_get_ws_addr(private$.host, private$.port, private$.secure)
       } else {
         targets <- self$listTargets()
@@ -242,6 +246,18 @@ CDPRemote <- R6::R6Class(
       } else {
         warning("cannot access to remote host.")
       }
+    },
+    connectToNewTab = function(url = NULL, callback = NULL) {
+      target <- new_tab(private$.host, private$.port, private$.secure, url)
+      if(is.null(target$id)) {
+        return(
+          stop_or_reject(
+            "Unable to create a new tab.",
+            async = is.null(callback)
+          )
+        )
+      }
+      self$connect(callback = callback, .target_id = target$id)
     },
     print = function() {
       version <- self$version()

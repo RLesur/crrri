@@ -73,3 +73,10 @@ test_that("closeTab method disconnects and closes target silently", {
   expect_equivalent(client$readyState(), 3L)
   expect_equal(length(list_targets()), targets - 1L)
 })
+
+test_that("connect() raises an error (or return a rejected promise) when there is no target available", {
+  expect_length(list_targets(), 0L)
+  client_pr <- CDPSession()
+  expect_is(client_pr, "promise")
+  expect_error(hold(client_pr))
+})
