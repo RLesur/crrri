@@ -69,7 +69,10 @@ test_that("activateTab method returns a promise which fulfills to TRUE when conn
 test_that("closeTab method disconnects and closes target silently", {
   targets <- length(list_targets())
   client <- hold(CDPSession())
-  expect_silent(hold(client$closeTab()))
+  closed_pr <- client$closeTab()
+  expect_is(closed_pr, "promise")
+  expect_silent(hold(closed_pr))
+  expect_true(hold(closed_pr))
   expect_equivalent(client$readyState(), 3L)
   expect_equal(length(list_targets()), targets - 1L)
 })
