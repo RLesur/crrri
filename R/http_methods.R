@@ -165,10 +165,9 @@ browse_url <- function(url) {
     utils::browseURL(url)
   }
   else {
-    # we know here that we are in rstudio
-    rs_version <- as.character(rstudioapi::getVersion())
-    # we need RStudio > 1.2.1335 to inspect properly headless Chrome
-    if(utils::compareVersion(rs_version, "1.2.1335") >= 0 ) {
+    # we know here that we are probably in RStudio
+    # we need RStudio > 1.2.xx to inspect properly headless Chrome
+    if(requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable("1.2")) {
       viewer(url, height = "maximize")
     } else {
       utils::browseURL(url)
