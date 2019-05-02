@@ -83,13 +83,14 @@ chrome_execute <- function(
   total_timeout <- sum(timeouts) + cleaning_timeout
   results <- vector("list", length(funs))
   curr_env <- rlang::current_env()
-
   execute_fun <- function(client, index, env) {
     fun <- purrr::pluck(funs, index)
     delay <- purrr::pluck(timeouts, index)
     result_saved <- promises::then(fun(client), onFulfilled = function(value) {
-      results <- rlang::env_get(env, "results")
-      rlang::env_bind(env, results = purrr::assign_in(results, index, value))
+      if(!is.null(value)) {
+        results <- rlang::env_get(env, "results")
+        rlang::env_bind(env, results = purrr::assign_in(results, index, value))
+      }
       client
     })
     timeout(result_saved, delay = delay)
