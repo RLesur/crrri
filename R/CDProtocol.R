@@ -1,12 +1,11 @@
+#' @include http_methods.R
+NULL
+
 CDProtocol <- R6::R6Class(
   "CDProtocol",
   public = list(
-    initialize = function(url = "http://localhost:9222", local = TRUE) {
-      if(isTRUE(local)) {
-        protocol <- read_local_protocol()
-      } else {
-        protocol <- from_json(paste0(url, "/json/protocol"))
-      }
+    initialize = function(host = "localhost", port = 9222, secure = FALSE, local = TRUE) {
+      protocol <- fetch_protocol(host = host, port = port, secure = secure, local = local)
       protocol <- add_names_to_protocol(protocol)
       protocol <- rlist2env(protocol)
       self$domains <- ls(protocol$domains)
@@ -79,27 +78,6 @@ CDProtocol <- R6::R6Class(
     }
   )
 )
-
-from_json <- function(path) {
-  jsonlite::fromJSON(
-    path,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE,
-    simplifyMatrix = FALSE
-  )
-}
-
-read_local_protocol <- function() {
-  js_protocol <- from_json(local_protocol_file("js"))
-  browser_protocol <- from_json(local_protocol_file("browser"))
-  browser_protocol$domains <- c(browser_protocol$domains, js_protocol$domains)
-  browser_protocol
-}
-
-local_protocol_file <- function(file = c("js", "browser")) {
-  file <- match.arg(file)
-  system.file("protocol", paste0(file, "_protocol.json"), package = "crrri", mustWork = TRUE)
-}
 
 rlist2env <- function(.l) {
   if (!is.list(.l)) return(.l)

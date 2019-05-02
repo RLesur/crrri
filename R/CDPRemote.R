@@ -1,4 +1,5 @@
 #' @include utils.R
+#' @include http_methods.R
 #' @include CDPSession.R
 #' @include hold.R
 #' @importFrom assertthat assert_that is.scalar is.number
@@ -14,7 +15,7 @@ NULL
 #' remote <- CDPRemote$new(host = "localhost", debug_port = 9222, secure = FALSE,
 #'                         local = FALSE, retry_delay = 0.2, max_attempts = 15L)
 #'
-#' remote$connect(callback = NULL)
+#' remote$connect(callback = NULL,)
 #' remote$listConnections()
 #' remote$closeConnections(callback = NULL)
 #' remote$version()
@@ -38,16 +39,18 @@ NULL
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to the remote application. The connection object is passed
 #'     to this function.
+#' * `.target_id`: A character scalar, identifier of the target. The default
+#'     value corresponds to the last created target. For advanced use only.
 #'
 #' @section Details:
 #' `$new()` declares a new remote application.
 #'
-#' `$connect(callback = NULL)` connects the R session to the remote application.
-#' The returned value depends on the value of the `callback` argument. When
-#' `callback` is a function, the returned value is a connection object. When
-#' `callback` is `NULL` the returned value is a promise which becomes fulfilled
-#' once R is connected to the remote application. Once fulfilled, the value of
-#' this promise is the connection object.
+#' `$connect(callback = NULL, .target_id = "default")` connects the R session to
+#' the remote application. The returned value depends on the value of the
+#' `callback` argument. When `callback` is a function, the returned value is a
+#' connection object. When `callback` is `NULL` the returned value is a promise
+#' which becomes fulfilled once R is connected to the remote application. Once
+#' fulfilled, the value of this promise is the connection object.
 #'
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
@@ -61,6 +64,8 @@ NULL
 #'
 #' `$user_agent` returns a character scalar with the User Agent of the
 #' remote application.
+#'
+#' `$listTargets()` returns a list with information about targets (or tabs).
 #'
 #' @name CDPRemote
 #' @examples
@@ -116,10 +121,10 @@ CDPRemote <- R6::R6Class(
       private$.local_protocol <- isTRUE(local)
       private$.retry_delay <- retry_delay
       private$.max_attempts <- max_attempts
-      remote_reachable <- is_remote_reachable(host, debug_port, retry_delay, max_attempts)
+      remote_reachable <- is_remote_reachable(host, debug_port, secure, retry_delay, max_attempts)
       if(!remote_reachable && host == "localhost") {
         host <- "127.0.0.1"
-        remote_reachable <- is_remote_reachable(host, debug_port, retry_delay, max_attempts)
+        remote_reachable <- is_remote_reachable(host, debug_port, secure, retry_delay, max_attempts)
       }
       if(!remote_reachable) {
         warning("Cannot access to remote host...")
@@ -128,7 +133,9 @@ CDPRemote <- R6::R6Class(
       private$.host <- host
       self$version() # run once to store version
     },
-    connect = function(callback = NULL) {
+    connect = function(callback = NULL, .target_id = "default") {
+      async <- is.null(callback)
+
       if(!is.null(callback)) {
         callback <- rlang::as_function(callback)
         assertthat::assert_that(
@@ -137,11 +144,41 @@ CDPRemote <- R6::R6Class(
         )
       }
       private$.check_remote()
-      if(!private$.reachable) stop("Cannot access to remote host.")
+      if(!private$.reachable) {
+        return(stop_or_reject(
+          "Cannot access to remote host.",
+          async = async
+        ))
+      }
+
+      if(identical(.target_id, "default")) {
+        # test if there is an available target
+        if(length(self$listTargets()) == 0L) {
+          return(self$connectToNewTab(callback = callback))
+        }
+        ws_url <- chr_get_ws_addr(private$.host, private$.port, private$.secure)
+      } else {
+        targets <- self$listTargets()
+        # extracts targets identifiers:
+        ids <- purrr::map_chr(self$listTargets(), "id")
+        # find the position of .target_id in this character vector
+        pos <- purrr::detect_index(ids, ~ identical(.x, .target_id))
+        # if .target_id is not in the list, its position is 0
+        if(pos == 0) {
+          return(stop_or_reject(
+            "unable to connect: wrong target ID.",
+            async = async
+          ))
+        }
+        # retrieve the websocket address associated with target_id:
+        ws_url <- purrr::pluck(targets, pos, "webSocketDebuggerUrl")
+      }
+
       con <- CDPSession(
         host = private$.host,
         port = private$.port,
         secure = private$.secure,
+        ws_url = ws_url,
         local = private$.local_protocol,
         callback = callback
       )
@@ -198,16 +235,36 @@ CDPRemote <- R6::R6Class(
       private$.check_remote()
       if(private$.reachable) {
         # if remote is opened, update the private field .version
-        url <- paste0(build_url(private$.host, private$.port, private$.secure), "/json/version")
-        private$.version <- jsonlite::read_json(url)
+        private$.version <- fetch_version(private$.host, private$.port, private$.secure)
       }
       private$.version
+    },
+    listTargets = function() {
+      private$.check_remote()
+      if(private$.reachable) {
+        list_targets(private$.host, private$.port, private$.secure)
+      } else {
+        warning("cannot access to remote host.")
+      }
+    },
+    connectToNewTab = function(url = NULL, callback = NULL) {
+      target <- new_tab(private$.host, private$.port, private$.secure, url)
+      if(is.null(target$id)) {
+        return(
+          stop_or_reject(
+            "Unable to create a new tab.",
+            async = is.null(callback)
+          )
+        )
+      }
+      self$connect(callback = callback, .target_id = target$id)
     },
     print = function() {
       version <- self$version()
       cat(sep = "",
           "<", version$Browser, ">\n",
-          '  User Agent:\n',
+          '  url: ', build_http_url(private$.host, private$.port, private$.secure), "\n",
+          '  user-agent:\n',
           '    "', version$`User-Agent`, '"\n'
       )
     }
@@ -232,6 +289,7 @@ CDPRemote <- R6::R6Class(
         private$.reachable <- is_remote_reachable(
           private$.host,
           private$.port,
+          private$.secure,
           private$.retry_delay,
           private$.max_attempts
         )
@@ -247,26 +305,3 @@ CDPRemote <- R6::R6Class(
     }
   )
 )
-
-# helper to test chrome connexion -----------------------------------------
-is_remote_reachable <- function(host, port, retry_delay = 0.2, max_attempts = 15L) {
-  url <- build_url(host, port)
-  remote_reached <- function(url) {
-    check_url <- purrr::safely(httr::GET, otherwise = list())
-    response <- check_url(url, httr::use_proxy(""))
-    isTRUE(response$result$status_code == 200)
-  }
-
-  succeeded <- FALSE
-  "!DEBUG Trying to find `url`"
-  for (i in 1:max_attempts) {
-    "!DEBUG attempt `i`..."
-    succeeded <- remote_reached(url)
-    if (isTRUE(succeeded)) break
-    Sys.sleep(retry_delay)
-  }
-
-  "!DEBUG `if(succeeded) paste(url, 'found') else paste('...cannot find', url)`"
-  succeeded
-}
-
