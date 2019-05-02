@@ -105,3 +105,40 @@ test_that("Event listener-With a predicate and a callback, the return object is 
   expect_identical(result$frameId, frame_id)
   hold(client$disconnect())
 })
+
+test_that("Event listener-With a value as predicate, without callback, a promise is returned which is fulfilled when the predicate matches", {
+  client <- hold(chrome$connect())
+  hold(client$Page$enable())
+  frame_id <- hold(client$Page$getFrameTree())$frameTree$frame$id
+  pr <- client$Page$frameStoppedLoading(frameId = frame_id)
+  # we expect that a listener is attached to Page.frameStoppedLoading event
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
+  expect_is(pr, "promise")
+  hold(client$Page$navigate(url = "http://httpbin.org/status/200"))
+  res <- hold(pr)
+  expect_identical(res$frameId, frame_id)
+  # we expect that the listener to the Page.frameStoppedLoading event is removed
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 0L)
+  hold(client$disconnect())
+})
+
+test_that("Event listener-With a value as predicate and a callback, the return object is a function that is used to remove the callback and returns the original callback function", {
+  client <- hold(chrome$connect())
+  hold(client$Page$enable())
+  frame_id <- hold(client$Page$getFrameTree())$frameTree$frame$id
+  result <- NULL
+  witness <- client$Page$frameStoppedLoading(frameId = frame_id) %...>% {
+    result <<- .
+  }
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
+  callback <- function(...) stop("this error should never fires")
+  rm_callback <- client$Page$frameStoppedLoading(frameId = frame_id, callback = callback)
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 2L)
+  returned_callback <- rm_callback()
+  expect_identical(client$listenerCount("Page.frameStoppedLoading"), 1L)
+  expect_identical(returned_callback, callback)
+  client$Page$navigate(url = "http://httpbin.org/status/200")
+  expect_silent(hold(witness))
+  expect_identical(result$frameId, frame_id)
+  hold(client$disconnect())
+})

@@ -40,8 +40,13 @@ build_url <- function(host = "localhost", port = 9222, secure = FALSE) {
   paste0("http", if(isTRUE(secure)) "s", "://", host, ":", port)
 }
 
-as_predicate <- function(fun) {
-  fun <- rlang::as_function(fun)
+as_predicate <- function(arg) {
+  if(rlang::is_formula(arg) || is.function(arg)) {
+    fun <- rlang::as_function(arg)
+  } else {
+    fun <- function(x) identical(x, arg)
+  }
+
   function(...) {
     res <- fun(...)
     if(!rlang::is_true(res) && !rlang::is_false(res)) {
