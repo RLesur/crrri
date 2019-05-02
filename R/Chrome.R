@@ -2,6 +2,65 @@
 #' @importFrom assertthat assert_that is.scalar is.number
 NULL
 
+#' Orchestrate Chrome using the Chrome DevTools Protocol
+#'
+#' The `chrome_execute()` function executes user defined asynchronous functions.
+#' These asynchronous functions must have a single argument that is the
+#' connection object to Chrome. The execution of the asynchronous functions is
+#' serial. If one of the asynchronous functions fails, the whole execution also
+#' fails.
+#'
+#' @param ... Asynchronous functions.
+#' @param .list A list of asynchronous functions - an alternative to `...`.
+#' @param timeouts A vector of timeouts applied to each asynchronous function.
+#'     Repeated.
+#' @param cleaning_timeout The delay for cleaning Chrome.
+#' @param async Is the result is a promise? Useful for Shiny.
+#' @param bin Character scalar, the path to Chromium or Chrome executable.
+#' @param debug_port Integer scalar, the Chromium/Chrome remote debugging port.
+#' @param local Logical scalar, indicating whether the local version of the
+#'     protocol (embedded in `crrri`) must be used or the protocol must be
+#'     fetched _remotely_.
+#' @param extra_args Character vector, extra command line arguments passed to
+#'     Chromium/Chrome.
+#' @param headless Logical scalar, indicating whether Chromium/Chrome is launched
+#'     in headless mode.
+#' @param retry_delay Number, delay in seconds between two successive tries to
+#'     connect to headless Chromium/Chrome.
+#' @param max_attempts Logical scalar, number of tries to connect to headless
+#'     Chromium/Chrome.
+#'
+#' @return A list with the result of each function. If there is only async function,
+#'     the value of the fulfilled promise.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' async_save_as_pdf <- function(url) {
+#'   function(client) {
+#'     Page <- client$Page
+#'
+#'     Page$enable() %...>% {
+#'       Page$navigate(url = url)
+#'       Page$loadEventFired()
+#'     } %...>% {
+#'       Page$printToPDF()
+#'     } %...>% {
+#'       .$data %>%
+#'         jsonlite::base64_dec() %>%
+#'         writeBin(paste0(httr::parse_url(url)$hostname, ".pdf"))
+#'     }
+#'   }
+#' }
+#'
+#' save_as_pdf <- function(...) {
+#'   list(...) %>%
+#'     purrr::map(async_save_as_pdf) %>%
+#'     chrome_execute(.list = .)
+#' }
+#'
+#' save_as_pdf("https://www.r-project.org/", "https://rstudio.com/")
+#' }
 chrome_execute <- function(
   ..., .list = NULL, timeouts = 30, cleaning_timeout = 30, async = FALSE,
   bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
@@ -74,7 +133,6 @@ chrome_execute <- function(
 
   hold(return_results, timeout = total_timeout)
 }
-
 
 #' Launch Chromium or Chrome
 #'
