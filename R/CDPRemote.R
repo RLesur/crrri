@@ -39,8 +39,8 @@ NULL
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to the remote application. The connection object is passed
 #'     to this function.
-#' * `.target_id`: A character scalar, identifier of the target. For advanced
-#'     use only.
+#' * `.target_id`: A character scalar, identifier of the target. The default
+#'     value corresponds to the last created target. For advanced use only.
 #'
 #' @section Details:
 #' `$new()` declares a new remote application.

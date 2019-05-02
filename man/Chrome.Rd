@@ -47,8 +47,8 @@ connect to headless Chromium/Chrome.
 Chromium/Chrome.
 \item \code{callback}: Function with one argument, executed when the R session is
 connected to Chrome. The connection object is passed to this function.
-\item \code{.target_id}: A character scalar, identifier of the tab. For advanced use
-only.
+\item \code{.target_id}: A character scalar, identifier of the tab. The default value
+corresponds to the last created tab. For advanced use only.
 }
 }
 

@@ -38,8 +38,8 @@ Chromium/Chrome.
 \item \code{callback}: Function with one argument, executed when the R session is
 connected to the remote application. The connection object is passed
 to this function.
-\item \code{.target_id}: A character scalar, identifier of the target. For advanced
-use only.
+\item \code{.target_id}: A character scalar, identifier of the target. The default
+value corresponds to the last created target. For advanced use only.
 }
 }
 

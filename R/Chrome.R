@@ -45,8 +45,8 @@ NULL
 #'     Chromium/Chrome.
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to Chrome. The connection object is passed to this function.
-#' * `.target_id`: A character scalar, identifier of the tab. For advanced use
-#'     only.
+#' * `.target_id`: A character scalar, identifier of the tab. The default value
+#'     corresponds to the last created tab. For advanced use only.
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome.
