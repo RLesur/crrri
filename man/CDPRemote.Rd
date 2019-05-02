@@ -11,7 +11,7 @@ Protocol. It possesses methods to manage connections.
 \preformatted{remote <- CDPRemote$new(host = "localhost", debug_port = 9222, secure = FALSE,
                         local = FALSE, retry_delay = 0.2, max_attempts = 15L)
 
-remote$connect(callback = NULL,)
+remote$connect(callback = NULL)
 remote$listConnections()
 remote$closeConnections(callback = NULL)
 remote$version()
