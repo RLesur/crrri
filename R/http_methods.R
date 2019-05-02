@@ -163,8 +163,7 @@ browse_url <- function(url) {
   viewer <- getOption("viewer")
   if (is.null(viewer) || !localhost){
     utils::browseURL(url)
-  }
-  else {
+  } else {
     # we know here that we are probably in RStudio
     # we need RStudio > 1.2.xx to inspect properly headless Chrome
     if(requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable("1.2")) {
