@@ -56,8 +56,8 @@ gc()
 # New API with promises --------------------------------------
 devtools::load_all()
 
-remote <- Chrome$new()
-client <- remote$connect()
+chrome <- Chrome$new()
+client <- hold(chrome$connect())
 
 # client is connected and ready to receive commands
 client$readyState()

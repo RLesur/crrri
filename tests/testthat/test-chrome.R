@@ -16,6 +16,10 @@ test_that("Chrome$new() returns a Chrome class object", {
   expect_is(chrome, "R6")
 })
 
+test_that("Chrome object can be safely printed", {
+  expect_output(print(chrome))
+})
+
 test_that("connect() returns a CDPSession object that is closed with closeConnections()", {
   client_pr <- chrome$connect()
   expect_is(client_pr, "promise")
@@ -26,6 +30,33 @@ test_that("connect() returns a CDPSession object that is closed with closeConnec
   closed_pr_value <- hold(closed_pr)
   expect_reference(closed_pr_value, chrome)
   expect_equivalent(client$readyState(), 3L)
+})
+
+test_that("connect() can take a target_id as argument", {
+  target_id <- list_targets()[[1]]$id
+  client_pr <- chrome$connect(.target_id = target_id)
+  expect_is(client_pr, "promise")
+  client <- hold(client_pr)
+  expect_is(client, "CDPSession")
+  hold(client$disconnect())
+})
+
+test_that("connect() throws an error or returns a rejected promise if target_id is wrong", {
+  target_id <- "1234"
+  client_pr <- chrome$connect(.target_id = target_id)
+  expect_is(client_pr, "promise")
+  expect_error(hold(client_pr))
+  expect_error(chrome$connect(.target_id = target_id, callback = function(client){}))
+})
+
+test_that("connect() creates a new tab if there is no tab", {
+  client <- hold(chrome$connect())
+  hold(client$closeTab())
+  expect_length(list_targets(), 0L)
+  client <- chrome$connect()
+  expect_is(client, "promise")
+  expect_silent(hold(client))
+  hold(chrome$closeConnections())
 })
 
 test_that("close() returns the Chrome object", {

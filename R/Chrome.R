@@ -45,17 +45,19 @@ NULL
 #'     Chromium/Chrome.
 #' * `callback`: Function with one argument, executed when the R session is
 #'     connected to Chrome. The connection object is passed to this function.
+#' * `.target_id`: A character scalar, identifier of the tab. The default value
+#'     corresponds to the last created tab. For advanced use only.
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome.
 #'
-#' `$connect(callback = NULL)` connects the R session to the remote instance of
-#' headless Chromium/Chrome. The returned value depends on the value of the
-#' `callback` argument. When `callback` is a function, the returned value is a
-#' connection object. When `callback` is `NULL` the returned value is a promise
-#' which becomes fulfilled once R is connected to the remote instance of
-#' Chromium/Chrome. Once fulfilled, the value of this promise is the connection
-#' object.
+#' `$connect(callback = NULL, .target_id = "default")` connects the R session to
+#' the remote instance of headless Chromium/Chrome. The returned value depends
+#' on the value of the `callback` argument. When `callback` is a function, the
+#' returned value is a connection object. When `callback` is `NULL` the returned
+#' value is a promise which becomes fulfilled once R is connected to the remote
+#' instance of Chromium/Chrome. Once fulfilled, the value of this promise is the
+#' connection object.
 #'
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
@@ -79,6 +81,7 @@ NULL
 #' `$is_alive()` checks if the remote instance is alive. Returns a logical
 #' scalar.
 #'
+#' `$listTargets()` returns a list with information about tabs.
 #' @name Chrome
 #' @examples
 #' \dontrun{
@@ -153,7 +156,7 @@ Chrome <- R6::R6Class(
         private$.bin,
         debug_port = NULL,
         extra_args = c(
-          build_url(private$.host, private$.port, private$.secure),
+          build_http_url(private$.host, private$.port, private$.secure),
           '--new-window',
           '--no-default-browser-check',
           '-incognito'

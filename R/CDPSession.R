@@ -3,26 +3,22 @@
 #' @include CDProtocol.R
 #' @include utils.R
 #' @include hold.R
+#' @include http_methods.R
+#' @importFrom assertthat is.number
 NULL
 
 # Workaround an R CMD check false positive
 # See https://github.com/STAT545-UBC/Discussion/issues/451#issuecomment-264598618
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super"))
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("private", "super", "self"))
 
 #' Connect to a remote instance implementing the Chrome Debugging Protocol
 #'
 #' This function creates a websocket connection to a remote instance using
 #' the Chrome Debugging Protocol.
 #'
-#' @param host Character scalar, the host name of the application.
-#' @param port Numeric scalar, the remote debugging port.
-#' @param secure Logical scalar, indicating whether the https/wss protocols
-#'     shall be used for connecting to the remote application.
+#' @inheritParams fetch_protocol
 #' @param ws_url Character scalar, the websocket URL. If provided, `host` and
-#'     `port` and `secure` arguments are ignored.
-#' @param local Logical scalar, indicating whether the local version of the
-#'     protocol (embedded in `crrri`) must be used or the protocol must be
-#'     fetched _remotely_.
+#'     `port` arguments are ignored.
 #' @param callback Function with one argument, executed when the R session is
 #'     connected to Chrome. The connection object is passed to this function.
 #'
@@ -38,11 +34,85 @@ CDPSession <- function(
   host = "localhost", port = 9222, secure = FALSE, ws_url = NULL,
   local = FALSE, callback = NULL
 ) {
-  url <- build_url(host, port, secure)
-  protocol <- CDProtocol$new(url = url, local = local)
-  if(is.null(ws_url)) {
-    ws_url <- chr_get_ws_addr(port = port)
+  async <- is.null(callback)
+
+  if(!is.null(ws_url)) {
+    # check the format of ws_url
+    if(!is_scalar_character(ws_url)) {
+      return(
+        stop_or_reject(
+          "CDPSession() `ws_url` argument must be a character scalar.",
+          async = async
+        )
+      )
+    }
+    # check the websocket address
+    ws_url <- parse_ws_url(ws_url) # warning: ws_url is now a list of class `cdp_ws_url` or NULL
+    if(is.null(ws_url)) {
+      return(
+        stop_or_reject(
+          "the `ws_url` argument of CDPSession() is not a valid Chrome Degugging Protocol websocket address.",
+          async = async
+        )
+      )
+    }
+
+    # change the protocol if required
+    ws_url$secure <- secure
+
+    # override host and port
+    host <- ws_url$host
+    port <- ws_url$port
+    ws_url <- build_ws_url(ws_url) # warning: ws_url is now a character string
   }
+
+  # check arguments
+  if(!is_scalar_character(host)) {
+    return(
+      stop_or_reject(
+        "CDPSession() `host` argument must be a character scalar.",
+        async = async
+      )
+    )
+  }
+  if(!is.number(port) && !is_scalar_character(port)) {
+    return(
+      stop_or_reject(
+        "CDPSession() `port` argument must be a numeric or a character scalar.",
+        async = async
+      )
+    )
+  }
+
+  # check the remote application
+  if(!is_remote_reachable(host, port, secure, max_attempts = 3L)) {
+    return(
+      stop_or_reject(
+        paste0("Failed to connect to ", build_http_url(host, port, secure), "."),
+        async = async
+      )
+    )
+  }
+
+  # retrieve the websocket address if not provided
+  if(is.null(ws_url)) {
+    ws_url <- chr_get_ws_addr(host = host, port = port, secure = secure)
+  }
+  # If there is no available target, ws_url is NULL, throw an error
+  if(is.null(ws_url)) {
+    return(
+      stop_or_reject(
+        paste0("No target available at ", build_http_url(host, port, secure), "."),
+        async = async
+      )
+    )
+  }
+  # store the target type
+  target_type <- parse_ws_url(ws_url)$type
+
+  # get the protocol
+  protocol <- CDProtocol$new(host = host, port = port, secure = secure, local = local)
+
   CDPSession <- R6::R6Class(
     "CDPSession",
     inherit = CDPConnexion,
@@ -58,9 +128,8 @@ CDPSession <- function(
         for (name in protocol$domains) {
             self[[name]] <- domain(self, name)
         }
-        self$.__protocol__ <- protocol
         if(isTRUE(autoConnect)) {
-          self$connect()
+          private$.connect()
         }
       },
       .__protocol__ = NULL
@@ -70,17 +139,49 @@ CDPSession <- function(
   for (domain in protocol$domains) {
     CDPSession$set("public", domain, NULL)
   }
+  # if the target is a page, add methods inspect(), activateTab() and closeTab()
+  # these methods are added dynamically because they are irrelevant for the "browser" websocket endpoint
+  if(identical(target_type, "page")) {
+    CDPSession$set("public", "inspect", function() {
+      if(self$readyState() == 1L) {
+        inspect_target(private$.host, private$.port, private$.secure, private$.target_id)
+      } else {
+        warning(
+          "Invalid connection state. Cannot open target in a web browser.",
+          call. = FALSE, immediate. = TRUE
+        )
+      }
+    })
 
-  if(!is.null(callback)) {
-    onconnect <- rlang::as_function(callback)
-    onerror <- stop
-  } else {
+    CDPSession$set("public", "activateTab", function() {
+      if(self$readyState() == 1L) {
+        return(promises::promise_resolve(
+          activate_target(private$.host, private$.port, private$.secure, private$.target_id)
+        ))
+      }
+      promises::promise_reject(
+        "Invalid connection state. Cannot open target in a web browser."
+      )
+    })
+
+    CDPSession$set("public", "closeTab", function() {
+      promises::then(
+        self$disconnect(),
+        onFulfilled = ~ close_target(target_id = private$.target_id)
+      )
+    })
+  }
+
+  if(async) {
     onconnect <- NULL
     onerror <- NULL
     pr <- promises::promise(function(resolve, reject) {
       onconnect <<- resolve
       onerror <<- reject
     })
+  } else {
+    onconnect <- rlang::as_function(callback)
+    onerror <- stop
   }
   client <- CDPSession$new(
     ws_url = ws_url,
@@ -89,7 +190,7 @@ CDPSession <- function(
     onconnect = onconnect,
     onerror = onerror
   )
-  if(is.null(callback)) return(pr)
+  if(async) return(pr)
   client
 }
 
@@ -100,6 +201,13 @@ CDPConnexion <- R6::R6Class(
     initialize = function(ws_url, autoConnect = FALSE, onconnect = NULL, onerror = NULL) {
       "!DEBUG Configuring the websocket connexion..."
       ws <- websocket::WebSocket$new(ws_url, autoConnect = FALSE)
+      ws_url <- parse_ws_url(ws_url)
+      private$.host <- ws_url$host
+      private$.port <- ws_url$port
+      private$.secure <- ws_url$secure
+      private$.target_type <- ws_url$type
+      private$.target_id <- ws_url$id
+
       ws$onOpen(function(event) {
         self$emit("connect", self)
         "!DEBUG ...R succesfully connected to headless Chrome through DevTools Protocol."
@@ -205,9 +313,6 @@ CDPConnexion <- R6::R6Class(
         ws$connect()
       }
     },
-    connect = function() {
-      private$.CDPSession_con$connect()
-    },
     send = function(method, params = NULL, onresponse = NULL, onerror = NULL, ...) {
       if(async <- is.null(onresponse)) {
         pr <- promises::promise(function(resolve, reject) {
@@ -297,6 +402,11 @@ CDPConnexion <- R6::R6Class(
     }
   ),
   private = list(
+    .host = NULL,
+    .port = NULL,
+    .secure = NULL,
+    .target_type = NULL,
+    .target_id = NULL,
     .CDPSession_con = list(),
     .lastID = 0L,
     .buildMessage = function(id, method, params = NULL) {
@@ -307,6 +417,9 @@ CDPConnexion <- R6::R6Class(
     },
     .commandList = list(),
     .ready = FALSE,
+    .connect = function() {
+      private$.CDPSession_con$connect()
+    },
     finalize = function() {
       if (self$readyState() < 2L) {
         hold(self$disconnect())
@@ -317,18 +430,17 @@ CDPConnexion <- R6::R6Class(
 )
 
 chr_get_ws_addr <- function(host = "localhost", port = 9222, secure = FALSE) {
-  url <- build_url(host, port, secure)
   "!DEBUG Retrieving Chrome websocket entrypoint at http://localhost:`port`/json ..."
-  open_debuggers <- tryCatch(
-    jsonlite::read_json(paste0(url, "/json"), simplifyVector = TRUE),
-    error = function(e) list()
-  )
-
-  address <- open_debuggers$webSocketDebuggerUrl[open_debuggers$type == "page"]
+  targets <- list_targets(host, port, secure)
+  active_target <- purrr::detect(targets, ~ identical(.x$type, "page"))
+  address <- active_target$webSocketDebuggerUrl
   if (is.null(address))
     "!DEBUG ...websocket entrypoint unavailable."
   else
     "!DEBUG ...found websocket entrypoint `address`"
 
+  if(isTRUE(secure)) {
+    address <- httr::modify_url(address, scheme = "wss")
+  }
   address # NULL when fails
 }
