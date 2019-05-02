@@ -52,6 +52,10 @@ Domain <- R6::R6Class(
           rlang::env_get_list(nms = ., inherit = TRUE) %>% # retrieve values
           purrr::discard(~ purrr::is_null(.x)) # remove arguments identical to NULL
 
+        if(!is.null(callback)) {
+          callback <- rlang::as_function(callback)
+        }
+
         self$.__client__$send(
             # since the function parameters are not controlled,
             # there might be some conflicts between CDP parameters and `method_to_be_sent`
@@ -66,6 +70,9 @@ Domain <- R6::R6Class(
     },
     .build_event_listener = function(event_to_listen, name) {
       fun <- function() {
+        if(!is.null(callback)) {
+          callback <- rlang::as_function(callback)
+        }
         predicates_list <-
           rlang::fn_fmls_names() %>% # pick the fun arguments
           utils::head(-1) %>% # remove the callback argument
@@ -77,9 +84,10 @@ Domain <- R6::R6Class(
           return(self$.__client__$on(event_to_listen, callback = callback))
         }
 
+        caller_env <- rlang::caller_env()
         predicate_fun <-
           predicates_list %>%
-          purrr::map(as_predicate) %>% # transform the arguments to predicate
+          purrr::map(as_predicate, env = caller_env) %>% # transform the arguments to predicate
           combine_predicates()
 
         # if callback is NULL, we must return a promise

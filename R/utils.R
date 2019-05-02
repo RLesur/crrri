@@ -127,9 +127,9 @@ stop_or_reject <- function(message, async = FALSE) {
   stop(err)
 }
 
-as_predicate <- function(arg) {
+as_predicate <- function(arg, env = rlang::caller_env()) {
   if(rlang::is_formula(arg) || is.function(arg)) {
-    fun <- rlang::as_function(arg)
+    fun <- rlang::as_function(arg, env = env)
   } else {
     fun <- function(x) identical(x, arg)
   }
