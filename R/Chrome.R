@@ -2,6 +2,80 @@
 #' @importFrom assertthat assert_that is.scalar is.number
 NULL
 
+chrome_execute <- function(
+  ..., .list = NULL, timeouts = 30, cleaning_timeout = 30, async = FALSE,
+  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
+  extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
+) {
+  if(is.null(.list)) {
+    funs <- list(...)
+  } else {
+    stopifnot(is.list(.list))
+    funs <- .list
+  }
+
+  # check arguments
+  purrr::walk(funs, check_is_single_param_fun)
+  stopifnot(is.numeric(timeouts))
+  assert_that(is.number(cleaning_timeout))
+
+  # initialize objects
+  timeouts <- rep_len(timeouts, length(funs))
+  total_timeout <- sum(timeouts) + cleaning_timeout
+  results <- vector("list", length(funs))
+  curr_env <- rlang::current_env()
+
+  execute_fun <- function(client, index, env) {
+    fun <- purrr::pluck(funs, index)
+    delay <- purrr::pluck(timeouts, index)
+    result_saved <- promises::then(fun(client), onFulfilled = function(value) {
+      results <- rlang::env_get(env, "results")
+      rlang::env_bind(env, results = purrr::assign_in(results, index, value))
+      client
+    })
+    timeout(result_saved, delay = delay)
+  }
+
+  # launch Chrome
+  chrome <- Chrome$new(
+    bin = bin, debug_port = debug_port, local = local, extra_args = extra_args,
+    headless = headless, retry_delay = retry_delay, max_attempts = max_attempts
+  )
+  client <- chrome$connect()
+  all_funs_executed <- promises::promise_reduce(
+    seq_along(funs), execute_fun, env = curr_env, .init = client
+  )
+  results_available <-
+    promises::then(all_funs_executed, onFulfilled = function(value, env = curr_env) {
+      results <- rlang::env_get(env, "results")
+      if(length(results) == 1L) {
+        results <- results[[1]]
+      }
+      results
+    })
+
+  killed_and_cleaned <- promises::finally(results_available, onFinally = function() {
+      timeout(
+        chrome$close(async = TRUE),
+        delay = cleaning_timeout,
+        msg = "Did not succeed to close Chrome properly."
+      )
+    })
+
+  promises::catch(killed_and_cleaned, onRejected = function(err) {
+    warning(err$message, call. = FALSE)
+  })
+
+  return_results <- promises::finally(killed_and_cleaned, function() {results_available})
+
+  if(isTRUE(async)) {
+    return(return_results)
+  }
+
+  hold(return_results, timeout = total_timeout)
+}
+
+
 #' Launch Chromium or Chrome
 #'
 #' This class aims to launch Chromium or Chrome in headless mode. It possesses
@@ -148,7 +222,10 @@ Chrome <- R6::R6Class(
         private$finalize()
       }
     },
-    close = function() {
+    close = function(async = FALSE) {
+      if(isTRUE(async)) {
+        return(private$.async_finalizer())
+      }
       invisible(private$finalize())
     },
     view = function() {
@@ -175,7 +252,7 @@ Chrome <- R6::R6Class(
     .bin = NULL,
     .work_dir = NULL,
     .process = NULL,
-    finalize = function() {
+    .async_finalizer = function() {
       clients_disconnected <- timeout(
         self$closeConnections(),
         delay = 10,
@@ -208,6 +285,10 @@ Chrome <- R6::R6Class(
           chr_clean_work_dir(private$.work_dir)
         }
       )
+      killed_and_cleaned
+    },
+    finalize = function() {
+      killed_and_cleaned <- private$.async_finalizer()
       # since we are in finalize(), we can use hold() safely:
       hold(
         killed_and_cleaned,
