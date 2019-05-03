@@ -2,20 +2,24 @@
 #' @importFrom assertthat assert_that is.scalar is.number
 NULL
 
-#' Orchestrate Chrome using the Chrome DevTools Protocol
+#' Execute an asynchronous CDP flow with Chrome
 #'
-#' The `chrome_execute()` function executes user defined asynchronous functions.
-#' These asynchronous functions must have a single argument that is the
-#' connection object to Chrome. The execution of the asynchronous functions is
+#' The `chrome_execute()` function executes an asynchronous Chrome DevTools
+#' Protocol flow with Chromium/Chrome and turn it into a synchronous function.
+#' An asynchronous remote flow is a function that takes a connection object and
+#' returns a [promise][promises::promise].
+#' If several functions are passed to `chrome_executes()`, their execution is
 #' serial. If one of the asynchronous functions fails, the whole execution also
 #' fails.
 #'
-#' @param ... Asynchronous functions.
-#' @param .list A list of asynchronous functions - an alternative to `...`.
+#' @param ... Asynchronous remote flow functions.
+#' @param .list A list of asynchronous remote flow functions - an alternative to
+#' `...`.
 #' @param timeouts A vector of timeouts applied to each asynchronous function.
 #'     Repeated.
 #' @param cleaning_timeout The delay for cleaning Chrome.
-#' @param async Is the result is a promise? Useful for Shiny.
+#' @param async Is the result a promise? Required for using `chrome_execute()`
+#'     in Shiny.
 #' @param bin Character scalar, the path to Chromium or Chrome executable.
 #' @param debug_port Integer scalar, the Chromium/Chrome remote debugging port.
 #' @param local Logical scalar, indicating whether the local version of the
@@ -30,8 +34,9 @@ NULL
 #' @param max_attempts Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
 #'
-#' @return A list with the result of each function. If there is only async function,
-#'     the value of the fulfilled promise.
+#' @return A list with the values of the fulfilled promises for each async function.
+#'     If there is only async function, the return value is the value of the
+#'     fulfilled promise.
 #' @export
 #'
 #' @examples

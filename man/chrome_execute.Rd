@@ -2,7 +2,7 @@
 % Please edit documentation in R/Chrome.R
 \name{chrome_execute}
 \alias{chrome_execute}
-\title{Orchestrate Chrome using the Chrome DevTools Protocol}
+\title{Execute an asynchronous CDP flow with Chrome}
 \usage{
 chrome_execute(..., .list = NULL, timeouts = 30,
   cleaning_timeout = 30, async = FALSE,
@@ -11,16 +11,18 @@ chrome_execute(..., .list = NULL, timeouts = 30,
   retry_delay = 0.2, max_attempts = 15L)
 }
 \arguments{
-\item{...}{Asynchronous functions.}
+\item{...}{Asynchronous remote flow functions.}
 
-\item{.list}{A list of asynchronous functions - an alternative to \code{...}.}
+\item{.list}{A list of asynchronous remote flow functions - an alternative to
+\code{...}.}
 
 \item{timeouts}{A vector of timeouts applied to each asynchronous function.
 Repeated.}
 
 \item{cleaning_timeout}{The delay for cleaning Chrome.}
 
-\item{async}{Is the result is a promise? Useful for Shiny.}
+\item{async}{Is the result a promise? Required for using \code{chrome_execute()}
+in Shiny.}
 
 \item{bin}{Character scalar, the path to Chromium or Chrome executable.}
 
@@ -43,13 +45,16 @@ connect to headless Chromium/Chrome.}
 Chromium/Chrome.}
 }
 \value{
-A list with the result of each function. If there is only async function,
-the value of the fulfilled promise.
+A list with the values of the fulfilled promises for each async function.
+If there is only async function, the return value is the value of the
+fulfilled promise.
 }
 \description{
-The \code{chrome_execute()} function executes user defined asynchronous functions.
-These asynchronous functions must have a single argument that is the
-connection object to Chrome. The execution of the asynchronous functions is
+The \code{chrome_execute()} function executes an asynchronous Chrome DevTools
+Protocol flow with Chromium/Chrome and turn it into a synchronous function.
+An asynchronous remote flow is a function that takes a connection object and
+returns a \link[promises:promise]{promise}.
+If several functions are passed to \code{chrome_executes()}, their execution is
 serial. If one of the asynchronous functions fails, the whole execution also
 fails.
 }
