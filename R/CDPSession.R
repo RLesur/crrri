@@ -337,6 +337,8 @@ CDPConnexion <- R6::R6Class(
     on = function(eventName, callback = NULL) {
       if(is.null(callback)) {
         return(self$once(eventName))
+      } else {
+        callback <- rlang::as_function(callback)
       }
       super$on(eventName, callback)
       invisible(self)
@@ -360,6 +362,8 @@ CDPConnexion <- R6::R6Class(
           onerror(err)
         })
         return(pr)
+      } else {
+        callback <- rlang::as_function(callback)
       }
       super$once(eventName, callback)
       invisible(self)
