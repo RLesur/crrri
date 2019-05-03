@@ -39,9 +39,31 @@ test_that("connect and disconnect methods return promises", {
   expect_is(client, "CDPSession")
   closed_pr <- client$disconnect()
   expect_is(closed_pr, "promise")
-  hold(closed_pr)
+  closed_client <- hold(closed_pr)
+  expect_is(closed_client, "CDPSession")
+  expect_reference(closed_client, client)
+  # re-run the last expectations with a closed connection
+  expect_equivalent(client$readyState(), 3L)
+  closed_pr <- client$disconnect()
+  expect_is(closed_pr, "promise")
+  closed_client <- hold(closed_pr)
+  expect_is(closed_client, "CDPSession")
+  expect_reference(closed_client, client)
 })
 
+test_that("in disconnect() when using a callback, the argument passed to the callback is the connection object and disconnect() returns self", {
+  client <- hold(CDPSession())
+  arg <- NULL
+  res <- client$disconnect(callback = function(x) {arg <<- x})
+  hold(client$disconnect())
+  expect_reference(arg, client)
+  expect_reference(res, client)
+  # re-run the last expectations with a closed connection
+  expect_equivalent(client$readyState(), 3L)
+  res <- client$disconnect(callback = function(x) {arg <<- x})
+  expect_reference(arg, client)
+  expect_reference(res, client)
+})
 
 test_that("inspect method returns NULL", {
   skip_if_not(interactive())
