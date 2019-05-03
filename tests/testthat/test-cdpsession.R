@@ -59,6 +59,7 @@ test_that("in disconnect() when using a callback, the argument passed to the cal
   expect_reference(arg, client)
   expect_reference(res, client)
   # re-run the last expectations with a closed connection
+  arg <- NULL
   expect_equivalent(client$readyState(), 3L)
   res <- client$disconnect(callback = function(x) {arg <<- x})
   expect_reference(arg, client)
