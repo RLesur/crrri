@@ -15,7 +15,7 @@ NULL
 #' remote <- CDPRemote$new(host = "localhost", debug_port = 9222, secure = FALSE,
 #'                         local = FALSE, retry_delay = 0.2, max_attempts = 15L)
 #'
-#' remote$connect(callback = NULL,)
+#' remote$connect(callback = NULL)
 #' remote$listConnections()
 #' remote$closeConnections(callback = NULL)
 #' remote$version()
@@ -36,9 +36,7 @@ NULL
 #'     connect to the remote application.
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
-#' * `callback`: Function with one argument, executed when the R session is
-#'     connected to the remote application. The connection object is passed
-#'     to this function.
+#' * `callback`: Function with one argument.
 #' * `.target_id`: A character scalar, identifier of the target. The default
 #'     value corresponds to the last created target. For advanced use only.
 #'
@@ -55,9 +53,13 @@ NULL
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
 #'
-#' `$closeConnections()` closes all the connections created using the
-#' `$connect()` method. Returns a promise which is resolved when all connections
-#' are closed.
+#' `$closeConnections(callback = NULL)` closes all the connections created using
+#' the `$connect()` method. If `callback` is `NULL`, returns a promise which is
+#' resolved when all the connections are closed: once fulfilled, its value is the
+#' remote object.
+#' If `callback` is not `NULL`, returns the remote object. In this case, `callback`
+#' must be a function with one argument: this function is called when
+#' all the connections are closed, the remote object is passed to this function.
 #'
 #' `$version()` executes the DevTools `Version` method. It returns a list of
 #' informations available at `http://<host>:<debug_port>/json/version`.
@@ -204,32 +206,35 @@ CDPRemote <- R6::R6Class(
       if(!is.null(callback)) {
         callback <- rlang::as_function(callback)
       }
-      # CDPSession disconnect() method returns a promise
-      disconnected <- promises::promise_map(private$.clients, function(client) {
-        client$disconnect()
-      })
-      # when connections are closed, remove them from the list of clients
-      closed <- promises::then(
-        disconnected,
-        onFulfilled = function(value) {
-          private$.clients <- list()
-          if(!is.null(callback)) {
-            callback(invisible(self))
-          }
-          invisible(self)
-        },
-        onRejected = function(err) {
-          warning(err, call. = FALSE, immediate. = TRUE)
-        }
-      )
+      async <- is.null(callback)
 
-      # when a callback is used, return self
-      if(!is.null(callback)) {
+      if(async) {
+        # CDPSession disconnect() method returns a promise
+        disconnected <- promises::promise_all(
+          .list = purrr::map(private$.clients, function(client) {
+            client$disconnect()
+          })
+        )
+        # when connections are closed, remove them from the list of clients
+        # and return the remote object (i.e. self)
+        cleaned <- promises::then(
+          disconnected,
+          onFulfilled = function(value) {
+            private$.clients <- list()
+            invisible(self)
+          }
+        )
+        return(cleaned)
+      } else {
+        client_callback <- function(client) {
+          if(private$.are_clients_closed()) {
+            private$.clients <- list()
+            callback(self)
+          }
+        }
+        purrr::walk(private$clients, ~ .x$disconnect(callback = client_callback))
         return(invisible(self))
       }
-
-      # no callback, return a promise
-      closed
     },
     version = function() {
       private$.check_remote()
@@ -294,6 +299,9 @@ CDPRemote <- R6::R6Class(
           private$.max_attempts
         )
       }
+    },
+    .are_clients_closed = function() {
+      all(purrr::map_lgl(private$.clients, ~ .x$readyState() == 3L))
     },
     finalize = function() {
       # since we are in finalize, we can use hold() safely

@@ -59,6 +59,27 @@ test_that("connect() creates a new tab if there is no tab", {
   hold(chrome$closeConnections())
 })
 
+test_that("closeConnections() returns a promise which fulfills when connections are closed. Its value is the remote object.", {
+  client <- hold(chrome$connect())
+  client2 <- hold(chrome$connect())
+  expect_identical(length(chrome$listConnections()), 2L)
+  res <- hold(chrome$closeConnections())
+  expect_reference(res, chrome)
+  expect_identical(length(chrome$listConnections()), 0L)
+  # same thing without any connection
+  res <- hold(chrome$closeConnections())
+  expect_reference(res, chrome)
+})
+
+test_that("closeConnections() with a callback argument", {
+  client <- hold(chrome$connect())
+  client2 <- hold(chrome$connect())
+  res <- NULL
+  chrome$closeConnections(callback = function(x){res <<- x})
+  hold(chrome$closeConnections())
+  expect_reference(res, chrome)
+})
+
 test_that("close() returns the Chrome object", {
   closed <- chrome$close()
   expect_reference(closed, chrome)
@@ -69,3 +90,18 @@ test_that("once closed, is_alive() return FALSE", {
 })
 
 
+# chrome_execute ----------------------------------------------------------
+
+test_that("With only 1 argument chrome_execute() returns the value of the async function", {
+  value <- runif(1)
+  async_fun <- function(client) {
+    promises::promise_resolve(value)
+  }
+  expect_equal(chrome_execute(async_fun), value)
+})
+
+test_that("With multiple argument, chrome_execute() return a list with the values of the async functions", {
+  values <- as.list(runif(3))
+  async_funs <- values %>% purrr::map(~ function(client) promises::promise_resolve(.x))
+  expect_identical(do.call(chrome_execute, async_funs), values)
+})

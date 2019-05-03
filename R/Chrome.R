@@ -119,6 +119,12 @@ chrome_execute <- function(
       results
     })
 
+  if(!isTRUE(async)) {
+    results <- hold(results_available)
+    chrome$close(async = FALSE)
+    return(results)
+  }
+
   killed_and_cleaned <- promises::finally(results_available, onFinally = function() {
       timeout(
         chrome$close(async = TRUE),
@@ -332,7 +338,7 @@ Chrome <- R6::R6Class(
       )
       # now, kill chrome and clean the working directory
       killed_and_cleaned <- promises::finally(
-        caught,
+        clients_disconnected,
         onFinally = function() {
           killed <- !private$.process$is_alive()
           if (!killed) {
