@@ -119,31 +119,22 @@ chrome_execute <- function(
       results
     })
 
-  if(!isTRUE(async)) {
-    results <- hold(results_available)
+  results_after_cleaning <- promises::finally(results_available, onFinally = function() {
+    # it seems that using hold(), i.e. later::run_now() in finally is not a problem
+    # FMPOV, this seems completely weird, but it works well
     chrome$close(async = FALSE)
-    return(results)
-  }
-
-  killed_and_cleaned <- promises::finally(results_available, onFinally = function() {
-      timeout(
-        chrome$close(async = TRUE),
-        delay = cleaning_timeout,
-        msg = "Did not succeed to close Chrome properly."
-      )
     })
 
-  promises::catch(killed_and_cleaned, onRejected = function(err) {
+  promises::catch(results_after_cleaning, onRejected = function(err) {
     warning(err$message, call. = FALSE)
   })
 
-  return_results <- promises::finally(killed_and_cleaned, function() {results_available})
 
   if(isTRUE(async)) {
-    return(return_results)
+    return(results_after_cleaning)
   }
 
-  hold(return_results, timeout = total_timeout)
+  hold(results_after_cleaning, timeout = total_timeout)
 }
 
 #' Launch Chromium or Chrome
@@ -164,7 +155,7 @@ chrome_execute <- function(
 #' remote$version()
 #' remote$user_agent
 #'
-#' remote$close()
+#' remote$close(async = FALSE)
 #' remote$view()
 #' remote$is_alive()
 #' ```
@@ -188,6 +179,7 @@ chrome_execute <- function(
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
 #' * `callback`: Function with one argument.
+#' * `async`: Does the function return a promise?
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome.
@@ -216,7 +208,11 @@ chrome_execute <- function(
 #' `$user_agent` returns a character scalar with the User Agent of the
 #' headless Chromium/Chrome.
 #'
-#' `$close()` closes the remote instance of headless Chromium/Chrome.
+#' `$close(async = FALSE)` closes the remote instance of headless
+#' Chromium/Chrome. If `async` is `FALSE` this method returns the `remote`
+#' object invisibly. Is `async` is `TRUE`, a promise is returned. This promise
+#' fulfills when Chromium/Chrome is closed. Once fulfilled, its value is the
+#' `remote` object.
 #'
 #' `$view()` opens a visible Chromium/Chrome browser at
 #' `http://localhost:<debug_port>`. This is useful to 'see' the headless

@@ -19,7 +19,7 @@ remote$closeConnections(callback = NULL)
 remote$version()
 remote$user_agent
 
-remote$close()
+remote$close(async = FALSE)
 remote$view()
 remote$is_alive()
 }
@@ -46,6 +46,7 @@ connect to headless Chromium/Chrome.
 \item \code{max_attempts}: Logical scalar, number of tries to connect to headless
 Chromium/Chrome.
 \item \code{callback}: Function with one argument.
+\item \code{async}: Does the function return a promise?
 }
 }
 
@@ -77,7 +78,11 @@ informations available at \code{http://localhost:<debug_port>/json/version}.
 \code{$user_agent} returns a character scalar with the User Agent of the
 headless Chromium/Chrome.
 
-\code{$close()} closes the remote instance of headless Chromium/Chrome.
+\code{$close(async = FALSE)} closes the remote instance of headless
+Chromium/Chrome. If \code{async} is \code{FALSE} this method returns the \code{remote}
+object invisibly. Is \code{async} is \code{TRUE}, a promise is returned. This promise
+fulfills when Chromium/Chrome is closed. Once fulfilled, its value is the
+\code{remote} object.
 
 \code{$view()} opens a visible Chromium/Chrome browser at
 \code{http://localhost:<debug_port>}. This is useful to 'see' the headless
