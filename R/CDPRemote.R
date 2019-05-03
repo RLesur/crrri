@@ -37,29 +37,27 @@ NULL
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
 #' * `callback`: Function with one argument.
-#' * `.target_id`: A character scalar, identifier of the target. The default
-#'     value corresponds to the last created target. For advanced use only.
 #'
 #' @section Details:
 #' `$new()` declares a new remote application.
 #'
-#' `$connect(callback = NULL, .target_id = "default")` connects the R session to
-#' the remote application. The returned value depends on the value of the
-#' `callback` argument. When `callback` is a function, the returned value is a
-#' connection object. When `callback` is `NULL` the returned value is a promise
-#' which becomes fulfilled once R is connected to the remote application. Once
-#' fulfilled, the value of this promise is the connection object.
+#' `$connect(callback = NULL)` connects the R session to the remote application.
+#' The returned value depends on the value of the `callback` argument. When
+#' `callback` is a function, the returned value is a connection object. When
+#' `callback` is `NULL` the returned value is a promise which fulfills once R
+#' is connected to the remote application. Once fulfilled, the value of this
+#' promise is the connection object.
 #'
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
 #'
 #' `$closeConnections(callback = NULL)` closes all the connections created using
-#' the `$connect()` method. If `callback` is `NULL`, returns a promise which is
-#' resolved when all the connections are closed: once fulfilled, its value is the
+#' the `$connect()` method. If `callback` is `NULL`, it returns a promise which
+#' fulfills when all the connections are closed: once fulfilled, its value is the
 #' remote object.
-#' If `callback` is not `NULL`, returns the remote object. In this case, `callback`
-#' must be a function with one argument: this function is called when
-#' all the connections are closed, the remote object is passed to this function.
+#' If `callback` is not `NULL`, it returns the remote object. In this case,
+#' `callback` is called when all the connections are closed and the remote object is
+#' passed to this function as the argument.
 #'
 #' `$version()` executes the DevTools `Version` method. It returns a list of
 #' informations available at `http://<host>:<debug_port>/json/version`.
@@ -226,13 +224,19 @@ CDPRemote <- R6::R6Class(
         )
         return(cleaned)
       } else {
+        token <- new.env()
+        token$done <- FALSE
         client_callback <- function(client) {
-          if(private$.are_clients_closed()) {
+          if(private$.are_clients_closed() && !token$done) {
             private$.clients <- list()
+            token$done <- TRUE
             callback(self)
           }
         }
-        purrr::walk(private$clients, ~ .x$disconnect(callback = client_callback))
+        if(identical(length(private$.clients), 0L)) {
+          on.exit(callback(self), add = TRUE)
+        }
+        purrr::walk(private$.clients, ~ .x$disconnect(callback = client_callback))
         return(invisible(self))
       }
     },

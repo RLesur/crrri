@@ -78,6 +78,12 @@ test_that("closeConnections() with a callback argument", {
   chrome$closeConnections(callback = function(x){res <<- x})
   hold(chrome$closeConnections())
   expect_reference(res, chrome)
+  # re-run test without any connection
+  res <- NULL
+  expect_identical(length(chrome$listConnections()), 0L)
+  chrome$closeConnections(callback = function(x){res <<- x})
+  hold(chrome$closeConnections())
+  expect_reference(res, chrome)
 })
 
 test_that("close() returns the Chrome object", {

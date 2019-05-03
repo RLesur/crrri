@@ -15,7 +15,7 @@ Chrome Debugging Protocol.
 
 remote$connect(callback = NULL)
 remote$listConnections()
-remote$closeConnections()
+remote$closeConnections(callback = NULL)
 remote$version()
 remote$user_agent
 
@@ -45,10 +45,7 @@ in headless mode.
 connect to headless Chromium/Chrome.
 \item \code{max_attempts}: Logical scalar, number of tries to connect to headless
 Chromium/Chrome.
-\item \code{callback}: Function with one argument, executed when the R session is
-connected to Chrome. The connection object is passed to this function.
-\item \code{.target_id}: A character scalar, identifier of the tab. The default value
-corresponds to the last created tab. For advanced use only.
+\item \code{callback}: Function with one argument.
 }
 }
 
@@ -56,20 +53,23 @@ corresponds to the last created tab. For advanced use only.
 
 \code{$new()} opens a new headless Chromium/Chrome.
 
-\code{$connect(callback = NULL, .target_id = "default")} connects the R session to
-the remote instance of headless Chromium/Chrome. The returned value depends
-on the value of the \code{callback} argument. When \code{callback} is a function, the
-returned value is a connection object. When \code{callback} is \code{NULL} the returned
-value is a promise which becomes fulfilled once R is connected to the remote
-instance of Chromium/Chrome. Once fulfilled, the value of this promise is the
-connection object.
+\code{$connect(callback = NULL)} connects the R session to the remote instance of
+headless Chromium/Chrome. The returned value depends on the value of the
+\code{callback} argument. When \code{callback} is a function, the returned value is a
+connection object. When \code{callback} is \code{NULL} the returned value is a promise
+which fulfills once R is connected to the remote instance of Chromium/Chrome.
+Once fulfilled, the value of this promise is the connection object.
 
 \code{$listConnections()} returns a list of the connection objects succesfully
 created using the \code{$connect()} method.
 
 \code{$closeConnections(callback = NULL)} closes all the connections created using the
-\code{$connect()} method. Returns a promise which is resolved when all connections
-are closed.
+\code{$connect()} method.  If \code{callback} is \code{NULL}, it returns a promise which
+fulfills when all the connections are closed: once fulfilled, its value is the
+remote object.
+If \code{callback} is not \code{NULL}, it returns the remote object. In this case,
+\code{callback} is called when all the connections are closed and the remote object is
+passed to this function as the argument.
 
 \code{$version()} executes the DevTools \code{Version} method. It returns a list of
 informations available at \code{http://localhost:<debug_port>/json/version}.

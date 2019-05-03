@@ -160,7 +160,7 @@ chrome_execute <- function(
 #'
 #' remote$connect(callback = NULL)
 #' remote$listConnections()
-#' remote$closeConnections()
+#' remote$closeConnections(callback = NULL)
 #' remote$version()
 #' remote$user_agent
 #'
@@ -187,28 +187,28 @@ chrome_execute <- function(
 #'     connect to headless Chromium/Chrome.
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
-#' * `callback`: Function with one argument, executed when the R session is
-#'     connected to Chrome. The connection object is passed to this function.
-#' * `.target_id`: A character scalar, identifier of the tab. The default value
-#'     corresponds to the last created tab. For advanced use only.
+#' * `callback`: Function with one argument.
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome.
 #'
-#' `$connect(callback = NULL, .target_id = "default")` connects the R session to
-#' the remote instance of headless Chromium/Chrome. The returned value depends
-#' on the value of the `callback` argument. When `callback` is a function, the
-#' returned value is a connection object. When `callback` is `NULL` the returned
-#' value is a promise which becomes fulfilled once R is connected to the remote
-#' instance of Chromium/Chrome. Once fulfilled, the value of this promise is the
-#' connection object.
+#' `$connect(callback = NULL)` connects the R session to the remote instance of
+#' headless Chromium/Chrome. The returned value depends on the value of the
+#' `callback` argument. When `callback` is a function, the returned value is a
+#' connection object. When `callback` is `NULL` the returned value is a promise
+#' which fulfills once R is connected to the remote instance of Chromium/Chrome.
+#' Once fulfilled, the value of this promise is the connection object.
 #'
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
 #'
 #' `$closeConnections(callback = NULL)` closes all the connections created using the
-#' `$connect()` method. Returns a promise which is resolved when all connections
-#' are closed.
+#' `$connect()` method.  If `callback` is `NULL`, it returns a promise which
+#' fulfills when all the connections are closed: once fulfilled, its value is the
+#' remote object.
+#' If `callback` is not `NULL`, it returns the remote object. In this case,
+#' `callback` is called when all the connections are closed and the remote object is
+#' passed to this function as the argument.
 #'
 #' `$version()` executes the DevTools `Version` method. It returns a list of
 #' informations available at `http://localhost:<debug_port>/json/version`.
