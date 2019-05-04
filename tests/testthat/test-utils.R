@@ -1,3 +1,16 @@
+test_that("as_predicate can be used with formula, function or a value to match identically", {
+  expect_true(as_predicate(~ .x == 3L)(3L))
+  expect_true(as_predicate(3L)(3L))
+  expect_true(as_predicate(is.integer)(3L))
+})
+
+test_that("A character value is used to build a predicate with identical", {
+  # a character is not passed to rlang::as_function
+  # identical is used to create a predicate
+  expect_false(as_predicate("is.integer")(3L))
+  expect_true(as_predicate("is.integer")("is.integer"))
+})
+
 test_that("as_predicate controls that the result of a function is TRUE or FALSE", {
   f <- as_predicate(as.character)
   expect_error(f(1))
