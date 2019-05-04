@@ -98,12 +98,13 @@ test_that("once closed, is_alive() return FALSE", {
 
 # chrome_execute ----------------------------------------------------------
 
-test_that("With only 1 argument chrome_execute() returns the value of the async function", {
+test_that("With only 1 argument chrome_execute() returns the value of the async function invisibly", {
   value <- runif(1)
   async_fun <- function(client) {
     promises::promise_resolve(value)
   }
   expect_equal(chrome_execute(async_fun), value)
+  expect_invisible(chrome_execute(async_fun))
 })
 
 test_that("With multiple argument, chrome_execute() return a list with the values of the async functions", {
