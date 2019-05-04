@@ -117,7 +117,7 @@ test_that("Event listener-When a callback is used, the returned function dismiss
   client <- hold(chrome$connect())
   hold(client$Page$enable())
   witness <- client$Page$loadEventFired()
-  expect_is(witness, "promise")
+  expect_s3_class(witness, "promise")
   callback <- function(...) stop("this error should never fires")
   rm_callback <- client$Page$loadEventFired(callback = callback)
   expect_is(rm_callback, "function")
