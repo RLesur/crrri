@@ -93,7 +93,7 @@ chrome_execute <- function(
     delay <- purrr::pluck(timeouts, index)
     result_saved <- promises::then(fun(client), onFulfilled = function(value) {
       if(!is.null(value)) {
-        results <- rlang::env_get(env, "results")
+        results <- rlang::env_get(env = env, nm = "results")
         rlang::env_bind(env, results = purrr::assign_in(results, index, value))
       }
       client
