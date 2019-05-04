@@ -17,7 +17,7 @@ CDProtocol <- R6::R6Class(
     list_commands = function(domain) {
       private$.list_objects(domain, "commands")
     },
-    get_formals = function(domain, command) {
+    get_formals_for_command = function(domain, command) {
       params_env <- private$.protocol$domains[[domain]]$commands[[command]]$parameters
       if(is.null(params_env)) {
         params_names <- character(0)
@@ -42,6 +42,24 @@ CDProtocol <- R6::R6Class(
     },
     list_events = function(domain) {
       private$.list_objects(domain, "events")
+    },
+    get_formals_for_event = function(domain, event) {
+      params_env <- private$.protocol$domains[[domain]]$events[[event]]$parameters
+      if(is.null(params_env)) {
+        params_names <- character(0)
+      } else {
+        params_names <- ls(params_env)
+      }
+      # since we will add a callback argument, check that callback is not already used:
+      stopifnot(!("callback" %in% params_names))
+      # here is the main difference with get_formals_for_command:
+      # in an event listener, all the parameters are optional
+      # we can directly add the callback argument...
+      params_names <- c(params_names, "callback")
+      # ... and return the list
+      res <- vector("list", length(params_names))
+      names(res) <- params_names
+      res
     },
     list_types = function(domain) {
       private$.list_objects(domain, "types")
