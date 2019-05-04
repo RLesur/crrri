@@ -135,7 +135,7 @@ stop_or_reject <- function(message, async = FALSE) {
 #' @return a function that will apply the predicate and return TRUE or FALSE
 #' @noRd
 as_predicate <- function(arg, env = rlang::caller_env()) {
-  if(rlang::is_formula(arg) || is.function(arg)) {
+  if(rlang::is_formula(arg) || rlang::is_function(arg)) {
     fun <- rlang::as_function(arg, env = env)
   } else {
     fun <- function(x) identical(x, arg)
