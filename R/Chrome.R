@@ -80,7 +80,7 @@ chrome_execute <- function(
 
   # check arguments
   purrr::walk(funs, check_is_single_param_fun)
-  stopifnot(is.numeric(timeouts))
+  assert_that(is.numeric(timeouts))
   assert_that(is.number(cleaning_timeout))
 
   # initialize objects
