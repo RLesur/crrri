@@ -88,7 +88,7 @@ test_that("Command-A command without a callback returns a promise whose value is
   pr <- client$Page$enable()
   res <- hold(pr)
   expect_type(res, "list")
-  expect_true(rlang::is_named(res))
+  expect_named(res)
   hold(client$disconnect())
 })
 
