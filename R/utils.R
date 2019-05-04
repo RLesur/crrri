@@ -147,3 +147,79 @@ stop_or_reject <- function(message, async = FALSE) {
   }
   stop(err)
 }
+
+#' create a predicate from various forms
+#'
+#' @param arg a function, a formula or a value that will be tested as identical
+#' @param env see env from `rlang::as_function`
+#'
+#' @return a function that will apply the predicate and return TRUE or FALSE
+#' @noRd
+as_predicate <- function(arg, env = rlang::caller_env()) {
+  if(rlang::is_formula(arg) || rlang::is_function(arg)) {
+    fun <- rlang::as_function(arg, env = env)
+  } else {
+    fun <- function(x) identical(x, arg)
+  }
+
+  function(...) {
+    res <- fun(...)
+    if(!rlang::is_true(res) && !rlang::is_false(res)) {
+      stop("Predicate functions must return a single `TRUE` or `FALSE`.")
+    }
+    res
+  }
+}
+
+#' Combine predicates
+#'
+#' @param list_of_predicates A named list of predicates.
+#'
+#' @return A function that take a single parameter. The argument of the
+#'     returned function is expected to be a named list. The predicates
+#'     function are applied to the objects of the result
+#' @noRd
+combine_predicates <- function(list_of_predicates) {
+  if(length(list_of_predicates) == 0) return(function(...) TRUE)
+  function(result) {
+    # if a name of a predicate is missing in the result object, return FALSE early
+    if(length(setdiff(names(list_of_predicates), names(result))) > 0) {
+      return(FALSE)
+    }
+    bool <- purrr::imap_lgl(list_of_predicates, ~ .x(result[[.y]]))
+    all(bool)
+  }
+}
+
+
+# callbacks wrappers ------------------------------------------------------
+dewrap <- function(x, ...) {
+  UseMethod("dewrap", x)
+}
+
+dewrap.default <- function(x, ...) {
+  x
+}
+
+dewrap.crrri_callback_wrapper <- function(x, ...) {
+  attr(x, "callback", exact = TRUE)
+}
+
+format.crrri_callback_wrapper <- function(x, ...) {
+  format_object <- paste(collapse = "\n", format(dewrap(x)))
+  paste("=== wrapper over function ===", format_object, sep = "\n")
+}
+
+print.crrri_callback_wrapper <- function(x, ...) {
+  cat(format(x), "\n")
+}
+
+new_callback_wrapper <- function(wrapper_fn, callback) {
+  stopifnot(rlang::is_function(wrapper_fn), rlang::is_function(callback))
+  attr(wrapper_fn, "callback") <- dewrap(callback)
+  if(!inherits(wrapper_fn, "crrri_callback_wrapper")) {
+    class(wrapper_fn) <- c("crrri_callback_wrapper", class(wrapper_fn))
+  }
+  wrapper_fn
+}
+
