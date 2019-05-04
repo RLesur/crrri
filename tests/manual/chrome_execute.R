@@ -27,6 +27,8 @@ pdf_rstudio <- function(client) {
   }
 }
 
+chrome_execute(pdf_rproject)
+
 chrome_execute(pdf_rproject, pdf_rstudio)
 
 async_save_as_pdf <- function(url) {

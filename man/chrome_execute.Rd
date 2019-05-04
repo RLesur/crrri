@@ -45,13 +45,13 @@ connect to headless Chromium/Chrome.}
 Chromium/Chrome.}
 }
 \value{
-A list with the values of the fulfilled promises for each async function.
-If there is only async function, the return value is the value of the
+An invisible list with the values of the fulfilled promises for each
+async function.d If there is only async function, the return value is the value of the
 fulfilled promise.
 }
 \description{
 The \code{chrome_execute()} function executes an asynchronous Chrome DevTools
-Protocol flow with Chromium/Chrome and turn it into a synchronous function.
+Protocol flow with Chromium/Chrome and can turn it into a synchronous function.
 An asynchronous remote flow is a function that takes a connection object and
 returns a \link[promises:promise]{promise}.
 If several functions are passed to \code{chrome_executes()}, their execution is

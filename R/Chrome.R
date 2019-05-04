@@ -5,7 +5,7 @@ NULL
 #' Execute an asynchronous CDP flow with Chrome
 #'
 #' The `chrome_execute()` function executes an asynchronous Chrome DevTools
-#' Protocol flow with Chromium/Chrome and turn it into a synchronous function.
+#' Protocol flow with Chromium/Chrome and can turn it into a synchronous function.
 #' An asynchronous remote flow is a function that takes a connection object and
 #' returns a [promise][promises::promise].
 #' If several functions are passed to `chrome_executes()`, their execution is
@@ -34,8 +34,8 @@ NULL
 #' @param max_attempts Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
 #'
-#' @return A list with the values of the fulfilled promises for each async function.
-#'     If there is only async function, the return value is the value of the
+#' @return An invisible list with the values of the fulfilled promises for each
+#'     async function.d If there is only async function, the return value is the value of the
 #'     fulfilled promise.
 #' @export
 #'
@@ -134,7 +134,7 @@ chrome_execute <- function(
     return(results_after_cleaning)
   }
 
-  hold(results_after_cleaning, timeout = total_timeout)
+  invisible(hold(results_after_cleaning, timeout = total_timeout))
 }
 
 #' Launch Chromium or Chrome
