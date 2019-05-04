@@ -127,6 +127,13 @@ stop_or_reject <- function(message, async = FALSE) {
   stop(err)
 }
 
+#' create a predicate from various forms
+#'
+#' @param arg a function, a formula or a value that will be tested as identical
+#' @param env see env from `rlang::as_function`
+#'
+#' @return a function that will apply the predicate and return TRUE or FALSE
+#' @noRd
 as_predicate <- function(arg, env = rlang::caller_env()) {
   if(rlang::is_formula(arg) || is.function(arg)) {
     fun <- rlang::as_function(arg, env = env)
