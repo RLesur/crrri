@@ -49,3 +49,26 @@ test_that("we can built an event listener that takes predicates as arguments and
   expect_identical(f(list(a = 1, b = 2, c = 3)), TRUE)
 })
 
+test_that("new_callback_wrapper only works on function (lambda or not)", {
+  expect_silent(new_callback_wrapper(identity, identity))
+  expect_error(new_callback_wrapper('identity', identity))
+  expect_error(new_callback_wrapper(identity, 'identity'))
+  expect_silent(new_callback_wrapper(rlang::as_function( ~ .x == 3L), identity))
+})
+
+test_that("new_callback_wrapper result prints correctly", {
+  expect_identical(capture.output(print(new_callback_wrapper(identity, identity))),
+                c("=== wrapper over function ===", "function (x) ", "x "))
+})
+
+test_that("new_callback_wrapper wraps callback in the function", {
+  wrapped_fun <- new_callback_wrapper(identity, sum)
+  expect_s3_class(wrapped_fun, "crrri_callback_wrapper")
+  expect_equivalent(attr(wrapped_fun, "callback"), sum)
+  expect_identical(wrapped_fun(1), identity(1))
+  wrapped_fun2 <- new_callback_wrapper(as.character, wrapped_fun)
+  expect_s3_class(wrapped_fun2, "crrri_callback_wrapper")
+  # the callback is the one from wrapped_fun
+  expect_equivalent(attr(wrapped_fun2, "callback"), sum)
+  expect_identical(wrapped_fun2(1), "1")
+})
