@@ -23,7 +23,7 @@ The goal of `crrri` is to provide a native Chrome Remote Interface in R using th
 
 This package is intended to R packages developers who need to orchestrate Chromium/Chrome: **with `crrri`, you can easily interact with (headless) Chromium/Chrome using R**. We worked a lot to provide the most simple API. However, you will have the bulk of the work and learn how the Chrome DevTools Protocol works. Interacting with Chromium/Chrome using the DevTools Protocol is a highly technical task and prone to errors: you will be close to the metal and have full power (be cautious!).
 
-This package is built on top of the [`websocket`](https://github.com/rstudio/websocket) and [`promises`](https://cran.r-project.org/package=promises) packages. The default design of the `crrri` functions is asynchronous: they return promises. However, you can also use `crrri` with callbacks if you prefer. 
+This package is built on top of the [`websocket`](https://github.com/rstudio/websocket) and [`promises`](https://cran.r-project.org/package=promises) packages. The default design of the `crrri` functions is asynchronous: they return promises. You can also use `crrri` with callbacks if you prefer. 
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain) for his seminal work on [`chradle`](https://github.com/milesmcbain/chradle) that inspired us. Many thanks!
 
@@ -45,6 +45,8 @@ remotes::install_github('rlesur/crrri')
 The `crrri` package is a low-level interface and **is not intended to be used interactively**: the goal of `crrri` is to provide to R developers a set of classes and helper functions to build higher levels functions.
 
 **However, you can discover headless Chrome automation interactively in your R session using `crrri`**. This will help you to learn the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol), the `crrri` design and develop higher level functions.
+
+### A short-tour
 
 Assuming that you have configured the `HEADLESS_CHROME` environment variable (see before), you can start headless Chrome:
 
@@ -92,7 +94,7 @@ You will see in the R console:
 <Promise [pending]>
 ```
 
-This is a promise object that is fulfilled when Chromium/Chrome sends back to R a message telling that the command completes. This comes from the fact that the `Page$navigate()` function is also asynchronous. All the asynchronous methods possess a `callback` argument. When the R session receives the result of the command from Chrome, R executes this callback function passing the result object to this function. For instance, you can execute:
+This is a promise object that is fulfilled when Chromium/Chrome sends back to R a message telling that the command was well-received. This comes from the fact that the `Page$navigate()` function is also asynchronous. All the asynchronous methods possess a `callback` argument. When the R session receives the result of the command from Chrome, R executes this callback function passing the result object to this function. For instance, you can execute:
 
 ```{r}
 Page$navigate(url = "https://ropensci.org/", callback = function(result) {
@@ -160,7 +162,11 @@ Since the RStudio viewer has lost the connection, you will see this screen in RS
 
 ![headless Chrome closed](https://user-images.githubusercontent.com/19177171/56867276-a4823480-69e3-11e9-8530-831ac4dd144e.png)
 
-Now, you can take some time to discover all the commands and events of the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/). The following examples will introduce you some of them.
+Now, you can take some time to discover all the commands and events of the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/). The following examples will introduce some of them.
+
+### Domains, commands and events listeners
+
+
 
 ## Examples
 

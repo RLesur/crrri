@@ -32,8 +32,7 @@ This package is built on top of the
 [`websocket`](https://github.com/rstudio/websocket) and
 [`promises`](https://cran.r-project.org/package=promises) packages. The
 default design of the `crrri` functions is asynchronous: they return
-promises. However, you can also use `crrri` with callbacks if you
-prefer.
+promises. You can also use `crrri` with callbacks if you prefer.
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain)
 for his seminal work on
@@ -70,6 +69,8 @@ a set of classes and helper functions to build higher levels functions.
 your R session using `crrri`**. This will help you to learn the [Chrome
 DevTools Protocol](https://chromedevtools.github.io/devtools-protocol),
 the `crrri` design and develop higher level functions.
+
+### A short-tour
 
 Assuming that you have configured the `HEADLESS_CHROME` environment
 variable (see before), you can start headless Chrome:
@@ -138,12 +139,12 @@ You will see in the R console:
     <Promise [pending]>
 
 This is a promise object that is fulfilled when Chromium/Chrome sends
-back to R a message telling that the command completes. This comes from
-the fact that the `Page$navigate()` function is also asynchronous. All
-the asynchronous methods possess a `callback` argument. When the R
-session receives the result of the command from Chrome, R executes this
-callback function passing the result object to this function. For
-instance, you can
+back to R a message telling that the command was well-received. This
+comes from the fact that the `Page$navigate()` function is also
+asynchronous. All the asynchronous methods possess a `callback`
+argument. When the R session receives the result of the command from
+Chrome, R executes this callback function passing the result object to
+this function. For instance, you can
 execute:
 
 ``` r
@@ -222,7 +223,9 @@ closed](https://user-images.githubusercontent.com/19177171/56867276-a4823480-69e
 Now, you can take some time to discover all the commands and events of
 the [Chrome DevTools
 Protocol](https://chromedevtools.github.io/devtools-protocol/). The
-following examples will introduce you some of them.
+following examples will introduce some of them.
+
+### Domains, commands and events listeners
 
 ## Examples
 
