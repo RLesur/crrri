@@ -125,7 +125,7 @@ test_that("rejects if one promises get rejected", {
   expect_error(chrome_execute(.list = async_funs), "fun2 rejected")
 })
 
-test_that("timeouts are respected and recycle", {
+test_that("timeouts are respected and recycled (using JS in chrome)", {
   async_fun <- function(ms) {
     function(client) {
       Runtime <- client$Runtime
@@ -146,11 +146,32 @@ test_that("timeouts are respected and recycle", {
     }
   }
   async_funs <- list(
-    async_fun(500),
-    async_fun(2000)
+    async_fun(1000),
+    async_fun(3000)
   )
   expect_error(chrome_execute(.list = async_funs, timeouts = c(30, 1)),
                "The delay of 1 seconds expired in async function n-2.")
+  expect_error(chrome_execute(.list = async_funs, timeouts = c(2)),
+               "The delay of 2 seconds expired in async function n-2.")
+  skip_on_os("windows")
+  expect_error(chrome_execute(.list = async_funs, timeouts = c(1)),
+               "The delay of 1 seconds expired in async function n-2.")
+})
+
+test_that("timeouts are respected and recycled (using R only)", {
+  async_funs <- list(
+    function(client) {
+      promises::promise(~later::later(~resolve(1), delay = 0))
+    },
+    function(client) {
+      promises::promise(~later::later(~resolve(2), delay = 3))
+    }
+  )
+  expect_error(chrome_execute(.list = async_funs, timeouts = c(30, 1)),
+               "The delay of 1 seconds expired in async function n-2.")
+  expect_error(chrome_execute(.list = async_funs, timeouts = c(2)),
+               "The delay of 2 seconds expired in async function n-2.")
+  skip_on_os("windows")
   expect_error(chrome_execute(.list = async_funs, timeouts = c(1)),
                "The delay of 1 seconds expired in async function n-2.")
 })
