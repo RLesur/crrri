@@ -126,13 +126,28 @@ test_that("rejects if one promises get rejected", {
 })
 
 test_that("timeouts are respected and recycle", {
-  async_funs <- list(
+  async_fun <- function(ms) {
     function(client) {
-      promises::promise(~later::later(~resolve(1), delay = 0))
-    },
-    function(client) {
-      promises::promise(~later::later(~resolve(2), delay = 2))
+      Runtime <- client$Runtime
+      Runtime$enable() %...>% {
+        Runtime$evaluate(
+          expression = paste0(
+            'function sleep(ms) {',
+            'return new Promise(resolve => setTimeout(resolve, ms));',
+            '};',
+            'async function wait() {',
+            'var n = Date.now();',
+            'await sleep(', ms, ');',
+            'var n2 = Date.now()-n;',
+            'console.log(n2); return n2;}',
+            'wait();'),
+          awaitPromise = TRUE
+        )}
     }
+  }
+  async_funs <- list(
+    async_fun(500),
+    async_fun(2000)
   )
   expect_error(chrome_execute(.list = async_funs, timeouts = c(30, 1)),
                "The delay of 1 seconds expired in async function n-2.")
