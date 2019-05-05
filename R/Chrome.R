@@ -131,11 +131,6 @@ chrome_execute <- function(
     chrome$close(async = FALSE)
   })
 
-  promises::catch(results_after_cleaning, onRejected = function(err) {
-    warning(err$message, call. = FALSE)
-  })
-
-
   if(isTRUE(async)) {
     return(results_after_cleaning)
   }
