@@ -107,7 +107,7 @@ Once the page is loaded, you will see both the web page and the result object ob
 
 ![rOpenSci website in headless Chrome](https://user-images.githubusercontent.com/19177171/56867269-9cc29000-69e3-11e9-8fa4-ca238d3b3566.png)
 
-`crrri` supports the `rlang`'s lambda functions. So, you can write a more compact form:
+To inspect the result of a command you can pass the `print` function to the `callback` argument:
 
 ```{r}
 Page$navigate(url = "https://ropensci.org/", callback = print)
