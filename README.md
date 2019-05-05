@@ -164,7 +164,7 @@ Chrome](https://user-images.githubusercontent.com/19177171/56867269-9cc29000-69e
 more compact form:
 
 ``` r
-Page$navigate(url = "https://ropensci.org/", callback = ~ print(.x))
+Page$navigate(url = "https://ropensci.org/", callback = print)
 ```
 
     #> $frameId
@@ -199,7 +199,7 @@ function.
 To sum up, these two forms perform the same actions:
 
 ``` r
-Page$navigate(url = "http://r-project.org", callback = ~ print(.x))
+Page$navigate(url = "http://r-project.org", callback = print)
 Page$navigate(url = "http://r-project.org") %...>% print()
 ```
 
@@ -226,6 +226,66 @@ Protocol](https://chromedevtools.github.io/devtools-protocol/). The
 following examples will introduce some of them.
 
 ### Domains, commands and events listeners
+
+While working interactively, you can obtain the list of available
+domains in your version of Chromium/Chrome.  
+First, launch Chromium/Chrome and connect the R session to headless
+Chromium/Chrome:
+
+``` r
+chrome <- Chrome$new()
+client <- chrome$connect(~ .x$inspect())
+```
+
+Once connected, you just have to print the connection object to get
+informations about the connection and availables domains:
+
+``` r
+client
+```
+
+    #> <CDP CONNECTION>
+    #> connected to: http://localhost:9222/
+    #>  target type: "page"
+    #>    target ID: "9A576420CADEA9A514C5F027D30B410D"
+    #> <DOMAINS>
+    #> 
+    #> Accessibility (experimental)
+    #> 
+    #> Animation (experimental)
+    #> 
+    #> ApplicationCache (experimental)
+    #> 
+    #> Audits (experimental): Audits domain allows investigation of page violations and possible improvements.
+    #> 
+    #> Browser: The Browser domain defines methods and events for browser managing.
+    #> 
+    #> CacheStorage (experimental)
+    #> 
+    #> Cast (experimental): A domain for interacting with Cast, Presentation API, and Remote Playback API functionalities.
+    ...
+
+These informations are directly retrieved from Chromium/Chrome: you may
+obtain different informations depending on the Chromium/Chrome version.
+
+In the most recent versions of the Chrome DevTools Protocol, more than
+40 domains are available. A domain is a set of commands and events
+listeners.
+
+In order to work with a domain, it is recommended to extract it from the
+connection object. For instance, if you want to access to the `Runtime`
+domain, execute:
+
+``` r
+Runtime <- client$Runtime
+```
+
+If you print this object, this will open the online documentation about
+this domain in your browser:
+
+``` r
+Runtime # opens the online documentation in a browser
+```
 
 ## Examples
 

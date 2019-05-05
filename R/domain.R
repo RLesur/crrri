@@ -40,6 +40,10 @@ Domain <- R6::R6Class(
       self$.__client__ <- client
       private$.domain_name <- domain
     },
+    print = function() {
+      utils::browseURL(paste0("https://chromedevtools.github.io/devtools-protocol/tot/", private$.domain_name))
+      invisible(self)
+    },
     .__client__ = NULL
   ),
   private = list(
