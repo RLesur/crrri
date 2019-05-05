@@ -74,3 +74,14 @@ test_that("get_formals_* throws error if callback is present and returns correcl
     list(dummy_param = rlang::sym(""), dummy_param2 = NULL, callback = NULL)
   )
 })
+
+
+test_that("domain_description returns a string even if the domain has no description", {
+  protocol <- CDProtocol$new()
+  # create a dummy domain to add
+  dummyDomain <- rlang::env()
+  rlang::env_bind(.env = protocol$.__enclos_env__$private$.protocol$domains,
+                  dummyDomain = dummyDomain)
+  expect_true("dummyDomain" %in% protocol$domains)
+  expect_silent(purrr::map_chr(protocol$domains, protocol$domain_description))
+})

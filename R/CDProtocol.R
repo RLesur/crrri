@@ -8,11 +8,17 @@ CDProtocol <- R6::R6Class(
       protocol <- fetch_protocol(host = host, port = port, secure = secure, local = local)
       protocol <- add_names_to_protocol(protocol)
       protocol <- rlist2env(protocol)
-      self$domains <- ls(protocol$domains)
       private$.protocol <- protocol
     },
     domain_description = function(domain) {
-      get(domain, private$.protocol$domains)$description
+      desc <- get(domain, private$.protocol$domains)$description
+      if(is.null(desc)) {
+        desc <- ""
+      }
+      desc
+    },
+    is_domain_experimental = function(domain) {
+      isTRUE(private$.protocol$domains[[domain]]$experimental)
     },
     list_commands = function(domain) {
       private$.list_objects(domain, "commands")
@@ -63,8 +69,12 @@ CDProtocol <- R6::R6Class(
     },
     list_types = function(domain) {
       private$.list_objects(domain, "types")
-    },
-    domains = NULL
+    }
+  ),
+  active = list(
+    domains = function() {
+      ls(private$.protocol$domains)
+    }
   ),
   private = list(
     .protocol = "environment",

@@ -385,6 +385,29 @@ CDPConnexion <- R6::R6Class(
         on.exit(private$.CDPSession_con$close(), add = TRUE)
       }
       self$once("disconnect", callback = callback)
+    },
+    print = function() {
+      domains <- self$.__protocol__$domains
+      describe <- function(domain) {
+        experimental <- self$.__protocol__$is_domain_experimental(domain)
+        experimental <- if(experimental) " (experimental)" else ""
+        desc <- self$.__protocol__$domain_description(domain)
+        desc <- gsub("\n", " ", desc)
+        sep <- if(nzchar(desc)) ": " else ""
+        paste0(experimental, sep, desc)
+      }
+      domains_desc <- purrr::map_chr(domains, describe)
+      domains_info <- paste0(domains, domains_desc, "\n")
+      cat(sep = "\n",
+          '<CDP CONNECTION>',
+          paste0('connected to: ', build_http_url(private$.host, private$.port, private$.secure)),
+          paste0(' target type: "', private$.target_type, '"'),
+          paste0('   target ID: "', private$.target_id, '"'),
+          '<DOMAINS>',
+          "",
+          domains_info
+          )
+      invisible(self)
     }
   ),
   active = list(
