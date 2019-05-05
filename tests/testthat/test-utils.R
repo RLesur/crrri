@@ -74,7 +74,7 @@ test_that("new_callback_wrapper wraps callback in the function", {
 })
 
 test_that("kill zombie kills Chrome", {
-  chrome <- Chrome$new(debug_port = 6666L)
+  zombie <- Chrome$new(debug_port = 6666L)
   expect_message(kill_zombie(6666), "killed")
-  expect_false(chrome$is_alive())
+  expect_false(zombie$is_alive())
 })

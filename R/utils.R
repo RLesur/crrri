@@ -207,6 +207,9 @@ new_callback_wrapper <- function(wrapper_fn, callback) {
 # this is because sometimes my R session crashes and I get a zombie Chrome
 kill_zombie <- function(port = 9222) {
   client <- hold(CDPSession(port = port))
-  hold(client$Browser$close(), 0.2)
-  if(client$readyState() == 3L) message("zombie killed!")
+  hold(client$Browser$close(), 0.5)
+  if(client$readyState() == 3L)
+    message("zombie killed!")
+  else
+    message("zombie is still alive!")
 }
