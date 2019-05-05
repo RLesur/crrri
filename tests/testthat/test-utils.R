@@ -73,8 +73,9 @@ test_that("new_callback_wrapper wraps callback in the function", {
   expect_identical(wrapped_fun2(1), "1")
 })
 
-test_that("kill zombie kills Chrome", {
+test_that("kill_zombie kills Chrome", {
   zombie <- Chrome$new(debug_port = 6666L)
   expect_message(kill_zombie(6666), "killed")
+  expect_error(hold(CDPSession(port = 6666)))
   expect_false(zombie$is_alive())
 })
