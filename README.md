@@ -14,7 +14,10 @@ status](https://codecov.io/gh/RLesur/crrri/branch/master/graph/badge.svg)](https
 The goal of `crrri` is to provide a native Chrome Remote Interface in R
 using the [Chrome Debugging
 Protocol](https://chromedevtools.github.io/devtools-protocol/). This is
-a low-level implementation of the protocol.
+a low-level implementation of the protocol heavily inspired by the
+[`chrome-remote-interface`](https://github.com/cyrus-and/chrome-remote-interface)
+JavaScript library written by [Andrea
+Cardaci](https://github.com/cyrus-and).
 
 This package is intended to R packages developers who need to
 orchestrate Chromium/Chrome: **with `crrri`, you can easily interact
@@ -456,6 +459,8 @@ Suggested dependency and you may need to install it manually if not
 already installed.
 
 ## Credits
+
+Andrea Cardaci for `chrome-remote-interface`.
 
 Miles McBain for `chradle`.
 

@@ -19,7 +19,7 @@ Sys.unsetenv("DEBUGME")
 
 **Work in progress**
 
-The goal of `crrri` is to provide a native Chrome Remote Interface in R using the [Chrome Debugging Protocol](https://chromedevtools.github.io/devtools-protocol/). This is a low-level implementation of the protocol.
+The goal of `crrri` is to provide a native Chrome Remote Interface in R using the [Chrome Debugging Protocol](https://chromedevtools.github.io/devtools-protocol/). This is a low-level implementation of the protocol heavily inspired by the [`chrome-remote-interface`](https://github.com/cyrus-and/chrome-remote-interface) JavaScript library written by [Andrea Cardaci](https://github.com/cyrus-and).
 
 This package is intended to R packages developers who need to orchestrate Chromium/Chrome: **with `crrri`, you can easily interact with (headless) Chromium/Chrome using R**. We worked a lot to provide the most simple API. However, you will have the bulk of the work and learn how the Chrome DevTools Protocol works. Interacting with Chromium/Chrome using the DevTools Protocol is a highly technical task and prone to errors: you will be close to the metal and have full power (be cautious!).
 
@@ -374,6 +374,8 @@ only one level of message.Also, `debugme` is a Suggested dependency and you may
 need to install it manually if not already installed.
 
 ## Credits
+
+Andrea Cardaci for `chrome-remote-interface`.
 
 Miles McBain for `chradle`.
 
