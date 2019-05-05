@@ -107,7 +107,9 @@ test_that("With only 1 argument chrome_execute() returns the value of the async 
   # if not async, return invisibly
   expect_invisible(chrome_execute(async_fun, async = FALSE))
   # if async, result is a promise
-  expect_s3_class(chrome_execute(async_fun, async = TRUE), "promise")
+  pr <- chrome_execute(async_fun, async = TRUE)
+  expect_s3_class(pr, "promise")
+  hold(pr)
 })
 
 
