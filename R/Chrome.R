@@ -99,15 +99,6 @@ chrome_execute <- function(
   #     client
   #   })
 
-  # associate a function with its timeout
-  execute_fun <- function(index, client) {
-    fun <- purrr::pluck(funs, index)
-    delay <- purrr::pluck(timeouts, index)
-    timeout(fun(client),
-            delay = delay,
-            msg = paste0("The delay of ", delay, " seconds expired in async function n-", index, ".\n"))
-  }
-
   # launch Chrome
   chrome <- Chrome$new(
     bin = bin, debug_port = debug_port, local = local, extra_args = extra_args,
@@ -115,20 +106,37 @@ chrome_execute <- function(
   )
   # connect to client
   client <- chrome$connect()
+
+  # associate a function with its timeout
+  execute_fun <- function(index) {
+    fun <- purrr::pluck(funs, index)
+    delay <- purrr::pluck(timeouts, index)
+    res <- promises::then(client, function(value) {
+      res <- (fun)(value)
+      # fun must be an async function, i.e. a function that returns a promise
+      if(!promises::is.promising(res)) {
+        stop(paste0("Function n-", index, " passed to chrome_execute does not return a promise."))
+      }
+      res
+    })
+    timeout(res,
+            delay = delay,
+            msg = paste0("The delay of ", delay, " seconds expired in async function n-", index, ".\n"))
+  }
+
   # all_funs_executed <- promises::promise_reduce(
   #   seq_along(funs), execute_fun, env = curr_env, .init = client
   # )
-  results_available <- promises::promise_map(
-    seq_along(funs), execute_fun, client = client
+  all_funs_executed <- promises::promise_map(
+    seq_along(funs), execute_fun
   )
-  # results_available <-
-  #   promises::then(all_funs_executed, onFulfilled = function(value, env = curr_env) {
-  #     results <- rlang::env_get(env, "results")
-  #     if(length(results) == 1L) {
-  #       results <- results[[1]]
-  #     }
-  #     results
-  #   })
+  results_available <-
+    promises::then(all_funs_executed, onFulfilled = function(value) {
+      if(length(value) == 1L) {
+        value <- value[[1]]
+      }
+      value
+    })
 
   results_after_cleaning <- promises::finally(results_available, onFinally = function() {
     # it seems that using hold(), i.e. later::run_now() in finally is not a problem

@@ -139,3 +139,8 @@ test_that("timeouts are respected and recycle", {
   expect_error(chrome_execute(.list = async_funs, timeouts = c(1)),
                "The delay of 1 seconds expired in async function n-2.")
 })
+
+test_that("funs must be async functions", {
+  fun <- function(client) 1
+  expect_error(chrome_execute(fun))
+})
