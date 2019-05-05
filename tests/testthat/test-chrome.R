@@ -146,7 +146,7 @@ test_that("timeouts are respected and recycled (using JS in chrome)", {
     }
   }
   async_funs <- list(
-    async_fun(1000),
+    async_fun(500),
     async_fun(3000)
   )
   expect_error(chrome_execute(.list = async_funs, timeouts = c(30, 1)),
