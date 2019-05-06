@@ -10,7 +10,6 @@ after_success:
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
-  github_token: $GITHUB_PAT
   script: Rscript -e 'pkgdown::deploy_site_github()'
   skip_cleanup: true
 
