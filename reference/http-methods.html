@@ -207,7 +207,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "537.36 (@518a41c1fa7ce1c8bb5e22346e82e42b4d76a96f)"
 #&gt; 
 #&gt; $webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/browser/98cc4007-4efa-4a78-9ee1-f6153778c7b7"
+#&gt; [1] "ws://localhost:9222/devtools/browser/d15875a4-2a80-4b24-9d9e-94540e1821cb"
 #&gt; </div><div class='input'><span class='co'># fetch the Chromium/Chrome protocol</span>
 <span class='no'>protocol</span> <span class='kw'>&lt;-</span> <span class='fu'>fetch_protocol</span>()
 
@@ -217,10 +217,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[1]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/D9A2DC60915D33997E8D44A8F9490094"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/BB3C25627D2E669A8BB4ECA7F5690766"
 #&gt; 
 #&gt; [[1]]$id
-#&gt; [1] "D9A2DC60915D33997E8D44A8F9490094"
+#&gt; [1] "BB3C25627D2E669A8BB4ECA7F5690766"
 #&gt; 
 #&gt; [[1]]$title
 #&gt; [1] "about:blank"
@@ -232,7 +232,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "about:blank"
 #&gt; 
 #&gt; [[1]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/D9A2DC60915D33997E8D44A8F9490094"
+#&gt; [1] "ws://localhost:9222/devtools/page/BB3C25627D2E669A8BB4ECA7F5690766"
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># open an url in a new tab</span>
 <span class='no'>new_target</span> <span class='kw'>&lt;-</span> <span class='fu'>new_tab</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://r-project.org"</span>)
@@ -242,10 +242,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[1]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/66ED6676598AE71037E03B1F9FBE6B86"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/4D03DEE4DF224264636BDA5FC82664EA"
 #&gt; 
 #&gt; [[1]]$id
-#&gt; [1] "66ED6676598AE71037E03B1F9FBE6B86"
+#&gt; [1] "4D03DEE4DF224264636BDA5FC82664EA"
 #&gt; 
 #&gt; [[1]]$title
 #&gt; [1] ""
@@ -257,7 +257,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "http://r-project.org/"
 #&gt; 
 #&gt; [[1]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/66ED6676598AE71037E03B1F9FBE6B86"
+#&gt; [1] "ws://localhost:9222/devtools/page/4D03DEE4DF224264636BDA5FC82664EA"
 #&gt; 
 #&gt; 
 #&gt; [[2]]
@@ -265,10 +265,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[2]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/D9A2DC60915D33997E8D44A8F9490094"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/BB3C25627D2E669A8BB4ECA7F5690766"
 #&gt; 
 #&gt; [[2]]$id
-#&gt; [1] "D9A2DC60915D33997E8D44A8F9490094"
+#&gt; [1] "BB3C25627D2E669A8BB4ECA7F5690766"
 #&gt; 
 #&gt; [[2]]$title
 #&gt; [1] "about:blank"
@@ -280,7 +280,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "about:blank"
 #&gt; 
 #&gt; [[2]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/D9A2DC60915D33997E8D44A8F9490094"
+#&gt; [1] "ws://localhost:9222/devtools/page/BB3C25627D2E669A8BB4ECA7F5690766"
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># inspect a target in a web browser</span>
 <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) <span class='fu'>inspect_target</span>(<span class='kw'>target_id</span> <span class='kw'>=</span> <span class='no'>new_target</span>$<span class='no'>id</span>)
