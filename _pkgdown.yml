@@ -1,1 +1,7 @@
 destination: docs
+url: http://RLesur.github.io/crrri
+template:
+  params:
+    bootswatch: simplex
+development:
+  mode: unreleased
