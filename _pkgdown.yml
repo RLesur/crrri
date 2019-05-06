@@ -1,0 +1,26 @@
+destination: docs
+url: https://rlesur.github.io/crrri
+template:
+  params:
+    bootswatch: simplex
+development:
+  mode: unreleased
+reference:
+- title: Chrome browser class
+  desc:  Functions to deal with running chrome
+  contents:
+  - Chrome
+- title: Promises utility functions
+  desc: Functions to wait for promises
+  contents:
+  - hold
+  - wait
+  - timeout
+- title: Chrome DevTools Protocol classes
+  desc: Functions to play with the protocol
+  contents:
+  - starts_with("CDP")
+- title: EventEmitter
+  desc: Class to deal with events
+  contents:
+  - EventEmitter

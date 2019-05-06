@@ -14,7 +14,10 @@ status](https://codecov.io/gh/RLesur/crrri/branch/master/graph/badge.svg)](https
 The goal of `crrri` is to provide a native Chrome Remote Interface in R
 using the [Chrome Debugging
 Protocol](https://chromedevtools.github.io/devtools-protocol/). This is
-a low-level implementation of the protocol.
+a low-level implementation of the protocol heavily inspired by the
+[`chrome-remote-interface`](https://github.com/cyrus-and/chrome-remote-interface)
+JavaScript library written by [Andrea
+Cardaci](https://github.com/cyrus-and).
 
 This package is intended to R packages developers who need to
 orchestrate Chromium/Chrome: **with `crrri`, you can easily interact
@@ -29,8 +32,7 @@ This package is built on top of the
 [`websocket`](https://github.com/rstudio/websocket) and
 [`promises`](https://cran.r-project.org/package=promises) packages. The
 default design of the `crrri` functions is asynchronous: they return
-promises. However, you can also use `crrri` with callbacks if you
-prefer.
+promises. You can also use `crrri` with callbacks if you prefer.
 
 We are highly indebted to [Miles McBain](https://github.com/milesmcbain)
 for his seminal work on
@@ -67,6 +69,8 @@ a set of classes and helper functions to build higher levels functions.
 your R session using `crrri`**. This will help you to learn the [Chrome
 DevTools Protocol](https://chromedevtools.github.io/devtools-protocol),
 the `crrri` design and develop higher level functions.
+
+### A short-tour
 
 Assuming that you have configured the `HEADLESS_CHROME` environment
 variable (see before), you can start headless Chrome:
@@ -135,12 +139,12 @@ You will see in the R console:
     <Promise [pending]>
 
 This is a promise object that is fulfilled when Chromium/Chrome sends
-back to R a message telling that the command completes. This comes from
-the fact that the `Page$navigate()` function is also asynchronous. All
-the asynchronous methods possess a `callback` argument. When the R
-session receives the result of the command from Chrome, R executes this
-callback function passing the result object to this function. For
-instance, you can
+back to R a message telling that the command was well-received. This
+comes from the fact that the `Page$navigate()` function is also
+asynchronous. All the asynchronous methods possess a `callback`
+argument. When the R session receives the result of the command from
+Chrome, R executes this callback function passing the result object to
+this function. For instance, you can
 execute:
 
 ``` r
@@ -156,11 +160,11 @@ object object in RStudio:
 ![rOpenSci website in headless
 Chrome](https://user-images.githubusercontent.com/19177171/56867269-9cc29000-69e3-11e9-8fa4-ca238d3b3566.png)
 
-`crrri` supports the `rlang`’s lambda functions. So, you can write a
-more compact form:
+To inspect the result of a command you can pass the `print` function to
+the `callback` argument:
 
 ``` r
-Page$navigate(url = "https://ropensci.org/", callback = ~ print(.x))
+Page$navigate(url = "https://ropensci.org/", callback = print)
 ```
 
     #> $frameId
@@ -195,7 +199,7 @@ function.
 To sum up, these two forms perform the same actions:
 
 ``` r
-Page$navigate(url = "http://r-project.org", callback = ~ print(.x))
+Page$navigate(url = "http://r-project.org", callback = print)
 Page$navigate(url = "http://r-project.org") %...>% print()
 ```
 
@@ -219,7 +223,69 @@ closed](https://user-images.githubusercontent.com/19177171/56867276-a4823480-69e
 Now, you can take some time to discover all the commands and events of
 the [Chrome DevTools
 Protocol](https://chromedevtools.github.io/devtools-protocol/). The
-following examples will introduce you some of them.
+following examples will introduce some of them.
+
+### Domains, commands and events listeners
+
+While working interactively, you can obtain the list of available
+domains in your version of Chromium/Chrome.  
+First, launch Chromium/Chrome and connect the R session to headless
+Chromium/Chrome:
+
+``` r
+chrome <- Chrome$new()
+client <- chrome$connect(~ .x$inspect())
+```
+
+Once connected, you just have to print the connection object to get
+informations about the connection and availables domains:
+
+``` r
+client
+```
+
+    #> <CDP CONNECTION>
+    #> connected to: http://localhost:9222/
+    #>  target type: "page"
+    #>    target ID: "9A576420CADEA9A514C5F027D30B410D"
+    #> <DOMAINS>
+    #> 
+    #> Accessibility (experimental)
+    #> 
+    #> Animation (experimental)
+    #> 
+    #> ApplicationCache (experimental)
+    #> 
+    #> Audits (experimental): Audits domain allows investigation of page violations and possible improvements.
+    #> 
+    #> Browser: The Browser domain defines methods and events for browser managing.
+    #> 
+    #> CacheStorage (experimental)
+    #> 
+    #> Cast (experimental): A domain for interacting with Cast, Presentation API, and Remote Playback API functionalities.
+    ...
+
+These informations are directly retrieved from Chromium/Chrome: you may
+obtain different informations depending on the Chromium/Chrome version.
+
+In the most recent versions of the Chrome DevTools Protocol, more than
+40 domains are available. A domain is a set of commands and events
+listeners.
+
+In order to work with a domain, it is recommended to extract it from the
+connection object. For instance, if you want to access to the `Runtime`
+domain, execute:
+
+``` r
+Runtime <- client$Runtime
+```
+
+If you print this object, this will open the online documentation about
+this domain in your browser:
+
+``` r
+Runtime # opens the online documentation in a browser
+```
 
 ## Examples
 
@@ -456,6 +522,8 @@ Suggested dependency and you may need to install it manually if not
 already installed.
 
 ## Credits
+
+Andrea Cardaci for `chrome-remote-interface`.
 
 Miles McBain for `chradle`.
 

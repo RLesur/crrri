@@ -107,6 +107,11 @@ test_that("connect() raises an error (or return a rejected promise) when there i
   expect_error(hold(client_pr))
 })
 
+test_that("when printed, the connection object returns informations about domains", {
+  client <- hold(chrome$connect())
+  expect_output(print(client), "<DOMAINS>")
+})
+
 test_that("Command-A command without a callback returns a promise whose value is a named list", {
   client <- hold(chrome$connect())
   pr <- client$Page$enable()
