@@ -64,7 +64,7 @@ a delay. It can be used with any pipe and any object (see examples)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crrri</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.10</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.11</span>
       </span>
     </div>
 
@@ -147,10 +147,11 @@ fulfilled promise.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The value of the returned promise depends on the class of <code>x</code>. If <code>x</code> can
-be coerced to a <a href='https://www.rdocumentation.org/packages/promises/topics/promise'>promise</a> (using <code><a href='https://www.rdocumentation.org/packages/promises/topics/is.promise'>promises::as.promise()</a></code>),
-the value of the returned promise is identical to the value of
-<code><a href='https://www.rdocumentation.org/packages/promises/topics/is.promise'>promises::as.promise(x)</a></code> once fulfilled; otherwise the value of the
-returned promise is <code>x</code> after the delay.</p>
+be coerced to a <a href='https://www.rdocumentation.org/packages/promises/topics/promise'>promise</a> (using
+<a href='https://www.rdocumentation.org/packages/promises/topics/is.promise'>promises::as.promise()</a>), the value of the returned
+promise is identical to the value of <code><a href='https://www.rdocumentation.org/packages/promises/topics/is.promise'>promises::as.promise(x)</a></code> once
+fulfilled; otherwise the value of the returned promise is <code>x</code> after the
+delay.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

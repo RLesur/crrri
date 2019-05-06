@@ -65,7 +65,7 @@ Chrome Debugging Protocol." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crrri</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.10</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.11</span>
       </span>
     </div>
 
@@ -134,10 +134,10 @@ Chrome Debugging Protocol.</p>
                      retry_delay = 0.2, max_attempts = 15L)
     remote$connect(callback = NULL)
 remote$listConnections()
-remote$closeConnections()
+remote$closeConnections(callback = NULL)
 remote$version()
 remote$user_agent
-    remote$close()
+    remote$close(async = FALSE)
 remote$view()
 remote$is_alive()
 </pre>
@@ -163,33 +163,38 @@ in headless mode.</p></li>
 connect to headless Chromium/Chrome.</p></li>
 <li><p><code>max_attempts</code>: Logical scalar, number of tries to connect to headless
 Chromium/Chrome.</p></li>
-<li><p><code>callback</code>: Function with one argument, executed when the R session is
-connected to Chrome. The connection object is passed to this function.</p></li>
-<li><p><code>.target_id</code>: A character scalar, identifier of the tab. The default value
-corresponds to the last created tab. For advanced use only.</p></li>
+<li><p><code>callback</code>: Function with one argument.</p></li>
+<li><p><code>async</code>: Does the function return a promise?</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
     <p><code>$new()</code> opens a new headless Chromium/Chrome.</p>
-<p><code>$connect(callback = NULL, .target_id = "default")</code> connects the R session to
-the remote instance of headless Chromium/Chrome. The returned value depends
-on the value of the <code>callback</code> argument. When <code>callback</code> is a function, the
-returned value is a connection object. When <code>callback</code> is <code>NULL</code> the returned
-value is a promise which becomes fulfilled once R is connected to the remote
-instance of Chromium/Chrome. Once fulfilled, the value of this promise is the
-connection object.</p>
+<p><code>$connect(callback = NULL)</code> connects the R session to the remote instance of
+headless Chromium/Chrome. The returned value depends on the value of the
+<code>callback</code> argument. When <code>callback</code> is a function, the returned value is a
+connection object. When <code>callback</code> is <code>NULL</code> the returned value is a promise
+which fulfills once R is connected to the remote instance of Chromium/Chrome.
+Once fulfilled, the value of this promise is the connection object.</p>
 <p><code>$listConnections()</code> returns a list of the connection objects succesfully
 created using the <code>$connect()</code> method.</p>
 <p><code>$closeConnections(callback = NULL)</code> closes all the connections created using the
-<code>$connect()</code> method. Returns a promise which is resolved when all connections
-are closed.</p>
+<code>$connect()</code> method.  If <code>callback</code> is <code>NULL</code>, it returns a promise which
+fulfills when all the connections are closed: once fulfilled, its value is the
+remote object.
+If <code>callback</code> is not <code>NULL</code>, it returns the remote object. In this case,
+<code>callback</code> is called when all the connections are closed and the remote object is
+passed to this function as the argument.</p>
 <p><code>$version()</code> executes the DevTools <code>Version</code> method. It returns a list of
 informations available at <code>http://localhost:&lt;debug_port&gt;/json/version</code>.</p>
 <p><code>$user_agent</code> returns a character scalar with the User Agent of the
 headless Chromium/Chrome.</p>
-<p><code>$close()</code> closes the remote instance of headless Chromium/Chrome.</p>
+<p><code>$close(async = FALSE)</code> closes the remote instance of headless
+Chromium/Chrome. If <code>async</code> is <code>FALSE</code> this method returns the <code>remote</code>
+object invisibly. Is <code>async</code> is <code>TRUE</code>, a promise is returned. This promise
+fulfills when Chromium/Chrome is closed. Once fulfilled, its value is the
+<code>remote</code> object.</p>
 <p><code>$view()</code> opens a visible Chromium/Chrome browser at
 <code>http://localhost:&lt;debug_port&gt;</code>. This is useful to 'see' the headless
 Chromium/Chrome instance. Returns the process of the visible browser.</p>
