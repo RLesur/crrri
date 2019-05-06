@@ -74,7 +74,7 @@ chrome_execute <- function(
   if(is.null(.list)) {
     funs <- list(...)
   } else {
-    stopifnot(is.list(.list))
+    assert_that(is_list(.list))
     funs <- .list
   }
 

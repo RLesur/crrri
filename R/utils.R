@@ -59,6 +59,14 @@ check_is_single_param_fun <- function(x) {
   assertthat::assert_that(is_single_param_fun(x))
 }
 
+is_list <- function(x) {
+  rlang::is_list(x)
+}
+
+assertthat::on_failure(is_list) <- function(call, env) {
+  paste0(deparse(call$x), " must be a list.")
+}
+
 # http helpers ------------------------------------------------------------
 
 is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attempts = 15L) {

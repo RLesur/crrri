@@ -100,7 +100,7 @@ context("test chrome_execute")
 
 test_that("funs pass as .list must be a list", {
   fun <- function(client) 1
-  expect_error(chrome_execute(.list = fun), regexp = ".list is not a list")
+  expect_error(chrome_execute(.list = fun), regexp = ".list must be a list")
 })
 
 test_that("With only 1 argument chrome_execute() returns the value of the async function invisibly", {
