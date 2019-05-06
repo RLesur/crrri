@@ -4,11 +4,11 @@ NULL
 
 #' Execute an asynchronous CDP flow with Chrome
 #'
-#' The `chrome_execute()` function executes an asynchronous Chrome DevTools
+#' The `perform_with_chrome()` function executes an asynchronous Chrome DevTools
 #' Protocol flow with Chromium/Chrome and can turn it into a synchronous function.
 #' An asynchronous remote flow is a function that takes a connection object and
 #' returns a [promise][promises::promise].
-#' If several functions are passed to `chrome_executes()`, their execution is
+#' If several functions are passed to `perform_with_chromes()`, their execution is
 #' serial. If one of the asynchronous functions fails, the whole execution also
 #' fails.
 #'
@@ -18,7 +18,7 @@ NULL
 #' @param timeouts A vector of timeouts applied to each asynchronous function.
 #'     Repeated.
 #' @param cleaning_timeout The delay for cleaning Chrome.
-#' @param async Is the result a promise? Required for using `chrome_execute()`
+#' @param async Is the result a promise? Required for using `perform_with_chrome()`
 #'     in Shiny.
 #' @param bin Character scalar, the path to Chromium or Chrome executable.
 #' @param debug_port Integer scalar, the Chromium/Chrome remote debugging port.
@@ -61,12 +61,12 @@ NULL
 #' save_as_pdf <- function(...) {
 #'   list(...) %>%
 #'     purrr::map(async_save_as_pdf) %>%
-#'     chrome_execute(.list = .)
+#'     perform_with_chrome(.list = .)
 #' }
 #'
 #' save_as_pdf("https://www.r-project.org/", "https://rstudio.com/")
 #' }
-chrome_execute <- function(
+perform_with_chrome <- function(
   ..., .list = NULL, timeouts = 30, cleaning_timeout = 30, async = FALSE,
   bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
   extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
@@ -103,7 +103,7 @@ chrome_execute <- function(
       res <- (fun)(value)
       # fun must be an async function, i.e. a function that returns a promise
       if(!promises::is.promising(res)) {
-        stop(paste0("Function n-", index, " passed to chrome_execute does not return a promise."))
+        stop(paste0("Function n-", index, " passed to perform_with_chrome does not return a promise."))
       }
       res
     })

@@ -27,9 +27,9 @@ pdf_rstudio <- function(client) {
   }
 }
 
-chrome_execute(pdf_rproject)
+perform_with_chrome(pdf_rproject)
 
-chrome_execute(pdf_rproject, pdf_rstudio)
+perform_with_chrome(pdf_rproject, pdf_rstudio)
 
 async_save_as_pdf <- function(url) {
   function(client) {
@@ -51,11 +51,11 @@ async_save_as_pdf <- function(url) {
 save_as_pdf <- function(...) {
   list(...) %>%
     purrr::map(async_save_as_pdf) %>%
-    chrome_execute(.list = .)
+    perform_with_chrome(.list = .)
 }
 
 save_as_pdf("https://www.r-project.org/", "https://rstudio.com/")
 
 maf = function(client) {1}
 
-a= chrome_execute(maf)
+a= perform_with_chrome(maf)

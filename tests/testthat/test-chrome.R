@@ -96,38 +96,38 @@ test_that("once closed, is_alive() return FALSE", {
 })
 
 
-context("test chrome_execute")
+context("test perform_with_chrome")
 
 test_that("funs pass as .list must be a list", {
   fun <- function(client) 1
-  expect_error(chrome_execute(.list = fun), regexp = ".list must be a list")
+  expect_error(perform_with_chrome(.list = fun), regexp = ".list must be a list")
 })
 
-test_that("With only 1 argument chrome_execute() returns the value of the async function invisibly", {
+test_that("With only 1 argument perform_with_chrome() returns the value of the async function invisibly", {
   value <- runif(1)
   async_fun <- function(client) {
     promises::promise_resolve(value)
   }
-  expect_identical(chrome_execute(async_fun), value)
+  expect_identical(perform_with_chrome(async_fun), value)
   # if not async, return invisibly
-  expect_invisible(chrome_execute(async_fun, async = FALSE))
+  expect_invisible(perform_with_chrome(async_fun, async = FALSE))
   # if async, result is a promise
-  pr <- chrome_execute(async_fun, async = TRUE)
+  pr <- perform_with_chrome(async_fun, async = TRUE)
   expect_s3_class(pr, "promise")
   hold(pr)
 })
 
 
-test_that("With multiple argument, chrome_execute() return a list with the values of the async functions", {
+test_that("With multiple argument, perform_with_chrome() return a list with the values of the async functions", {
   values <- as.list(runif(3))
   async_funs <- purrr::map(values, ~ function(client) promises::promise_resolve(.x))
-  expect_identical(do.call(chrome_execute, async_funs), values)
+  expect_identical(do.call(perform_with_chrome, async_funs), values)
 })
 
 test_that("rejects if one promises get rejected", {
   async_funs <- list(fun1 = function(client) promises::promise_resolve(1L),
                      fun2 = function(client) promises::promise_reject("fun2 rejected"))
-  expect_error(chrome_execute(.list = async_funs), "fun2 rejected")
+  expect_error(perform_with_chrome(.list = async_funs), "fun2 rejected")
 })
 
 test_that("timeouts are respected and recycled (using JS in chrome)", {
@@ -154,12 +154,12 @@ test_that("timeouts are respected and recycled (using JS in chrome)", {
     async_fun(500),
     async_fun(3000)
   )
-  expect_error(chrome_execute(.list = async_funs, timeouts = c(30, 1)),
+  expect_error(perform_with_chrome(.list = async_funs, timeouts = c(30, 1)),
                "The delay of 1 seconds expired in async function n-2.")
-  expect_error(chrome_execute(.list = async_funs, timeouts = c(2)),
+  expect_error(perform_with_chrome(.list = async_funs, timeouts = c(2)),
                "The delay of 2 seconds expired in async function n-2.")
   skip_on_os("windows")
-  expect_error(chrome_execute(.list = async_funs, timeouts = c(1)),
+  expect_error(perform_with_chrome(.list = async_funs, timeouts = c(1)),
                "The delay of 1 seconds expired in async function n-2.")
 })
 
@@ -172,16 +172,16 @@ test_that("timeouts are respected and recycled (using R only)", {
       promises::promise(~later::later(~resolve(2), delay = 3))
     }
   )
-  expect_error(chrome_execute(.list = async_funs, timeouts = c(30, 1)),
+  expect_error(perform_with_chrome(.list = async_funs, timeouts = c(30, 1)),
                "The delay of 1 seconds expired in async function n-2.")
-  expect_error(chrome_execute(.list = async_funs, timeouts = c(2)),
+  expect_error(perform_with_chrome(.list = async_funs, timeouts = c(2)),
                "The delay of 2 seconds expired in async function n-2.")
   skip_on_os("windows")
-  expect_error(chrome_execute(.list = async_funs, timeouts = c(1)),
+  expect_error(perform_with_chrome(.list = async_funs, timeouts = c(1)),
                "The delay of 1 seconds expired in async function n-2.")
 })
 
 test_that("funs must be async functions", {
   fun <- function(client) 1
-  expect_error(chrome_execute(fun))
+  expect_error(perform_with_chrome(fun))
 })
