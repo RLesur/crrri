@@ -2,6 +2,142 @@
 #' @importFrom assertthat assert_that is.scalar is.number
 NULL
 
+#' Execute an asynchronous CDP flow with Chrome
+#'
+#' The `perform_with_chrome()` function executes an asynchronous Chrome DevTools
+#' Protocol flow with Chromium/Chrome and can turn it into a synchronous function.
+#' An asynchronous remote flow is a function that takes a connection object and
+#' returns a [promise][promises::promise].
+#' If several functions are passed to `perform_with_chromes()`, their execution is
+#' serial. If one of the asynchronous functions fails, the whole execution also
+#' fails.
+#'
+#' @param ... Asynchronous remote flow functions.
+#' @param .list A list of asynchronous remote flow functions - an alternative to
+#' `...`.
+#' @param timeouts A vector of timeouts applied to each asynchronous function.
+#'     Repeated.
+#' @param cleaning_timeout The delay for cleaning Chrome.
+#' @param async Is the result a promise? Required for using `perform_with_chrome()`
+#'     in Shiny.
+#' @param bin Character scalar, the path to Chromium or Chrome executable.
+#' @param debug_port Integer scalar, the Chromium/Chrome remote debugging port.
+#' @param local Logical scalar, indicating whether the local version of the
+#'     protocol (embedded in `crrri`) must be used or the protocol must be
+#'     fetched _remotely_.
+#' @param extra_args Character vector, extra command line arguments passed to
+#'     Chromium/Chrome.
+#' @param headless Logical scalar, indicating whether Chromium/Chrome is launched
+#'     in headless mode.
+#' @param retry_delay Number, delay in seconds between two successive tries to
+#'     connect to headless Chromium/Chrome.
+#' @param max_attempts Logical scalar, number of tries to connect to headless
+#'     Chromium/Chrome.
+#'
+#' @return An invisible list with the values of the fulfilled promises for each
+#'     async function.d If there is only async function, the return value is the value of the
+#'     fulfilled promise.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' async_save_as_pdf <- function(url) {
+#'   function(client) {
+#'     Page <- client$Page
+#'
+#'     Page$enable() %...>% {
+#'       Page$navigate(url = url)
+#'       Page$loadEventFired()
+#'     } %...>% {
+#'       Page$printToPDF()
+#'     } %...>% {
+#'       .$data %>%
+#'         jsonlite::base64_dec() %>%
+#'         writeBin(paste0(httr::parse_url(url)$hostname, ".pdf"))
+#'     }
+#'   }
+#' }
+#'
+#' save_as_pdf <- function(...) {
+#'   list(...) %>%
+#'     purrr::map(async_save_as_pdf) %>%
+#'     perform_with_chrome(.list = .)
+#' }
+#'
+#' save_as_pdf("https://www.r-project.org/", "https://rstudio.com/")
+#' }
+perform_with_chrome <- function(
+  ..., .list = NULL, timeouts = 30, cleaning_timeout = 30, async = FALSE,
+  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
+  extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
+) {
+  if(is.null(.list)) {
+    funs <- list(...)
+  } else {
+    assert_that(is_list(.list))
+    funs <- .list
+  }
+
+  # check arguments
+  purrr::walk(funs, check_is_single_param_fun)
+  assert_that(is.numeric(timeouts))
+  assert_that(is.number(cleaning_timeout))
+
+  # initialize objects
+  timeouts <- rep_len(timeouts, length(funs))
+  total_timeout <- sum(timeouts) + cleaning_timeout
+
+  # launch Chrome
+  chrome <- Chrome$new(
+    bin = bin, debug_port = debug_port, local = local, extra_args = extra_args,
+    headless = headless, retry_delay = retry_delay, max_attempts = max_attempts
+  )
+  # connect to client
+  client <- chrome$connect()
+
+  # associate a function with its timeout
+  execute_fun <- function(index) {
+    fun <- purrr::pluck(funs, index)
+    delay <- purrr::pluck(timeouts, index)
+    res <- promises::then(client, function(value) {
+      res <- (fun)(value)
+      # fun must be an async function, i.e. a function that returns a promise
+      if(!promises::is.promising(res)) {
+        stop(paste0("Function n-", index, " passed to perform_with_chrome does not return a promise."))
+      }
+      res
+    })
+    timeout(res,
+            delay = delay,
+            msg = paste0("The delay of ", delay, " seconds expired in async function n-", index, ".\n"))
+  }
+
+  all_funs_executed <- promises::promise_map(seq_along(funs), execute_fun)
+
+  # if only one fun applied, returns the element inside the length 1 list
+  results_available <- promises::then(
+    all_funs_executed,
+    onFulfilled = function(value) {
+      if(length(value) == 1L) {
+        value <- value[[1]]
+      }
+      value
+    }
+  )
+
+  results_after_cleaning <- promises::finally(results_available, onFinally = function() {
+    # it seems that using hold(), i.e. later::run_now() in finally is not a problem
+    # FMPOV, this seems completely weird, but it works well
+    chrome$close(async = FALSE)
+  })
+
+  if(isTRUE(async)) {
+    return(results_after_cleaning)
+  }
+
+  invisible(hold(results_after_cleaning, timeout = total_timeout))
+}
+
 #' Launch Chromium or Chrome
 #'
 #' This class aims to launch Chromium or Chrome in headless mode. It possesses
@@ -16,11 +152,11 @@ NULL
 #'
 #' remote$connect(callback = NULL)
 #' remote$listConnections()
-#' remote$closeConnections()
+#' remote$closeConnections(callback = NULL)
 #' remote$version()
 #' remote$user_agent
 #'
-#' remote$close()
+#' remote$close(async = FALSE)
 #' remote$view()
 #' remote$is_alive()
 #' ```
@@ -43,28 +179,29 @@ NULL
 #'     connect to headless Chromium/Chrome.
 #' * `max_attempts`: Logical scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
-#' * `callback`: Function with one argument, executed when the R session is
-#'     connected to Chrome. The connection object is passed to this function.
-#' * `.target_id`: A character scalar, identifier of the tab. The default value
-#'     corresponds to the last created tab. For advanced use only.
+#' * `callback`: Function with one argument.
+#' * `async`: Does the function return a promise?
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome.
 #'
-#' `$connect(callback = NULL, .target_id = "default")` connects the R session to
-#' the remote instance of headless Chromium/Chrome. The returned value depends
-#' on the value of the `callback` argument. When `callback` is a function, the
-#' returned value is a connection object. When `callback` is `NULL` the returned
-#' value is a promise which becomes fulfilled once R is connected to the remote
-#' instance of Chromium/Chrome. Once fulfilled, the value of this promise is the
-#' connection object.
+#' `$connect(callback = NULL)` connects the R session to the remote instance of
+#' headless Chromium/Chrome. The returned value depends on the value of the
+#' `callback` argument. When `callback` is a function, the returned value is a
+#' connection object. When `callback` is `NULL` the returned value is a promise
+#' which fulfills once R is connected to the remote instance of Chromium/Chrome.
+#' Once fulfilled, the value of this promise is the connection object.
 #'
 #' `$listConnections()` returns a list of the connection objects succesfully
 #' created using the `$connect()` method.
 #'
 #' `$closeConnections(callback = NULL)` closes all the connections created using the
-#' `$connect()` method. Returns a promise which is resolved when all connections
-#' are closed.
+#' `$connect()` method.  If `callback` is `NULL`, it returns a promise which
+#' fulfills when all the connections are closed: once fulfilled, its value is the
+#' remote object.
+#' If `callback` is not `NULL`, it returns the remote object. In this case,
+#' `callback` is called when all the connections are closed and the remote object is
+#' passed to this function as the argument.
 #'
 #' `$version()` executes the DevTools `Version` method. It returns a list of
 #' informations available at `http://localhost:<debug_port>/json/version`.
@@ -72,7 +209,11 @@ NULL
 #' `$user_agent` returns a character scalar with the User Agent of the
 #' headless Chromium/Chrome.
 #'
-#' `$close()` closes the remote instance of headless Chromium/Chrome.
+#' `$close(async = FALSE)` closes the remote instance of headless
+#' Chromium/Chrome. If `async` is `FALSE` this method returns the `remote`
+#' object invisibly. Is `async` is `TRUE`, a promise is returned. This promise
+#' fulfills when Chromium/Chrome is closed. Once fulfilled, its value is the
+#' `remote` object.
 #'
 #' `$view()` opens a visible Chromium/Chrome browser at
 #' `http://localhost:<debug_port>`. This is useful to 'see' the headless
@@ -148,7 +289,10 @@ Chrome <- R6::R6Class(
         private$finalize()
       }
     },
-    close = function() {
+    close = function(async = FALSE) {
+      if(isTRUE(async)) {
+        return(private$.async_finalizer())
+      }
       invisible(private$finalize())
     },
     view = function() {
@@ -175,7 +319,7 @@ Chrome <- R6::R6Class(
     .bin = NULL,
     .work_dir = NULL,
     .process = NULL,
-    finalize = function() {
+    .async_finalizer = function() {
       clients_disconnected <- timeout(
         self$closeConnections(),
         delay = 10,
@@ -191,7 +335,7 @@ Chrome <- R6::R6Class(
       )
       # now, kill chrome and clean the working directory
       killed_and_cleaned <- promises::finally(
-        caught,
+        clients_disconnected,
         onFinally = function() {
           killed <- !private$.process$is_alive()
           if (!killed) {
@@ -208,6 +352,10 @@ Chrome <- R6::R6Class(
           chr_clean_work_dir(private$.work_dir)
         }
       )
+      killed_and_cleaned
+    },
+    finalize = function() {
+      killed_and_cleaned <- private$.async_finalizer()
       # since we are in finalize(), we can use hold() safely:
       hold(
         killed_and_cleaned,

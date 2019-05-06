@@ -38,6 +38,35 @@ assertthat::on_failure(is_available_port) <- function(call, env) {
   paste0("Port ", deparse(call$x), " already in use. Maybe is headless Chrome already running?")
 }
 
+is_function <- function(x) {
+  rlang::is_function(x)
+}
+
+assertthat::on_failure(is_function) <- function(call, env) {
+  paste0(deparse(call$x), "must be a function.")
+}
+
+is_single_param_fun <- function(x) {
+  assertthat::assert_that(is_function(x))
+  length(rlang::fn_fmls(x)) == 1L
+}
+
+assertthat::on_failure(is_single_param_fun) <- function(call, env) {
+  paste0("Function ", deparse(call$x), " must have one parameter and only one.")
+}
+
+check_is_single_param_fun <- function(x) {
+  assertthat::assert_that(is_single_param_fun(x))
+}
+
+is_list <- function(x) {
+  rlang::is_list(x)
+}
+
+assertthat::on_failure(is_list) <- function(call, env) {
+  paste0(deparse(call$x), " must be a list.")
+}
+
 # http helpers ------------------------------------------------------------
 
 is_remote_reachable <- function(host, port, secure, retry_delay = 0.2, max_attempts = 15L) {

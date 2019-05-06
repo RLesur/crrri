@@ -21,10 +21,11 @@ a delay. It can be used with any pipe and any object (see examples).
 }
 \details{
 The value of the returned promise depends on the class of \code{x}. If \code{x} can
-be coerced to a \link[promises:promise]{promise} (using \code{\link[promises:as.promise]{promises::as.promise()}}),
-the value of the returned promise is identical to the value of
-\code{promises::as.promise(x)} once fulfilled; otherwise the value of the
-returned promise is \code{x} after the delay.
+be coerced to a \link[promises:promise]{promise} (using
+\link[promises:is.promise]{promises::as.promise()}), the value of the returned
+promise is identical to the value of \code{promises::as.promise(x)} once
+fulfilled; otherwise the value of the returned promise is \code{x} after the
+delay.
 }
 \examples{
 \donttest{

@@ -337,6 +337,8 @@ CDPConnexion <- R6::R6Class(
     on = function(eventName, callback = NULL) {
       if(is.null(callback)) {
         return(self$once(eventName))
+      } else {
+        callback <- rlang::as_function(callback)
       }
       super$on(eventName, callback)
     },
@@ -359,6 +361,8 @@ CDPConnexion <- R6::R6Class(
           onerror(err)
         })
         return(pr)
+      } else {
+        callback <- rlang::as_function(callback)
       }
       super$once(eventName, callback)
     },
@@ -366,25 +370,51 @@ CDPConnexion <- R6::R6Class(
       private$.CDPSession_con$readyState()
     },
     disconnect = function(callback = NULL) {
-      if(!is.null(callback)) {
-        callback <- rlang::as_function(callback)
+      # Variables initialization
+      pr <- NULL
+      onerror <- NULL
+      rm_onerror <- NULL
+      rm_onsuccess <- NULL
+      if(async <- is.null(callback)) {
+        pr <- promises::promise(function(resolve, reject) {
+          onerror <<- reject
+          callback <<- resolve
+        })
+      } else {
+        onerror <- stop
       }
-      # if the connection is already closed, return early
+      callback <- rlang::as_function(callback) # in case of a user-supplied rlang lambda function
+
+      # if the connection is already closed, the `disconnect` event will never fire
       if(self$readyState() == 3L) {
-        if(!is.null(callback)) {
-          on.exit(do.call(callback, list(self)), add = TRUE)
-          return(invisible(self))
+        on.exit(do.call(callback, list(self)), add = TRUE)
+        if(async) {
+          return(pr)
         } else {
-          return(promises::promise_resolve(self))
+          return(invisible(self))
         }
       }
+
       # here, we know that the connection is not closed
       # the `disconnect` event will fire.
+      rm_onsuccess <- super$once("disconnect", listener = function(client) {
+        rm_onerror()
+        callback(client)
+      })
+      rm_onerror <- super$once("error", listener = function(err) {
+        rm_onsuccess()
+        onerror(err$message)
+      })
+
       # If the connection is not closing, send the close command:
       if(self$readyState() < 2L) {
         on.exit(private$.CDPSession_con$close(), add = TRUE)
       }
-      self$once("disconnect", callback = callback)
+
+      if(async) {
+        return(pr)
+      }
+      invisible(self)
     },
     print = function() {
       domains <- self$.__protocol__$domains

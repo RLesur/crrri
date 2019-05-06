@@ -4,10 +4,11 @@
 #' a delay. It can be used with any pipe and any object (see examples).
 #'
 #' The value of the returned promise depends on the class of `x`. If `x` can
-#' be coerced to a [promise][promises::promise] (using [promises::as.promise()]),
-#' the value of the returned promise is identical to the value of
-#' `promises::as.promise(x)` once fulfilled; otherwise the value of the
-#' returned promise is `x` after the delay.
+#' be coerced to a [promise][promises::promise] (using
+#' [promises::as.promise()][promises::is.promise]), the value of the returned
+#' promise is identical to the value of `promises::as.promise(x)` once
+#' fulfilled; otherwise the value of the returned promise is `x` after the
+#' delay.
 #'
 #' @param x An object.
 #' @param delay Number of seconds before resolving the promise.
