@@ -97,7 +97,7 @@ https://chromedevtools.github.io/devtools-protocol/#endpoints." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/RLesur/criii">
+  <a href="https://github.com/RLesur/crrri">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -115,7 +115,7 @@ https://chromedevtools.github.io/devtools-protocol/#endpoints." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Chrome Debugging Protocol HTTP methods</h1>
-    <small class="dont-index">Source: <a href='https://github.com/RLesur/criii/blob/master/R/http_methods.R'><code>R/http_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/RLesur/crrri/blob/master/R/http_methods.R'><code>R/http_methods.R</code></a></small>
     <div class="hidden name"><code>http-methods.Rd</code></div>
     </div>
 
@@ -207,7 +207,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "537.36 (@518a41c1fa7ce1c8bb5e22346e82e42b4d76a96f)"
 #&gt; 
 #&gt; $webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/browser/f2027185-71e1-4f3d-84de-7a0c95eb8ab5"
+#&gt; [1] "ws://localhost:9222/devtools/browser/8a0f766a-3ea1-451f-855f-655d0188e837"
 #&gt; </div><div class='input'><span class='co'># fetch the Chromium/Chrome protocol</span>
 <span class='no'>protocol</span> <span class='kw'>&lt;-</span> <span class='fu'>fetch_protocol</span>()
 
@@ -217,10 +217,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[1]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/18EE6EACB964A4885CE9C42A5D8C5E92"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/3CF36602BF3C90052F9E114B813C798D"
 #&gt; 
 #&gt; [[1]]$id
-#&gt; [1] "18EE6EACB964A4885CE9C42A5D8C5E92"
+#&gt; [1] "3CF36602BF3C90052F9E114B813C798D"
 #&gt; 
 #&gt; [[1]]$title
 #&gt; [1] "about:blank"
@@ -232,7 +232,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "about:blank"
 #&gt; 
 #&gt; [[1]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/18EE6EACB964A4885CE9C42A5D8C5E92"
+#&gt; [1] "ws://localhost:9222/devtools/page/3CF36602BF3C90052F9E114B813C798D"
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># open an url in a new tab</span>
 <span class='no'>new_target</span> <span class='kw'>&lt;-</span> <span class='fu'>new_tab</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://r-project.org"</span>)
@@ -242,10 +242,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[1]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/F5BCDA876D0ECFA02985DF89C761A8F5"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/9E72C58F50CCBF938A099D176412F93A"
 #&gt; 
 #&gt; [[1]]$id
-#&gt; [1] "F5BCDA876D0ECFA02985DF89C761A8F5"
+#&gt; [1] "9E72C58F50CCBF938A099D176412F93A"
 #&gt; 
 #&gt; [[1]]$title
 #&gt; [1] ""
@@ -257,7 +257,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "http://r-project.org/"
 #&gt; 
 #&gt; [[1]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/F5BCDA876D0ECFA02985DF89C761A8F5"
+#&gt; [1] "ws://localhost:9222/devtools/page/9E72C58F50CCBF938A099D176412F93A"
 #&gt; 
 #&gt; 
 #&gt; [[2]]
@@ -265,10 +265,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[2]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/18EE6EACB964A4885CE9C42A5D8C5E92"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/3CF36602BF3C90052F9E114B813C798D"
 #&gt; 
 #&gt; [[2]]$id
-#&gt; [1] "18EE6EACB964A4885CE9C42A5D8C5E92"
+#&gt; [1] "3CF36602BF3C90052F9E114B813C798D"
 #&gt; 
 #&gt; [[2]]$title
 #&gt; [1] "about:blank"
@@ -280,7 +280,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "about:blank"
 #&gt; 
 #&gt; [[2]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/18EE6EACB964A4885CE9C42A5D8C5E92"
+#&gt; [1] "ws://localhost:9222/devtools/page/3CF36602BF3C90052F9E114B813C798D"
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># inspect a target in a web browser</span>
 <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) <span class='fu'>inspect_target</span>(<span class='kw'>target_id</span> <span class='kw'>=</span> <span class='no'>new_target</span>$<span class='no'>id</span>)
