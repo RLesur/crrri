@@ -5,3 +5,22 @@ template:
     bootswatch: simplex
 development:
   mode: unreleased
+reference:
+- title: Chrome browser class
+  desc:  Functions to deal with running chrome
+  contents:
+  - Chrome
+- title: About Promises
+  desc: Functions to wait for promises
+  contents:
+  - hold
+  - wait
+  - timeout
+- title: Chrome Devtool Protocol Class
+  desc: Functions to play with the protocol
+  contents:
+  - starts_with("CDP")
+- title: EventEmitter
+  desc: Class to use events
+  contents:
+  - EventEmitter
