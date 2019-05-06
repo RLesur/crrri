@@ -10,17 +10,17 @@ reference:
   desc:  Functions to deal with running chrome
   contents:
   - Chrome
-- title: About Promises
+- title: Promises utility functions
   desc: Functions to wait for promises
   contents:
   - hold
   - wait
   - timeout
-- title: Chrome Devtool Protocol Class
+- title: Chrome DevTools Protocol classes
   desc: Functions to play with the protocol
   contents:
   - starts_with("CDP")
 - title: EventEmitter
-  desc: Class to use events
+  desc: Class to deal with events
   contents:
   - EventEmitter
