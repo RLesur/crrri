@@ -1,7 +1,7 @@
 Package: crrri
 Type: Package
 Title: An interface with headless Chromium/Chrome
-Version: 0.0.9
+Version: 0.0.10
 Authors@R: c(
     person("Romain", "Lesur", role = c("aut", "cre"), email = "romain.lesur@gmail.com", comment = c(ORCID = "0000-0002-0721-5595")),
     person("Christophe", "Dervieux", role = c("aut", "cph"), email = "christophe.dervieux@gmail.com", comment = c(ORCID = "0000-0003-4474-2498")),
