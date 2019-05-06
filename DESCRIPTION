@@ -12,7 +12,8 @@ Authors@R: c(
 Maintainer: Romain Lesur <romain.lesur@gmail.com>
 Description: This is a native implementation of the Chrome DevTools Protocol.
 License: MIT + file LICENSE
-URL: https://github.com/RLesur/criii
+URL: https://rlesur.github.io/crrri/, https://github.com/RLesur/criii
+BugReports: https://github.com/RLesur/criii/issues
 SystemRequirements: Chromium or Chrome
 Imports:
     assertthat,
