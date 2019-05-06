@@ -1,5 +1,5 @@
 destination: docs
-url: http://RLesur.github.io/crrri
+url: https://rlesur.github.io/crrri
 template:
   params:
     bootswatch: simplex
