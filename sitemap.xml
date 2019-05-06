@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rlesur.github.io/crrri/index.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/CDPRemote.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/CDPSession.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/Chrome.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/EventEmitter.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/hold.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/http-methods.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/timeout.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/reference/wait.html</loc>
+  </url>
+  <url>
+    <loc>https://rlesur.github.io/crrri/articles/intro.html</loc>
+  </url>
+</urlset>
