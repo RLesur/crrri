@@ -214,7 +214,7 @@ CDPConnexion <- R6::R6Class(
       })
       ws$onMessage(function(event) {
         "!DEBUG Got message from Chrome: `event$data`"
-        data <- jsonlite::fromJSON(event$data)
+        data <- from_json(event$data)
         id <- data$id
         method <- data$method
         # if error, emit an error
