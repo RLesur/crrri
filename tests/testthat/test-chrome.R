@@ -1,5 +1,15 @@
 context("test-chrome")
 
+test_that("we get the proxy env var correctly", {
+  expect_identical(get_proxy(), "")
+  Sys.setenv(https_proxy = "dummy")
+  expect_identical(get_proxy(), c(https_proxy = "dummy"))
+  Sys.unsetenv("https_proxy")
+  Sys.setenv(HTTP_PROXY = "dummy")
+  expect_identical(get_proxy(), c(http_proxy = "dummy"))
+  Sys.unsetenv("HTTP_PROXY")
+})
+
 setup_chrome_test()
 
 test_that("is_alive() returns a logical", {
