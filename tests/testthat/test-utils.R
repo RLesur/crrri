@@ -79,3 +79,88 @@ test_that("kill_zombie kills Chrome", {
   expect_error(hold(CDPSession(port = 6666)))
   expect_false(zombie$is_alive())
 })
+
+test_that("is_user_port is between 1024 and 49151", {
+  expect_true(is_user_port(1056))
+  expect_true(is_user_port(1024))
+  expect_true(is_user_port(49151))
+  expect_false(is_user_port(1000))
+  expect_false(is_user_port(50000))
+})
+
+test_that("build_http_url", {
+  expect_identical(
+    build_http_url("localhost", 9222, TRUE, "path", "query"),
+    "https://localhost:9222/path?query"
+  )
+  expect_identical(
+    build_http_url("127.0.0.1", 9222, FALSE, "path", "query"),
+    "http://127.0.0.1:9222/path?query"
+  )
+})
+
+test_that("parse_ws_url handles wrong parameter", {
+  expect_null(parse_ws_url("http://localhost"))
+  expect_null(parse_ws_url("ws://"))
+  expect_null(parse_ws_url("ws://localhost"))
+  expect_null(parse_ws_url("ws://localhost:9222/xxx/yyyy"))
+  expect_null(parse_ws_url("ws://localhost:9222/xxx/yyyy/zzzz/aaaaaa"))
+  expect_null(parse_ws_url("ws://localhost:9222/xxx/yyyy/zzzz"))
+  expect_null(parse_ws_url("ws://localhost:9222/devtools/yyyy/zzzz"))
+  expect_null(parse_ws_url("ws://localhost:9222/devtools/pages/zzzz"))
+  expect_null(parse_ws_url("ws://localhost:9222/devtools/browsers/zzzz"))
+})
+
+test_that("parse_ws_url handles ws and wss url", {
+  url <- "ws://localhost:9222/devtools/page/1676G76J"
+  parsed <- parse_ws_url(url)
+  expect_s3_class(parsed, "cdp_ws_url")
+  expect_mapequal(parsed, list(
+    host = "localhost",
+    port = "9222",
+    secure = FALSE,
+    type = "page",
+    id = "1676G76J"
+  ))
+  url <- "wss://localhost:9222/devtools/page/1676G76J"
+  parsed <- parse_ws_url(url)
+  expect_s3_class(parsed, "cdp_ws_url")
+  expect_mapequal(parsed, list(
+    host = "localhost",
+    port = "9222",
+    secure = TRUE,
+    type = "page",
+    id = "1676G76J"
+  ))
+})
+
+test_that("build_ws_url handles only crrri ws url", {
+  expect_error(build_ws_url(list(
+    host = "localhost",
+    port = "9222",
+    secure = FALSE,
+    type = "page",
+    id = "1676G76J"
+  )))
+  parsed <- structure(list(
+    host = "localhost",
+    port = "9222",
+    secure = FALSE,
+    type = "page",
+    id = "1676G76J"
+  ), class = "cdp_ws_url")
+  expect_identical(build_ws_url(parsed), "ws://localhost:9222/devtools/page/1676G76J")
+  parsed <- structure(list(
+    host = "localhost",
+    port = "9222",
+    secure = TRUE,
+    type = "page",
+    id = "1676G76J"
+  ), class = "cdp_ws_url")
+  expect_identical(build_ws_url(parsed), "wss://localhost:9222/devtools/page/1676G76J")
+})
+
+test_that("stop_or_reject handles async", {
+  expect_error(stop_or_reject("error", FALSE), "^error$")
+  expect_error(hold(stop_or_reject("error", TRUE)), "^error$")
+})

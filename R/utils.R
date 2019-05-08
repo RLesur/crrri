@@ -99,7 +99,7 @@ parse_ws_url <- function(ws_url) {
   # NOTE: ws_url must be a character scalar
   ws_url <- httr::parse_url(ws_url)
   # ws_url scheme must be ws or wss:
-  if(!identical(ws_url$scheme, "ws") && !identical(ws_url, "wss")) {
+  if(!identical(ws_url$scheme, "ws") && !identical(ws_url$scheme, "wss")) {
     return(NULL)
   }
   # ws_url must contain a hostname:
@@ -237,8 +237,9 @@ new_callback_wrapper <- function(wrapper_fn, callback) {
 kill_zombie <- function(port = 9222) {
   client <- hold(CDPSession(port = port))
   hold(client$Browser$close())
-  if(client$readyState() == 3L)
+  if(client$readyState() == 3L) {
     message("zombie killed!")
-  else
-    message("zombie is still alive!")
+  } else {
+    message("zombie is still alive!") # nocov
+  }
 }
