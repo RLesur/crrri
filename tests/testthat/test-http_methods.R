@@ -85,7 +85,7 @@ test_that("is_localhost", {
   expect_false(is_localhost(""))
 })
 
-test_that("browser_url use default function if no option set", {
+test_that("browse_url use default function if no option set", {
   old_opt <- options(viewer = NULL)
   url <- "http://localhost:9222"
   expect_identical(
