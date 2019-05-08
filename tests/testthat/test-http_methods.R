@@ -97,7 +97,7 @@ test_that("browse_url use default function if no option set", {
   options(viewer = old_opt)
 })
 
-test_that("browser_url use default function if no localhost", {
+test_that("browse_url use default function if no localhost", {
   url <- "https://github.com/RLesur/crrri"
   expect_identical(
     with_mock(
