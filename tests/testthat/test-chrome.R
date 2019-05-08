@@ -13,7 +13,7 @@ test_that("we get the proxy env var correctly", {
   Sys.setenv(HTTP_PROXY = old)
 })
 
-test_that("Proxy is correctly pass to chrome", {
+test_that("Proxy is correctly passed to chrome", {
   expect_identical(get_no_proxy_urls(), c("localhost", "127.0.0.1"))
   old <- Sys.getenv("NO_PROXY")
   Sys.setenv(NO_PROXY = "noproxy1;noproxy2,noproxy3")
