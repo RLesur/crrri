@@ -1,5 +1,34 @@
 context("test-chrome")
 
+test_that("we get the proxy env var correctly", {
+  skip_on_travis()
+  expect_identical(get_proxy(), "")
+  old <- Sys.getenv("https_proxy")
+  Sys.setenv(https_proxy = "dummy")
+  expect_identical(get_proxy(), c(https_proxy = "dummy"))
+  Sys.setenv(https_proxy = old)
+  old <- Sys.getenv("HTTP_PROXY")
+  Sys.setenv(HTTP_PROXY = "dummy")
+  expect_identical(get_proxy(), c(http_proxy = "dummy"))
+  Sys.setenv(HTTP_PROXY = old)
+})
+
+test_that("Proxy is correctly passed to chrome", {
+  expect_identical(get_no_proxy_urls(), c("localhost", "127.0.0.1"))
+  old <- Sys.getenv("NO_PROXY")
+  Sys.setenv(NO_PROXY = "noproxy1;noproxy2,noproxy3")
+  expect_identical(get_no_proxy_urls(),
+                   c("localhost", "127.0.0.1", "noproxy1", "noproxy2", "noproxy3")
+  )
+  Sys.setenv(NO_PROXY = old)
+  old <- Sys.getenv("no_proxy")
+  Sys.setenv(no_proxy = "noproxy1;noproxy2,localhost")
+  expect_identical(get_no_proxy_urls(),
+                   c("localhost", "127.0.0.1", "noproxy1", "noproxy2")
+  )
+  Sys.setenv(no_proxy = old)
+})
+
 setup_chrome_test()
 
 test_that("is_alive() returns a logical", {

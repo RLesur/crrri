@@ -10,6 +10,16 @@ test_that("register with on() and emit an event", {
   expect_message(myEmitter$emit("event"), "an event occured!")
 })
 
+test_that("addListener works too", {
+  myEmitter <- EventEmitter$new()
+  myEmitter$addListener("event",
+               function() {
+                 message("an event occured!")
+               }
+  )
+  expect_message(myEmitter$emit("event"), "an event occured!")
+})
+
 test_that("register with on() and emit an events twice", {
   myEmitter <- EventEmitter$new()
   myEmitter$on("event",
@@ -105,9 +115,26 @@ test_that("rawListeners returns once registered listener with a special attribut
 
 test_that("rawListeners returns register listeners", {
   myEmitter <- EventEmitter$new()
+  expect_identical(myEmitter$rawListeners("event"), list())
   myEmitter$on("event", function(...) cat("A"))
   expect_identical(myEmitter$rawListeners("event")[[1]], function(...) cat("A"))
 })
+
+test_that("Queue works as expected", {
+  Qu <- Queue$new()
+  Qu$append("a")
+  expect_identical(Qu$count(), 1L)
+  expect_identical(Qu$get(), list("a"))
+  Qu$append("b")
+  expect_identical(Qu$get(), list("a", "b"))
+  rm_c <- Qu$prepend("c")
+  expect_identical(Qu$get(), list("c", "a", "b"))
+  rm_c()
+  expect_identical(Qu$get(), list("a", "b"))
+})
+
+
+
 
 
 
