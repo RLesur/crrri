@@ -10,6 +10,22 @@ test_that("we get the proxy env var correctly", {
   Sys.unsetenv("HTTP_PROXY")
 })
 
+test_that("Proxy is correctly pass to chrome", {
+  expect_identical(get_no_proxy_urls(), c("localhost", "127.0.0.1"))
+  old <- Sys.getenv("NO_PROXY")
+  Sys.setenv(NO_PROXY = "noproxy1;noproxy2,noproxy3")
+  expect_identical(get_no_proxy_urls(),
+                   c("localhost", "127.0.0.1", "noproxy1", "noproxy2", "noproxy3")
+  )
+  Sys.setenv(NO_PROXY = old)
+  old <- Sys.getenv("no_proxy")
+  Sys.setenv(no_proxy = "noproxy1;noproxy2,localhost")
+  expect_identical(get_no_proxy_urls(),
+                   c("localhost", "127.0.0.1", "noproxy1", "noproxy2")
+  )
+  Sys.setenv(no_proxy = old)
+})
+
 setup_chrome_test()
 
 test_that("is_alive() returns a logical", {

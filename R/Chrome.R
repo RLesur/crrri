@@ -462,10 +462,11 @@ chr_windows_args <- function(headless) {
 }
 
 chr_headless_args <- function(headless) {
-  if(isTRUE(headless))
+  if(isTRUE(headless)) {
     c("--headless")
-  else
+  } else {
     c("--new-window")
+  }
 }
 
 chr_default_args <- function() {
