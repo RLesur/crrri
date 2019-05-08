@@ -31,7 +31,7 @@ test_that("port must be a numeric or a character scalar", {
 
 setup_chrome_test()
 
-test_that("ws url can be retrieve correctly", {
+test_that("ws url can be retrieved correctly", {
   expect_match(chr_get_ws_addr(), "ws[s]?://localhost:9222/devtools/page/[A-Z0-9]+")
   expect_match(chr_get_ws_addr(port = 9222), "ws[s]?://localhost:9222/devtools/page/[A-Z0-9]+")
   expect_error(chr_get_ws_addr(secure = TRUE),
