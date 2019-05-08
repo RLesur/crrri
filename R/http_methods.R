@@ -122,7 +122,7 @@ fetch_json <- function(host, port, secure, method, query = NULL) {
     from_json(url),
     error = function(e) {
       rlang::abort(
-        message = sprintf("json protocol can't be reached at %s", url),
+        message = sprintf("json protocol cannot be reached at %s.", url),
         parent = e)
     }
   )
