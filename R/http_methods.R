@@ -118,7 +118,14 @@ inspect_target <- function(
 fetch_json <- function(host, port, secure, method, query = NULL) {
   check_host_port_args(host, port)
   url <- build_http_url(host, port, secure, path = c("json", method), query)
-  from_json(url)
+  tryCatch(
+    from_json(url),
+    error = function(e) {
+      rlang::abort(
+        message = sprintf("json protocol can't be reached at %s", url),
+        parent = e)
+    }
+  )
 }
 
 target_method <- function(host, port, secure, target_id, method) {

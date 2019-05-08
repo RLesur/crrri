@@ -6,7 +6,6 @@ test_that("ws_url must be a character scalar", {
   client <- CDPSession(ws_url = 1)
   expect_is(client, "promise")
   expect_error(hold(client), regexp = "scalar")
-  expect_error(CDPSession(ws_url = 1, callback = void_cb), regexp = "scalar")
 })
 
 test_that("a malformed ws_url throws an error or rejects the promise", {
@@ -32,6 +31,13 @@ test_that("port must be a numeric or a character scalar", {
 
 setup_chrome_test()
 
+test_that("ws url can be retrieve correctly", {
+  expect_match(chr_get_ws_addr(), "ws[s]?://localhost:9222/devtools/page/[A-Z0-9]+")
+  expect_match(chr_get_ws_addr(port = 9222), "ws[s]?://localhost:9222/devtools/page/[A-Z0-9]+")
+  expect_error(chr_get_ws_addr(secure = TRUE),
+               "https://localhost")
+})
+
 test_that("connect and disconnect methods return promises", {
   client_pr <- CDPSession()
   expect_is(client_pr, "promise")
@@ -49,6 +55,11 @@ test_that("connect and disconnect methods return promises", {
   closed_client <- hold(closed_pr)
   expect_is(closed_client, "CDPSession")
   expect_reference(closed_client, client)
+})
+
+test_that("when callback, async is FALSE and not return a promise", {
+  client <- CDPSession(callback = function(client) message("ok"))
+  expect_false(promises::is.promise(client))
 })
 
 test_that("in disconnect() when using a callback, the argument passed to the callback is the connection object and disconnect() returns self", {
