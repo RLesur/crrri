@@ -49,6 +49,10 @@ Domain <- R6::R6Class(
   private = list(
     .domain_name = NULL,
     .build_command = function(method_to_be_sent, name) {
+      # environment of the current fonction to get
+      # `method_to_be_sent` when needed
+      fn_env <- rlang::current_env()
+
       fun <- function() {
         params_to_be_sent <-
           rlang::fn_fmls_names() %>% # pick the fun arguments
@@ -59,12 +63,11 @@ Domain <- R6::R6Class(
         if(!is.null(callback)) {
           callback <- rlang::as_function(callback)
         }
-
+        # since the function parameters are not controlled,
+        # there might be some conflicts between CDP parameters and `method_to_be_sent`
+        # Therefore, we use env_get() to retrieve the correct `method_to_be_sent`
         self$.__client__$send(
-            # since the function parameters are not controlled,
-            # there might be some conflicts between CDP parameters and `method_to_be_sent`
-            # Therefore, use get() to retrieve the `method_to_be_sent`
-            get("method_to_be_sent", envir = parent.env(environment())),
+            rlang::env_get(env = fn_env, nm = "method_to_be_sent"),
             params = params_to_be_sent,
             onresponse = callback
           )
