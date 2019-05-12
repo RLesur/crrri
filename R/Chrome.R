@@ -92,6 +92,7 @@ perform_with_chrome <- function(
     bin = bin, debug_port = debug_port, local = local, extra_args = extra_args,
     headless = headless, retry_delay = retry_delay, max_attempts = max_attempts
   )
+  on.exit(chrome$close(), add = TRUE)
   # connect to client
   client <- chrome$connect()
 
@@ -125,17 +126,11 @@ perform_with_chrome <- function(
     }
   )
 
-  results_after_cleaning <- promises::finally(results_available, onFinally = function() {
-    # it seems that using hold(), i.e. later::run_now() in finally is not a problem
-    # FMPOV, this seems completely weird, but it works well
-    chrome$close(async = FALSE)
-  })
-
   if(isTRUE(async)) {
-    return(results_after_cleaning)
+    return(results_available)
   }
 
-  invisible(hold(results_after_cleaning, timeout = total_timeout))
+  invisible(hold(results_available, timeout = total_timeout))
 }
 
 #' Launch Chromium or Chrome
