@@ -105,7 +105,15 @@ perform_with_chrome <- function(
       if(!promises::is.promising(res)) {
         stop(paste0("Function n-", index, " passed to perform_with_chrome does not return a promise."))
       }
-      res
+      # turnaround a bug in promise_map
+      # promise_map has a bug if the value of the fulfilled promise is NULL
+      promises::then(res, function(value) {
+        if(is.null(value)) {
+          # return anything but NULL
+          return(TRUE)
+        }
+        value
+      })
     })
     timeout(res,
             delay = delay,

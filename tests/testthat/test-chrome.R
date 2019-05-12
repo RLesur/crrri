@@ -146,10 +146,16 @@ test_that("With only 1 argument perform_with_chrome() returns the value of the a
 })
 
 
-test_that("With multiple argument, perform_with_chrome() return a list with the values of the async functions", {
+test_that("With multiple argument, perform_with_chrome() returns a list with the values of the async functions if they are not NULL", {
   values <- as.list(runif(3))
   async_funs <- purrr::map(values, ~ function(client) promises::promise_resolve(.x))
   expect_identical(do.call(perform_with_chrome, async_funs), values)
+})
+
+test_that("With multiple arguments, if one of the async function returns NULL, ensure that the length of the result list is equal to the number of funs", {
+  values <- vector("list", 3L)
+  async_funs <- purrr::map(values, ~ function(client) promises::promise_resolve(.x))
+  expect_length(do.call(perform_with_chrome, async_funs), length(values))
 })
 
 test_that("rejects if one promises get rejected", {
