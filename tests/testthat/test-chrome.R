@@ -1,7 +1,6 @@
 context("test-chrome")
 
 test_that("we get the proxy env var correctly", {
-  skip_on_travis()
   expect_identical(get_proxy(), "")
   old <- Sys.getenv("https_proxy")
   Sys.setenv(https_proxy = "dummy")
@@ -9,7 +8,7 @@ test_that("we get the proxy env var correctly", {
   Sys.setenv(https_proxy = old)
   old <- Sys.getenv("HTTP_PROXY")
   Sys.setenv(HTTP_PROXY = "dummy")
-  expect_identical(get_proxy(), c(http_proxy = "dummy"))
+  expect_identical(get_proxy(), c(HTTP_PROXY = "dummy"))
   Sys.setenv(HTTP_PROXY = old)
 })
 
