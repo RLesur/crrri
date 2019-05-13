@@ -51,9 +51,7 @@ NULL
 #'     } %...>% {
 #'       Page$printToPDF()
 #'     } %...>% {
-#'       .$data %>%
-#'         jsonlite::base64_dec() %>%
-#'         writeBin(paste0(httr::parse_url(url)$hostname, ".pdf"))
+#'       write_base64(., paste0(httr::parse_url(url)$hostname, ".pdf"))
 #'     }
 #'   }
 #' }
