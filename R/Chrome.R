@@ -107,6 +107,7 @@ perform_with_chrome <- function(
       }
       # turnaround a bug in promise_map
       # promise_map has a bug if the value of the fulfilled promise is NULL
+      # https://github.com/rstudio/promises/issues/47
       promises::then(res, function(value) {
         if(is.null(value)) {
           # return anything but NULL
