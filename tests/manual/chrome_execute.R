@@ -51,6 +51,6 @@ save_as_pdf <- function(...) {
 
 save_as_pdf("https://www.r-project.org/", "https://rstudio.com/")
 
-maf = function(client) {1}
+maf = function(client) {promises::promise_resolve(1)}
 
 a= perform_with_chrome(maf)
