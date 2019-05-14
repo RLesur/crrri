@@ -10,14 +10,14 @@ write_base64(res, con)
 \item{res}{A resulting list object with some \code{data} field containing base64
 encoded data. (like \href{https://chromedevtools.github.io/devtools-protocol/tot/Page#method-printToPDF}{Page$printToPDF()})}
 
-\item{con}{A \link[base:connections]{connection} object. See \code{\link[base:writeBin]{base::writeBin()}}}
+\item{con}{A \link[base:connections]{connection} object. See \link[base:readBin]{base::writeBin()}.}
 }
 \description{
 This is a helper function to write some resulting data from chrome to file.
 It will:
 \itemize{
 \item decode the base64 encoded raw data
-\item write to file using \code{\link[base:writeBin]{base::writeBin()}}
+\item write to file using \link[base:readBin]{base::writeBin()}
 It will be useful for function like \href{https://chromedevtools.github.io/devtools-protocol/tot/Page#method-printToPDF}{Page$printToPDF()}
 }
 }
