@@ -8,8 +8,7 @@ pdf_rproject <- function(client) {
   } %...>% {
     Page$printToPDF()
   } %...>% { # await PDF reception
-    .$data %>% jsonlite::base64_dec() %>% writeBin("r_project.pdf")
-    .$data
+    write_base64(., "r_project.pdf")
   }
 }
 
@@ -22,8 +21,7 @@ pdf_rstudio <- function(client) {
   } %...>% {
     Page$printToPDF()
   } %...>% { # await PDF reception
-    .$data %>% jsonlite::base64_dec() %>% writeBin("rstudio.pdf")
-    .$data
+    write_base64(., "rstudio.pdf")
   }
 }
 
@@ -40,11 +38,8 @@ async_save_as_pdf <- function(url) {
       Page$loadEventFired()
     } %...>% {
       Page$printToPDF()
-    } %...>% {
-      .$data %>%
-        jsonlite::base64_dec() %>%
-        writeBin(paste0(httr::parse_url(url)$hostname, ".pdf"))
-    }
+    } %...>%
+      write_base64(paste0(httr::parse_url(url)$hostname, ".pdf"))
   }
 }
 
@@ -56,6 +51,6 @@ save_as_pdf <- function(...) {
 
 save_as_pdf("https://www.r-project.org/", "https://rstudio.com/")
 
-maf = function(client) {1}
+maf = function(client) {promises::promise_resolve(1)}
 
 a= perform_with_chrome(maf)

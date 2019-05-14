@@ -56,4 +56,5 @@ Collate:
     'CDPSession.R'
     'CDPRemote.R'
     'Chrome.R'
+    'helpers.R'
     'zzz.R'
