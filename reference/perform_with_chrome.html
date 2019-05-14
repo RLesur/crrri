@@ -221,9 +221,7 @@ fulfilled promise.</p>
     } <span class='kw'>%...&gt;%</span> {
       <span class='no'>Page</span>$<span class='fu'>printToPDF</span>()
     } <span class='kw'>%...&gt;%</span> {
-      <span class='no'>.</span>$<span class='no'>data</span> <span class='kw'>%&gt;%</span>
-        <span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/jsonlite/topics/base64'>base64_dec</a></span>() <span class='kw'>%&gt;%</span>
-        <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readBin'>writeBin</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/httr/topics/parse_url'>parse_url</a></span>(<span class='no'>url</span>)$<span class='no'>hostname</span>, <span class='st'>".pdf"</span>))
+      <span class='fu'><a href='write_base64.html'>write_base64</a></span>(<span class='no'>.</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/httr/topics/parse_url'>parse_url</a></span>(<span class='no'>url</span>)$<span class='no'>hostname</span>, <span class='st'>".pdf"</span>))
     }
   }
 }
