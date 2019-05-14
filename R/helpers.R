@@ -3,12 +3,12 @@
 #' This is a helper function to write some resulting data from chrome to file.
 #' It will:
 #' - decode the base64 encoded raw data
-#' - write to file using [base::writeBin()]
+#' - write to file using [base::writeBin()][base::readBin()]
 #' It will be useful for function like [`Page$printToPDF()`](https://chromedevtools.github.io/devtools-protocol/tot/Page#method-printToPDF)
 #'
 #' @param res A resulting list object with some `data` field containing base64
 #'   encoded data. (like [`Page$printToPDF()`](https://chromedevtools.github.io/devtools-protocol/tot/Page#method-printToPDF))
-#' @param con A [connection][base::connections] object. See [base::writeBin()]
+#' @param con A [connection][base::connections] object. See [base::writeBin()][base::readBin()].
 #'
 #' @export
 #'
