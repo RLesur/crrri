@@ -6,16 +6,23 @@ template:
 development:
   mode: unreleased
 reference:
-- title: Chrome browser class
-  desc:  Functions to deal with running chrome
+- title: Execute an asynchronous CDP flow
   contents:
-  - Chrome
+  - starts_with("perform_with")
 - title: Promises utility functions
   desc: Functions to wait for promises
   contents:
   - hold
   - wait
   - timeout
+- title: Utility functions
+  desc: Functions useful to handle chrome results
+  contents:
+  - write_base64
+- title: Chrome browser class
+  desc:  Functions to deal with running chrome
+  contents:
+  - Chrome
 - title: Chrome DevTools Protocol classes
   desc: Functions to play with the protocol
   contents:
