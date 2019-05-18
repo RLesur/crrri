@@ -50,7 +50,7 @@ Collate:
     'utils.R'
     'http_methods.R'
     'CDProtocol.R'
-    'utils-pipe.R'
+    'reexport-promises.R'
     'domain.R'
     'EventEmitter.R'
     'CDPSession.R'
