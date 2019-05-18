@@ -192,22 +192,22 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt;   '--remote-debugging-port=9222' --disable-gpu --no-sandbox</div><div class='input'>
 <span class='co'># fetch information about headless Chrome</span>
 <span class='fu'>fetch_version</span>()</div><div class='output co'>#&gt; $Browser
-#&gt; [1] "HeadlessChrome/74.0.3729.131"
+#&gt; [1] "HeadlessChrome/74.0.3729.157"
 #&gt; 
 #&gt; $`Protocol-Version`
 #&gt; [1] "1.3"
 #&gt; 
 #&gt; $`User-Agent`
-#&gt; [1] "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/74.0.3729.131 Safari/537.36"
+#&gt; [1] "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/74.0.3729.157 Safari/537.36"
 #&gt; 
 #&gt; $`V8-Version`
-#&gt; [1] "7.4.288.26"
+#&gt; [1] "7.4.288.28"
 #&gt; 
 #&gt; $`WebKit-Version`
-#&gt; [1] "537.36 (@518a41c1fa7ce1c8bb5e22346e82e42b4d76a96f)"
+#&gt; [1] "537.36 (@7b16107ab85c5364cdcd0b2dea2539a1f2dc327a)"
 #&gt; 
 #&gt; $webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/browser/77d01acf-6cfd-4156-babf-f169bca9b0aa"
+#&gt; [1] "ws://localhost:9222/devtools/browser/397883e5-06b2-4867-b7f0-2f6a233ba000"
 #&gt; </div><div class='input'><span class='co'># fetch the Chromium/Chrome protocol</span>
 <span class='no'>protocol</span> <span class='kw'>&lt;-</span> <span class='fu'>fetch_protocol</span>()
 
@@ -217,10 +217,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[1]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/074DF8668817779C730BEEC570A0E40E"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/FD45A80293B43C0305ADDA1202590987"
 #&gt; 
 #&gt; [[1]]$id
-#&gt; [1] "074DF8668817779C730BEEC570A0E40E"
+#&gt; [1] "FD45A80293B43C0305ADDA1202590987"
 #&gt; 
 #&gt; [[1]]$title
 #&gt; [1] "about:blank"
@@ -232,7 +232,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "about:blank"
 #&gt; 
 #&gt; [[1]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/074DF8668817779C730BEEC570A0E40E"
+#&gt; [1] "ws://localhost:9222/devtools/page/FD45A80293B43C0305ADDA1202590987"
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># open an url in a new tab</span>
 <span class='no'>new_target</span> <span class='kw'>&lt;-</span> <span class='fu'>new_tab</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://r-project.org"</span>)
@@ -242,10 +242,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[1]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/B73A0DB3786487E5D4D6E0568C8FD2C8"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/C58E1DACB324B1F5E54AA33057C90C44"
 #&gt; 
 #&gt; [[1]]$id
-#&gt; [1] "B73A0DB3786487E5D4D6E0568C8FD2C8"
+#&gt; [1] "C58E1DACB324B1F5E54AA33057C90C44"
 #&gt; 
 #&gt; [[1]]$title
 #&gt; [1] ""
@@ -257,7 +257,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "http://r-project.org/"
 #&gt; 
 #&gt; [[1]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/B73A0DB3786487E5D4D6E0568C8FD2C8"
+#&gt; [1] "ws://localhost:9222/devtools/page/C58E1DACB324B1F5E54AA33057C90C44"
 #&gt; 
 #&gt; 
 #&gt; [[2]]
@@ -265,10 +265,10 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; [[2]]$devtoolsFrontendUrl
-#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/074DF8668817779C730BEEC570A0E40E"
+#&gt; [1] "/devtools/inspector.html?ws=localhost:9222/devtools/page/FD45A80293B43C0305ADDA1202590987"
 #&gt; 
 #&gt; [[2]]$id
-#&gt; [1] "074DF8668817779C730BEEC570A0E40E"
+#&gt; [1] "FD45A80293B43C0305ADDA1202590987"
 #&gt; 
 #&gt; [[2]]$title
 #&gt; [1] "about:blank"
@@ -280,7 +280,7 @@ returned if a wrong <code>target_id</code> is provided.</p>
 #&gt; [1] "about:blank"
 #&gt; 
 #&gt; [[2]]$webSocketDebuggerUrl
-#&gt; [1] "ws://localhost:9222/devtools/page/074DF8668817779C730BEEC570A0E40E"
+#&gt; [1] "ws://localhost:9222/devtools/page/FD45A80293B43C0305ADDA1202590987"
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># inspect a target in a web browser</span>
 <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) <span class='fu'>inspect_target</span>(<span class='kw'>target_id</span> <span class='kw'>=</span> <span class='no'>new_target</span>$<span class='no'>id</span>)
