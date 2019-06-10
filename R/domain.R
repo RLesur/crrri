@@ -1,4 +1,4 @@
-#' @include utils-pipe.R utils.R
+#' @include reexport-promises.R utils.R
 NULL
 
 domain <- function(client, domain_name) {
