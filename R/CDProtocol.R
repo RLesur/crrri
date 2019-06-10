@@ -11,7 +11,7 @@ CDProtocol <- R6::R6Class(
       private$.protocol <- protocol
     },
     domain_description = function(domain) {
-      desc <- get(domain, private$.protocol$domains)$description
+      desc <- rlang::env_get(env = private$.protocol$domains, nm = domain)$description
       if(is.null(desc)) {
         desc <- ""
       }
@@ -79,7 +79,7 @@ CDProtocol <- R6::R6Class(
   private = list(
     .protocol = "environment",
     .list_objects = function(domain, cl) {
-      specs <- get(domain, private$.protocol$domains)[[cl]]
+      specs <- rlang::env_get(env = private$.protocol$domains, nm = domain)[[cl]]
       if(is.null(specs)) return(list())
       obj_names <- ls(specs)
       l <- as.list(paste(domain, obj_names, sep = "."))
