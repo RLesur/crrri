@@ -37,8 +37,6 @@ Suggests:
     testthat (>= 2.1.0),
     covr,
     rstudioapi
-Remotes:
-    rstudio/websocket
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
