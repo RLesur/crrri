@@ -17,7 +17,7 @@ BugReports: https://github.com/RLesur/crrri/issues
 SystemRequirements: Chromium or Chrome
 Imports:
     assertthat,
-    httpuv,
+    httpuv (>= 1.5.0),
     httr,
     jsonlite,
     later,
