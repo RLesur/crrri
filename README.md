@@ -1,13 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+# crrri
+
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
 status](https://travis-ci.org/RLesur/crrri.svg?branch=master)](https://travis-ci.org/RLesur/crrri)
-[![Coverage
-status](https://codecov.io/gh/RLesur/crrri/branch/master/graph/badge.svg)](https://codecov.io/github/RLesur/crrri?branch=master)
-
-# crrri
+[![Codecov test
+coverage](https://codecov.io/gh/RLesur/crrri/branch/master/graph/badge.svg)](https://codecov.io/gh/RLesur/crrri?branch=master)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/crrri)](https://cran.r-project.org/package=crrri)
+<!-- badges: end -->
 
 **Work in progress**
 
@@ -100,7 +106,7 @@ client <- chrome$connect(callback = function(client) {
 ```
 
 The `$inspect()` method of the connection object opens the Chrome
-DevTools Inspector in RStudio (≥ 1.2.1335) or in your default web
+DevTools Inspector in RStudio (\>= 1.2.1335) or in your default web
 browser (you can have some trouble if the inspector is not opened in
 Chromium/Chrome). It is convenient if you need to inspect the content of
 a web page because all that you need is in RStudio.
@@ -285,6 +291,11 @@ this domain in your browser:
 ``` r
 Runtime # opens the online documentation in a browser
 ```
+
+## Presentations about crrri
+
+  - **uros2019** - 20/05/2019
+    ([pdf](https://speakerdeck.com/rlesur/headless-chrome-automation-with-r-the-crrri-package))
 
 ## Examples
 
