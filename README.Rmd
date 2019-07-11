@@ -227,7 +227,8 @@ Runtime # opens the online documentation in a browser
 
 ## Presentations about crrri
 
-* **uros2019** - 20/05/2019 ([pdf](https://speakerdeck.com/rlesur/headless-chrome-automation-with-r-the-crrri-package))
+* **uros2019** - 20/05/2019 ([slides](https://speakerdeck.com/rlesur/headless-chrome-automation-with-r-the-crrri-package))
+* **useR!2019** - 12/07/2019 ([slides](https://cderv.gitlab.io/user2019-crrri/))
 
 ## Examples
 
