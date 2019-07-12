@@ -54,8 +54,16 @@ You only need a recent version of Chromium or Chrome. A standalone
 version works perfectly well on Windows. It is recommended to set the
 value of the `HEADLESS_CHROME` environment variable to the path of
 Chromium or Chrome (this is the same environment variable that is used
-in [`decapitated`](https://github.com/hrbrmstr/decapitated)). Otherwise,
-you can use the `bin` argument of the `Chrome` class `connect()` method.
+in [`decapitated`](https://github.com/hrbrmstr/decapitated)). You can
+check it is set correctly by executing `Sys.getenv("HEADLESS_CHROME")`
+in your R console.
+
+Otherwise, you can use the `bin` argument of the `Chrome` class `new()`
+method to provide the path directly.
+
+``` r
+chrome <- Chrome$new(bin = "<path-to-chrome-binary->")
+```
 
 ## Installation
 
@@ -79,7 +87,8 @@ the `crrri` design and develop higher level functions.
 ### A short-tour
 
 Assuming that you have configured the `HEADLESS_CHROME` environment
-variable (see before), you can start headless Chrome:
+variable (see [above](#system-requirements)), you can start headless
+Chrome:
 
 ``` r
 library(crrri)
