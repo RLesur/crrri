@@ -184,7 +184,7 @@ perform_with_chrome <- function(
 #'     in headless mode.
 #' * `retry_delay`: Number, delay in seconds between two successive tries to
 #'     connect to headless Chromium/Chrome.
-#' * `max_attempts`: Logical scalar, number of tries to connect to headless
+#' * `max_attempts`: Integer scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
 #' * `callback`: Function with one argument.
 #' * `async`: Does the function return a promise?
@@ -270,14 +270,14 @@ Chrome <- R6::R6Class(
     ) {
       assert_that(is_scalar_character(bin))
       assert_that(
-        is_scalar_integer(debug_port),
+        is_scalar_integerish(debug_port),
         is_user_port(debug_port),
         is_available_port(debug_port)
       )
       assert_that(is.scalar(local), is.logical(local))
       assert_that(is.scalar(headless), is.logical(headless))
       assert_that(is.number(retry_delay))
-      assert_that(is_scalar_integer(max_attempts))
+      assert_that(is_scalar_integerish(max_attempts))
 
       private$.bin <- bin
       work_dir <- chr_new_data_dir()
@@ -415,7 +415,7 @@ chr_launch <- function(
         bin,
         chrome_args,
         echo_cmd = TRUE,
-        supervise = TRUE
+        supervise = FALSE
       ),
       error = function(e) NULL
     )

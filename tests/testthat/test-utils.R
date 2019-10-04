@@ -164,3 +164,11 @@ test_that("stop_or_reject handles async", {
   expect_error(stop_or_reject("error", FALSE), "^error$")
   expect_error(hold(stop_or_reject("error", TRUE)), "^error$")
 })
+
+test_that("check integerish accepts integer without L but not double", {
+  expect_true(is_scalar_integerish(10))
+  expect_true(is_scalar_integerish(10L))
+  expect_false(is_scalar_integerish(10.5))
+})
+
+

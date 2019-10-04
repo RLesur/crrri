@@ -26,7 +26,7 @@ NULL
 #' * `remote`: an object representing a remote application implementing the
 #'     Chrome Debugging Protocol.
 #' * `host`: Character scalar, the host name of the application.
-#' * `debug_port`: Numeric scalar, the remote debugging port.
+#' * `debug_port`: Integer scalar, the remote debugging port.
 #' * `secure`: Logical scalar, indicating whether the https/wss protocols
 #'     shall be used for connecting to the remote application.
 #' * `local`: Logical scalar, indicating whether the local version of the
@@ -34,7 +34,7 @@ NULL
 #'     fetched _remotely_.
 #' * `retry_delay`: Number, delay in seconds between two successive tries to
 #'     connect to the remote application.
-#' * `max_attempts`: Logical scalar, number of tries to connect to headless
+#' * `max_attempts`: Integer scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
 #' * `callback`: Function with one argument.
 #'
@@ -114,7 +114,7 @@ CDPRemote <- R6::R6Class(
       assert_that(is.scalar(secure), is.logical(secure))
       assert_that(is.scalar(local), is.logical(local))
       assert_that(is.number(retry_delay))
-      assert_that(is_scalar_integer(max_attempts))
+      assert_that(is_scalar_integerish(max_attempts))
 
       private$.port <- debug_port
       private$.secure <- secure
