@@ -410,8 +410,14 @@ chr_launch <- function(
 
   "!DEBUG Trying to launch Chrome `if (headless) 'in headless mode'` ..."
   chr_process <-
-    tryCatch(processx::process$new(bin, chrome_args, echo_cmd = TRUE),
-             error = function(e) NULL
+    tryCatch(
+      processx::process$new(
+        bin,
+        chrome_args,
+        echo_cmd = TRUE,
+        supervise = TRUE
+      ),
+      error = function(e) NULL
     )
 
   if (!is.null(chr_process)) {
