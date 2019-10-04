@@ -8,11 +8,11 @@ assertthat::on_failure(is_scalar_character) <- function(call, env) {
   paste0(deparse(call$x), " is not a character scalar (a length one character vector).")
 }
 
-is_scalar_integer <- function(x) {
-  rlang::is_scalar_integer(x)
+is_scalar_integerish <- function(x) {
+  rlang::is_scalar_integerish(x)
 }
 
-assertthat::on_failure(is_scalar_integer) <- function(call, env) {
+assertthat::on_failure(is_scalar_integerish) <- function(call, env) {
   paste0(deparse(call$x), " is not an integer scalar (a length one integer vector).")
 }
 
