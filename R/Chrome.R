@@ -415,7 +415,7 @@ chr_launch <- function(
         bin,
         chrome_args,
         echo_cmd = TRUE,
-        supervise = FALSE
+        supervise = TRUE
       ),
       error = function(e) NULL
     )
