@@ -1,0 +1,22 @@
+FROM rocker/shiny-verse:3.6.1
+
+RUN apt-get install \
+  && apt-get install gnupg2 curl -y \
+  && sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub \
+  | apt-key add - \
+  && sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" \
+  >> /etc/apt/sources.list.d/google-chrome.list \
+  && sudo apt-get -y update \
+  && sudo apt-get -y install google-chrome-stable
+
+RUN Rscript -e "install.packages('remotes')"
+
+RUN Rscript -e "remotes::install_github('rlesur/crrri')"
+
+RUN groupadd -r crrriuser \
+  && useradd -r -g crrriuser -G audio,video crrriuser \
+  && mkdir -p /home/crrriuser/Downloads \
+  && chown -R crrriuser:crrriuser /home/crrriuser
+
+USER crrriuser
+
