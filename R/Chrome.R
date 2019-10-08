@@ -190,7 +190,8 @@ perform_with_chrome <- function(
 #' * `async`: Does the function return a promise?
 #'
 #' @section Details:
-#' `$new()` opens a new headless Chromium/Chrome.
+#' `$new()` opens a new headless Chromium/Chrome. You can deactivate verbose
+#' from chrome process launching byt setting option `crrri.verbose` to FALSE.
 #'
 #' `$connect(callback = NULL)` connects the R session to the remote instance of
 #' headless Chromium/Chrome. The returned value depends on the value of the
@@ -414,7 +415,7 @@ chr_launch <- function(
       processx::process$new(
         bin,
         chrome_args,
-        echo_cmd = TRUE,
+        echo_cmd = getOption("crrri.verbose", TRUE),
         supervise = TRUE
       ),
       error = function(e) NULL
