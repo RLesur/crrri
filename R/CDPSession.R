@@ -142,9 +142,11 @@ CDPSession <- function(
   # if the target is a page, add methods inspect(), activateTab() and closeTab()
   # these methods are added dynamically because they are irrelevant for the "browser" websocket endpoint
   if(identical(target_type, "page")) {
-    CDPSession$set("public", "inspect", function() {
+    CDPSession$set("public", "inspect", function(viewer) {
       if(self$readyState() == 1L) {
-        inspect_target(private$.host, private$.port, private$.secure, private$.target_id)
+        if (viewer){
+          inspect_target(private$.host, private$.port, private$.secure, private$.target_id)
+        }
       } else {
         warning(
           "Invalid connection state. Cannot open target in a web browser.",
