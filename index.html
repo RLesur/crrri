@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">crrri</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.11</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.12</span>
       </span>
     </div>
 
@@ -95,12 +95,14 @@
 <p>You only need a recent version of Chromium or Chrome. A standalone version works perfectly well on Windows. It is recommended to set the value of the <code>HEADLESS_CHROME</code> environment variable to the path of Chromium or Chrome (this is the same environment variable that is used in <a href="https://github.com/hrbrmstr/decapitated"><code>decapitated</code></a>). You can check it is set correctly by executing <code><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv("HEADLESS_CHROME")</a></code> in your R console.</p>
 <p>Otherwise, you can use the <code>bin</code> argument of the <code>Chrome</code> class <code>new()</code> method to provide the path directly.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">chrome &lt;-<span class="st"> </span>Chrome<span class="op">$</span><span class="kw">new</span>(<span class="dt">bin =</span> <span class="st">"&lt;path-to-chrome-binary-&gt;"</span>)</a></code></pre></div>
+<p>Note that if ever you don’t know where your binary is, you can use the <code>find_chrome()</code> function from <a href="https://github.com/rstudio/pagedown"><code>{pagedown}</code></a>, which will try to guess where your binary is (you might neeed to install the package).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">chrome &lt;-<span class="st"> </span>Chrome<span class="op">$</span><span class="kw">new</span>(<span class="dt">bin =</span> pagedown<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/pagedown/man/find_chrome.html">find_chrome</a></span>())</a></code></pre></div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the development version of <code>crrri</code> from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">'rlesur/crrri'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">'rlesur/crrri'</span>)</a></code></pre></div>
 </div>
 <div id="using-crrri-interactively" class="section level2">
 <h2 class="hasAnchor">
@@ -111,55 +113,55 @@
 <h3 class="hasAnchor">
 <a href="#a-short-tour" class="anchor"></a>A short-tour</h3>
 <p>Assuming that you have configured the <code>HEADLESS_CHROME</code> environment variable (see <a href="#system-requirements">above</a>), you can start headless Chrome:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(crrri)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">chrome &lt;-<span class="st"> </span>Chrome<span class="op">$</span><span class="kw">new</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(crrri)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">chrome &lt;-<span class="st"> </span>Chrome<span class="op">$</span><span class="kw">new</span>()</a></code></pre></div>
 <p>The <code>Chrome</code> class constructor is a <strong>synchronous function</strong>. That means the R session is on hold until the command terminates.</p>
 <p>The <code>$connect()</code> method of the <code>Chrome</code> class will connect the R session to headless Chrome. As the connection process can take some time, the R session does not hold[1]: this is an <strong>asynchronous function</strong>. This function returns a promise which is fulfilled when R is connected to Chrome.</p>
 <p>However, you can pass a callback function to the <code>$connect()</code> method using its <code>callback</code> argument. In this case, the returned object will be a connection object:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">client &lt;-<span class="st"> </span>chrome<span class="op">$</span><span class="kw">connect</span>(<span class="dt">callback =</span> <span class="cf">function</span>(client) {</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  client<span class="op">$</span><span class="kw">inspect</span>()</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">})</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">client &lt;-<span class="st"> </span>chrome<span class="op">$</span><span class="kw">connect</span>(<span class="dt">callback =</span> <span class="cf">function</span>(client) {</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  client<span class="op">$</span><span class="kw">inspect</span>()</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">})</a></code></pre></div>
 <p>The <code>$inspect()</code> method of the connection object opens the Chrome DevTools Inspector in RStudio (&gt;= 1.2.1335) or in your default web browser (you can have some trouble if the inspector is not opened in Chromium/Chrome). It is convenient if you need to inspect the content of a web page because all that you need is in RStudio.</p>
 <p><img src="https://user-images.githubusercontent.com/19177171/56867255-861c3900-69e3-11e9-88cd-2ef29075070f.png" alt="DevTools Inspector in RStudio viewer"></p>
 <p>In order to discover the <a href="https://chromedevtools.github.io/devtools-protocol">Chrome DevTools Protocol</a> commands and events listeners, it is recommended to extract one of the domains[2] from the connection object:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a></code></pre></div>
 <p>The <code>Page</code> object represents the <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page"><code>Page</code> domain</a>. It possesses methods to send commands or listen to specific events.</p>
 <p>For instance, you can send to Chromium/Chrome the <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page#method-navigate"><code>Page.navigate</code></a> command as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>)</a></code></pre></div>
 <p>Once the page is loaded by headless Chrome, RStudio looks like this:</p>
 <p><img src="https://user-images.githubusercontent.com/19177171/56867262-8f0d0a80-69e3-11e9-828f-4dddb0bcd492.png" alt="R Project website in headless Chrome"></p>
 <p>You will see in the R console:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="op">&lt;</span>Promise [pending]<span class="op">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="op">&lt;</span>Promise [pending]<span class="op">&gt;</span></a></code></pre></div>
 <p>This is a promise object that is fulfilled when Chromium/Chrome sends back to R a message telling that the command was well-received. This comes from the fact that the <code>Page$navigate()</code> function is also asynchronous. All the asynchronous methods possess a <code>callback</code> argument. When the R session receives the result of the command from Chrome, R executes this callback function passing the result object to this function. For instance, you can execute:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"https://ropensci.org/"</span>, <span class="dt">callback =</span> <span class="cf">function</span>(result) {</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"The R session has received this result from Chrome!</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(result)</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">})</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"https://ropensci.org/"</span>, <span class="dt">callback =</span> <span class="cf">function</span>(result) {</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"The R session has received this result from Chrome!</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(result)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">})</a></code></pre></div>
 <p>Once the page is loaded, you will see both the web page and the result object object in RStudio:</p>
 <p><img src="https://user-images.githubusercontent.com/19177171/56867269-9cc29000-69e3-11e9-8fa4-ca238d3b3566.png" alt="rOpenSci website in headless Chrome"></p>
 <p>To inspect the result of a command you can pass the <code>print</code> function to the <code>callback</code> argument:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"https://ropensci.org/"</span>, <span class="dt">callback =</span> print)</a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">#&gt; $frameId</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; [1] "3BB38B10082F28A946332100964486EC"</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; $loaderId</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; [1] "9DCF07625678433563CB03FFF1E8A6AB"</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"https://ropensci.org/"</span>, <span class="dt">callback =</span> print)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">#&gt; $frameId</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] "3BB38B10082F28A946332100964486EC"</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; $loaderId</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; [1] "9DCF07625678433563CB03FFF1E8A6AB"</span></a></code></pre></div>
 <p>The result object sent back from Chrome is also the value of the promises once fulfilled. Recall that if you do not use a callback function, you get a promise:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">async_result &lt;-<span class="st"> </span>Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">async_result &lt;-<span class="st"> </span>Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>)</a></code></pre></div>
 <p>You can print the value of this promise once fulfilled with:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">async_result <span class="op">%...&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>()</a></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">#&gt; $frameId</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; [1] "3BB38B10082F28A946332100964486EC"</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; $loaderId</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; [1] "7B2383E8F2F39273E18E4D918F1852A0"</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">async_result <span class="op">%...&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#&gt; $frameId</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; [1] "3BB38B10082F28A946332100964486EC"</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; $loaderId</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; [1] "7B2383E8F2F39273E18E4D918F1852A0"</span></a></code></pre></div>
 <p>As you can see, this leads to the same result as with a callback function.</p>
 <p>To sum up, these two forms perform the same actions:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>, <span class="dt">callback =</span> print)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>) <span class="op">%...&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>, <span class="dt">callback =</span> print)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"http://r-project.org"</span>) <span class="op">%...&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>()</a></code></pre></div>
 <p>If you interact with headless Chrome in the R console using <code>crrri</code>, these two forms are equivalent.<br><strong>However, if you want to use <code>crrri</code> to develop higher level functions, the most reliable way is to use promises.</strong></p>
 <p>Do not forget to close headless Chrome with:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">chrome<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/connections.html">close</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">chrome<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/connections.html">close</a></span>()</a></code></pre></div>
 <p>Since the RStudio viewer has lost the connection, you will see this screen in RStudio:</p>
 <p><img src="https://user-images.githubusercontent.com/19177171/56867276-a4823480-69e3-11e9-8530-831ac4dd144e.png" alt="headless Chrome closed"></p>
 <p>Now, you can take some time to discover all the commands and events of the <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a>. The following examples will introduce some of them.</p>
@@ -169,36 +171,36 @@
 <a href="#domains-commands-and-events-listeners" class="anchor"></a>Domains, commands and events listeners</h3>
 <p>While working interactively, you can obtain the list of available domains in your version of Chromium/Chrome.<br>
 First, launch Chromium/Chrome and connect the R session to headless Chromium/Chrome:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">chrome &lt;-<span class="st"> </span>Chrome<span class="op">$</span><span class="kw">new</span>()</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">client &lt;-<span class="st"> </span>chrome<span class="op">$</span><span class="kw">connect</span>(<span class="op">~</span><span class="st"> </span>.x<span class="op">$</span><span class="kw">inspect</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">chrome &lt;-<span class="st"> </span>Chrome<span class="op">$</span><span class="kw">new</span>()</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">client &lt;-<span class="st"> </span>chrome<span class="op">$</span><span class="kw">connect</span>(<span class="op">~</span><span class="st"> </span>.x<span class="op">$</span><span class="kw">inspect</span>())</a></code></pre></div>
 <p>Once connected, you just have to print the connection object to get informations about the connection and availables domains:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">client</a></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co">#&gt; &lt;CDP CONNECTION&gt;</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">#&gt; connected to: http://localhost:9222/</span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="co">#&gt;  target type: "page"</span></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="co">#&gt;    target ID: "9A576420CADEA9A514C5F027D30B410D"</span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="co">#&gt; &lt;DOMAINS&gt;</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt; Accessibility (experimental)</span></a>
-<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt; Animation (experimental)</span></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt; ApplicationCache (experimental)</span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt; Audits (experimental): Audits domain allows investigation of page violations and possible improvements.</span></a>
-<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt; Browser: The Browser domain defines methods and events for browser managing.</span></a>
-<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt; CacheStorage (experimental)</span></a>
-<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt; Cast (experimental): A domain for interacting with Cast, Presentation API, and Remote Playback API functionalities.</span></a>
-<a class="sourceLine" id="cb18-20" data-line-number="20">...</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">client</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co">#&gt; &lt;CDP CONNECTION&gt;</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">#&gt; connected to: http://localhost:9222/</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt;  target type: "page"</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">#&gt;    target ID: "9A576420CADEA9A514C5F027D30B410D"</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt; &lt;DOMAINS&gt;</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt; Accessibility (experimental)</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; Animation (experimental)</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt; ApplicationCache (experimental)</span></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt; Audits (experimental): Audits domain allows investigation of page violations and possible improvements.</span></a>
+<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb19-15" data-line-number="15"><span class="co">#&gt; Browser: The Browser domain defines methods and events for browser managing.</span></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="co">#&gt; CacheStorage (experimental)</span></a>
+<a class="sourceLine" id="cb19-18" data-line-number="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb19-19" data-line-number="19"><span class="co">#&gt; Cast (experimental): A domain for interacting with Cast, Presentation API, and Remote Playback API functionalities.</span></a>
+<a class="sourceLine" id="cb19-20" data-line-number="20">...</a></code></pre></div>
 <p>These informations are directly retrieved from Chromium/Chrome: you may obtain different informations depending on the Chromium/Chrome version.</p>
 <p>In the most recent versions of the Chrome DevTools Protocol, more than 40 domains are available. A domain is a set of commands and events listeners.</p>
 <p>In order to work with a domain, it is recommended to extract it from the connection object. For instance, if you want to access to the <code>Runtime</code> domain, execute:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">Runtime &lt;-<span class="st"> </span>client<span class="op">$</span>Runtime</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">Runtime &lt;-<span class="st"> </span>client<span class="op">$</span>Runtime</a></code></pre></div>
 <p>If you print this object, this will open the online documentation about this domain in your browser:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">Runtime <span class="co"># opens the online documentation in a browser</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">Runtime <span class="co"># opens the online documentation in a browser</span></a></code></pre></div>
 </div>
 </div>
 <div id="presentations-about-crrri" class="section level2">
@@ -218,130 +220,130 @@ First, launch Chromium/Chrome and connect the R session to headless Chromium/Chr
 <h3 class="hasAnchor">
 <a href="#generate-a-pdf" class="anchor"></a>Generate a PDF</h3>
 <p>Here is an example that produces a PDF of the <a href="https://www.r-project.org/">R Project website</a>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(promises)</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(crrri)</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(jsonlite)</a>
-<a class="sourceLine" id="cb21-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(<span class="cf">function</span>(client) {</a>
-<a class="sourceLine" id="cb21-6" data-line-number="6">  Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
-<a class="sourceLine" id="cb21-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb21-8" data-line-number="8">  Page<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{ <span class="co"># await enablement of the Page domain</span></a>
-<a class="sourceLine" id="cb21-9" data-line-number="9">    Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"https://www.r-project.org/"</span>) </a>
-<a class="sourceLine" id="cb21-10" data-line-number="10">    Page<span class="op">$</span><span class="kw">loadEventFired</span>() <span class="co"># await the load event</span></a>
-<a class="sourceLine" id="cb21-11" data-line-number="11">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb21-12" data-line-number="12">    Page<span class="op">$</span><span class="kw">printToPDF</span>() </a>
-<a class="sourceLine" id="cb21-13" data-line-number="13">  } <span class="op">%...&gt;%</span><span class="st"> </span>{ <span class="co"># await PDF reception</span></a>
-<a class="sourceLine" id="cb21-14" data-line-number="14">    .<span class="op">$</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/base64.html">base64_dec</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readBin.html">writeBin</a></span>(<span class="st">"r_project.pdf"</span>) </a>
-<a class="sourceLine" id="cb21-15" data-line-number="15">  }</a>
-<a class="sourceLine" id="cb21-16" data-line-number="16">})</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(promises)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(crrri)</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(jsonlite)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(<span class="cf">function</span>(client) {</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6">  Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb22-8" data-line-number="8">  Page<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{ <span class="co"># await enablement of the Page domain</span></a>
+<a class="sourceLine" id="cb22-9" data-line-number="9">    Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">"https://www.r-project.org/"</span>) </a>
+<a class="sourceLine" id="cb22-10" data-line-number="10">    Page<span class="op">$</span><span class="kw">loadEventFired</span>() <span class="co"># await the load event</span></a>
+<a class="sourceLine" id="cb22-11" data-line-number="11">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb22-12" data-line-number="12">    Page<span class="op">$</span><span class="kw">printToPDF</span>() </a>
+<a class="sourceLine" id="cb22-13" data-line-number="13">  } <span class="op">%...&gt;%</span><span class="st"> </span>{ <span class="co"># await PDF reception</span></a>
+<a class="sourceLine" id="cb22-14" data-line-number="14">    .<span class="op">$</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/base64.html">base64_dec</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readBin.html">writeBin</a></span>(<span class="st">"r_project.pdf"</span>) </a>
+<a class="sourceLine" id="cb22-15" data-line-number="15">  }</a>
+<a class="sourceLine" id="cb22-16" data-line-number="16">})</a></code></pre></div>
 <p>All the functions of the <code>crrri</code> package (commands and event listeners) return promises (as defined in the <strong>promises</strong> package) by default. When building higher level functions, do not forget that you have to deal with promises (those will prevent you to fall into the <em>Callback Hell</em>).</p>
 <p>For instance, you can write a <code>save_as_pdf</code> function as follow:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">save_url_as_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(url) {</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">  <span class="cf">function</span>(client) {</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">    Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb22-5" data-line-number="5">    Page<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb22-6" data-line-number="6">      Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> url)</a>
-<a class="sourceLine" id="cb22-7" data-line-number="7">      Page<span class="op">$</span><span class="kw">loadEventFired</span>()</a>
-<a class="sourceLine" id="cb22-8" data-line-number="8">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb22-9" data-line-number="9">      Page<span class="op">$</span><span class="kw">printToPDF</span>()</a>
-<a class="sourceLine" id="cb22-10" data-line-number="10">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb22-11" data-line-number="11">      .<span class="op">$</span>data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="st">        </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/base64.html">base64_dec</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb22-13" data-line-number="13"><span class="st">        </span><span class="kw"><a href="https://rdrr.io/r/base/readBin.html">writeBin</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/parse_url.html">parse_url</a></span>(url)<span class="op">$</span>hostname, <span class="st">".pdf"</span>))</a>
-<a class="sourceLine" id="cb22-14" data-line-number="14">    }</a>
-<a class="sourceLine" id="cb22-15" data-line-number="15">  }</a>
-<a class="sourceLine" id="cb22-16" data-line-number="16">}</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">save_url_as_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(url) {</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">  <span class="cf">function</span>(client) {</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">    Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">    Page<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">      Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> url)</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">      Page<span class="op">$</span><span class="kw">loadEventFired</span>()</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">      Page<span class="op">$</span><span class="kw">printToPDF</span>()</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">      .<span class="op">$</span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-12" data-line-number="12"><span class="st">        </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/base64.html">base64_dec</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="st">        </span><span class="kw"><a href="https://rdrr.io/r/base/readBin.html">writeBin</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/parse_url.html">parse_url</a></span>(url)<span class="op">$</span>hostname, <span class="st">".pdf"</span>))</a>
+<a class="sourceLine" id="cb23-14" data-line-number="14">    }</a>
+<a class="sourceLine" id="cb23-15" data-line-number="15">  }</a>
+<a class="sourceLine" id="cb23-16" data-line-number="16">}</a></code></pre></div>
 <p>You can pass several pass several functions to <code><a href="reference/perform_with_chrome.html">perform_with_chrome()</a></code>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">save_as_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="st">    </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(save_url_as_pdf) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(<span class="dt">.list =</span> .)</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">save_as_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">    </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(save_url_as_pdf) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(<span class="dt">.list =</span> .)</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">}</a></code></pre></div>
 <p>You have created a <code>save_as_pdf()</code> function that can handle multiple URLs:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">save_as_pdf</span>(<span class="st">"http://r-project.org"</span>, <span class="st">"https://ropensci.org/"</span>, <span class="st">"https://rstudio.com"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">save_as_pdf</span>(<span class="st">"http://r-project.org"</span>, <span class="st">"https://ropensci.org/"</span>, <span class="st">"https://rstudio.com"</span>)</a></code></pre></div>
 </div>
 <div id="transpose-chrome-remote-interface-js-scripts-dump-the-dom" class="section level3">
 <h3 class="hasAnchor">
 <a href="#transpose-chrome-remote-interface-js-scripts-dump-the-dom" class="anchor"></a>Transpose <code>chrome-remote-interface</code> JS scripts: dump the DOM</h3>
 <p>With <code>crrri</code>, you should be able to transpose with minimal efforts some JS scripts written with the <a href="https://github.com/cyrus-and/chrome-remote-interface"><code>chrome-remote-interface</code></a> node.js module.</p>
 <p>For instance, take <a href="https://github.com/cyrus-and/chrome-remote-interface/wiki/Dump-HTML-after-page-load">this JS script</a> that dumps the DOM:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">const</span> CDP <span class="op">=</span> <span class="at">require</span>(<span class="st">'chrome-remote-interface'</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="at">CDP</span>(<span class="at">async</span>(client) <span class="op">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">    <span class="kw">const</span> <span class="op">{</span>Network<span class="op">,</span> Page<span class="op">,</span> Runtime<span class="op">}</span> <span class="op">=</span> client<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-5" data-line-number="5">    <span class="cf">try</span> <span class="op">{</span></a>
-<a class="sourceLine" id="cb25-6" data-line-number="6">        await <span class="va">Network</span>.<span class="at">enable</span>()<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-7" data-line-number="7">        await <span class="va">Page</span>.<span class="at">enable</span>()<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8">        await <span class="va">Network</span>.<span class="at">setCacheDisabled</span>(<span class="op">{</span><span class="dt">cacheDisabled</span><span class="op">:</span> <span class="kw">true</span><span class="op">}</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9">        await <span class="va">Page</span>.<span class="at">navigate</span>(<span class="op">{</span><span class="dt">url</span><span class="op">:</span> <span class="st">'https://github.com'</span><span class="op">}</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10">        await <span class="va">Page</span>.<span class="at">loadEventFired</span>()<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11">        <span class="kw">const</span> result <span class="op">=</span> await <span class="va">Runtime</span>.<span class="at">evaluate</span>(<span class="op">{</span></a>
-<a class="sourceLine" id="cb25-12" data-line-number="12">            <span class="dt">expression</span><span class="op">:</span> <span class="st">'document.documentElement.outerHTML'</span></a>
-<a class="sourceLine" id="cb25-13" data-line-number="13">        <span class="op">}</span>)<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-14" data-line-number="14">        <span class="kw">const</span> html <span class="op">=</span> <span class="va">result</span>.<span class="va">result</span>.<span class="at">value</span><span class="op">;</span></a>
-<a class="sourceLine" id="cb25-15" data-line-number="15">        <span class="va">console</span>.<span class="at">log</span>(html)<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-16" data-line-number="16">    <span class="op">}</span> <span class="cf">catch</span> (err) <span class="op">{</span></a>
-<a class="sourceLine" id="cb25-17" data-line-number="17">        <span class="va">console</span>.<span class="at">error</span>(err)<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-18" data-line-number="18">    <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></a>
-<a class="sourceLine" id="cb25-19" data-line-number="19">        <span class="va">client</span>.<span class="at">close</span>()<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-20" data-line-number="20">    <span class="op">}</span></a>
-<a class="sourceLine" id="cb25-21" data-line-number="21"><span class="op">}</span>).<span class="at">on</span>(<span class="st">'error'</span><span class="op">,</span> (err) <span class="op">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="cb25-22" data-line-number="22">    <span class="va">console</span>.<span class="at">error</span>(err)<span class="op">;</span></a>
-<a class="sourceLine" id="cb25-23" data-line-number="23"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">const</span> CDP <span class="op">=</span> <span class="at">require</span>(<span class="st">'chrome-remote-interface'</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="at">CDP</span>(<span class="at">async</span>(client) <span class="op">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">    <span class="kw">const</span> <span class="op">{</span>Network<span class="op">,</span> Page<span class="op">,</span> Runtime<span class="op">}</span> <span class="op">=</span> client<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">    <span class="cf">try</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">        await <span class="va">Network</span>.<span class="at">enable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">        await <span class="va">Page</span>.<span class="at">enable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">        await <span class="va">Network</span>.<span class="at">setCacheDisabled</span>(<span class="op">{</span><span class="dt">cacheDisabled</span><span class="op">:</span> <span class="kw">true</span><span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-9" data-line-number="9">        await <span class="va">Page</span>.<span class="at">navigate</span>(<span class="op">{</span><span class="dt">url</span><span class="op">:</span> <span class="st">'https://github.com'</span><span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10">        await <span class="va">Page</span>.<span class="at">loadEventFired</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-11" data-line-number="11">        <span class="kw">const</span> result <span class="op">=</span> await <span class="va">Runtime</span>.<span class="at">evaluate</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb26-12" data-line-number="12">            <span class="dt">expression</span><span class="op">:</span> <span class="st">'document.documentElement.outerHTML'</span></a>
+<a class="sourceLine" id="cb26-13" data-line-number="13">        <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-14" data-line-number="14">        <span class="kw">const</span> html <span class="op">=</span> <span class="va">result</span>.<span class="va">result</span>.<span class="at">value</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb26-15" data-line-number="15">        <span class="va">console</span>.<span class="at">log</span>(html)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-16" data-line-number="16">    <span class="op">}</span> <span class="cf">catch</span> (err) <span class="op">{</span></a>
+<a class="sourceLine" id="cb26-17" data-line-number="17">        <span class="va">console</span>.<span class="at">error</span>(err)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-18" data-line-number="18">    <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb26-19" data-line-number="19">        <span class="va">client</span>.<span class="at">close</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-20" data-line-number="20">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb26-21" data-line-number="21"><span class="op">}</span>).<span class="at">on</span>(<span class="st">'error'</span><span class="op">,</span> (err) <span class="op">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb26-22" data-line-number="22">    <span class="va">console</span>.<span class="at">error</span>(err)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-23" data-line-number="23"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
 <p>Using <code>crrri</code>, you can write:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(promises)</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(crrri)</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb26-4" data-line-number="4">async_dump_DOM &lt;-<span class="st"> </span><span class="cf">function</span>(client) {</a>
-<a class="sourceLine" id="cb26-5" data-line-number="5">  Network &lt;-<span class="st"> </span>client<span class="op">$</span>Network</a>
-<a class="sourceLine" id="cb26-6" data-line-number="6">  Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
-<a class="sourceLine" id="cb26-7" data-line-number="7">  Runtime &lt;-<span class="st"> </span>client<span class="op">$</span>Runtime</a>
-<a class="sourceLine" id="cb26-8" data-line-number="8">  Network<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{ </a>
-<a class="sourceLine" id="cb26-9" data-line-number="9">    Page<span class="op">$</span><span class="kw">enable</span>()</a>
-<a class="sourceLine" id="cb26-10" data-line-number="10">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb26-11" data-line-number="11">    Network<span class="op">$</span><span class="kw">setCacheDisabled</span>(<span class="dt">cacheDisabled =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb26-12" data-line-number="12">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb26-13" data-line-number="13">    Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">'https://github.com'</span>)</a>
-<a class="sourceLine" id="cb26-14" data-line-number="14">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb26-15" data-line-number="15">    Page<span class="op">$</span><span class="kw">loadEventFired</span>()</a>
-<a class="sourceLine" id="cb26-16" data-line-number="16">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb26-17" data-line-number="17">    Runtime<span class="op">$</span><span class="kw">evaluate</span>(</a>
-<a class="sourceLine" id="cb26-18" data-line-number="18">      <span class="dt">expression =</span> <span class="st">'document.documentElement.outerHTML'</span></a>
-<a class="sourceLine" id="cb26-19" data-line-number="19">    )</a>
-<a class="sourceLine" id="cb26-20" data-line-number="20">  } <span class="op">%...&gt;%</span><span class="st"> </span>(<span class="cf">function</span>(result) {</a>
-<a class="sourceLine" id="cb26-21" data-line-number="21">    html &lt;-<span class="st"> </span>result<span class="op">$</span>result<span class="op">$</span>value</a>
-<a class="sourceLine" id="cb26-22" data-line-number="22">    <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(html, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb26-23" data-line-number="23">  }) </a>
-<a class="sourceLine" id="cb26-24" data-line-number="24">}</a>
-<a class="sourceLine" id="cb26-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb26-26" data-line-number="26"><span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(async_dump_DOM)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(promises)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(crrri)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">async_dump_DOM &lt;-<span class="st"> </span><span class="cf">function</span>(client) {</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">  Network &lt;-<span class="st"> </span>client<span class="op">$</span>Network</a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">  Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
+<a class="sourceLine" id="cb27-7" data-line-number="7">  Runtime &lt;-<span class="st"> </span>client<span class="op">$</span>Runtime</a>
+<a class="sourceLine" id="cb27-8" data-line-number="8">  Network<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{ </a>
+<a class="sourceLine" id="cb27-9" data-line-number="9">    Page<span class="op">$</span><span class="kw">enable</span>()</a>
+<a class="sourceLine" id="cb27-10" data-line-number="10">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-11" data-line-number="11">    Network<span class="op">$</span><span class="kw">setCacheDisabled</span>(<span class="dt">cacheDisabled =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb27-12" data-line-number="12">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-13" data-line-number="13">    Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> <span class="st">'https://github.com'</span>)</a>
+<a class="sourceLine" id="cb27-14" data-line-number="14">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-15" data-line-number="15">    Page<span class="op">$</span><span class="kw">loadEventFired</span>()</a>
+<a class="sourceLine" id="cb27-16" data-line-number="16">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb27-17" data-line-number="17">    Runtime<span class="op">$</span><span class="kw">evaluate</span>(</a>
+<a class="sourceLine" id="cb27-18" data-line-number="18">      <span class="dt">expression =</span> <span class="st">'document.documentElement.outerHTML'</span></a>
+<a class="sourceLine" id="cb27-19" data-line-number="19">    )</a>
+<a class="sourceLine" id="cb27-20" data-line-number="20">  } <span class="op">%...&gt;%</span><span class="st"> </span>(<span class="cf">function</span>(result) {</a>
+<a class="sourceLine" id="cb27-21" data-line-number="21">    html &lt;-<span class="st"> </span>result<span class="op">$</span>result<span class="op">$</span>value</a>
+<a class="sourceLine" id="cb27-22" data-line-number="22">    <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(html, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb27-23" data-line-number="23">  }) </a>
+<a class="sourceLine" id="cb27-24" data-line-number="24">}</a>
+<a class="sourceLine" id="cb27-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb27-26" data-line-number="26"><span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(async_dump_DOM)</a></code></pre></div>
 <p>If you want to write a higher level function that dump the DOM, you can embed the main part of this script in a function:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">dump_DOM &lt;-<span class="st"> </span><span class="cf">function</span>(url) {</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">  <span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(<span class="cf">function</span>(client) {</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">    Network &lt;-<span class="st"> </span>client<span class="op">$</span>Network</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">    Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
-<a class="sourceLine" id="cb27-5" data-line-number="5">    Runtime &lt;-<span class="st"> </span>client<span class="op">$</span>Runtime</a>
-<a class="sourceLine" id="cb27-6" data-line-number="6">    Network<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{ </a>
-<a class="sourceLine" id="cb27-7" data-line-number="7">      Page<span class="op">$</span><span class="kw">enable</span>()</a>
-<a class="sourceLine" id="cb27-8" data-line-number="8">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb27-9" data-line-number="9">      Network<span class="op">$</span><span class="kw">setCacheDisabled</span>(<span class="dt">cacheDisabled =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb27-10" data-line-number="10">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb27-11" data-line-number="11">      Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> url)</a>
-<a class="sourceLine" id="cb27-12" data-line-number="12">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb27-13" data-line-number="13">      Page<span class="op">$</span><span class="kw">loadEventFired</span>()</a>
-<a class="sourceLine" id="cb27-14" data-line-number="14">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
-<a class="sourceLine" id="cb27-15" data-line-number="15">      Runtime<span class="op">$</span><span class="kw">evaluate</span>(</a>
-<a class="sourceLine" id="cb27-16" data-line-number="16">        <span class="dt">expression =</span> <span class="st">'document.documentElement.outerHTML'</span></a>
-<a class="sourceLine" id="cb27-17" data-line-number="17">      )</a>
-<a class="sourceLine" id="cb27-18" data-line-number="18">    } <span class="op">%...&gt;%</span><span class="st"> </span>(<span class="cf">function</span>(result) {</a>
-<a class="sourceLine" id="cb27-19" data-line-number="19">      html &lt;-<span class="st"> </span>result<span class="op">$</span>result<span class="op">$</span>value</a>
-<a class="sourceLine" id="cb27-20" data-line-number="20">      <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(html, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb27-21" data-line-number="21">    }) </a>
-<a class="sourceLine" id="cb27-22" data-line-number="22">  })</a>
-<a class="sourceLine" id="cb27-23" data-line-number="23">}</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">dump_DOM &lt;-<span class="st"> </span><span class="cf">function</span>(url) {</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">  <span class="kw"><a href="reference/perform_with_chrome.html">perform_with_chrome</a></span>(<span class="cf">function</span>(client) {</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">    Network &lt;-<span class="st"> </span>client<span class="op">$</span>Network</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">    Page &lt;-<span class="st"> </span>client<span class="op">$</span>Page</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">    Runtime &lt;-<span class="st"> </span>client<span class="op">$</span>Runtime</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">    Network<span class="op">$</span><span class="kw">enable</span>() <span class="op">%...&gt;%</span><span class="st"> </span>{ </a>
+<a class="sourceLine" id="cb28-7" data-line-number="7">      Page<span class="op">$</span><span class="kw">enable</span>()</a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb28-9" data-line-number="9">      Network<span class="op">$</span><span class="kw">setCacheDisabled</span>(<span class="dt">cacheDisabled =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb28-10" data-line-number="10">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb28-11" data-line-number="11">      Page<span class="op">$</span><span class="kw">navigate</span>(<span class="dt">url =</span> url)</a>
+<a class="sourceLine" id="cb28-12" data-line-number="12">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb28-13" data-line-number="13">      Page<span class="op">$</span><span class="kw">loadEventFired</span>()</a>
+<a class="sourceLine" id="cb28-14" data-line-number="14">    } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
+<a class="sourceLine" id="cb28-15" data-line-number="15">      Runtime<span class="op">$</span><span class="kw">evaluate</span>(</a>
+<a class="sourceLine" id="cb28-16" data-line-number="16">        <span class="dt">expression =</span> <span class="st">'document.documentElement.outerHTML'</span></a>
+<a class="sourceLine" id="cb28-17" data-line-number="17">      )</a>
+<a class="sourceLine" id="cb28-18" data-line-number="18">    } <span class="op">%...&gt;%</span><span class="st"> </span>(<span class="cf">function</span>(result) {</a>
+<a class="sourceLine" id="cb28-19" data-line-number="19">      html &lt;-<span class="st"> </span>result<span class="op">$</span>result<span class="op">$</span>value</a>
+<a class="sourceLine" id="cb28-20" data-line-number="20">      <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(html, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb28-21" data-line-number="21">    }) </a>
+<a class="sourceLine" id="cb28-22" data-line-number="22">  })</a>
+<a class="sourceLine" id="cb28-23" data-line-number="23">}</a></code></pre></div>
 <p>Now, you can use it for dumping <a href="https://github.com/davidgohel">David Gohel</a>’s <a href="http://www.ardata.fr/blog/">blog</a>:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">dumpDOM</span>(<span class="dt">url =</span> <span class="st">"http://www.ardata.fr/blog/"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">dumpDOM</span>(<span class="dt">url =</span> <span class="st">"http://www.ardata.fr/blog/"</span>)</a></code></pre></div>
 <p>You can find many other examples in the <a href="https://github.com/cyrus-and/chrome-remote-interface/wiki">wiki</a> of the <code>chrome-remote-interface</code> module.</p>
 </div>
 </div>
