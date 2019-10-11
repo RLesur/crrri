@@ -51,6 +51,12 @@ method to provide the path directly.
 chrome <- Chrome$new(bin = "<path-to-chrome-binary->")
 ```
 
+Note that if ever you don't know where your binary is, you can use the `find_chrome()` function from [`{pagedown}`](https://github.com/rstudio/pagedown), which will try to guess where your binary is (you might neeed to install the package).
+
+```r
+chrome <- Chrome$new(bin = pagedown::find_chrome())
+```
+
 ## Installation
 
 You can install the development version of `crrri` from GitHub with:
