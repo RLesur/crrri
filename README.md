@@ -65,6 +65,15 @@ method to provide the path directly.
 chrome <- Chrome$new(bin = "<path-to-chrome-binary->")
 ```
 
+Note that if ever you don’t know where your binary is, you can use the
+`find_chrome()` function from
+[`{pagedown}`](https://github.com/rstudio/pagedown), which will try to
+guess where your binary is (you might neeed to install the package).
+
+``` r
+chrome <- Chrome$new(bin = pagedown::find_chrome())
+```
+
 ## Installation
 
 You can install the development version of `crrri` from GitHub with:
@@ -159,7 +168,8 @@ comes from the fact that the `Page$navigate()` function is also
 asynchronous. All the asynchronous methods possess a `callback`
 argument. When the R session receives the result of the command from
 Chrome, R executes this callback function passing the result object to
-this function. For instance, you can execute:
+this function. For instance, you can
+execute:
 
 ``` r
 Page$navigate(url = "https://ropensci.org/", callback = function(result) {
