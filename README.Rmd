@@ -47,8 +47,15 @@ set correctly by executing `Sys.getenv("HEADLESS_CHROME")` in your R console.
 
 Otherwise, you can use the `bin` argument of the `Chrome` class `new()`
 method to provide the path directly.
+
 ```r
 chrome <- Chrome$new(bin = "<path-to-chrome-binary->")
+```
+
+Note that if ever you don't know where your binary is, you can use the `find_chrome()` function from [`{pagedown}`](https://github.com/rstudio/pagedown), which will try to guess where your binary is (You might neeed to install it).
+
+```r
+chrome <- Chrome$new(bin = pagedown::find_chrome())
 ```
 
 ## Installation
