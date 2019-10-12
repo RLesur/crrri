@@ -151,7 +151,7 @@ remote$user_agent
 <li><p><code>remote</code>: an object representing a remote application implementing the
 Chrome Debugging Protocol.</p></li>
 <li><p><code>host</code>: Character scalar, the host name of the application.</p></li>
-<li><p><code>debug_port</code>: Numeric scalar, the remote debugging port.</p></li>
+<li><p><code>debug_port</code>: Integer scalar, the remote debugging port.</p></li>
 <li><p><code>secure</code>: Logical scalar, indicating whether the https/wss protocols
 shall be used for connecting to the remote application.</p></li>
 <li><p><code>local</code>: Logical scalar, indicating whether the local version of the
@@ -159,7 +159,7 @@ protocol (embedded in <code>crrri</code>) must be used or the protocol must be
 fetched <em>remotely</em>.</p></li>
 <li><p><code>retry_delay</code>: Number, delay in seconds between two successive tries to
 connect to the remote application.</p></li>
-<li><p><code>max_attempts</code>: Logical scalar, number of tries to connect to headless
+<li><p><code>max_attempts</code>: Integer scalar, number of tries to connect to headless
 Chromium/Chrome.</p></li>
 <li><p><code>callback</code>: Function with one argument.</p></li>
 </ul>

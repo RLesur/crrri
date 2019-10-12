@@ -170,7 +170,7 @@ Chromium/Chrome.</p></li>
 in headless mode.</p></li>
 <li><p><code>retry_delay</code>: Number, delay in seconds between two successive tries to
 connect to headless Chromium/Chrome.</p></li>
-<li><p><code>max_attempts</code>: Logical scalar, number of tries to connect to headless
+<li><p><code>max_attempts</code>: Integer scalar, number of tries to connect to headless
 Chromium/Chrome.</p></li>
 <li><p><code>callback</code>: Function with one argument.</p></li>
 <li><p><code>async</code>: Does the function return a promise?</p></li>
@@ -180,7 +180,8 @@ Chromium/Chrome.</p></li>
 
     
 
-<p><code>$new()</code> opens a new headless Chromium/Chrome.</p>
+<p><code>$new()</code> opens a new headless Chromium/Chrome. You can deactivate verbose
+from chrome process launching byt setting option <code>crrri.verbose</code> to FALSE.</p>
 <p><code>$connect(callback = NULL)</code> connects the R session to the remote instance of
 headless Chromium/Chrome. The returned value depends on the value of the
 <code>callback</code> argument. When <code>callback</code> is a function, the returned value is a
