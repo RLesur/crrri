@@ -8,7 +8,7 @@ NULL
 #' Protocol flow with Chromium/Chrome and can turn it into a synchronous function.
 #' An asynchronous remote flow is a function that takes a connection object and
 #' returns a [promise][promises::promise].
-#' If several functions are passed to `perform_with_chromes()`, their execution is
+#' If several functions are passed to `perform_with_chrome()`, their execution is
 #' serial. If one of the asynchronous functions fails, the whole execution also
 #' fails.
 #'

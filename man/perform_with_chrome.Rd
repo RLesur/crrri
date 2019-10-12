@@ -54,7 +54,7 @@ The \code{perform_with_chrome()} function executes an asynchronous Chrome DevToo
 Protocol flow with Chromium/Chrome and can turn it into a synchronous function.
 An asynchronous remote flow is a function that takes a connection object and
 returns a \link[promises:promise]{promise}.
-If several functions are passed to \code{perform_with_chromes()}, their execution is
+If several functions are passed to \code{perform_with_chrome()}, their execution is
 serial. If one of the asynchronous functions fails, the whole execution also
 fails.
 }

@@ -43,7 +43,7 @@ Chromium/Chrome.
 in headless mode.
 \item \code{retry_delay}: Number, delay in seconds between two successive tries to
 connect to headless Chromium/Chrome.
-\item \code{max_attempts}: Logical scalar, number of tries to connect to headless
+\item \code{max_attempts}: Integer scalar, number of tries to connect to headless
 Chromium/Chrome.
 \item \code{callback}: Function with one argument.
 \item \code{async}: Does the function return a promise?
@@ -52,7 +52,8 @@ Chromium/Chrome.
 
 \section{Details}{
 
-\code{$new()} opens a new headless Chromium/Chrome.
+\code{$new()} opens a new headless Chromium/Chrome. You can deactivate verbose
+from chrome process launching byt setting option \code{crrri.verbose} to FALSE.
 
 \code{$connect(callback = NULL)} connects the R session to the remote instance of
 headless Chromium/Chrome. The returned value depends on the value of the

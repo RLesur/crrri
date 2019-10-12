@@ -25,7 +25,7 @@ remote$user_agent
 \item \code{remote}: an object representing a remote application implementing the
 Chrome Debugging Protocol.
 \item \code{host}: Character scalar, the host name of the application.
-\item \code{debug_port}: Numeric scalar, the remote debugging port.
+\item \code{debug_port}: Integer scalar, the remote debugging port.
 \item \code{secure}: Logical scalar, indicating whether the https/wss protocols
 shall be used for connecting to the remote application.
 \item \code{local}: Logical scalar, indicating whether the local version of the
@@ -33,7 +33,7 @@ protocol (embedded in \code{crrri}) must be used or the protocol must be
 fetched \emph{remotely}.
 \item \code{retry_delay}: Number, delay in seconds between two successive tries to
 connect to the remote application.
-\item \code{max_attempts}: Logical scalar, number of tries to connect to headless
+\item \code{max_attempts}: Integer scalar, number of tries to connect to headless
 Chromium/Chrome.
 \item \code{callback}: Function with one argument.
 }
