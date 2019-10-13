@@ -168,8 +168,7 @@ comes from the fact that the `Page$navigate()` function is also
 asynchronous. All the asynchronous methods possess a `callback`
 argument. When the R session receives the result of the command from
 Chrome, R executes this callback function passing the result object to
-this function. For instance, you can
-execute:
+this function. For instance, you can execute:
 
 ``` r
 Page$navigate(url = "https://ropensci.org/", callback = function(result) {
@@ -371,7 +370,7 @@ save_url_as_pdf <- function(url) {
 }
 ```
 
-You can pass several pass several functions to `perform_with_chrome()`:
+You can pass several functions to `perform_with_chrome()`:
 
 ``` r
 save_as_pdf <- function(...) {

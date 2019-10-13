@@ -296,7 +296,7 @@ save_url_as_pdf <- function(url) {
 }
 ```
 
-You can pass several pass several functions to `perform_with_chrome()`:
+You can pass several functions to `perform_with_chrome()`:
 
 ```{r}
 save_as_pdf <- function(...) {
