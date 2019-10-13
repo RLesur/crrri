@@ -254,7 +254,7 @@ First, launch Chromium/Chrome and connect the R session to headless Chromium/Chr
 <a class="sourceLine" id="cb23-14" data-line-number="14">    }</a>
 <a class="sourceLine" id="cb23-15" data-line-number="15">  }</a>
 <a class="sourceLine" id="cb23-16" data-line-number="16">}</a></code></pre></div>
-<p>You can pass several pass several functions to <code><a href="reference/perform_with_chrome.html">perform_with_chrome()</a></code>:</p>
+<p>You can pass several functions to <code><a href="reference/perform_with_chrome.html">perform_with_chrome()</a></code>:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">save_as_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
 <a class="sourceLine" id="cb24-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">    </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(save_url_as_pdf) <span class="op">%&gt;%</span></a>
