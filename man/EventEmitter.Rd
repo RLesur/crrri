@@ -4,7 +4,7 @@
 \name{EventEmitter}
 \alias{EventEmitter}
 \title{R6 class to emit some event}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
+\format{An object of class \code{R6ClassGenerator} of length 25.}
 \usage{
 EventEmitter
 }
