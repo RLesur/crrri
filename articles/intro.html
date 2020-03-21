@@ -83,7 +83,7 @@
             <h3 class="subtitle">Some introductive examples</h3>
                         <h4 class="author">Christophe Dervieux</h4>
             
-            <h4 class="date">2019-10-13</h4>
+            <h4 class="date">2020-03-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/RLesur/crrri/blob/master/vignettes/intro.Rmd"><code>vignettes/intro.Rmd</code></a></small>
       <div class="hidden name"><code>intro.Rmd</code></div>
@@ -148,7 +148,7 @@ The <a href="https://cran.r-project.org/package=pagedown"><code>pagedown</code><
 <a class="sourceLine" id="cb5-32" data-line-number="32">    Page<span class="op">$</span><span class="kw">captureScreenshot</span>(<span class="dt">format =</span> <span class="st">"png"</span>, <span class="dt">fromSurface =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-33" data-line-number="33">  } <span class="op">%...&gt;%</span><span class="st"> </span>{</a>
 <a class="sourceLine" id="cb5-34" data-line-number="34">    .<span class="op">$</span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-35" data-line-number="35"><span class="st">      </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/base64.html">base64_dec</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-35" data-line-number="35"><span class="st">      </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://jeroen.cran.dev/jsonlite/reference/base64.html">base64_dec</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-36" data-line-number="36"><span class="st">      </span><span class="kw"><a href="https://rdrr.io/r/base/readBin.html">writeBin</a></span>(screenshot_file)</a>
 <a class="sourceLine" id="cb5-37" data-line-number="37">  } <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-38" data-line-number="38"><span class="st">  </span><span class="co"># close headless chrome (client connections are safely closed)</span></a>
