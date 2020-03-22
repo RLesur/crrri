@@ -38,7 +38,8 @@ Note that headless Chromium/Chrome will be available at
 protocol (embedded in \code{crrri}) must be used or the protocol must be
 fetched \emph{remotely}.
 \item \code{extra_args}: Character vector, extra command line arguments passed to
-Chromium/Chrome.
+Chromium/Chrome. You can know more about command line flags (or switches)
+from \href{https://www.chromium.org/developers/how-tos/run-chromium-with-flags}{chromium developers}
 \item \code{headless}: Logical scalar, indicating whether Chromium/Chrome is launched
 in headless mode.
 \item \code{retry_delay}: Number, delay in seconds between two successive tries to

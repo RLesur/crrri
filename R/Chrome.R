@@ -182,7 +182,9 @@ perform_with_chrome <- function(
 #'     protocol (embedded in `crrri`) must be used or the protocol must be
 #'     fetched _remotely_.
 #' * `extra_args`: Character vector, extra command line arguments passed to
-#'     Chromium/Chrome.
+#'     Chromium/Chrome. You can know more about command line flags (or switches)
+#'   from [chromium
+#'   developers](https://www.chromium.org/developers/how-tos/run-chromium-with-flags)
 #' * `headless`: Logical scalar, indicating whether Chromium/Chrome is launched
 #'     in headless mode.
 #' * `retry_delay`: Number, delay in seconds between two successive tries to
