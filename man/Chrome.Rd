@@ -46,6 +46,11 @@ in headless mode.
 connect to headless Chromium/Chrome.
 \item \code{max_attempts}: Integer scalar, number of tries to connect to headless
 Chromium/Chrome.
+\item \code{user_data_dir}: Character, for advanced user, it allows to set a path to a
+custom user data dir. If provided, this folder will be used instead of a
+new and empty one created by crrri. If it does not exist, this folder will
+be created but not removed afterwards. It must be done manually.
+\href{https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md}{About user data directory in Chrome}
 \item \code{callback}: Function with one argument.
 \item \code{async}: Does the function return a promise?
 }
@@ -54,7 +59,7 @@ Chromium/Chrome.
 \section{Details}{
 
 \code{$new()} opens a new headless Chromium/Chrome. You can deactivate verbose
-from chrome process launching byt setting option \code{crrri.verbose} to FALSE.
+from chrome process launching by setting option \code{crrri.verbose} to FALSE.
 
 \code{$connect(callback = NULL)} connects the R session to the remote instance of
 headless Chromium/Chrome. The returned value depends on the value of the

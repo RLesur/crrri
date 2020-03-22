@@ -194,7 +194,8 @@ perform_with_chrome <- function(
 #' * `user_data_dir`: Character, for advanced user, it allows to set a path to a
 #'    custom user data dir. If provided, this folder will be used instead of a
 #'    new and empty one created by crrri. If it does not exist, this folder will
-#'     be created but not removed afterwards. It must be done manually.
+#'    be created but not removed afterwards. It must be done manually.
+#'    [About user data directory in Chrome](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md)
 #' * `callback`: Function with one argument.
 #' * `async`: Does the function return a promise?
 #'
