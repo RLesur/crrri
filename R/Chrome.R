@@ -191,12 +191,16 @@ perform_with_chrome <- function(
 #'     connect to headless Chromium/Chrome.
 #' * `max_attempts`: Integer scalar, number of tries to connect to headless
 #'     Chromium/Chrome.
+#' * `user_data_dir`: Character, for advanced user, it allows to set a path to a
+#'    custom user data dir. If provided, this folder will be used instead of a
+#'    new and empty one created by crrri. If it does not exist, this folder will
+#'     be created but not removed afterwards. It must be done manually.
 #' * `callback`: Function with one argument.
 #' * `async`: Does the function return a promise?
 #'
 #' @section Details:
 #' `$new()` opens a new headless Chromium/Chrome. You can deactivate verbose
-#' from chrome process launching byt setting option `crrri.verbose` to FALSE.
+#' from chrome process launching by setting option `crrri.verbose` to FALSE.
 #'
 #' `$connect(callback = NULL)` connects the R session to the remote instance of
 #' headless Chromium/Chrome. The returned value depends on the value of the
@@ -272,7 +276,8 @@ Chrome <- R6::R6Class(
   public = list(
     initialize = function(
       bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
-      extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
+      extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L,
+      user_data_dir = NULL
     ) {
       assert_that(is_scalar_character(bin))
       assert_that(
@@ -286,7 +291,14 @@ Chrome <- R6::R6Class(
       assert_that(is_scalar_integerish(max_attempts))
 
       private$.bin <- bin
-      work_dir <- chr_new_data_dir()
+      work_dir <- if (is.null(user_data_dir)) {
+        private$.remove_work_dir <- TRUE
+        chr_new_data_dir()
+      } else {
+        assert_that(is_scalar_character(user_data_dir))
+        private$.remove_work_dir <- FALSE
+        normalizePath(user_data_dir)
+      }
       chr_process <- chr_launch(bin, debug_port, extra_args, headless, work_dir)
       private$.work_dir <- work_dir
       private$.process <- chr_process
@@ -331,6 +343,7 @@ Chrome <- R6::R6Class(
   private = list(
     .bin = NULL,
     .work_dir = NULL,
+    .remove_work_dir = NULL,
     .process = NULL,
     .async_finalizer = function() {
       clients_disconnected <- timeout(
@@ -362,7 +375,17 @@ Chrome <- R6::R6Class(
             }
             private$.process$wait()
           }
-          chr_clean_work_dir(private$.work_dir)
+          if (private$.remove_work_dir) {
+            chr_clean_work_dir(private$.work_dir)
+          } else {
+            if (getOption("crrri.verbose", TRUE)) {
+              message(paste0(
+                "\nCustom user_data_dir has been provided and not deleted by crrri.",
+                " Delete manually if needed:\n",
+                private$.work_dir
+              ))
+            }
+          }
         }
       )
       killed_and_cleaned

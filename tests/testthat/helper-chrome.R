@@ -26,3 +26,10 @@ setup_chrome_test <- function(env = rlang::caller_env()) {
   # we need this because these function are normally called in the test file directly
   env = env)
 }
+
+without_verbose <- function(code) {
+  old <- getOption("crrri.verbose", TRUE)
+  options(crrri.verbose = FALSE)
+  on.exit(options(crrri.verbose = old))
+  force(code)
+}
