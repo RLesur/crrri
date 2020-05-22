@@ -33,7 +33,7 @@ Chromium/Chrome.
 \item \code{bin}: Character scalar, the path to Chromium or Chrome executable.
 \item \code{debug_port}: Integer scalar, the Chromium/Chrome remote debugging port.
 Note that headless Chromium/Chrome will be available at
-\code{http://localhost:<debug_port>}.
+\verb{http://localhost:<debug_port>}.
 \item \code{local}: Logical scalar, indicating whether the local version of the
 protocol (embedded in \code{crrri}) must be used or the protocol must be
 fetched \emph{remotely}.
@@ -53,47 +53,47 @@ Chromium/Chrome.
 
 \section{Details}{
 
-\code{$new()} opens a new headless Chromium/Chrome. You can deactivate verbose
+\verb{$new()} opens a new headless Chromium/Chrome. You can deactivate verbose
 from chrome process launching byt setting option \code{crrri.verbose} to FALSE.
 
-\code{$connect(callback = NULL)} connects the R session to the remote instance of
+\verb{$connect(callback = NULL)} connects the R session to the remote instance of
 headless Chromium/Chrome. The returned value depends on the value of the
 \code{callback} argument. When \code{callback} is a function, the returned value is a
 connection object. When \code{callback} is \code{NULL} the returned value is a promise
 which fulfills once R is connected to the remote instance of Chromium/Chrome.
 Once fulfilled, the value of this promise is the connection object.
 
-\code{$listConnections()} returns a list of the connection objects succesfully
-created using the \code{$connect()} method.
+\verb{$listConnections()} returns a list of the connection objects succesfully
+created using the \verb{$connect()} method.
 
-\code{$closeConnections(callback = NULL)} closes all the connections created using the
-\code{$connect()} method.  If \code{callback} is \code{NULL}, it returns a promise which
+\verb{$closeConnections(callback = NULL)} closes all the connections created using the
+\verb{$connect()} method.  If \code{callback} is \code{NULL}, it returns a promise which
 fulfills when all the connections are closed: once fulfilled, its value is the
 remote object.
 If \code{callback} is not \code{NULL}, it returns the remote object. In this case,
 \code{callback} is called when all the connections are closed and the remote object is
 passed to this function as the argument.
 
-\code{$version()} executes the DevTools \code{Version} method. It returns a list of
-informations available at \code{http://localhost:<debug_port>/json/version}.
+\verb{$version()} executes the DevTools \code{Version} method. It returns a list of
+informations available at \verb{http://localhost:<debug_port>/json/version}.
 
-\code{$user_agent} returns a character scalar with the User Agent of the
+\verb{$user_agent} returns a character scalar with the User Agent of the
 headless Chromium/Chrome.
 
-\code{$close(async = FALSE)} closes the remote instance of headless
+\verb{$close(async = FALSE)} closes the remote instance of headless
 Chromium/Chrome. If \code{async} is \code{FALSE} this method returns the \code{remote}
 object invisibly. Is \code{async} is \code{TRUE}, a promise is returned. This promise
 fulfills when Chromium/Chrome is closed. Once fulfilled, its value is the
 \code{remote} object.
 
-\code{$view()} opens a visible Chromium/Chrome browser at
-\code{http://localhost:<debug_port>}. This is useful to 'see' the headless
+\verb{$view()} opens a visible Chromium/Chrome browser at
+\verb{http://localhost:<debug_port>}. This is useful to 'see' the headless
 Chromium/Chrome instance. Returns the process of the visible browser.
 
-\code{$is_alive()} checks if the remote instance is alive. Returns a logical
+\verb{$is_alive()} checks if the remote instance is alive. Returns a logical
 scalar.
 
-\code{$listTargets()} returns a list with information about tabs.
+\verb{$listTargets()} returns a list with information about tabs.
 }
 
 \examples{
@@ -114,10 +114,10 @@ remote$connect() \%...>\% (function(client) {
       expression = 'document.documentElement.outerHTML'
     )
   } \%...>\% (function(result) {
-    cat(result$result$value, "\\n")
+    cat(result$result$value, "\n")
   })
 }) \%...!\% {
-  cat("Error:", .$message, "\\n")
+  cat("Error:", .$message, "\n")
 } \%>\%
   promises::finally(~ remote$close())
 }

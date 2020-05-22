@@ -15,20 +15,15 @@ fetch_version(host = "localhost", port = 9222, secure = FALSE)
 
 list_targets(host = "localhost", port = 9222, secure = FALSE)
 
-fetch_protocol(host = "localhost", port = 9222, secure = FALSE,
-  local = FALSE)
+fetch_protocol(host = "localhost", port = 9222, secure = FALSE, local = FALSE)
 
-new_tab(host = "localhost", port = 9222, secure = FALSE,
-  url = NULL)
+new_tab(host = "localhost", port = 9222, secure = FALSE, url = NULL)
 
-activate_target(host = "localhost", port = 9222, secure = FALSE,
-  target_id)
+activate_target(host = "localhost", port = 9222, secure = FALSE, target_id)
 
-close_target(host = "localhost", port = 9222, secure = FALSE,
-  target_id)
+close_target(host = "localhost", port = 9222, secure = FALSE, target_id)
 
-inspect_target(host = "localhost", port = 9222, secure = FALSE,
-  target_id)
+inspect_target(host = "localhost", port = 9222, secure = FALSE, target_id)
 }
 \arguments{
 \item{host}{Character scalar, the host name of the application.}

@@ -4,11 +4,20 @@
 \alias{perform_with_chrome}
 \title{Execute an asynchronous CDP flow with Chrome}
 \usage{
-perform_with_chrome(..., .list = NULL, timeouts = 30,
-  cleaning_timeout = 30, async = FALSE,
-  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L,
-  local = FALSE, extra_args = NULL, headless = TRUE,
-  retry_delay = 0.2, max_attempts = 15L)
+perform_with_chrome(
+  ...,
+  .list = NULL,
+  timeouts = 30,
+  cleaning_timeout = 30,
+  async = FALSE,
+  bin = Sys.getenv("HEADLESS_CHROME"),
+  debug_port = 9222L,
+  local = FALSE,
+  extra_args = NULL,
+  headless = TRUE,
+  retry_delay = 0.2,
+  max_attempts = 15L
+)
 }
 \arguments{
 \item{...}{Asynchronous remote flow functions.}

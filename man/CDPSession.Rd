@@ -4,8 +4,14 @@
 \alias{CDPSession}
 \title{Connect to a remote instance implementing the Chrome Debugging Protocol}
 \usage{
-CDPSession(host = "localhost", port = 9222, secure = FALSE,
-  ws_url = NULL, local = FALSE, callback = NULL)
+CDPSession(
+  host = "localhost",
+  port = 9222,
+  secure = FALSE,
+  ws_url = NULL,
+  local = FALSE,
+  callback = NULL
+)
 }
 \arguments{
 \item{host}{Character scalar, the host name of the application.}

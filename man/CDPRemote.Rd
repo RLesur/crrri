@@ -41,33 +41,33 @@ Chromium/Chrome.
 
 \section{Details}{
 
-\code{$new()} declares a new remote application.
+\verb{$new()} declares a new remote application.
 
-\code{$connect(callback = NULL)} connects the R session to the remote application.
+\verb{$connect(callback = NULL)} connects the R session to the remote application.
 The returned value depends on the value of the \code{callback} argument. When
 \code{callback} is a function, the returned value is a connection object. When
 \code{callback} is \code{NULL} the returned value is a promise which fulfills once R
 is connected to the remote application. Once fulfilled, the value of this
 promise is the connection object.
 
-\code{$listConnections()} returns a list of the connection objects succesfully
-created using the \code{$connect()} method.
+\verb{$listConnections()} returns a list of the connection objects succesfully
+created using the \verb{$connect()} method.
 
-\code{$closeConnections(callback = NULL)} closes all the connections created using
-the \code{$connect()} method. If \code{callback} is \code{NULL}, it returns a promise which
+\verb{$closeConnections(callback = NULL)} closes all the connections created using
+the \verb{$connect()} method. If \code{callback} is \code{NULL}, it returns a promise which
 fulfills when all the connections are closed: once fulfilled, its value is the
 remote object.
 If \code{callback} is not \code{NULL}, it returns the remote object. In this case,
 \code{callback} is called when all the connections are closed and the remote object is
 passed to this function as the argument.
 
-\code{$version()} executes the DevTools \code{Version} method. It returns a list of
-informations available at \code{http://<host>:<debug_port>/json/version}.
+\verb{$version()} executes the DevTools \code{Version} method. It returns a list of
+informations available at \verb{http://<host>:<debug_port>/json/version}.
 
-\code{$user_agent} returns a character scalar with the User Agent of the
+\verb{$user_agent} returns a character scalar with the User Agent of the
 remote application.
 
-\code{$listTargets()} returns a list with information about targets (or tabs).
+\verb{$listTargets()} returns a list with information about targets (or tabs).
 }
 
 \examples{
@@ -91,13 +91,13 @@ remote$connect() \%...>\% (function(client) {
       expression = 'document.documentElement.outerHTML'
     )
   } \%...>\% (function(result) {
-    cat(result$result$value, "\\n")
+    cat(result$result$value, "\n")
   }) \%...!\% {
-    cat("Error:", .$message, "\\n")
+    cat("Error:", .$message, "\n")
   } \%>\%
   promises::finally(~ client$disconnect())
 }) \%...!\% {
-  cat("Error:", .$message, "\\n")
+  cat("Error:", .$message, "\n")
 }
 }
 

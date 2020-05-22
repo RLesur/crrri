@@ -29,6 +29,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{promises}{\code{\link[promises]{promise}}, \code{\link[promises]{promise_all}}, \code{\link[promises]{promise_map}}, \code{\link[promises]{promise_race}}, \code{\link[promises]{promise_reduce}}, \code{\link[promises]{promise_reject}}, \code{\link[promises]{promise_resolve}}, \code{\link[promises]{then}}, \code{\link[promises]{catch}}, \code{\link[promises]{finally}}, \code{\link[promises]{as.promise}}, \code{\link[promises]{is.promise}}, \code{\link[promises]{is.promising}}, \code{\link[promises]{\%>\%}}, \code{\link[promises]{\%T>\%}}, \code{\link[promises]{\%...>\%}}, \code{\link[promises]{\%...T>\%}}, \code{\link[promises]{\%...!\%}}, \code{\link[promises]{\%...T!\%}}}
+  \item{promises}{\code{\link[promises]{\%...!\%}}, \code{\link[promises]{\%...>\%}}, \code{\link[promises]{\%...T!\%}}, \code{\link[promises]{\%...T>\%}}, \code{\link[promises]{\%>\%}}, \code{\link[promises]{\%T>\%}}, \code{\link[promises]{as.promise}}, \code{\link[promises]{catch}}, \code{\link[promises]{finally}}, \code{\link[promises]{is.promise}}, \code{\link[promises]{is.promising}}, \code{\link[promises]{promise}}, \code{\link[promises]{promise_all}}, \code{\link[promises]{promise_map}}, \code{\link[promises]{promise_race}}, \code{\link[promises]{promise_reduce}}, \code{\link[promises]{promise_reject}}, \code{\link[promises]{promise_resolve}}, \code{\link[promises]{then}}}
 }}
 

@@ -4,8 +4,11 @@
 \alias{timeout}
 \title{Set a timeout}
 \usage{
-timeout(x = NULL, delay = 0, msg = paste("The delay of", delay,
-  "seconds expired.\\n"))
+timeout(
+  x = NULL,
+  delay = 0,
+  msg = paste("The delay of", delay, "seconds expired.\\n")
+)
 }
 \arguments{
 \item{x}{An object.}
@@ -22,7 +25,7 @@ is rejected.
 }
 \description{
 This is a helper function to set a timeout on a promise. It is designed to
-be used with the \code{magrittr} pipe \code{\%>\%}.
+be used with the \code{magrittr} pipe \verb{\%>\%}.
 }
 \examples{
 \donttest{
@@ -33,7 +36,7 @@ pr <- promise(function(resolve, reject) ~ later::later(~ resolve(value), 0.1))
 
 pr \%>\%
   timeout(10) \%...>\%
-{ cat("value: ", ., "\\n") } \%...!\%
-{ cat("error:", .$message, "\\n") }
+{ cat("value: ", ., "\n") } \%...!\%
+{ cat("error:", .$message, "\n") }
 }
 }

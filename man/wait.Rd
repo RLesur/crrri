@@ -37,16 +37,16 @@ pr <- promise_resolve(value)
 # works with `magrittr` pipe
 pr \%>\%
   wait(1) \%>\%
-  then(~ cat(., "\\n"))
+  then(~ cat(., "\n"))
 
 # works with `promises` pipe
 pr \%...>\%
   wait(1) \%...>\%
-{ cat(., "\\n") }
+{ cat(., "\n") }
 
 # also works with any object
 value \%>\%
   wait(1) \%>\%
-  then(~cat(., "\\n"))
+  then(~cat(., "\n"))
 }
 }

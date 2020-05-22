@@ -39,8 +39,8 @@ Suggests:
     rstudioapi
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE, r6 = FALSE)
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 Collate: 
     'wait.R'

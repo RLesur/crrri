@@ -4,9 +4,12 @@
 \alias{hold}
 \title{Hold while an asynchronous task runs}
 \usage{
-hold(x, timeout = 30,
-  msg = paste("The asynchronous job has not finished in the delay of",
-  timeout, "seconds."))
+hold(
+  x,
+  timeout = 30,
+  msg = paste("The asynchronous job has not finished in the delay of", timeout,
+    "seconds.")
+)
 }
 \arguments{
 \item{x}{A \code{\link[promises:promise]{promises::promise()}} object.}
@@ -38,6 +41,6 @@ library(later)
 
 pr <- promise(~ later(~ resolve("result of the async task"), 1))
 value <- hold(pr)
-cat(value, "\\n")
+cat(value, "\n")
 }
 }
