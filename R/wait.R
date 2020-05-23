@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(promises)
 #'
 #' value <- runif(1)
@@ -71,7 +71,7 @@ wait <- function(x, delay = 0) {
 #'   is rejected.
 #' @export
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(promises)
 #'
 #' value <- runif(1)

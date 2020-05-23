@@ -53,7 +53,7 @@ Chromium/Chrome or send commands, see
 \url{https://chromedevtools.github.io/devtools-protocol/#endpoints}.
 }
 \examples{
-\donttest{
+\dontrun{
 chrome <- Chrome$new()
 
 # fetch information about headless Chrome

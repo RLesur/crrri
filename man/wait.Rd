@@ -28,7 +28,7 @@ fulfilled; otherwise the value of the returned promise is \code{x} after the
 delay.
 }
 \examples{
-\donttest{
+\dontrun{
 library(promises)
 
 value <- runif(1)

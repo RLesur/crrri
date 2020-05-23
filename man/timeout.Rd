@@ -28,7 +28,7 @@ This is a helper function to set a timeout on a promise. It is designed to
 be used with the \code{magrittr} pipe \verb{\%>\%}.
 }
 \examples{
-\donttest{
+\dontrun{
 library(promises)
 
 value <- runif(1)

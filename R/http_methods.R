@@ -24,7 +24,7 @@ NULL
 #' @name http-methods
 #' @keywords internal
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' chrome <- Chrome$new()
 #'
 #' # fetch information about headless Chrome
