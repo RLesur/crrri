@@ -39,7 +39,7 @@ Suggests:
     rstudioapi
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE, r6 = FALSE)
+Roxygen: list(markdown = TRUE, load = 'source')
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 Collate: 

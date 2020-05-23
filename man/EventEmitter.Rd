@@ -63,3 +63,107 @@ myEmitter$listenerCount("event")
 # Get the event names which have been registered:
 myEmitter$eventNames()
 }
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-emit}{\code{EventEmitter$emit()}}
+\item \href{#method-on}{\code{EventEmitter$on()}}
+\item \href{#method-addListener}{\code{EventEmitter$addListener()}}
+\item \href{#method-once}{\code{EventEmitter$once()}}
+\item \href{#method-listenerCount}{\code{EventEmitter$listenerCount()}}
+\item \href{#method-eventNames}{\code{EventEmitter$eventNames()}}
+\item \href{#method-rawListeners}{\code{EventEmitter$rawListeners()}}
+\item \href{#method-listeners}{\code{EventEmitter$listeners()}}
+\item \href{#method-clone}{\code{EventEmitter$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-emit"></a>}}
+\if{latex}{\out{\hypertarget{method-emit}{}}}
+\subsection{Method \code{emit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$emit(eventName, ...)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-on"></a>}}
+\if{latex}{\out{\hypertarget{method-on}{}}}
+\subsection{Method \code{on()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$on(eventName, listener)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-addListener"></a>}}
+\if{latex}{\out{\hypertarget{method-addListener}{}}}
+\subsection{Method \code{addListener()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$addListener(eventName, listener)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-once"></a>}}
+\if{latex}{\out{\hypertarget{method-once}{}}}
+\subsection{Method \code{once()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$once(eventName, listener)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-listenerCount"></a>}}
+\if{latex}{\out{\hypertarget{method-listenerCount}{}}}
+\subsection{Method \code{listenerCount()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$listenerCount(eventName)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-eventNames"></a>}}
+\if{latex}{\out{\hypertarget{method-eventNames}{}}}
+\subsection{Method \code{eventNames()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$eventNames()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-rawListeners"></a>}}
+\if{latex}{\out{\hypertarget{method-rawListeners}{}}}
+\subsection{Method \code{rawListeners()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$rawListeners(eventName)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-listeners"></a>}}
+\if{latex}{\out{\hypertarget{method-listeners}{}}}
+\subsection{Method \code{listeners()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$listeners(eventName)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{EventEmitter$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
