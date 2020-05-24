@@ -7,10 +7,13 @@
 find_chrome_binary()
 }
 \value{
-A character string.
+A character string. The path the chrome binary that will
+be used by \code{crrri}.
 }
 \description{
-This function will try to find the chrome binary on your system.
+If the chrome binary path has not already been set in \var{HEADLESS_CHROME}
+environment variable, the function will try to find the chrome binary
+on your system using a some hints.
 }
 \details{
 \subsection{Windows}{
@@ -36,5 +39,5 @@ From \code{pagedown} R package, licence MIT.
 \href{https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213}{Source on Github}
 }
 \author{
-Yihui Xie, Romain Lesur
+Yihui Xie, Romain Lesur, Christophe Dervieux
 }

@@ -536,7 +536,9 @@ chr_clean_work_dir <- function(work_dir) {
 
 #' Find Google Chrome binary in the system
 #'
-#' This function will try to find the chrome binary on your system.
+#' If the chrome binary path has not already been set in \var{HEADLESS_CHROME}
+#' environment variable, the function will try to find the chrome binary
+#' on your system using a some hints.
 #'
 #' ## Windows
 #'
@@ -551,35 +553,53 @@ chr_clean_work_dir <- function(work_dir) {
 #' It will search for \command{chromium-browser} and \command{google-chrome} from
 #' the system's \var{PATH} variable.
 #'
-#' @return A character string.
-#' @author Yihui Xie, Romain Lesur
+#' @return A character string. The path the chrome binary that will
+#'   be used by `crrri`.
+#' @author Yihui Xie, Romain Lesur, Christophe Dervieux
 #' @note From `pagedown` R package, licence MIT.
 #' @references [Source on Github](https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213)
 #' @export
 find_chrome_binary = function() {
+  # If the env var is set, do not look for another binary
+  res <- Sys.getenv("HEADLESS_CHROME", NA_character_)
+  if (!is.na(res)) {
+    "!DEBUG Chrome binary path set in HEADLESS_CHROME env var will be used."
+    return(res)
+  }
+  # If not, try to guess
+  # inspired by pagedown::find_chrome()
+  "!DEBUG Chrome binary path will be guessed."
+  msg <- c(
+    "Please pass the full path of chrome binary to the 'bin' argument ",
+    "or to the environment variable 'HEADLESS_CHROME'.")
   switch(
     .Platform$OS.type,
     windows = {
-      res = tryCatch({
+      res <- tryCatch({
         unlist(utils::readRegistry('ChromeHTML\\shell\\open\\command', 'HCR'))
       }, error = function(e) '')
-      res = unlist(strsplit(res, '"'))
-      res = head(res[file.exists(res)], 1)
-      if (length(res) != 1) stop(
-        'Cannot find Google Chrome automatically from the Windows Registry Hive. ',
-        "Please pass the full path of chrome binary to the 'bin' argument",
-        "or to the environment variable 'HEADLESS_CHROME'."
-      )
-      res
-    },
-    unix = if (isTRUE(Sys.info()["sysname"] == "Darwin")) {
-      '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-    } else {
-      for (i in c('google-chrome', 'chromium-browser', 'chromium', 'google-chrome-stable')) {
-        if ((res <- Sys.which(i)) != '') break
+      res <- unlist(strsplit(res, '"'))
+      res <- head(res[file.exists(res)], 1)
+      if (length(res) != 1) {
+        stop(
+          'Cannot find Google Chrome automatically from the Windows Registry Hive. ',
+          msg
+        )
       }
-      if (res == '') stop('Cannot find Chromium or Google Chrome')
-      res
+      unname(res)
+    },
+    unix = {
+      if (isTRUE(Sys.info()["sysname"] == "Darwin")) { # macOS
+        '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+      } else { # linux
+        for (i in c('google-chrome', 'chromium-browser', 'chromium', 'google-chrome-stable')) {
+          if ((res <- Sys.which(i)) != '') break
+        }
+        if (res == '') stop(
+          'Cannot find Chromium or Google Chrome in your PATH. ',
+          msg)
+        res
+      }
     },
     stop('Your platform is not supported')
   )
