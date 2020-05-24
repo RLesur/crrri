@@ -13,6 +13,8 @@ status](https://travis-ci.org/RLesur/crrri.svg?branch=master)](https://travis-ci
 coverage](https://codecov.io/gh/RLesur/crrri/branch/master/graph/badge.svg)](https://codecov.io/gh/RLesur/crrri?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/crrri)](https://cran.r-project.org/package=crrri)
+[![R build
+status](https://github.com/RLesur/crrri/workflows/R-CMD-check/badge.svg)](https://github.com/RLesur/crrri/actions)
 <!-- badges: end -->
 
 **Work in progress**
