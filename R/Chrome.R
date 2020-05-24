@@ -530,3 +530,57 @@ chr_clean_work_dir <- function(work_dir) {
 
   invisible(cleaned)
 }
+
+
+# find chrome binary ----------------
+
+#' Find Google Chrome binary in the system
+#'
+#' This function will try to find the chrome binary on your system.
+#'
+#' ## Windows
+#'
+#' It will look in the registry for an installed version
+#'
+#' ## macOS,
+#'
+#' It will return a hard-coded path of Chrome under \file{/Applications}.
+#'
+#' ## Linux,
+#'
+#' It will search for \command{chromium-browser} and \command{google-chrome} from
+#' the system's \var{PATH} variable.
+#'
+#' @return A character string.
+#' @author Yihui Xie, Romain Lesur
+#' @note From `pagedown` R package, licence MIT.
+#' @references [Source on Github](https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213)
+#' @export
+find_chrome = function() {
+  switch(
+    .Platform$OS.type,
+    windows = {
+      res = tryCatch({
+        unlist(utils::readRegistry('ChromeHTML\\shell\\open\\command', 'HCR'))
+      }, error = function(e) '')
+      res = unlist(strsplit(res, '"'))
+      res = head(res[file.exists(res)], 1)
+      if (length(res) != 1) stop(
+        'Cannot find Google Chrome automatically from the Windows Registry Hive. ',
+        "Please pass the full path of chrome.exe to the 'browser' argument ",
+        "or to the environment variable 'PAGEDOWN_CHROME'."
+      )
+      res
+    },
+    unix = if (xfun::is_macos()) {
+      '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    } else {
+      for (i in c('google-chrome', 'chromium-browser', 'chromium', 'google-chrome-stable')) {
+        if ((res <- Sys.which(i)) != '') break
+      }
+      if (res == '') stop('Cannot find Chromium or Google Chrome')
+      res
+    },
+    stop('Your platform is not supported')
+  )
+}
