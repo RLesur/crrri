@@ -572,7 +572,7 @@ find_chrome = function() {
       )
       res
     },
-    unix = if (xfun::is_macos()) {
+    unix = if (isTRUE(Sys.info()["sysname"] == "Windows")) {
       '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
     } else {
       for (i in c('google-chrome', 'chromium-browser', 'chromium', 'google-chrome-stable')) {
