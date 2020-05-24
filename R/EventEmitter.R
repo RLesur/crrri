@@ -84,6 +84,10 @@ EventEmitter <- R6::R6Class(
     }
   ),
   public = list(
+
+    #' @description Run a previously registered event.
+    #' @param eventName `character`. name of the previously registered event
+    #' @param ... argument to the registered event function
     emit = function(eventName, ...) {
       "!DEBUG emit: event '`eventName`'"
       if (private$.has_listeners(eventName)) {
@@ -99,6 +103,7 @@ EventEmitter <- R6::R6Class(
       }
       invisible(self)
     },
+
     on = function(eventName, listener) {
       listener <- rlang::as_function(listener)
       "!DEBUG on: registering a listener on event '`eventName`'"
