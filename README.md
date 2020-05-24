@@ -7,8 +7,6 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Travis build
-status](https://travis-ci.org/RLesur/crrri.svg?branch=master)](https://travis-ci.org/RLesur/crrri)
 [![Codecov test
 coverage](https://codecov.io/gh/RLesur/crrri/branch/master/graph/badge.svg)](https://codecov.io/gh/RLesur/crrri?branch=master)
 [![CRAN
