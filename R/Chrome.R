@@ -556,7 +556,7 @@ chr_clean_work_dir <- function(work_dir) {
 #' @note From `pagedown` R package, licence MIT.
 #' @references [Source on Github](https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213)
 #' @export
-find_chrome = function() {
+find_chrome_binary = function() {
   switch(
     .Platform$OS.type,
     windows = {
@@ -572,7 +572,7 @@ find_chrome = function() {
       )
       res
     },
-    unix = if (isTRUE(Sys.info()["sysname"] == "Windows")) {
+    unix = if (isTRUE(Sys.info()["sysname"] == "Darwin")) {
       '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
     } else {
       for (i in c('google-chrome', 'chromium-browser', 'chromium', 'google-chrome-stable')) {
