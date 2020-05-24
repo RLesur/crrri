@@ -66,6 +66,10 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
+      - name: Find chrome
+        run: |
+          echo "::set-env name=HEADLESS_CHROME::$(Rscript -e 'cat(pagedown::find_chrome()[[1]])')"
+
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
