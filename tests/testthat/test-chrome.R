@@ -2,14 +2,14 @@ context("test-chrome")
 
 test_that("we get the proxy env var correctly", {
   expect_identical(get_proxy(), "")
-  old <- Sys.getenv("https_proxy")
-  Sys.setenv(https_proxy = "dummy")
-  expect_identical(get_proxy(), c(https_proxy = "dummy"))
-  Sys.setenv(https_proxy = old)
-  old <- Sys.getenv("HTTP_PROXY")
-  Sys.setenv(HTTP_PROXY = "dummy")
-  expect_identical(get_proxy(), c(HTTP_PROXY = "dummy"))
-  Sys.setenv(HTTP_PROXY = old)
+  withr::with_envvar(
+    c(https_proxy = "dummy"),
+    expect_identical(get_proxy(), "dummy")
+  )
+  withr::with_envvar(
+    c(HTTP_PROXY = "dummy"),
+    expect_identical(get_proxy(), "dummy")
+  )
 })
 
 test_that("Proxy is correctly passed to chrome", {

@@ -446,7 +446,7 @@ get_proxy <- function() {
   values <- Sys.getenv(env_var)
   values <- values[nzchar(values)]
   if (length(values) > 0)
-    return(values[1])
+    return(unname(values[1]))
   else
     return("")
 }
