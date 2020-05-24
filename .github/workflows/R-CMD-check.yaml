@@ -1,10 +1,10 @@
 on:
   push:
     branches:
-      - gha
+      - master
   pull_request:
     branches:
-      - gha
+      - master
 
 name: R-CMD-check
 
