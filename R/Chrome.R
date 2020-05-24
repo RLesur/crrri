@@ -567,8 +567,8 @@ find_chrome = function() {
       res = head(res[file.exists(res)], 1)
       if (length(res) != 1) stop(
         'Cannot find Google Chrome automatically from the Windows Registry Hive. ',
-        "Please pass the full path of chrome.exe to the 'browser' argument ",
-        "or to the environment variable 'PAGEDOWN_CHROME'."
+        "Please pass the full path of chrome binary to the 'bin' argument",
+        "or to the environment variable 'HEADLESS_CHROME'."
       )
       res
     },
