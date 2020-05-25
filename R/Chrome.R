@@ -21,6 +21,9 @@ NULL
 #' @param async Is the result a promise? Required for using `perform_with_chrome()`
 #'     in Shiny.
 #' @param bin Character scalar, the path to Chromium or Chrome executable.
+#'     If not provided, `crrri` will try to find the chrome binary itself using
+#'     `find_chrome_binary()`. You can set a path in `HEADLESS_CHROME` environment
+#'      variable to indicate where it is located.
 #' @param debug_port Integer scalar, the Chromium/Chrome remote debugging port.
 #' @param local Logical scalar, indicating whether the local version of the
 #'     protocol (embedded in `crrri`) must be used or the protocol must be
@@ -69,17 +72,20 @@ NULL
 #' }
 perform_with_chrome <- function(
   ..., .list = NULL, timeouts = 30, cleaning_timeout = 30, async = FALSE,
-  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
+  bin = NULL, debug_port = 9222L, local = FALSE,
   extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
 ) {
+
+  # find chrome
+  bin <- bin %||% find_chrome_binary()
+
+  # check arguments
   if(is.null(.list)) {
     funs <- list(...)
   } else {
     assert_that(is_list(.list))
     funs <- .list
   }
-
-  # check arguments
   purrr::walk(funs, check_is_single_param_fun)
   assert_that(is.numeric(timeouts))
   assert_that(is.number(cleaning_timeout))
@@ -156,7 +162,7 @@ perform_with_chrome <- function(
 #'
 #' @section Usage:
 #' ```
-#' remote <- Chrome$new(bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L,
+#' remote <- Chrome$new(bin = NULL, debug_port = 9222L,
 #'                      local = FALSE, extra_args = NULL, headless = TRUE,
 #'                      retry_delay = 0.2, max_attempts = 15L)
 #'
@@ -175,6 +181,9 @@ perform_with_chrome <- function(
 #' * `remote`: `Chrome` object representing a remote instance of headless
 #'     Chromium/Chrome.
 #' * `bin`: Character scalar, the path to Chromium or Chrome executable.
+#'     If not provided, `crrri` will try to find the chrome binary itself using
+#'     `find_chrome_binary()`. You can set a path in `HEADLESS_CHROME` environment
+#'     variable to indicate where it is located.
 #' * `debug_port`: Integer scalar, the Chromium/Chrome remote debugging port.
 #'     Note that headless Chromium/Chrome will be available at
 #'     `http://localhost:<debug_port>`.
@@ -265,13 +274,14 @@ perform_with_chrome <- function(
 #'
 NULL
 
+#' @importFrom rlang `%||%`
 #' @export
 Chrome <- R6::R6Class(
   "Chrome",
   inherit = CDPRemote,
   public = list(
     initialize = function(
-      bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
+      bin = NULL, debug_port = 9222L, local = FALSE,
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
       assert_that(is_scalar_character(bin))
@@ -285,7 +295,8 @@ Chrome <- R6::R6Class(
       assert_that(is.number(retry_delay))
       assert_that(is_scalar_integerish(max_attempts))
 
-      private$.bin <- bin
+      private$.bin <- bin %||% find_chrome_binary()
+
       work_dir <- chr_new_data_dir()
       chr_process <- chr_launch(bin, debug_port, extra_args, headless, work_dir)
       private$.work_dir <- work_dir
@@ -386,13 +397,14 @@ chr_new_data_dir <- function(length = 8, slug = "chrome-data-dir-") {
 }
 
 # Launch Chrome ---------------------------------------------------
-# This function launches a new Chrome processus
+# This function launches a new Chrome process
 # The user has to provide a working directory for Chrome: see the helper function chr_new_data_dir()
 # The command can silently fail: in this case, NULL is returned.
 chr_launch <- function(
-  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222, extra_args = NULL, headless = TRUE, work_dir
+  bin = NULL, debug_port = 9222, extra_args = NULL, headless = TRUE, work_dir
 ) {
 
+  bin <- bin %||% find_chrome_binary()
   proxy <- get_proxy()
   behind_proxy <- nzchar(proxy)
   travis <- nzchar(Sys.getenv("TRAVIS"))
