@@ -284,7 +284,7 @@ Chrome <- R6::R6Class(
       bin = NULL, debug_port = 9222L, local = FALSE,
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
-      assert_that(is_scalar_character(bin))
+      assert_that(is.null(bin) || is_scalar_character(bin))
       assert_that(
         is_scalar_integerish(debug_port),
         is_user_port(debug_port),
