@@ -591,7 +591,7 @@ find_chrome_binary = function() {
         unlist(utils::readRegistry('ChromeHTML\\shell\\open\\command', 'HCR'))
       }, error = function(e) '')
       res <- unlist(strsplit(res, '"'))
-      res <- head(res[file.exists(res)], 1)
+      res <- utils::head(res[file.exists(res)], 1)
       if (length(res) != 1) {
         stop(
           'Cannot find Google Chrome automatically from the Windows Registry Hive. ',
