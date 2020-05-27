@@ -32,11 +32,8 @@ It will search for \command{chromium-browser} and \command{google-chrome} from
 the system's \var{PATH} variable.
 }
 }
-\note{
-From \code{pagedown} R package, licence MIT.
-}
 \references{
-\href{https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213}{Source on Github}
+From \code{pagedown} R package, licence MIT. \href{https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213}{Source on Github}
 }
 \author{
 Yihui Xie, Romain Lesur, Christophe Dervieux

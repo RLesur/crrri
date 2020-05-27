@@ -568,8 +568,7 @@ chr_clean_work_dir <- function(work_dir) {
 #' @return A character string. The path the chrome binary that will
 #'   be used by `crrri`.
 #' @author Yihui Xie, Romain Lesur, Christophe Dervieux
-#' @note From `pagedown` R package, licence MIT.
-#' @references [Source on Github](https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213)
+#' @references From `pagedown` R package, licence MIT. [Source on Github](https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213)
 #' @export
 find_chrome_binary = function() {
   # If the env var is set, do not look for another binary
