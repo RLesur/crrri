@@ -19,6 +19,10 @@ reference:
   desc: Functions useful to handle chrome results
   contents:
   - write_base64
+- title: Find chrome
+  desc: Useful if you need help finding your chrome binary
+  contents:
+  - find_chrome_binary
 - title: Chrome browser class
   desc:  Functions to deal with running chrome
   contents:
