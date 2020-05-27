@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • crrri</title>
+<title>Find Google Chrome binary in the system — find_chrome_binary • crrri</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,13 +33,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="Find Google Chrome binary in the system — find_chrome_binary" />
+<meta property="og:description" content="If the chrome binary path has not already been set in HEADLESS_CHROME
+environment variable, the function will try to find the chrome binary
+on your system using a some hints." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -70,7 +73,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">crrri</a>
+        <a class="navbar-link" href="../index.html">crrri</a>
         <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.13</span>
       </span>
     </div>
@@ -78,13 +81,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -94,7 +97,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/intro.html">How to use crrri?</a>
+      <a href="../articles/intro.html">How to use crrri?</a>
     </li>
   </ul>
 </li>
@@ -117,38 +120,59 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Find Google Chrome binary in the system</h1>
+    <small class="dont-index">Source: <a href='https://github.com/RLesur/crrri/blob/master/R/Chrome.R'><code>R/Chrome.R</code></a></small>
+    <div class="hidden name"><code>find_chrome_binary.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Romain Lesur</strong>. Author, maintainer. <a href='https://orcid.org/0000-0002-0721-5595' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
-        </p>
-      </li>
-      <li>
-        <p><strong>Christophe Dervieux</strong>. Author, copyright holder. <a href='https://orcid.org/0000-0003-4474-2498' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
-        </p>
-      </li>
-      <li>
-        <p><strong>Miles McBain</strong>. Contributor. 
-        <br /><small>websocket connection functions</small></p>
-      </li>
-      <li>
-        <p><strong> The Chromium authors</strong>. Contributor. 
-        <br /><small>DevTools Protocol documentation</small></p>
-      </li>
-      <li>
-        <p><strong>Yihui Xie</strong>. Contributor. 
-        <br /><small>function to find chrome on all OS</small></p>
-      </li>
-    </ul>
+    <div class="ref-description">
+    <p>If the chrome binary path has not already been set in <var>HEADLESS_CHROME</var>
+environment variable, the function will try to find the chrome binary
+on your system using a some hints.</p>
+    </div>
+
+    <pre class="usage"><span class='fu'>find_chrome_binary</span>()</pre>
+
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A character string. The path the chrome binary that will
+be used by <code>crrri</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<h3>Windows</h3>
+
+
+<p>It will look in the registry for an installed version</p>
+
+<h3>macOS,</h3>
+
+
+<p>It will return a hard-coded path of Chrome under <code class="file">/Applications</code>.</p>
+
+<h3>Linux,</h3>
+
+
+<p>It will search for <code class='command'>chromium-browser</code> and <code class='command'>google-chrome</code> from
+the system's <var>PATH</var> variable.</p>
+
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>From <code>pagedown</code> R package, licence MIT.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213'>Source on Github</a></p>
 
   </div>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
+  </div>
 </div>
-
 
 
       <footer>

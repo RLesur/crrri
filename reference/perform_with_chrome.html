@@ -147,7 +147,7 @@ fails.</p>
   <span class='kw'>timeouts</span> <span class='kw'>=</span> <span class='fl'>30</span>,
   <span class='kw'>cleaning_timeout</span> <span class='kw'>=</span> <span class='fl'>30</span>,
   <span class='kw'>async</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bin</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"HEADLESS_CHROME"</span>),
+  <span class='kw'>bin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>debug_port</span> <span class='kw'>=</span> <span class='fl'>9222L</span>,
   <span class='kw'>local</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>extra_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -184,7 +184,10 @@ in Shiny.</p></td>
     </tr>
     <tr>
       <th>bin</th>
-      <td><p>Character scalar, the path to Chromium or Chrome executable.</p></td>
+      <td><p>Character scalar, the path to Chromium or Chrome executable.
+If not provided, <code>crrri</code> will try to find the chrome binary itself using
+<code><a href='find_chrome_binary.html'>find_chrome_binary()</a></code>. You can set a path in <code>HEADLESS_CHROME</code> environment
+variable to indicate where it is located.</p></td>
     </tr>
     <tr>
       <th>debug_port</th>

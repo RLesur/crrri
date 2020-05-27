@@ -83,7 +83,7 @@
             <h3 class="subtitle">Some introductive examples</h3>
                         <h4 class="author">Christophe Dervieux</h4>
             
-            <h4 class="date">2020-05-24</h4>
+            <h4 class="date">2020-05-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/RLesur/crrri/blob/master/vignettes/intro.Rmd"><code>vignettes/intro.Rmd</code></a></small>
       <div class="hidden name"><code>intro.Rmd</code></div>
@@ -98,9 +98,9 @@
 <div id="setup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h1>
-<p>You have to set up beforehand the <code>HEADLESS_CHROME</code> environment variable to a Chromium/Chrome binary on our system. If you do not, you will need to provide the path to a Chromium/Chrome binary in <code>Chrome$new()</code>.<br>
-The <a href="https://cran.r-project.org/package=pagedown"><code>pagedown</code></a> package provides a helper function to retrieve the Chromium/Chrome path on your system: <code><a href="https://rdrr.io/pkg/pagedown/man/find_chrome.html">pagedown::find_chrome()</a></code>. So, you can first execute:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="kw">HEADLESS_CHROME</span> <span class="kw">=</span> <span class="kw pkg">pagedown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/pagedown/man/find_chrome.html">find_chrome</a></span>())</pre></body></html></div>
+<p>It is better to set up beforehand the <code>HEADLESS_CHROME</code> environment variable to a Chromium/Chrome binary on our system that <code>crrri</code> will use. If you do not, you can provide the path to a Chromium/Chrome binary in <code>Chrome$new()</code> or let the package guess using its <code><a href="../reference/find_chrome_binary.html">find_chrome_binary()</a></code>.</p>
+<p>The default behavior of <code>crrri</code> is equivalent to setting the environment variable like this</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="kw">HEADLESS_CHROME</span> <span class="kw">=</span> <span class="kw pkg">crrri</span><span class="kw ns">::</span><span class="fu"><a href="../reference/find_chrome_binary.html">find_chrome_binary</a></span>())</pre></body></html></div>
 <p>We need to load <code>crrri</code> and also <code>promises</code> to have the tools to deals with <em>promises</em> that <code>crrri</code> is based on.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">crrri</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">promises</span>)</pre></body></html></div>
