@@ -10,7 +10,7 @@ perform_with_chrome(
   timeouts = 30,
   cleaning_timeout = 30,
   async = FALSE,
-  bin = Sys.getenv("HEADLESS_CHROME"),
+  bin = NULL,
   debug_port = 9222L,
   local = FALSE,
   extra_args = NULL,
@@ -33,7 +33,10 @@ Repeated.}
 \item{async}{Is the result a promise? Required for using \code{perform_with_chrome()}
 in Shiny.}
 
-\item{bin}{Character scalar, the path to Chromium or Chrome executable.}
+\item{bin}{Character scalar, the path to Chromium or Chrome executable.
+If not provided, \code{crrri} will try to find the chrome binary itself using
+\code{find_chrome_binary()}. You can set a path in \code{HEADLESS_CHROME} environment
+variable to indicate where it is located.}
 
 \item{debug_port}{Integer scalar, the Chromium/Chrome remote debugging port.}
 

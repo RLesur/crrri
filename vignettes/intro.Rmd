@@ -27,11 +27,12 @@ All the examples come from the [`chrome-remote-interface`](https://www.npmjs.com
 
 # Setup
 
-You have to set up beforehand the `HEADLESS_CHROME` environment variable to a Chromium/Chrome binary on our system. If you do not, you will need to provide the path to a Chromium/Chrome binary in `Chrome$new()`.  
-The [`pagedown`](https://cran.r-project.org/package=pagedown) package provides a helper function to retrieve the Chromium/Chrome path on your system: `pagedown::find_chrome()`. So, you can first execute:
+It is better to set up beforehand the `HEADLESS_CHROME` environment variable to a Chromium/Chrome binary on our system that `crrri` will use. If you do not, you can provide the path to a Chromium/Chrome binary in `Chrome$new()` or let the package guess using its `find_chrome_binary()`.
+
+The default behavior of `crrri` is equivalent to setting the environment variable like this
 
 ```{r, eval=FALSE}
-Sys.setenv(HEADLESS_CHROME = pagedown::find_chrome())
+Sys.setenv(HEADLESS_CHROME = crrri::find_chrome_binary())
 ```
 
 We need to load `crrri` and also `promises` to have the tools to deals with

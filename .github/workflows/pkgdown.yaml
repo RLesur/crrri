@@ -40,10 +40,6 @@ jobs:
       - name: Install package
         run: R CMD INSTALL .
 
-      - name: Find chrome
-        run: |
-          echo "::set-env name=HEADLESS_CHROME::$(Rscript -e 'cat(pagedown::find_chrome()[[1]])')"
-
       - name: Deploy package
         run: pkgdown::deploy_to_branch(new_process = FALSE)
         shell: Rscript {0}

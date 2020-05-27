@@ -51,27 +51,33 @@ First of all, you **do not need a `node.js` configuration** because
 **`crrri` is fully written in R**.
 
 You only need a recent version of Chromium or Chrome. A standalone
-version works perfectly well on Windows. It is recommended to set the
-value of the `HEADLESS_CHROME` environment variable to the path of
-Chromium or Chrome (this is the same environment variable that is used
-in [`decapitated`](https://github.com/hrbrmstr/decapitated)). You can
-check it is set correctly by executing `Sys.getenv("HEADLESS_CHROME")`
-in your R console.
+version works perfectly well on Windows. By default, `crrri` will try to
+find a chrome binary on your system to use, using the
+`find_chrome_binary()`. You can tell `crrri` to use a specific version
+by setting the value of the `HEADLESS_CHROME` environment variable to
+the path of Chromium or Chrome (this is the same environment variable
+that is used in
+[`decapitated`](https://github.com/hrbrmstr/decapitated)). You can check
+it is set correctly by executing `Sys.getenv("HEADLESS_CHROME")` in your
+R console.
 
-Otherwise, you can use the `bin` argument of the `Chrome` class `new()`
-method to provide the path directly.
+Otherwise, you can also use the `bin` argument of the `Chrome` class
+`new()` method to provide the path directly.
 
 ``` r
 chrome <- Chrome$new(bin = "<path-to-chrome-binary->")
 ```
 
-Note that if ever you don’t know where your binary is, you can use the
-`find_chrome()` function from
-[`{pagedown}`](https://github.com/rstudio/pagedown), which will try to
-guess where your binary is (you might neeed to install the package).
+Note that if ever you don’t know where your binary is, you can use
+directly the `find_chrome_binary()` function, which will try to guess
+where your binary is (you might neeed to install the package).
+
+This two calls are equivalent
 
 ``` r
-chrome <- Chrome$new(bin = pagedown::find_chrome())
+chrome <- Chrome$new(bin = find_chrome_binary())
+# the default
+chrome <- Chrome$new(bin = NULL)
 ```
 
 ## Installation

@@ -9,7 +9,7 @@ methods to manage connections to headless Chromium/Chrome using the
 Chrome Debugging Protocol.
 }
 \section{Usage}{
-\preformatted{remote <- Chrome$new(bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L,
+\preformatted{remote <- Chrome$new(bin = NULL, debug_port = 9222L,
                      local = FALSE, extra_args = NULL, headless = TRUE,
                      retry_delay = 0.2, max_attempts = 15L)
 
@@ -31,6 +31,9 @@ remote$is_alive()
 \item \code{remote}: \code{Chrome} object representing a remote instance of headless
 Chromium/Chrome.
 \item \code{bin}: Character scalar, the path to Chromium or Chrome executable.
+If not provided, \code{crrri} will try to find the chrome binary itself using
+\code{find_chrome_binary()}. You can set a path in \code{HEADLESS_CHROME} environment
+variable to indicate where it is located.
 \item \code{debug_port}: Integer scalar, the Chromium/Chrome remote debugging port.
 Note that headless Chromium/Chrome will be available at
 \verb{http://localhost:<debug_port>}.

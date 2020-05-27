@@ -28,6 +28,13 @@ test_that("Proxy is correctly passed to chrome", {
   Sys.setenv(no_proxy = old)
 })
 
+test_that("Use specify chrome if set", {
+  withr::with_envvar(
+    c(HEADLESS_CHROME = "path/to/chrome"),
+    expect_identical(find_chrome_binary(), "path/to/chrome")
+  )
+})
+
 setup_chrome_test()
 
 test_that("is_alive() returns a logical", {
@@ -144,7 +151,6 @@ test_that("With only 1 argument perform_with_chrome() returns the value of the a
   expect_s3_class(pr, "promise")
   hold(pr)
 })
-
 
 test_that("With multiple argument, perform_with_chrome() returns a list with the values of the async functions if they are not NULL", {
   values <- as.list(runif(3))

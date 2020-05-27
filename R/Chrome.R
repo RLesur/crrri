@@ -21,6 +21,9 @@ NULL
 #' @param async Is the result a promise? Required for using `perform_with_chrome()`
 #'     in Shiny.
 #' @param bin Character scalar, the path to Chromium or Chrome executable.
+#'     If not provided, `crrri` will try to find the chrome binary itself using
+#'     `find_chrome_binary()`. You can set a path in `HEADLESS_CHROME` environment
+#'      variable to indicate where it is located.
 #' @param debug_port Integer scalar, the Chromium/Chrome remote debugging port.
 #' @param local Logical scalar, indicating whether the local version of the
 #'     protocol (embedded in `crrri`) must be used or the protocol must be
@@ -69,17 +72,20 @@ NULL
 #' }
 perform_with_chrome <- function(
   ..., .list = NULL, timeouts = 30, cleaning_timeout = 30, async = FALSE,
-  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
+  bin = NULL, debug_port = 9222L, local = FALSE,
   extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
 ) {
+
+  # find chrome
+  bin <- bin %||% find_chrome_binary()
+
+  # check arguments
   if(is.null(.list)) {
     funs <- list(...)
   } else {
     assert_that(is_list(.list))
     funs <- .list
   }
-
-  # check arguments
   purrr::walk(funs, check_is_single_param_fun)
   assert_that(is.numeric(timeouts))
   assert_that(is.number(cleaning_timeout))
@@ -156,7 +162,7 @@ perform_with_chrome <- function(
 #'
 #' @section Usage:
 #' ```
-#' remote <- Chrome$new(bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L,
+#' remote <- Chrome$new(bin = NULL, debug_port = 9222L,
 #'                      local = FALSE, extra_args = NULL, headless = TRUE,
 #'                      retry_delay = 0.2, max_attempts = 15L)
 #'
@@ -175,6 +181,9 @@ perform_with_chrome <- function(
 #' * `remote`: `Chrome` object representing a remote instance of headless
 #'     Chromium/Chrome.
 #' * `bin`: Character scalar, the path to Chromium or Chrome executable.
+#'     If not provided, `crrri` will try to find the chrome binary itself using
+#'     `find_chrome_binary()`. You can set a path in `HEADLESS_CHROME` environment
+#'     variable to indicate where it is located.
 #' * `debug_port`: Integer scalar, the Chromium/Chrome remote debugging port.
 #'     Note that headless Chromium/Chrome will be available at
 #'     `http://localhost:<debug_port>`.
@@ -265,16 +274,17 @@ perform_with_chrome <- function(
 #'
 NULL
 
+#' @importFrom rlang `%||%`
 #' @export
 Chrome <- R6::R6Class(
   "Chrome",
   inherit = CDPRemote,
   public = list(
     initialize = function(
-      bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222L, local = FALSE,
+      bin = NULL, debug_port = 9222L, local = FALSE,
       extra_args = NULL, headless = TRUE, retry_delay = 0.2, max_attempts = 15L
     ) {
-      assert_that(is_scalar_character(bin))
+      assert_that(is.null(bin) || is_scalar_character(bin))
       assert_that(
         is_scalar_integerish(debug_port),
         is_user_port(debug_port),
@@ -285,7 +295,8 @@ Chrome <- R6::R6Class(
       assert_that(is.number(retry_delay))
       assert_that(is_scalar_integerish(max_attempts))
 
-      private$.bin <- bin
+      private$.bin <- bin %||% find_chrome_binary()
+
       work_dir <- chr_new_data_dir()
       chr_process <- chr_launch(bin, debug_port, extra_args, headless, work_dir)
       private$.work_dir <- work_dir
@@ -386,13 +397,14 @@ chr_new_data_dir <- function(length = 8, slug = "chrome-data-dir-") {
 }
 
 # Launch Chrome ---------------------------------------------------
-# This function launches a new Chrome processus
+# This function launches a new Chrome process
 # The user has to provide a working directory for Chrome: see the helper function chr_new_data_dir()
 # The command can silently fail: in this case, NULL is returned.
 chr_launch <- function(
-  bin = Sys.getenv("HEADLESS_CHROME"), debug_port = 9222, extra_args = NULL, headless = TRUE, work_dir
+  bin = NULL, debug_port = 9222, extra_args = NULL, headless = TRUE, work_dir
 ) {
 
+  bin <- bin %||% find_chrome_binary()
   proxy <- get_proxy()
   behind_proxy <- nzchar(proxy)
   travis <- nzchar(Sys.getenv("TRAVIS"))
@@ -529,4 +541,78 @@ chr_clean_work_dir <- function(work_dir) {
   }
 
   invisible(cleaned)
+}
+
+
+# find chrome binary ----------------
+
+#' Find Google Chrome binary in the system
+#'
+#' If the chrome binary path has not already been set in \var{HEADLESS_CHROME}
+#' environment variable, the function will try to find the chrome binary
+#' on your system using a some hints.
+#'
+#' ## Windows
+#'
+#' It will look in the registry for an installed version
+#'
+#' ## macOS,
+#'
+#' It will return a hard-coded path of Chrome under \file{/Applications}.
+#'
+#' ## Linux,
+#'
+#' It will search for \command{chromium-browser} and \command{google-chrome} from
+#' the system's \var{PATH} variable.
+#'
+#' @return A character string. The path the chrome binary that will
+#'   be used by `crrri`.
+#' @author Yihui Xie, Romain Lesur, Christophe Dervieux
+#' @note From `pagedown` R package, licence MIT.
+#' @references [Source on Github](https://github.com/rstudio/pagedown/blob/b93f46fc1ad70182e5dd3d9fc843f752fd12f780/R/chrome.R#L213)
+#' @export
+find_chrome_binary = function() {
+  # If the env var is set, do not look for another binary
+  res <- Sys.getenv("HEADLESS_CHROME", NA_character_)
+  if (!is.na(res)) {
+    "!DEBUG Chrome binary path set in HEADLESS_CHROME env var will be used."
+    return(res)
+  }
+  # If not, try to guess
+  # inspired by pagedown::find_chrome()
+  "!DEBUG Chrome binary path will be guessed."
+  msg <- c(
+    "Please pass the full path of chrome binary to the 'bin' argument ",
+    "or to the environment variable 'HEADLESS_CHROME'.")
+  switch(
+    .Platform$OS.type,
+    windows = {
+      res <- tryCatch({
+        unlist(utils::readRegistry('ChromeHTML\\shell\\open\\command', 'HCR'))
+      }, error = function(e) '')
+      res <- unlist(strsplit(res, '"'))
+      res <- utils::head(res[file.exists(res)], 1)
+      if (length(res) != 1) {
+        stop(
+          'Cannot find Google Chrome automatically from the Windows Registry Hive. ',
+          msg
+        )
+      }
+      unname(res)
+    },
+    unix = {
+      if (isTRUE(Sys.info()["sysname"] == "Darwin")) { # macOS
+        '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+      } else { # linux
+        for (i in c('google-chrome', 'chromium-browser', 'chromium', 'google-chrome-stable')) {
+          if ((res <- Sys.which(i)) != '') break
+        }
+        if (res == '') stop(
+          'Cannot find Chromium or Google Chrome in your PATH. ',
+          msg)
+        res
+      }
+    },
+    stop('Your platform is not supported')
+  )
 }

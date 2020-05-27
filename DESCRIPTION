@@ -7,7 +7,7 @@ Authors@R: c(
     person("Christophe", "Dervieux", role = c("aut", "cph"), email = "christophe.dervieux@gmail.com", comment = c(ORCID = "0000-0003-4474-2498")),
     person("Miles", "McBain", role = "ctb", comment = "websocket connection functions"),
     person(family = "The Chromium authors", role = "ctb", comment = "DevTools Protocol documentation"),
-    person()
+    person("Yihui", "Xie", role = "ctb", comment = "function to find chrome on all OS")
     )
 Maintainer: Romain Lesur <romain.lesur@gmail.com>
 Description: This is a native implementation of the Chrome DevTools Protocol.
@@ -32,7 +32,6 @@ Imports:
 Suggests:
     debugme,
     knitr,
-    pagedown,
     rmarkdown,
     testthat (>= 2.1.0),
     covr,
