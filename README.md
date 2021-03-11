@@ -465,7 +465,7 @@ If you want to write a higher level function that dump the DOM, you can
 embed the main part of this script in a function:
 
 ``` r
-dump_DOM <- function(url) {
+dump_DOM <- function(url, file = "") {
   perform_with_chrome(function(client) {
     Network <- client$Network
     Page <- client$Page
@@ -484,7 +484,7 @@ dump_DOM <- function(url) {
       )
     } %...>% (function(result) {
       html <- result$result$value
-      cat(html, "\n")
+      cat(html, "\n", file = file)
     }) 
   })
 }
@@ -492,10 +492,12 @@ dump_DOM <- function(url) {
 
 Now, you can use it for dumping [David
 Gohel](https://github.com/davidgohel)’s
-[blog](http://www.ardata.fr/blog/):
+[blog](http://www.ardata.fr/post/):
 
 ``` r
-dump_DOM(url = "http://www.ardata.fr/blog/")
+dump_DOM(url = "http://www.ardata.fr/post/")
+# or to a file
+dump_DOM(url = "http://www.ardata.fr/post/", file = "export-ardata-blog.html")
 ```
 
 You can find many other examples in the
