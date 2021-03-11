@@ -495,7 +495,7 @@ Gohel](https://github.com/davidgohel)’s
 [blog](http://www.ardata.fr/blog/):
 
 ``` r
-dumpDOM(url = "http://www.ardata.fr/blog/")
+dump_DOM(url = "http://www.ardata.fr/blog/")
 ```
 
 You can find many other examples in the
